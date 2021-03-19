@@ -4,6 +4,7 @@ import { createBrowserHistory } from 'history'
 import DashboardPage from '../components/DashboardPage';
 import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';
+import LandingPage from '../components/LandingPage/LandingPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -13,7 +14,7 @@ const AppRouter = () => (
   <Router history={history}>
     <div>
       <Switch>
-        <PublicRoute path="/" component={LoginPage} exact={true} />
+        <PublicRoute path="/" component={LandingPage} exact={true} />
         <PrivateRoute path="/dashboard" component={DashboardPage} />
         <Route component={NotFoundPage} />
       </Switch>
