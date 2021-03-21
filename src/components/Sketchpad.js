@@ -8,7 +8,7 @@ import ReactFlow, {
 
 import Sidebar from './SketchpadSidebar.js';
 
-import '../styles/dnd.css';
+import '../styles/components/sketchpad.css';
 
 const initialElements = [
   {
