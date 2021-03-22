@@ -1,15 +1,15 @@
-import {ActionTypes} from "../actions/signup";
+import {ActionTypes} from "../actions/login";
 
 const initialState = {
-    info : {},
+    login_info : {},
 }
 const signupReducer = (state = initialState, action) => {
     switch (action.type) {
-      case ActionTypes.UPDATE_INFO:
+      case ActionTypes.UPDATE_LOGIN_INFO:
         return {
           ...state,
-          info : {
-            ...state.info,
+          login_info : {
+            ...state.login_info,
             [action.payload.type] : action.payload.data,
           }
         };

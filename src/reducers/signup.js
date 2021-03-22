@@ -1,16 +1,16 @@
 import {ActionTypes} from "../actions/signup";
 
 const initialState = {
-    info : {},
-    errors: {}
+  signup_info : {},
+  signup_errors: {}
 }
 const signupReducer = (state = initialState, action) => {
     switch (action.type) {
       case ActionTypes.UPDATE_INFO:
         return {
           ...state,
-          info : {
-            ...state.info,
+          signup_info : {
+            ...state.signup_info,
             [action.payload.type] : action.payload.data,
           }
         };
@@ -18,8 +18,8 @@ const signupReducer = (state = initialState, action) => {
       case ActionTypes.SET_ERROR:
         return {
           ...state,
-          errors : {
-            ...state.errors,
+          signup_errors : {
+            ...state.signup_errors,
             [action.payload.type] : action.payload.err,
           }
         };
@@ -27,9 +27,9 @@ const signupReducer = (state = initialState, action) => {
         case ActionTypes.VALIDATE_PASSWORDS:
           return {
             ...state,
-            errors : {
-              ...state.errors,
-              confirm : state.info["confirm"]? (state.info["confirm"] !== state.info["password"] && action.payload.err) : "",
+            signup_errors : {
+              ...state.signup_errors,
+              confirm : state.signup_info["confirm"]? (state.signup_info["confirm"] !== state.signup_info["password"] && action.payload.err) : "",
             }
         };
       
