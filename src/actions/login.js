@@ -1,11 +1,11 @@
 export const ActionTypes = {
-    UPDATE_INFO : "UPDATE_INFO",
+    UPDATE_LOGIN_INFO : "UPDATE_LOGIN_INFO",
 }
 
 
-export const updateInfo = (type, data) => 
+export const updateLoginInfo = (type, data) => 
 ({
-    type: ActionTypes.UPDATE_INFO,
+    type: ActionTypes.UPDATE_LOGIN_INFO,
     payload: {type, data},
 });
 
