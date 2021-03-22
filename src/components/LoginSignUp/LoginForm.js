@@ -4,24 +4,38 @@ import {TextField, Button} from '@material-ui/core'
 import '../../styles/login-signup.scss'
 
 import {connect} from 'react-redux';
-import * as actions from '../../actions/signup';
+import * as actions from '../../actions/login';
 import {login} from '../../actions/auth';
-
+import axios from 'axios';
 function LoginForm({info, updateInfo, saveToken}) {
 
     const sendData = () =>
     {
-        fetch('http://localhost:8080/api/auth/signup', {
-        method: 'POST',
-        body: JSON.stringify({
+        axios.post('http://localhost:8080/api/auth/login', {
             ...info,
-        })
-        })
-        .then((response) =>
-        {
-            console.log("response",response)
-            saveToken(response.access_token)
-        })
+          })
+          .then(function (response) {
+            console.log(response);
+            saveToken(response.data.access_token)
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        // fetch('http://localhost:8080/api/auth/login', {
+        // method: 'POST',
+        // body: JSON.stringify({
+        //     ...info,
+        // })
+        // })
+        // .then((response) =>
+        // {
+        //     console.log("response",response.json())
+        //     // saveToken(response.data.access_token)
+        // })
+        // .then(data =>{
+        //     console.log("data",data)
+        // });
     }
 
     const onChange = e =>
@@ -32,12 +46,11 @@ function LoginForm({info, updateInfo, saveToken}) {
         
         e.preventDefault();
         console.log(info)
+        sendData()
 
     };
 
-    
-    
-    
+
   return (
     <div className="App">
      <form noValidate autoComplete="off" onSubmit={e => onSubmit(e)}
@@ -45,17 +58,16 @@ function LoginForm({info, updateInfo, saveToken}) {
 
      <TextField
         className="text-field"
-        required
         onChange={onChange}
-        name="email"
-        label="Email"
+        name="username"
+        label="Username"
         variant="outlined"
         size="small"
     />
 
     <TextField
+        type="password"
         className="text-field"
-        required
         onChange={onChange}
         name="password"
         label="Password"
@@ -67,7 +79,7 @@ function LoginForm({info, updateInfo, saveToken}) {
         type='submit'
         fullWidth
         variant='contained'
-        color="secondary"
+        color="primary"
         className="form-button"
         >
         Sign In
@@ -78,11 +90,11 @@ function LoginForm({info, updateInfo, saveToken}) {
 }
 
 const mapStateToProps = (state) => ({
-    info : state.signup.info,
+    info : state.login.login_info,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    updateInfo: (type,data) => dispatch(actions.updateInfo(type,data)),
+    updateInfo: (type,data) => dispatch(actions.updateLoginInfo(type,data)),
     saveToken: (token) => dispatch(login(token)),
 });
   

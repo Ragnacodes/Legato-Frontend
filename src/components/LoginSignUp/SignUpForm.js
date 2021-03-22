@@ -9,29 +9,64 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-
-
+import ErrorIcon from '@material-ui/icons/Error';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Backdrop from '@material-ui/core/Backdrop';
 import {connect} from 'react-redux';
 import * as actions from '../../actions/signup';
 
-function SignUpForm({info, errors,
+function SignUpForm({info, errors,valid,
     updateInfo, validateInfo}) {
 
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+    const [loading, setLoading] = useState(false)
+    const [send, setSend] = useState(false)
+
+    const noError = () =>
+    {
+        for (const [key, value] of Object.entries(errors)) {
+          if(value)
+              return false
+        }
+        return true
+    }
+
+    useEffect(() => {
+      if(send)
+      {
+        if(noError())
+        {
+          sendData()
+          console.log("send")
+        }
+      }
+      return () => {
+        setSend(false)
+      }
+    }, [errors])
+
 
     const sendData = () =>
     {
+        setLoading(true)
+        
         fetch('http://localhost:8080/api/auth/signup', {
-        method: 'POST',
-        body: JSON.stringify({
+          method: 'POST',
+          body: JSON.stringify({
             ...info,
             confirm:"",
-        })
+          })
         })
         .then((response) =>
         {
-            console.log("response",response)
+          setLoading(false)
+          console.log("response",response)
+        })
+        .catch((error)=>
+        {
+          setLoading(false)
+          console.log("error", error)
         })
     }
 
@@ -41,20 +76,14 @@ function SignUpForm({info, errors,
         return Object.keys(object).length === 0 && object.constructor === Object
     }
 
-    const noError = () =>
-    {
-        for (const [key, value] of Object.entries(errors)) {
-            if(value)
-                return false
-        }
-        return true
-    }
+
 
     const validateAll = () =>
     {
         validateInfo("email",info["email"]);
         validateInfo("password",info["password"]);
         validateInfo("confirm",info["confirm"]);
+        validateInfo("username",info["username"]);
     }
 
     const onChange = e =>
@@ -66,15 +95,18 @@ function SignUpForm({info, errors,
     const onSubmit = e => {
         
         e.preventDefault();
+        setSend(true)
         validateAll()
-        if(noError())
-        {
-            sendData()
-        }
-        else
-        {
-            console.log(errors)
-        }
+        //delay
+        // if(noError())
+        // {
+        //   setSend(true)
+        //   // sendData()
+        // }
+        // else
+        // {
+        //   console.log(errors)
+        // }
     };
 
     
@@ -82,6 +114,9 @@ function SignUpForm({info, errors,
     
   return (
     <div>
+      <Backdrop className="signup-backdrop" open={loading}>
+        {loading &&<CircularProgress color="secondary" />}
+      </Backdrop>
      <form noValidate autoComplete="off" onSubmit={e => onSubmit(e)}
      className="signup-form">
 
@@ -94,6 +129,7 @@ function SignUpForm({info, errors,
         label="Email"
         helperText={errors["email"]}
         variant="outlined"
+        size='small'
     />
 
     <TextField
@@ -120,6 +156,7 @@ function SignUpForm({info, errors,
           </IconButton>
         </InputAdornment>
   )}}
+  size='small'
     />
 
     <TextField
@@ -146,6 +183,7 @@ function SignUpForm({info, errors,
         </InputAdornment>
   )
     }}
+    size='small'
     />
 
 <TextField
@@ -157,9 +195,11 @@ function SignUpForm({info, errors,
         label="Username"
         helperText={errors["username"]}
         variant="outlined"
+        size='small'
     />
 
     <Button
+    disabled={loading}
         type='submit'
         fullWidth
         variant='contained'
@@ -174,8 +214,8 @@ function SignUpForm({info, errors,
 }
 
 const mapStateToProps = (state) => ({
-    info : state.signup.info,
-    errors : state.signup.errors,
+    info : state.signup.signup_info,
+    errors : state.signup.signup_errors,
 });
 
 const mapDispatchToProps = (dispatch) => ({
