@@ -1,0 +1,64 @@
+.signup-backdrop{
+  &.MuiBackdrop-root{
+    z-index: 1;
+    background-color: rgba(0,0,0,.2);
+  }
+  
+}
+form.signup-form
+{
+
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  .text-field{
+    // flex: .95;
+    margin-top: 11px;
+    margin-bottom: 11px;
+    
+    .MuiFormHelperText-root{
+      &.Mui-error{
+        height: 0;
+        margin-top: 0;
+      }
+    }
+  .field-error{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    .error-icon{
+      opacity: 0;
+      &.active{
+        opacity: 1;
+      }
+    }
+    
+    }
+  }
+
+  button{
+    &.form-button{
+      margin-top: 11px;
+    }
+    
+  }
+}
+form.login-form
+{
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  .text-field{
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+  }
+  button{
+    &.form-button{
+      margin-top: 5px;
+    }
+    
+  }
+}
