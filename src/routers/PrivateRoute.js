@@ -1,25 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import Header from '../components/Header';
+import Layout from '../components/Layout/Layout';
+import Main from '../components/Layout/Main';
 
-export const PrivateRoute = ({
+const PrivateRoute = ({
   isAuthenticated,
   component: Component,
   ...rest
 }) => (
     <Route {...rest} component={(props) => (
       isAuthenticated ? (
-        <div>
-          <Header />
-          <Component {...props} />
+        <div className="app">
+          <Layout />
+          <Main component={Component} {...props} />
         </div>
       ) : (
           <Redirect to="/" />
         )
     )} />
   );
-
 const mapStateToProps = (state) => ({
   isAuthenticated: !!state.auth.uid
 });
