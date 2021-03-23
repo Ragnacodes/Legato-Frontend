@@ -3,8 +3,13 @@ export const ActionTypes = {
     DELETE_ERROR: "DELETE_ERROR",
     SET_ERROR: "SET_ERROR",
     VALIDATE_PASSWORDS: "VALIDATE_PASSWORDS",
+    RESET_FORM: "RESET_SIGNUP_FORM"
 }
 
+export const resetSignupForm = () => 
+({
+    type: ActionTypes.RESET_SIGNUP_FORM,
+})
 
 export const updateInfo = (type, data) => 
 ({

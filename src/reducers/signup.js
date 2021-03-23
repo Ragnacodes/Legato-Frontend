@@ -6,6 +6,13 @@ const initialState = {
 }
 const signupReducer = (state = initialState, action) => {
     switch (action.type) {
+      case ActionTypes.RESET_SIGNUP_FORM:
+        return {
+          ...state,
+          signup_info : {},
+          signup_errors: {}
+        };
+
       case ActionTypes.UPDATE_INFO:
         return {
           ...state,

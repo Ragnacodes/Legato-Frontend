@@ -1,4 +1,4 @@
-import { loadState, saveState } from '../store/localStorage';
+import { saveState } from '../store/localStorage';
 
 export const login = (uid) => 
 {
