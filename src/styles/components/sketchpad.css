@@ -40,7 +40,7 @@
     height: 100%;
   }
   
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 481px) {
     .dndflow {
       flex-direction: row;
     }
