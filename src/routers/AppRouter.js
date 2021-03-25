@@ -5,9 +5,7 @@ import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';
-import Dashboard from '../components/Pages/Dashboard';
-import PageOne from '../components/Pages/PageOne';
-import PageTwo from '../components/Pages/PageTwo';
+import DummyPage from '../components/DummyPage';
 
 export const history = createBrowserHistory();
 
@@ -15,9 +13,13 @@ const AppRouter = () => (
   <Router history={history}>
       <Switch>
         <PublicRoute path="/" component={LoginPage} exact={true} />
-        <PrivateRoute path="/dashboard" component={Dashboard} />
-        <PrivateRoute path="/one" component={PageOne} />
-        <PrivateRoute path="/two" component={PageTwo} />
+        <PrivateRoute path="/dashboard" component={DummyPage} />
+        <PrivateRoute path="/scenarios" component={DummyPage} />
+        <PrivateRoute path="/connections" component={DummyPage} />
+        <PrivateRoute path="/webhooks" component={DummyPage} />
+        <PrivateRoute path="/keys" component={DummyPage} />
+        <PrivateRoute path="/profile" component={DummyPage} />
+        <PrivateRoute path="/logout" component={DummyPage} />
         <Route component={NotFoundPage} />
       </Switch>
   </Router>
