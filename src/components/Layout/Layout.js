@@ -12,7 +12,7 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems } from './MenuItems';
+import { mainListItems, bottomListItems } from './MenuItems';
 import style from '../../styles/layout/layout';
 
 export default function Layout() {
@@ -58,12 +58,17 @@ export default function Layout() {
                 open={open}
             >
                 <div className={classes.toolbarIcon}>
+                    <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                        Legato
+                    </Typography>
                     <IconButton onClick={handleDrawerClose}>
                         <ChevronLeftIcon />
                     </IconButton>
                 </div>
                 <Divider />
                 <List>{mainListItems}</List>
+                <Divider />
+                <List>{bottomListItems}</List>
             </Drawer>
         </React.Fragment>
     );
