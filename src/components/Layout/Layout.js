@@ -12,6 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { mainListItems, bottomListItems } from './MenuItems';
 import style from '../../styles/layout/layout';
+import Logo from '../../styles/assets/Legato-Logo.png';
 
 export default function Layout(props) {
     const classes = style();
@@ -51,9 +52,9 @@ export default function Layout(props) {
                 open={open}
             >
                 <div className={classes.toolbarIcon}>
-                    <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Legato
-                    </Typography>
+                    <div className={classes.logo}>
+                        <img src={Logo} height="32px" />
+                    </div>
                     <IconButton onClick={handleDrawerClose}>
                         <ChevronLeftIcon />
                     </IconButton>
