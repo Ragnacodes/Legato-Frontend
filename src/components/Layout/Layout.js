@@ -16,7 +16,7 @@ import Logo from '../../styles/assets/Legato-Logo.png';
 
 export default function Layout(props) {
     const classes = style();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
         setOpen(true);
     };
