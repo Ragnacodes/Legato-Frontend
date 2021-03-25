@@ -1,5 +1,17 @@
 import signupReducer from "../../reducers/signup";
 import { ActionTypes } from "../../actions/signup";
+
+test("should set default state for signup", () => {
+  const action = {
+    type: "@@INIT",
+  };
+  const state = signupReducer(undefined, action);
+  expect(state).toEqual({
+    signup_info: {},
+    signup_errors: {},
+  });
+});
+
 test("should set email for signup", () => {
   const data = "email@email.com";
   const action = {

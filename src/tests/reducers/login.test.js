@@ -1,6 +1,16 @@
 import loginReducer from "../../reducers/login";
 import { ActionTypes } from "../../actions/login";
 
+test("should set default state for login", () => {
+  const action = {
+    type: "@@INIT",
+  };
+  const state = loginReducer(undefined, action);
+  expect(state).toEqual({
+    login_info: {},
+  });
+});
+
 test("should update username for login", () => {
   const data = "user";
   const action = {
