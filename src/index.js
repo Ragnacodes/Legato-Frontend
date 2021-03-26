@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './styles/base/theme';
 import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import './styles/styles.scss';
@@ -9,9 +11,11 @@ import reportWebVitals from './reportWebVitals';
 const store = configureStore();
 
 const jsx = (
-  <Provider store={store}>
-    <AppRouter />
-  </Provider>
+  <ThemeProvider theme={theme}>
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>
+  </ThemeProvider>
 );
 
 ReactDOM.render(jsx, document.getElementById('root'));
