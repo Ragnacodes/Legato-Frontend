@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import LoginForm from "../LoginSignUp/LoginForm";
 import SignUpForm from "../LoginSignUp/SignUpForm";
 
-import FiberManualRecordRoundedIcon from "@material-ui/icons/FiberManualRecordRounded";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import {
@@ -20,8 +19,6 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@material-ui/core";
-
-import "../../styles/landing-page.scss";
 import { Link } from "react-router-dom";
 export const Header = ({ isAuthenticated }) => {
   const [signupOpen, setSignupOpen] = useState(false);

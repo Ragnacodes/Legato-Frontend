@@ -16,7 +16,6 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 import { successNotification, errorNotification } from "../Notification";
-import "../../styles/login-signup.scss";
 
 export function SignUpForm({
   info,
