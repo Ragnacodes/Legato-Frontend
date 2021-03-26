@@ -108,14 +108,27 @@ const DnDFlow = () => {
           <Sidebar />
         </ReactFlowProvider>
       </div>
-      <Button
-        variant="contained"
-        color="primary"
-        size="large"
-        onClick={onSaveClicked}
-      >
-        Save
-      </Button>
+
+      <div className="control-box">
+        <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={onSaveClicked}
+            className="button"
+        >
+            Save
+        </Button>
+        <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={onSaveClicked}
+            className="button"
+        >
+            Run
+        </Button>
+      </div>
     </div>
   );
 };
