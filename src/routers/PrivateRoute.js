@@ -10,7 +10,7 @@ const PrivateRoute = ({
   ...rest
 }) => (
     <Route {...rest} component={(props) => (
-      isAuthenticated ? (
+      !isAuthenticated ? (
         <div className="app">
           <Layout {...props} />
           <Main component={Component} {...props} />
