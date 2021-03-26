@@ -2,13 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { startLogin } from '../actions/auth';
 
+import {Card, CardContent} from '@material-ui/core'
+
+import LoginForm from './LoginSignUp/LoginForm';
+import SignUpForm from './LoginSignUp/SignUpForm';
+
 export const LoginPage = ({ startLogin }) => (
-  <div>
-    <div>
-      <h1>Legato</h1>
-      <p>Tag line for app.</p>
-      <button onClick={startLogin}>Login</button>
-    </div>
+  <div className="box-layout">
+    <Card>
+      <CardContent>
+        <LoginForm/>
+        <SignUpForm/>
+    </CardContent>
+    </Card>
   </div>
 );
 
