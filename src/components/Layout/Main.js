@@ -10,15 +10,15 @@ const Main = (props) => {
     return (
         <main className={classes.content}>
             <div className={classes.appBarSpacer} />
-                <Container maxWidth="lg" className={classes.container}>
-                    <Grid container>
-                        <props.component />
-                    </Grid>
+            <Container maxWidth="lg" className={classes.container}>
+                <Grid container>
+                    <props.component />
+                </Grid>
 
-                    <Box pt={4}>
-                        <Copyright />
-                    </Box>
-                </Container>
+                <Box pt={4}>
+                    <Copyright />
+                </Box>
+            </Container>
         </main>
     );
 }
