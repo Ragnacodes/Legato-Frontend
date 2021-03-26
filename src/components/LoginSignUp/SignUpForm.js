@@ -32,7 +32,7 @@ export function SignUpForm({
   const [send, setSend] = useState(false);
 
   const noError = () => {
-    for (const [key, value] of Object.entries(errors)) {
+    for (const [, value] of Object.entries(errors)) {
       if (value) return false;
     }
     return true;
@@ -50,7 +50,7 @@ export function SignUpForm({
     return () => {
       setSend(false);
     };
-  }, [errors]);
+  });
 
   const sendData = () => {
     setLoading(true);
