@@ -12,7 +12,7 @@ export const history = createBrowserHistory();
 const AppRouter = () => (
   <Router history={history}>
       <Switch>
-        <PublicRoute path="/" component={Sketchpad} exact={true} />
+        {/* <PublicRoute path="/" component={LandingPage} exact={true} /> */}
         <PrivateRoute path="/dashboard" component={DummyPage} />
         <PrivateRoute path="/scenarios" component={Sketchpad} />
         <PrivateRoute path="/connections" component={DummyPage} />
