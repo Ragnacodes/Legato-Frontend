@@ -6,7 +6,6 @@ import * as actions from "../../actions/login";
 import { login } from "../../actions/auth";
 
 import { TextField, Button } from "@material-ui/core";
-import "../../styles/login-signup.scss";
 
 import { successNotification, errorNotification } from "../Notification";
 

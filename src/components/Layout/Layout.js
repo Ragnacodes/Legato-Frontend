@@ -53,7 +53,7 @@ export default function Layout(props) {
             >
                 <div className={classes.toolbarIcon}>
                     <div className={classes.logo}>
-                        <img src={Logo} height="32px" />
+                        <img src={Logo} height="32px" alt="Legato logo"/>
                     </div>
                     <IconButton onClick={handleDrawerClose}>
                         <ChevronLeftIcon />
