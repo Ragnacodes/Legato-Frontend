@@ -1,0 +1,49 @@
+.rc-notification {
+  z-index: 2000 !important;
+  top: 5px !important;
+  transform: translateX(-50%);
+  .rc-notification-notice {
+    box-shadow: none;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    // padding: 6px 16px;
+    // padding-right: 26px;
+    font-size: 0.9rem;
+    font-family: $font-roboto;
+    &.success {
+      background-color: $success;
+      color: white;
+    }
+    //error
+    &.error {
+      background-color: $error;
+      color: white;
+    }
+
+    &.info {
+      background-color: $info;
+      color: white;
+    }
+
+    &.warning {
+      background-color: $warning;
+      color: white;
+    }
+
+    // .rc-notification-notice-content {
+    // }
+    
+    .rc-notification-notice-close {
+      transition: all 0.5s ease;
+      text-shadow: none;
+      color: white;
+      opacity: 1;
+      font-size: 0.5rem;
+      svg {
+        font-size: 1.2rem;
+        transition: all 0.5s ease;
+      }
+    }
+  }
+}
