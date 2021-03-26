@@ -18,7 +18,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { successNotification, errorNotification } from "../Notification";
 import "../../styles/login-signup.scss";
 
-function SignUpForm({
+export function SignUpForm({
   info,
   errors,
   updateInfo,
@@ -71,7 +71,8 @@ function SignUpForm({
       .catch((error) => {
         setLoading(false);
         if (error.response) {
-          errorNotification(error.response.data.message);
+          let str = error.response.data.message;
+          errorNotification(str.charAt(0).toUpperCase() + str.slice(1) + ".");
         } else {
           errorNotification(error.message);
         }
