@@ -8,16 +8,16 @@ export default createMuiTheme({
         },
         type: "light",
         primary: {
-            light: "#7986cb",
-            main: "#3f51b5",
-            dark: "#303f9f",
+            light: "#4f5b62",
+            main: "#263238",
+            dark: "#000a12",
             contrastText: "#fff"
         },
         secondary: {
             light: "#ff4081",
-            main: "#f50057",
+            main: "#fff",
             dark: "#c51162",
-            contrastText: "#fff"
+            contrastText: "#000a12"
         },
         error: {
             light: "#e57373",
@@ -54,5 +54,19 @@ export default createMuiTheme({
             paper: "#fff",
             default: "#fafafa"
         },
-    }
+    },
+    typography: {
+        h4: {
+          fontFamily: "Nunito",
+        },
+        h5: {
+          fontFamily: "Nunito",
+        },
+        h6: {
+          fontFamily: "Nunito",
+        },
+        body1: {
+          fontFamily: "Roboto",
+        },
+      },
 });
