@@ -10,7 +10,14 @@ import "../../styles/login-signup.scss";
 
 import { successNotification, errorNotification } from "../Notification";
 
-function LoginForm({ info, updateInfo, saveToken, closeDialog }) {
+export function LoginForm({
+  errors,
+  info,
+  updateInfo,
+  validateInfo,
+  saveToken,
+  closeDialog,
+}) {
   const sendData = () => {
     axios
       .post("http://localhost:8080/api/auth/login", {
@@ -25,7 +32,8 @@ function LoginForm({ info, updateInfo, saveToken, closeDialog }) {
       .catch((error) => {
         console.log(error);
         if (error.response) {
-          errorNotification(error.response.data.message);
+          let str = error.response.data.message;
+          errorNotification(str.charAt(0).toUpperCase() + str.slice(1) + ".");
         } else {
           errorNotification(error.message);
         }
@@ -34,11 +42,19 @@ function LoginForm({ info, updateInfo, saveToken, closeDialog }) {
 
   const onChange = (e) => {
     updateInfo(e.target.name, e.target.value.trim());
+    validateInfo(e.target.name, e.target.value.trim());
   };
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(info);
-    sendData();
+
+    if (!info["username"] || !info["password"]) {
+      errorNotification("Please enter your username and password.");
+      validateInfo("username", info["username"]);
+      validateInfo("password", info["password"]);
+    } else {
+      sendData();
+    }
   };
 
   return (
@@ -56,6 +72,8 @@ function LoginForm({ info, updateInfo, saveToken, closeDialog }) {
           label="Username"
           variant="outlined"
           size="small"
+          error={!!errors["username"]}
+          helperText={errors["username"]}
         />
 
         <TextField
@@ -66,6 +84,8 @@ function LoginForm({ info, updateInfo, saveToken, closeDialog }) {
           label="Password"
           variant="outlined"
           size="small"
+          error={!!errors["password"]}
+          helperText={errors["password"]}
         />
 
         <Button
@@ -84,10 +104,12 @@ function LoginForm({ info, updateInfo, saveToken, closeDialog }) {
 
 const mapStateToProps = (state) => ({
   info: state.login.login_info,
+  errors: state.login.login_errors,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   updateInfo: (type, data) => dispatch(actions.updateLoginInfo(type, data)),
+  validateInfo: (type, data) => dispatch(actions.validateLoginInfo(type, data)),
   saveToken: (token) => dispatch(login(token)),
 });
 

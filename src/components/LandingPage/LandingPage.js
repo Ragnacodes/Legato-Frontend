@@ -1,11 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
 import { ThemeProvider } from "@material-ui/core/styles";
-import Theme from "../Theme";
+import Theme from "./Theme";
 import "../../styles/landing-page.scss";
 import "../../styles/notification.scss";
 import Header from "./Header";
-export const LandingPage = ({ isAuthenticated }) => {
+export const LandingPage = ({}) => {
   return (
     <ThemeProvider theme={Theme}>
       <div className="landing-page">
@@ -15,8 +14,4 @@ export const LandingPage = ({ isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: !!state.auth.uid,
-});
-
-export default connect(mapStateToProps)(LandingPage);
+export default LandingPage;

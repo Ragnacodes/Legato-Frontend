@@ -51,7 +51,7 @@ export const Header = ({ isAuthenticated }) => {
 
       <Dialog
         disableBackdropClick
-        className="signup-dialog"
+        className="login-dialog"
         open={loginOpen}
         onClose={() => setLoginOpen(false)}
         aria-labelledby="form-dialog-title"
@@ -71,10 +71,7 @@ export const Header = ({ isAuthenticated }) => {
 
       <AppBar className="app-bar" position="static">
         <Toolbar>
-          <h1>
-            <FiberManualRecordRoundedIcon className="icon" />
-            Legato
-          </h1>
+          <h1>Legato</h1>
           <div className="buttons">
             <Button color="secondary" className="about-button">
               About Us
