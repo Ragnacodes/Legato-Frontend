@@ -8,6 +8,32 @@ test("should setup reset login form action object", () => {
   });
 });
 
+test("should setup set error action object", () => {
+  const type = "email";
+  const err = "Required.";
+  const returnedAction = actions.setLoginError(type, err);
+  const expectedAction = {
+    type: ActionTypes.SET_LOGIN_ERROR,
+    payload: { type, err },
+  };
+
+  expect(returnedAction).toEqual(expectedAction);
+});
+
+test("should setup validate info action object", () => {
+  const type = "email";
+  const err = "Required.";
+  const returnedAction = actions.validateLoginInfo(type, "");
+  const expectedAction = {
+    type: ActionTypes.SET_LOGIN_ERROR,
+    payload: { type, err },
+  };
+
+  returnedAction((receivedAction) =>
+    expect(receivedAction).toEqual(expectedAction)
+  );
+});
+
 test("should setup update login info action object", () => {
   const type = "email";
   const data = "email@email.com";

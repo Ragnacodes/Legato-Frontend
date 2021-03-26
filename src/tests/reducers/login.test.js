@@ -8,6 +8,7 @@ test("should set default state for login", () => {
   const state = loginReducer(undefined, action);
   expect(state).toEqual({
     login_info: {},
+    login_errors: {},
   });
 });
 
@@ -35,6 +36,19 @@ test("should update password for login", () => {
   };
   const state = loginReducer({}, action);
   expect(state.login_info).toHaveProperty("password", data);
+});
+
+test("should set email error for signup", () => {
+  const err = "Error";
+  const action = {
+    type: ActionTypes.SET_LOGIN_ERROR,
+    payload: {
+      type: "email",
+      err,
+    },
+  };
+  const state = loginReducer({}, action);
+  expect(state.login_errors).toHaveProperty("email", err);
 });
 
 test("should reset form for login", () => {
