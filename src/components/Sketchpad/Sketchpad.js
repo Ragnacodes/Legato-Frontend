@@ -7,7 +7,6 @@ import ReactFlow, {
   Background
 } from 'react-flow-renderer';
 import Sidebar from './SketchpadSidebar.js';
-import '../../styles/components/sketchpad.css';
 import Button from '@material-ui/core/Button';
 import WebHookNode from './WebHookNode';
 import TelegramNode from './TelegramNode';
@@ -85,8 +84,8 @@ const DnDFlow = () => {
   }
 
   return (
-    <>
-      <div className="dndflow" style={{height: 450}}>
+    <div className="sketchpad">
+      <div className="dndflow">
         <ReactFlowProvider>
           <div className="reactflow-wrapper" ref={reactFlowWrapper}>
             <ReactFlow
@@ -99,9 +98,9 @@ const DnDFlow = () => {
               nodeTypes={nodeTypes}
             >
               <Background
-                variant="dots"
-                gap={10}
-                size={1}
+                variant="lines"
+                gap={16}
+                size={0.5}
               />
               <Controls showInteractive={false} />
             </ReactFlow>
@@ -117,7 +116,7 @@ const DnDFlow = () => {
       >
         Save
       </Button>
-    </>
+    </div>
   );
 };
 export default DnDFlow;
