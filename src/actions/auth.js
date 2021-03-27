@@ -13,10 +13,6 @@ export const login = (uid) =>
   }
 }
 
-export const startLogin = () => {
-  return login(5);
-};
-
 export const logout = () => 
 {
   localStorage.clear();
@@ -24,8 +20,3 @@ export const logout = () =>
     type: 'LOGOUT'
   }
 }
-
-export const startLogout = () => {
-  
-  return logout();
-};
