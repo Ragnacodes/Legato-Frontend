@@ -11,7 +11,7 @@ export default notification;
 export function successNotification(text) {
   notification.notice({
     closable: true,
-    duration: null,
+    duration: 3,
     content: (
       <Alert variant="filled" severity="success">
         {text}
@@ -25,7 +25,7 @@ export function successNotification(text) {
 export function errorNotification(text) {
   notification.notice({
     closable: true,
-    duration: null,
+    duration: 3,
     content: (
       <Alert variant="filled" severity="error">
         {text}

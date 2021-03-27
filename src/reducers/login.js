@@ -4,7 +4,7 @@ const initialState = {
   login_info: {},
   login_errors: {},
 };
-const signupReducer = (state = initialState, action) => {
+const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.RESET_LOGIN_FORM:
       return {
@@ -36,4 +36,4 @@ const signupReducer = (state = initialState, action) => {
   }
 };
 
-export default signupReducer;
+export default loginReducer;
