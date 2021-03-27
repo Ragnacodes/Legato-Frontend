@@ -15,7 +15,6 @@ export function LoginForm({
   updateInfo,
   validateInfo,
   saveToken,
-  closeDialog,
 }) {
   const sendData = () => {
     axios
@@ -26,7 +25,6 @@ export function LoginForm({
         console.log(response);
         successNotification("You are logged in!");
         saveToken(response.data.access_token);
-        closeDialog();
       })
       .catch((error) => {
         console.log(error);
