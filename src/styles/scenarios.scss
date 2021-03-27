@@ -1,0 +1,14 @@
+.scenarios {
+
+    .scenario {}
+
+    .control {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .item {
+            margin: 0 $xs-size;
+        }
+    }
+}
