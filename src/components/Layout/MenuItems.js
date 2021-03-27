@@ -9,7 +9,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import LanguageIcon from '@material-ui/icons/Language';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Logout from './Logout';
 
 export const mainListItems = (
   <div>
@@ -62,12 +62,7 @@ export const bottomListItems = (
       <ListItemText primary="Profile" />
     </ListItem>
 
-    <ListItem button component={NavLink} to="/logout" activeClassName="Mui-selected">
-      <ListItemIcon>
-        <ExitToAppIcon />
-      </ListItemIcon>
-      <ListItemText primary="Logout" />
-    </ListItem>
+    <Logout />
 
   </div>
 );
