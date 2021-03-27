@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import authReducer from '../reducers/auth';
 import signupReducer from '../reducers/signup';
 import loginReducer from '../reducers/login';
+import scenariosReducer from '../reducers/scenarios';
 import { loadState } from './localStorage';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -19,7 +20,7 @@ const configureStore = () => {
       auth: authReducer,
       signup: signupReducer,
       login: loginReducer,
-      
+      scenarios: scenariosReducer,
     }),
     loadState(),
     composeEnhancers(applyMiddleware(...middleware))
