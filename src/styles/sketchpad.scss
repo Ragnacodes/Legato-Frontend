@@ -29,6 +29,9 @@
           padding: 2px;
           border-radius: 4px;
         }
+        .icon:hover {
+          box-shadow: 0 5px 5px 0 rgba(0,0,0,0.24), 0 5px 5px 0 rgba(0,0,0,0.14);
+        }
 
         .webhook {
           background-color: #c63b64;

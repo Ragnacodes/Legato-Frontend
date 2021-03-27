@@ -15,12 +15,12 @@ import SSHNode from './SSHNode';
 import GithubNode from './GithubNode';
 
 const initialElements = [
-  {
-    id: '0',
-    type: 'input',
-    data: { label: 'input node' },
-    position: { x: 250, y: 5 },
-  },
+  // {
+  //   id: '0',
+  //   type: 'input',
+  //   data: { label: 'input node' },
+  //   position: { x: 250, y: 5 },
+  // },
   // {
   //   id: '-1',
   //   type: 'output',
