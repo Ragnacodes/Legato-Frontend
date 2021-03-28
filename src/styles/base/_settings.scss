@@ -4,24 +4,24 @@ $grey: #666;
 $blue: #1c88bf;
 $dark-blue: #364051;
 $off-white: #f7f7f7;
-// Font Size
-$font-size-large: 1.8rem;
-$font-size-small: 1.4rem;
+$success: #4caf50;
+$error: #f44336;
+$warning: #ff9800;
+$info: #2196f3;
+$primary: #263238;
+$secondary: #fff;
+
 // Spacing
 $xs-size: 4px;
 $sm-size: 8px;
 $md-size: 16px;
 $lg-size: 32px;
-$xl-size: 48px;
-$desktop-breakpoint: 45rem;
-$success: #4caf50;
-$error: #f44336;
-$warning: #ff9800;
-$info: #2196f3;
+$xl-size: 40px;
+$xxl-size: 48px;
+
+// Fonts
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap");
 $font-roboto: "Roboto", sans-serif;
 $font-nunito: "Nunito", sans-serif;
-$primary: #263238;
-$secondary: #fff;
