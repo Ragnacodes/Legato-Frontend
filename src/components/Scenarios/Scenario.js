@@ -11,6 +11,7 @@ import AlarmIcon from '@material-ui/icons/Alarm';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { connect } from 'react-redux';
 import { editScenario, removeScenario } from '../../actions/scenarios';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeScenario }) => {
     const handleToggleActvie = () => {
@@ -30,19 +31,25 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
             <ListItemText primary={name} />
 
             <ListItemSecondaryAction className="control">
-                <AccessTimeIcon className="item" />
+                <Tooltip title={`Each ${interval} minutes.`} placement="left">
+                    <AccessTimeIcon className="item" />
+                </Tooltip>
 
-                <Switch
-                    edge="end"
-                    onChange={handleToggleActvie}
-                    checked={isActive}
-                    color="primary"
-                    className="item"
-                />
+                <Tooltip title={`Turn ${isActive ? "off" : "on"}`} placement="top">
+                    <Switch
+                        edge="end"
+                        onChange={handleToggleActvie}
+                        checked={isActive}
+                        color="primary"
+                        className="item"
+                    />
+                </Tooltip>
                 
-                <IconButton aria-label="delete" className="item" color="secondary" onClick={handleRemoveScenario}>
-                    <DeleteIcon />
-                </IconButton>
+                <Tooltip title="Delete scenario." placement="right">
+                    <IconButton aria-label="delete" className="item" color="secondary" onClick={handleRemoveScenario}>
+                        <DeleteIcon />
+                    </IconButton>
+                </Tooltip>
             </ListItemSecondaryAction>
         </ListItem>
     );
