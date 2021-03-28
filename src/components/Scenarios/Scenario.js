@@ -26,7 +26,7 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
         <ListItem className="scenario" button component={NavLink} to={`/sketchpad/${id}`}>
             <ScenarioNodes nodes={nodes} />
 
-            <ListItemText primary={name} />
+            <ListItemText primary={name} className="name" />
 
             <ListItemSecondaryAction className="control">
                 {
@@ -47,13 +47,14 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
                         onChange={handleToggleActvie}
                         checked={isActive}
                         color="primary"
-                        className="item"
+                        size="small"
+                        className="switch"
                     />
                 </Tooltip>
                 
                 <Tooltip title="Delete scenario." placement="right">
-                    <IconButton aria-label="delete" className="item" color="secondary" onClick={handleRemoveScenario}>
-                        <DeleteIcon />
+                    <IconButton aria-label="delete" className="delete" color="secondary" onClick={handleRemoveScenario}>
+                        <DeleteIcon fontSize="small" />
                     </IconButton>
                 </Tooltip>
             </ListItemSecondaryAction>
