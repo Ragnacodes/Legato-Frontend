@@ -9,20 +9,16 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AlarmIcon from '@material-ui/icons/Alarm';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import { connect } from 'react-redux';
+import { editScenario, removeScenario } from '../../actions/scenarios';
 
-const Scenario = ({ id, name }) => {
-    const [checked, setChecked] = React.useState(['wifi']);
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-    
-        if (currentIndex === -1) {
-          newChecked.push(value);
-        } else {
-          newChecked.splice(currentIndex, 1);
-        }
-    
-        setChecked(newChecked);
+const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeScenario }) => {
+    const handleToggleActvie = () => {
+        editScenario(id, {isActive: !isActive});
+    };
+
+    const handleRemoveScenario = () => {
+        removeScenario(id);
     };
 
     return (
@@ -31,21 +27,20 @@ const Scenario = ({ id, name }) => {
                 <AlarmIcon />
             </ListItemIcon>
 
-            <ListItemText id="switch-list-label-wifi" primary={name} />
+            <ListItemText primary={name} />
 
             <ListItemSecondaryAction className="control">
                 <AccessTimeIcon className="item" />
 
                 <Switch
                     edge="end"
-                    onChange={handleToggle('wifi')}
-                    checked={checked.indexOf('wifi') !== -1}
-                    inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
+                    onChange={handleToggleActvie}
+                    checked={isActive}
                     color="primary"
                     className="item"
                 />
                 
-                <IconButton aria-label="delete" className="item" color="secondary">
+                <IconButton aria-label="delete" className="item" color="secondary" onClick={handleRemoveScenario}>
                     <DeleteIcon />
                 </IconButton>
             </ListItemSecondaryAction>
@@ -53,4 +48,9 @@ const Scenario = ({ id, name }) => {
     );
 };
 
-export default Scenario;
+const mapDispatchToProps = (dispatch) => ({
+    editScenario: (type, data) => dispatch(editScenario(type, data)),
+    removeScenario: (type, data) => dispatch(removeScenario(type, data)),
+});
+
+export default connect(null, mapDispatchToProps)(Scenario);
