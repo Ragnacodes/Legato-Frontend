@@ -7,6 +7,7 @@ import Switch from '@material-ui/core/Switch';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import OfflineBoltOutlinedIcon from '@material-ui/icons/OfflineBoltOutlined';
 import { connect } from 'react-redux';
 import { editScenario, removeScenario } from '../../actions/scenarios';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -28,9 +29,17 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
             <ListItemText primary={name} />
 
             <ListItemSecondaryAction className="control">
-                <Tooltip title={`Each ${interval} minutes.`} placement="left">
-                    <AccessTimeIcon className="item" />
-                </Tooltip>
+                {
+                    interval ? (
+                        <Tooltip title={`Each ${interval} minutes.`} placement="left">
+                            <AccessTimeIcon fontSize="small" />
+                        </Tooltip>
+                    ) : (
+                        <Tooltip title={`Immediately when triggered.`} placement="left">
+                            <OfflineBoltOutlinedIcon fontSize="small" />
+                        </Tooltip>
+                    )
+                }
 
                 <Tooltip title={`Turn ${isActive ? "off" : "on"}`} placement="top">
                     <Switch
