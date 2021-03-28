@@ -1,17 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Switch from '@material-ui/core/Switch';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import AlarmIcon from '@material-ui/icons/Alarm';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { connect } from 'react-redux';
 import { editScenario, removeScenario } from '../../actions/scenarios';
 import Tooltip from '@material-ui/core/Tooltip';
+import ScenarioNodes from './ScenarioNodes';
 
 const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeScenario }) => {
     const handleToggleActvie = () => {
@@ -24,9 +23,7 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
 
     return (
         <ListItem className="scenario" button component={NavLink} to={`/sketchpad/${id}`}>
-            <ListItemIcon>
-                <AlarmIcon />
-            </ListItemIcon>
+            <ScenarioNodes nodes={nodes} />
 
             <ListItemText primary={name} />
 
