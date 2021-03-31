@@ -1,0 +1,30 @@
+.webhooks-list {
+  .MuiListItem-container {
+    .webhook-actions {
+      > * {
+        margin-left: 5px;
+      }
+    }
+  }
+  .webhook-item {
+    .webhook-text-field {
+      padding-top: 0;
+      padding-bottom: 0;
+      width: 300px;
+    }
+    .webhook-name {
+      //   .MuiTypography-body1 {
+      // color: red;
+      // display: block;
+      cursor: text;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      //   }
+    }
+    .MuiListItemText-secondary {
+      a {
+        color: adjust-color($color: $primary, $lightness: 20%);
+      }
+    }
+  }
+}

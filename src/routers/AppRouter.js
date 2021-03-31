@@ -8,6 +8,7 @@ import DummyPage from '../components/DummyPage';
 import LandingPage from "../components/LandingPage/LandingPage";
 import Sketchpad from "../components/Sketchpad/Sketchpad";
 import Scenarios from '../components/Scenarios/Scenarios';
+import Webhooks from "../components/Webhooks/Webhooks";
 export const history = createBrowserHistory();
 
 const AppRouter = () => (
@@ -18,7 +19,7 @@ const AppRouter = () => (
         <PrivateRoute path="/scenarios" component={Scenarios} />
         <PrivateRoute path="/sketchpad/:id" component={Sketchpad} />
         <PrivateRoute path="/connections" component={DummyPage} />
-        <PrivateRoute path="/webhooks" component={DummyPage} />
+        <PrivateRoute path="/webhooks" component={Webhooks} />
         <PrivateRoute path="/keys" component={DummyPage} />
         <PrivateRoute path="/profile" component={DummyPage} />
         <PrivateRoute path="/logout" component={DummyPage} />
