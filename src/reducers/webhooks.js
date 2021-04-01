@@ -7,18 +7,21 @@ const initialState = {
       address: "https://google.com",
       name: "webhook1",
       toggle: true,
+      queueNumber: 0,
     },
     {
       id: 2,
       address: "http",
       name: "webhook2",
       toggle: true,
+      queueNumber: 1,
     },
     {
       id: 3,
       address: "http",
       name: "webhook3",
       toggle: true,
+      queueNumber: 2,
     },
   ],
 };

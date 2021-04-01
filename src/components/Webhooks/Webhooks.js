@@ -9,8 +9,8 @@ const Webhooks = ({ webhooks }) => (
     <Container maxWidth="lg" className="webhooks-list">
       <List>
         {webhooks.map((w) => {
-          console.log(w)
-          return <Webhook key={w.id} {...w} />;
+          console.log(w);
+          return <Webhook key={w.id} webhook={w} />;
         })}
       </List>
     </Container>

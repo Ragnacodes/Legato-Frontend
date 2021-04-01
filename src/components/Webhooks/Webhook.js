@@ -18,19 +18,20 @@ import SaveAltIcon from "@material-ui/icons/SaveAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ClearIcon from "@material-ui/icons/Clear";
 import EditIcon from "@material-ui/icons/Edit";
+import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import ScenarioNodes from "../Scenarios/ScenarioNodes";
 import * as actions from "../../actions/webhooks";
+import EditModal from "./EditWebhookModal";
 const Webhook = ({
-  id,
-  name,
-  toggle,
-  address,
+  webhook,
   renameWebhook,
   toggleWebhookState,
   removeWebhook,
 }) => {
+  const { id, name, toggle, address, queueNumber, ...other } = webhook;
   const [renameToggle, setRenameToggle] = useState(false);
   const [modifiedName, setName] = useState(name);
+  const [editModalVisible, setEditModalVisible] = useState(false);
 
   const onTextFieldChange = (e) => {
     setName(e.target.value);
@@ -57,7 +58,11 @@ const Webhook = ({
   return (
     <ListItem className="webhook-item">
       {/* <ScenarioNodes nodes={nodes} /> */}
-
+      <EditModal
+        webhook={webhook}
+        visible={editModalVisible}
+        setVisible={setEditModalVisible}
+      />
       <ListItemText
         primary={
           renameToggle ? (
@@ -115,6 +120,7 @@ const Webhook = ({
           disableElevation
           className="edit-button"
           startIcon={<EditIcon />}
+          onClick={() => setEditModalVisible(true)}
         >
           Edit
         </Button>
@@ -128,11 +134,21 @@ const Webhook = ({
             className="switch"
           />
         </Tooltip>
+        <Button
+          size="small"
+          variant="contained"
+          color="primary"
+          disableElevation
+          className="queue-button"
+          startIcon={<LocalShippingIcon />}
+        >
+          {queueNumber}
+        </Button>
 
         <Tooltip title="Delete Webhook" placement="right">
           <IconButton
             aria-label="delete"
-            className="delete"
+            className="delete-button"
             color="primary"
             onClick={handleRemoveWebhook}
           >
@@ -144,10 +160,14 @@ const Webhook = ({
   );
 };
 
+const mapStateToProps = (state) => ({
+  // webhook: props.webhook,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   renameWebhook: (id, data) => dispatch(actions.renameWebhook(id, data)),
   toggleWebhookState: (id) => dispatch(actions.toggleWebhookState(id)),
   removeWebhook: (id) => dispatch(actions.removeWebhook(id)),
 });
 
-export default connect(null, mapDispatchToProps)(Webhook);
+export default connect(mapStateToProps, mapDispatchToProps)(Webhook);
