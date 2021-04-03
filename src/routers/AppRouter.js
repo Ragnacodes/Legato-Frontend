@@ -7,13 +7,14 @@ import NotFoundPage from '../components/NotFoundPage';
 import DummyPage from '../components/DummyPage';
 import LandingPage from "../components/LandingPage/LandingPage";
 import Sketchpad from "../components/Sketchpad/Sketchpad";
+import Dashboard from "../components/Dashboard/Dashboard";
 export const history = createBrowserHistory();
 
 const AppRouter = () => (
   <Router history={history}>
       <Switch>
         <PublicRoute path="/" component={LandingPage} exact={true} />
-        <PrivateRoute path="/dashboard" component={DummyPage} />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/scenarios" component={Sketchpad} />
         <PrivateRoute path="/connections" component={DummyPage} />
         <PrivateRoute path="/webhooks" component={DummyPage} />
