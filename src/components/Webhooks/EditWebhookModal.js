@@ -63,8 +63,8 @@ const Webhooks = ({ webhook, visible, setVisible }) => {
           textColor="primary"
           centered
         >
-          <Tab label="Settings" />
-          <Tab label="Advanced Settings" />
+          <Tab label="General" />
+          <Tab label="Advanced" />
         </Tabs>
         <TabPanel className="settings" value={value} index={0}>
           <TextField
