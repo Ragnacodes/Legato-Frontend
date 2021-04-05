@@ -1,4 +1,4 @@
-.edit-webhook-dialog {
+.edit-wh-dialog {
   .MuiDialogTitle-root {
     padding-bottom: 0;
   }
@@ -6,7 +6,6 @@
     margin: 0;
   }
   .MuiDialogContent-root {
-    padding-bottom: 20px;
     padding-top: 0;
     width: 400px;
   }
@@ -18,49 +17,61 @@
     top: 5px;
     color: $primary;
   }
-}
-.MuiTabs-root {
-  margin-bottom: 20px;
-}
+  .MuiTabs-root {
+    margin-bottom: 20px;
+  }
 
-.edit-webhook-tab {
-  // padding-top: 20px;
-  display: flex;
-  flex-direction: column;
-  .data-structure-field {
+  .wh-setting-actions {
+    flex: 0 0 auto;
     display: flex;
-    flex-direction: row;
+    padding: 8px;
     align-items: center;
-    > * {
-      margin-left: 2px;
-      margin-right: 2px;
-    }
-    .select-field {
-      flex: 1;
-      margin-left: 0;
-    }
-    .add-icon {
-      margin-right: 0;
-    }
+    justify-content: flex-end;
+    margin-top: 12px;
+    margin-right: -18px;
   }
-  .help-text {
-    color: #707070;
-    // border: 1px red solid;
-  }
-  // &.settings {
-  .help-icon {
-    margin-bottom: -5px;
-    margin-right: 5px;
-  }
-  // }
-  .edit-field {
-    margin-top: 11px;
-    margin-bottom: 11px;
 
-    .MuiFormHelperText-root {
-      &.Mui-error {
-        height: 0;
-        margin-top: 0;
+  .edit-wh-tab {
+    .wh-general-settings,
+    .wh-advanced-settings {
+      display: flex;
+      flex-direction: column;
+    }
+    .data-structure-field {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      > * {
+        margin-left: 2px;
+        margin-right: 2px;
+      }
+      .select-ds-field {
+        flex: 1;
+        margin-left: 0;
+      }
+      .add-icon {
+        margin-right: 0;
+      }
+    }
+    .help-text {
+      color: #707070;
+      font-size: 0.84rem;
+      .help-icon {
+        margin-bottom: -5px;
+        margin-right: 5px;
+        font-size: 1.2rem;
+      }
+    }
+
+    .edit-wh-field {
+      margin-top: 11px;
+      margin-bottom: 11px;
+
+      .MuiFormHelperText-root {
+        &.Mui-error {
+          height: 0;
+          margin-top: 0;
+        }
       }
     }
   }
@@ -68,7 +79,7 @@
 
 .webhooks-list {
   .MuiListItem-container {
-    .webhook-actions {
+    .wh-actions {
       .edit-button,
       .switch,
       .queue-button {
@@ -77,13 +88,13 @@
       }
     }
   }
-  .webhook-item {
-    .webhook-text-field {
+  .wh-item {
+    .wh-name-field {
       padding-top: 0;
       padding-bottom: 0;
       width: 300px;
     }
-    .webhook-name {
+    .wh-name {
       cursor: text;
       padding-left: 14px;
       padding-top: 8.5px;

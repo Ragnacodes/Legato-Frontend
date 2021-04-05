@@ -21,7 +21,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import ScenarioNodes from "../Scenarios/ScenarioNodes";
 import * as actions from "../../actions/webhooks";
-import EditModal from "./EditWebhookModal";
+import EditModal from "./WebhookSettingsModal";
 const Webhook = ({
   webhook,
   renameWebhook,
@@ -56,8 +56,7 @@ const Webhook = ({
   };
 
   return (
-    <ListItem className="webhook-item">
-      {/* <ScenarioNodes nodes={nodes} /> */}
+    <ListItem className="wh-item">
       <EditModal
         webhook={webhook}
         visible={editModalVisible}
@@ -67,7 +66,7 @@ const Webhook = ({
         primary={
           renameToggle ? (
             <TextField
-              className="webhook-text-field"
+              className="wh-name-field"
               onChange={onTextFieldChange}
               name="webhook-name"
               variant="outlined"
@@ -100,7 +99,7 @@ const Webhook = ({
             />
           ) : (
             <Typography
-              className="webhook-name"
+              className="wh-name"
               onClick={() => setRenameToggle(true)}
               variant="body1"
             >
@@ -112,7 +111,7 @@ const Webhook = ({
         className="name"
       />
 
-      <ListItemSecondaryAction className="webhook-actions">
+      <ListItemSecondaryAction className="wh-actions">
         <Button
           size="small"
           variant="contained"
