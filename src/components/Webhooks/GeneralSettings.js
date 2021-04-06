@@ -8,7 +8,7 @@ const GeneralSettings = ({ handleChange, info }) => {
     <div className="wh-general-settings">
       <TextField
         className="edit-wh-field"
-        onChange={handleChange}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
         name="name"
         label="Webhook Name"
         variant="outlined"
@@ -19,7 +19,7 @@ const GeneralSettings = ({ handleChange, info }) => {
       />
       <TextField
         className="edit-wh-field"
-        onChange={handleChange}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
         name="ip_restrictions"
         label="IP restrictions"
         variant="outlined"

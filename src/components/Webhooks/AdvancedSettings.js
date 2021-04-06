@@ -36,7 +36,7 @@ const AdvancedSettings = ({ handleChange, info }) => {
           <Select
             labelId="demo-simple-select-outlined-label"
             id="demo-simple-select-outlined"
-            //   value={age}
+            value=""
             //   onChange={handleChange}
             label="Data structure"
           >
@@ -100,10 +100,10 @@ const AdvancedSettings = ({ handleChange, info }) => {
       <FormControlLabel
         control={
           <Checkbox
-            checked={true}
+            name="get_request_headers"
+            checked={info["get_request_headers"]}
             color="primary"
-            // onChange={handleChange}
-            inputProps={{ "aria-label": "primary checkbox" }}
+            onChange={(e) => handleChange(e.target.name, e.target.checked)}
           />
         }
         label="Get request headers"
@@ -115,10 +115,10 @@ const AdvancedSettings = ({ handleChange, info }) => {
       <FormControlLabel
         control={
           <Checkbox
-            checked={true}
+            name="get_request_http"
+            checked={info["get_request_http"]}
             color="primary"
-            // onChange={handleChange}
-            inputProps={{ "aria-label": "primary checkbox" }}
+            onChange={(e) => handleChange(e.target.name, e.target.checked)}
           />
         }
         label="Get request HTTP method"
@@ -130,10 +130,10 @@ const AdvancedSettings = ({ handleChange, info }) => {
       <FormControlLabel
         control={
           <Checkbox
-            checked={true}
+            name="json_passthrough"
+            checked={info["json_passthrough"]}
             color="primary"
-            // onChange={handleChange}
-            inputProps={{ "aria-label": "primary checkbox" }}
+            onChange={(e) => handleChange(e.target.name, e.target.checked)}
           />
         }
         label="JSON pass-through"

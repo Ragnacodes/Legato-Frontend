@@ -25,18 +25,21 @@ const WebhookSettings = ({ webhook, visible, setVisible, handleSave }) => {
   const [tabValue, setTabValue] = React.useState(0);
   const [info, setInfo] = useState({
     name: webhook.name,
-    ip_restrictions: webhook.ip_restrictions ? webhook.ip_restrictions : "",
+    ip_restrictions: "",
+    get_request_headers: false,
+    get_request_http: false,
+    json_passthrough: false,
   });
 
-  const handleChange = (e) => {
+  const handleChange = (name, value) => {
     setInfo((prev) => {
       return {
         ...prev,
-        [e.target.name]: e.target.value,
+        [name]: value,
       };
     });
-    console.log(info);
   };
+
   return (
     <div>
       <CloseRoundedIcon

@@ -19,7 +19,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ClearIcon from "@material-ui/icons/Clear";
 import EditIcon from "@material-ui/icons/Edit";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import ScenarioNodes from "../Scenarios/ScenarioNodes";
 import * as actions from "../../actions/webhooks";
 import EditModal from "./WebhookSettingsModal";
 const Webhook = ({
