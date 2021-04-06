@@ -8,6 +8,7 @@ import ReactFlow, {
 import Sidebar from './SketchpadSidebar.js';
 import Button from '@material-ui/core/Button';
 import AbstractNode from './AbstractNode';
+import CustomEdge from './CustomEdge';
 
 const nodeTypes = {
   spotify: AbstractNode,
@@ -46,7 +47,13 @@ const Sketchpad = ( { elements, setElements, addElement, removeElement } ) => {
   };
 
   const onConnect = (params) => {
-    addElement(params);
+    const customParams = {
+      ...params,
+      type: 'customEdge',
+      animated: true,
+      data : {}
+    };
+    addElement(customParams);
   };
 
   const onElementsRemove = (elementsToRemove) => {
@@ -71,6 +78,7 @@ const Sketchpad = ( { elements, setElements, addElement, removeElement } ) => {
               onDrop={onDrop}
               onDragOver={onDragOver}
               nodeTypes={nodeTypes}
+              edgeTypes={{ customEdge: CustomEdge }}
             >
               <Background
                 variant="lines"

@@ -6,6 +6,7 @@ import SpotifyForm from './Forms/SpotifyForm';
 import SSHForm from './Forms/SSHForm';
 import TelegramForm from './Forms/TelegramForm';
 import WebhookForm from './Forms/WebhookForm';
+import EdgeForm from './Forms/EdgeForm';
 
 const AbstractForm = (props) => {
     switch (props.type) {
@@ -19,6 +20,8 @@ const AbstractForm = (props) => {
             return <TelegramForm {...props} />;
         case 'webhook':
             return <WebhookForm {...props} />;
+        case 'edge':
+            return <EdgeForm {...props} />
         default:
             return null;
     }
