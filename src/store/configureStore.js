@@ -1,11 +1,12 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import authReducer from '../reducers/auth';
-import signupReducer from '../reducers/signup';
-import loginReducer from '../reducers/login';
-import scenariosReducer from '../reducers/scenarios';
-import webhookReducer from '../reducers/webhooks';
-import { loadState } from './localStorage';
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import authReducer from "../reducers/auth";
+import signupReducer from "../reducers/signup";
+import loginReducer from "../reducers/login";
+import scenariosReducer from "../reducers/scenarios";
+import webhookReducer from "../reducers/webhooks";
+import appbarReducer from "../reducers/appbar";
+import { loadState } from "./localStorage";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -23,6 +24,7 @@ const configureStore = () => {
       login: loginReducer,
       scenarios: scenariosReducer,
       webhooks: webhookReducer,
+      appbar: appbarReducer,
     }),
     loadState(),
     composeEnhancers(applyMiddleware(...middleware))
