@@ -77,6 +77,57 @@
   }
 }
 
+.ds-popover {
+  padding: 8px 24px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  .wh-ds-actions {
+    flex: 0 0 auto;
+    display: flex;
+    padding: 8px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 12px;
+    margin-right: -18px;
+  }
+
+  .edit-wh-field {
+    margin-top: 11px;
+    margin-bottom: 15px;
+
+    .MuiFormHelperText-root {
+      &.Mui-error {
+        height: 0;
+        margin-top: 0;
+      }
+    }
+  }
+  .ds-items-card {
+    // background-color: $primary;
+    // color: $secondary;
+    .ds-items-card-content {
+      overflow: auto;
+
+      display: flex;
+      flex-direction: row;
+      > * {
+        margin-bottom: 2px;
+      }
+    }
+    .MuiCardContent-root {
+      padding: 8px;
+    }
+    .ds-item {
+      width: 200px;
+      margin: 2px;
+    }
+  }
+  .ds-popover-title {
+    // padding: 8px 24px 0 24px;
+  }
+}
+
 .webhooks-list {
   .MuiListItem-container {
     .wh-actions {

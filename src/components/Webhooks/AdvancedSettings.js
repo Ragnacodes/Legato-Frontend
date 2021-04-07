@@ -11,20 +11,21 @@ import {
   Menu,
   IconButton,
   Popover,
+  Button,
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import AddIcon from "@material-ui/icons/Add";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import AddDataStructure from "./AddDataStructure";
+// import AddDataStructure from "./AddDataStructure";
 const AdvancedSettings = ({ handleChange, info }) => {
-  const dsMenu = useRef(null);
-  const addDsPopper = useRef(null);
-  const [addDsPopperOpen, setAddDsPopperOpen] = useState(false);
-  const [dsMenuOpen, setDsMenuOpen] = useState(false);
+  // const dsMenu = useRef(null);
+  // const addDsPopper = useRef(null);
+  // const [addDsPopperOpen, setAddDsPopperOpen] = useState(false);
+  // const [dsMenuOpen, setDsMenuOpen] = useState(false);
 
   return (
     <div className="wh-advanced-settings">
-      <div className="data-structure-field">
+      {/* <div className="data-structure-field">
         <FormControl
           className="edit-wh-field select-ds-field"
           size="small"
@@ -77,6 +78,7 @@ const AdvancedSettings = ({ handleChange, info }) => {
           <AddIcon ref={addDsPopper} />
         </IconButton>
         <Popover
+          disableBackdropClick
           open={addDsPopperOpen}
           anchorEl={addDsPopper.current}
           onClose={() => setAddDsPopperOpen(false)}
@@ -89,14 +91,15 @@ const AdvancedSettings = ({ handleChange, info }) => {
             horizontal: "left",
           }}
         >
-          <AddDataStructure />
+          <AddDataStructure setVisible={setAddDsPopperOpen} />
         </Popover>
-      </div>
+      </div> 
       <Typography className="help-text" variant="body2">
         <InfoIcon fontSize="small" className="help-icon" />
         Data structure to be used for validation of incoming data. Leave empty
         if you want us to just pass on the received data without any validation.
       </Typography>
+      */}
       <FormControlLabel
         control={
           <Checkbox
