@@ -9,13 +9,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import OfflineBoltOutlinedIcon from '@material-ui/icons/OfflineBoltOutlined';
 import { connect } from 'react-redux';
-import { editScenario, removeScenario } from '../../actions/scenarios';
+import { editScenario, removeScenario} from '../../actions/scenarios';
 import Tooltip from '@material-ui/core/Tooltip';
 import ScenarioNodes from './ScenarioNodes';
 
 const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeScenario }) => {
     const handleToggleActvie = () => {
-        editScenario(id, {isActive: !isActive});
+        editScenario(id, { isActive: !isActive });
     };
 
     const handleRemoveScenario = () => {
@@ -35,10 +35,10 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
                             <AccessTimeIcon fontSize="small" />
                         </Tooltip>
                     ) : (
-                        <Tooltip title={`Immediately when triggered.`} placement="left">
-                            <OfflineBoltOutlinedIcon fontSize="small" />
-                        </Tooltip>
-                    )
+                            <Tooltip title={`Immediately when triggered.`} placement="left">
+                                <OfflineBoltOutlinedIcon fontSize="small" />
+                            </Tooltip>
+                        )
                 }
 
                 <Tooltip title={`Turn ${isActive ? "off" : "on"}`} placement="top">
@@ -51,7 +51,7 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
                         className="switch"
                     />
                 </Tooltip>
-                
+
                 <Tooltip title="Delete scenario." placement="right">
                     <IconButton aria-label="delete" className="delete" color="secondary" onClick={handleRemoveScenario}>
                         <DeleteIcon fontSize="small" />
