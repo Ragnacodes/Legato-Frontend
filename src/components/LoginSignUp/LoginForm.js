@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import url from '../../utils/api-url';
 
 import * as actions from "../../actions/login";
 import { login } from "../../actions/auth";
@@ -18,7 +19,7 @@ export function LoginForm({
 }) {
   const sendData = () => {
     axios
-      .post("http://localhost:8080/api/auth/login", {
+      .post(`${url()}/auth/login`, {
         ...info,
       })
       .then((response) => {
