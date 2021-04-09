@@ -1,9 +1,8 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import Axios from '../../utils/axiosConfig';
 import { connect } from "react-redux";
 import * as actions from "../../actions/signup";
-import url from '../../utils/api-url';
 
 import {
   TextField,
@@ -55,8 +54,8 @@ export function SignUpForm({
 
   const sendData = () => {
     setLoading(true);
-    axios
-      .post(`${url()}/auth/signup`, {
+    Axios
+      .post('/auth/signup', {
         ...info,
         confirm: "",
       })
