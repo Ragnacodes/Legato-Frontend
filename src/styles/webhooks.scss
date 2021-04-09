@@ -129,6 +129,9 @@
 }
 
 .webhooks-list {
+  .MuiListItem-secondaryAction {
+    padding-right: 260px;
+  }
   .MuiListItem-container {
     .wh-actions {
       .edit-button,

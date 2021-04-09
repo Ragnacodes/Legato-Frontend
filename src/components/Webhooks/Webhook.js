@@ -21,17 +21,18 @@ import EditIcon from "@material-ui/icons/Edit";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import * as actions from "../../actions/webhooks";
 import EditModal from "./WebhookSettingsModal";
+import WebhookQueue from "./WebhookQueue";
 const Webhook = ({
   webhook,
   renameWebhook,
   toggleWebhookState,
   removeWebhook,
 }) => {
-  const { id, name, toggle, address, queueNumber, ...other } = webhook;
+  const { id, name, active, url, queueNumber, ...other } = webhook;
   const [renameToggle, setRenameToggle] = useState(false);
   const [modifiedName, setName] = useState(name);
   const [editModalVisible, setEditModalVisible] = useState(false);
-
+  const [queueModal, setQueueModal] = useState(false);
   const onTextFieldChange = (e) => {
     setName(e.target.value);
   };
@@ -106,7 +107,7 @@ const Webhook = ({
             </Typography>
           )
         }
-        secondary={<Link href={address}>{address}</Link>}
+        secondary={<Link href={url}>{url}</Link>}
         className="name"
       />
 
@@ -122,11 +123,11 @@ const Webhook = ({
         >
           Edit
         </Button>
-        <Tooltip title={toggle ? "Disable?" : "Enable?"} placement="top">
+        <Tooltip title={active ? "Disable?" : "Enable?"} placement="top">
           <Switch
             edge="end"
             onChange={handleToggleState}
-            checked={toggle}
+            checked={active}
             color="primary"
             size="small"
             className="switch"
@@ -139,10 +140,11 @@ const Webhook = ({
           disableElevation
           className="queue-button"
           startIcon={<LocalShippingIcon />}
+          onClick={() => setQueueModal(true)}
         >
           {queueNumber}
         </Button>
-
+        <WebhookQueue visible={queueModal} setVisible={setQueueModal} />
         <Tooltip title="Delete Webhook" placement="right">
           <IconButton
             aria-label="delete"

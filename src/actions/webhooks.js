@@ -6,6 +6,15 @@ export const ActionTypes = {
   EDIT_WEBHOOK: "EDIT_WEBHOOK",
 };
 
+export const setWebhooks = (webhooks) => {
+  return {
+    type: ActionTypes.SET_WEBHOOKS,
+    payload: {
+      webhooks,
+    },
+  };
+};
+
 export const renameWebhook = (id, data) => {
   return (dispatch) => {
     dispatch(editWebhook(id, "name", data));

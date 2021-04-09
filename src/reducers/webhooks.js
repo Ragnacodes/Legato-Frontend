@@ -2,27 +2,27 @@ import { ActionTypes } from "../actions/webhooks";
 
 const initialState = {
   webhooks: [
-    {
-      id: 1,
-      address: "https://google.com",
-      name: "webhook1",
-      toggle: true,
-      queueNumber: 0,
-    },
-    {
-      id: 2,
-      address: "http",
-      name: "webhook2",
-      toggle: true,
-      queueNumber: 1,
-    },
-    {
-      id: 3,
-      address: "http",
-      name: "webhook3",
-      toggle: true,
-      queueNumber: 2,
-    },
+    // {
+    //   id: 1,
+    //   address: "https://google.com",
+    //   name: "webhook1",
+    //   toggle: true,
+    //   queueNumber: 0,
+    // },
+    // {
+    //   id: 2,
+    //   address: "http",
+    //   name: "webhook2",
+    //   toggle: true,
+    //   queueNumber: 1,
+    // },
+    // {
+    //   id: 3,
+    //   address: "http",
+    //   name: "webhook3",
+    //   toggle: true,
+    //   queueNumber: 2,
+    // },
   ],
 };
 const webhookReducer = (state = initialState, action) => {
@@ -30,7 +30,13 @@ const webhookReducer = (state = initialState, action) => {
     case ActionTypes.SET_WEBHOOKS:
       return {
         ...state,
-        webhooks: action.payload.webhooks,
+        webhooks: action.payload.webhooks.map((wh) => {
+          return {
+            ...wh,
+            queueNumber: 0,
+            id: wh.url.split("/").reverse()[0],
+          };
+        }),
       };
 
     case ActionTypes.ADD_WEBHOOK:
@@ -46,7 +52,7 @@ const webhookReducer = (state = initialState, action) => {
           return w.id === action.payload.id
             ? {
                 ...w,
-                toggle: !w.toggle,
+                active: !w.active,
               }
             : w;
         }),
