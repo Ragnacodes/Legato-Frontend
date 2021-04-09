@@ -24,11 +24,7 @@ export function TabPanel(props) {
 const WebhookSettings = ({ webhook, visible, setVisible, handleSave }) => {
   const [tabValue, setTabValue] = React.useState(0);
   const [info, setInfo] = useState({
-    name: webhook.name,
-    ip_restrictions: "",
-    get_request_headers: false,
-    get_request_http: false,
-    json_passthrough: false,
+    ...webhook,
   });
 
   const handleChange = (name, value) => {

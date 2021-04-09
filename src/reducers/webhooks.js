@@ -20,29 +20,7 @@ const mockQueue = [
   },
 ];
 const initialState = {
-  webhooks: [
-    // {
-    //   id: 1,
-    //   address: "https://google.com",
-    //   name: "webhook1",
-    //   toggle: true,
-    //   queueNumber: 0,
-    // },
-    // {
-    //   id: 2,
-    //   address: "http",
-    //   name: "webhook2",
-    //   toggle: true,
-    //   queueNumber: 1,
-    // },
-    // {
-    //   id: 3,
-    //   address: "http",
-    //   name: "webhook3",
-    //   toggle: true,
-    //   queueNumber: 2,
-    // },
-  ],
+  webhooks: [],
 };
 const webhookReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -54,6 +32,10 @@ const webhookReducer = (state = initialState, action) => {
             ...wh,
             queue: mockQueue,
             id: wh.url.split("/").reverse()[0],
+            ip_restrictions: "",
+            get_request_headers: false,
+            get_request_http: false,
+            json_passthrough: false,
           };
         }),
       };
@@ -77,14 +59,15 @@ const webhookReducer = (state = initialState, action) => {
         }),
       };
 
-    case ActionTypes.EDIT_WEBHOOK:
+    case ActionTypes.UPDATE_WEBHOOK:
+      console.log(action);
       return {
         ...state,
         webhooks: state.webhooks.map((w, i) => {
           return w.id === action.payload.id
             ? {
                 ...w,
-                [action.payload.type]: action.payload.data,
+                ...action.payload.data,
               }
             : w;
         }),
