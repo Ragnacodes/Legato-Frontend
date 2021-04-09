@@ -28,7 +28,7 @@ const Webhook = ({
   toggleWebhookState,
   removeWebhook,
 }) => {
-  const { id, name, active, url, queueNumber, ...other } = webhook;
+  const { id, name, active, url, queue, ...other } = webhook;
   const [renameToggle, setRenameToggle] = useState(false);
   const [modifiedName, setName] = useState(name);
   const [editModalVisible, setEditModalVisible] = useState(false);
@@ -142,9 +142,13 @@ const Webhook = ({
           startIcon={<LocalShippingIcon />}
           onClick={() => setQueueModal(true)}
         >
-          {queueNumber}
+          {queue.length}
         </Button>
-        <WebhookQueue visible={queueModal} setVisible={setQueueModal} />
+        <WebhookQueue
+          queue={queue}
+          visible={queueModal}
+          setVisible={setQueueModal}
+        />
         <Tooltip title="Delete Webhook" placement="right">
           <IconButton
             aria-label="delete"

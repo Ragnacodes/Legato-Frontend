@@ -1,5 +1,24 @@
 import { ActionTypes } from "../actions/webhooks";
-
+const mockQueue = [
+  {
+    type: "Text",
+    created_at: "Fri Apr 09 2021 22:44:31",
+    size: "1B",
+    scenarios: "12345",
+  },
+  {
+    type: "Text",
+    created_at: "Fri Apr 09 2021 22:44:31",
+    size: "1B",
+    scenarios: "12345",
+  },
+  {
+    type: "Text",
+    created_at: "Fri Apr 09 2021 22:44:31",
+    size: "1B",
+    scenarios: "12345",
+  },
+];
 const initialState = {
   webhooks: [
     // {
@@ -33,7 +52,7 @@ const webhookReducer = (state = initialState, action) => {
         webhooks: action.payload.webhooks.map((wh) => {
           return {
             ...wh,
-            queueNumber: 0,
+            queue: mockQueue,
             id: wh.url.split("/").reverse()[0],
           };
         }),
