@@ -1,56 +1,26 @@
 import React, { useState, useRef } from 'react';
+import { connect } from 'react-redux';
+import { setElements, addElement, removeElement } from '../../actions/sketchpad';
 import ReactFlow, {
-  ReactFlowProvider,
-  addEdge,
-  removeElements,
   Controls,
   Background
 } from 'react-flow-renderer';
 import Sidebar from './SketchpadSidebar.js';
 import Button from '@material-ui/core/Button';
-import WebHookNode from './WebHookNode';
-import TelegramNode from './TelegramNode';
-import SpotifyNode from './SpotifyNode';
-import SSHNode from './SSHNode';
-import GithubNode from './GithubNode';
-
-const initialElements = [
-  // {
-  //   id: '0',
-  //   type: 'input',
-  //   data: { label: 'input node' },
-  //   position: { x: 250, y: 5 },
-  // },
-  // {
-  //   id: '-1',
-  //   type: 'output',
-  //   data: { label: 'output node' },
-  //   position: { x: 250, y: 250 },
-  // },
-  // {
-  //   id: 'e0-1',
-  //   source: '0',
-  //   target: '-1'
-  // },
-];
+import AbstractNode from './AbstractNode';
+import CustomEdge from './CustomEdge';
 
 const nodeTypes = {
-  WebhookNode: WebHookNode,
-  TelegramNode: TelegramNode,
-  SSHNode: SSHNode,
-  SpotifyNode: SpotifyNode,
-  GithubNode: GithubNode
+  spotify: AbstractNode,
+  github: AbstractNode,
+  webhook: AbstractNode,
+  ssh: AbstractNode,
+  telegram: AbstractNode
 };
 
-let id = 0;
-const getId = () => `${++id}`;
-const DnDFlow = () => {
+const Sketchpad = ( { elements, setElements, addElement, removeElement } ) => {
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
-  const [elements, setElements] = useState(initialElements);
-  const onConnect = (params) => setElements((els) => addEdge(params, els));
-  const onElementsRemove = (elementsToRemove) =>
-    setElements((els) => removeElements(elementsToRemove, els));
 
   const onLoad = (_reactFlowInstance) =>
     setReactFlowInstance(_reactFlowInstance);
@@ -62,7 +32,6 @@ const DnDFlow = () => {
 
   const onDrop = (event) => {
     event.preventDefault();
-
     const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
     const type = event.dataTransfer.getData('application/reactflow');
     const position = reactFlowInstance.project({
@@ -70,23 +39,36 @@ const DnDFlow = () => {
       y: event.clientY - reactFlowBounds.top,
     });
     const newNode = {
-      id: getId(),
       type,
       position,
       data: {},
     };
+    addElement(newNode);
+  };
 
-    setElements((es) => es.concat(newNode));
+  const onConnect = (params) => {
+    const customParams = {
+      ...params,
+      type: 'customEdge',
+      animated: true,
+      data : {}
+    };
+    addElement(customParams);
+  };
+
+  const onElementsRemove = (elementsToRemove) => {
+    elementsToRemove.forEach(element => {
+      removeElement(element.id)
+    });
   };
   
-  const onSaveClicked = (event) => {
+  const onSaveClicked = () => {
     console.log(elements);
-  }
+  };
 
   return (
     <div className="sketchpad">
       <div className="dndflow">
-        <ReactFlowProvider>
           <div className="reactflow-wrapper" ref={reactFlowWrapper}>
             <ReactFlow
               elements={elements}
@@ -96,6 +78,7 @@ const DnDFlow = () => {
               onDrop={onDrop}
               onDragOver={onDragOver}
               nodeTypes={nodeTypes}
+              edgeTypes={{ customEdge: CustomEdge }}
             >
               <Background
                 variant="lines"
@@ -106,7 +89,6 @@ const DnDFlow = () => {
             </ReactFlow>
           </div>
           <Sidebar />
-        </ReactFlowProvider>
       </div>
 
       <div className="control-box">
@@ -132,4 +114,19 @@ const DnDFlow = () => {
     </div>
   );
 };
-export default DnDFlow;
+
+const mapStateToProps = (state) => {
+  return {
+    elements: state.sketchpad
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setElements: (type, data) => dispatch(setElements(type, data)),
+    addElement: (type, data) => dispatch(addElement(type, data)),
+    removeElement: (type, data) => dispatch(removeElement(type, data))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sketchpad);
