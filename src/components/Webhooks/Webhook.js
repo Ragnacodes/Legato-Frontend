@@ -22,12 +22,10 @@ import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import * as actions from "../../actions/webhooks";
 import EditModal from "./WebhookSettingsModal";
 import WebhookQueue from "./WebhookQueue";
-const Webhook = ({
-  webhook,
-  renameWebhook,
-  toggleWebhookState,
-  removeWebhook,
-}) => {
+import header from "../../utils/api-header";
+import axios from "axios";
+import { errorNotification, successNotification } from "../Notification";
+const Webhook = ({ webhook, updateWebhook }) => {
   const { id, name, active, url, queue, ...other } = webhook;
   const [renameToggle, setRenameToggle] = useState(false);
   const [modifiedName, setName] = useState(name);
@@ -37,8 +35,8 @@ const Webhook = ({
     setName(e.target.value);
   };
   const saveNewName = () => {
-    console.log(modifiedName);
-    renameWebhook(id, modifiedName);
+    handleUpdateWebhook({ name: modifiedName });
+    // renameWebhook(id, modifiedName);
     setRenameToggle(false);
   };
 
@@ -48,11 +46,48 @@ const Webhook = ({
   };
 
   const handleToggleState = () => {
-    toggleWebhookState(id);
+    handleUpdateWebhook({ enable: !active });
   };
 
-  const handleRemoveWebhook = () => {
-    removeWebhook(id);
+  // const handleRemoveWebhook = () => {
+  //   removeWebhook(id);
+  // };
+
+  const handleUpdateWebhook = (data) => {
+    console.log(header);
+    updateWebhook(webhook.id, { ...data, active: data.enable });
+    axios
+      .patch(
+        `http://localhost:8080/api/users/d/services/webhook/18f9453d-f1a2-40ff-8d3c-5a7f12e90b6c`,
+        {
+          name: data.name,
+          enable: data.enable,
+        },
+        {
+          headers: {
+            Authorization:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImQiLCJleHAiOjE2MTgwMjYzMjN9.EUxm2NDgX4ox2BFuJzY1LqHMBsh1haSOuLhVjKs_l5g",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        successNotification("Updated successfully.");
+        updateWebhook(webhook.id, data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          let str = error.response.data.message;
+          errorNotification(
+            "Unable to update: " +
+              str.charAt(0).toUpperCase() +
+              str.slice(1) +
+              "."
+          );
+        } else {
+          errorNotification("Unable to update: " + error.message);
+        }
+      });
   };
 
   return (
@@ -60,6 +95,7 @@ const Webhook = ({
       <EditModal
         webhook={webhook}
         visible={editModalVisible}
+        handleSave={handleUpdateWebhook}
         setVisible={setEditModalVisible}
       />
       <ListItemText
@@ -72,6 +108,8 @@ const Webhook = ({
               variant="outlined"
               size="small"
               defaultValue={name}
+              error={!modifiedName}
+              // helperText={!modifiedName && "Required."}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -149,7 +187,7 @@ const Webhook = ({
           visible={queueModal}
           setVisible={setQueueModal}
         />
-        <Tooltip title="Delete Webhook" placement="right">
+        {/* <Tooltip title="Delete Webhook" placement="right">
           <IconButton
             aria-label="delete"
             className="delete-button"
@@ -158,7 +196,7 @@ const Webhook = ({
           >
             <DeleteIcon fontSize="small" />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
       </ListItemSecondaryAction>
     </ListItem>
   );
@@ -169,9 +207,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  renameWebhook: (id, data) => dispatch(actions.renameWebhook(id, data)),
-  toggleWebhookState: (id) => dispatch(actions.toggleWebhookState(id)),
-  removeWebhook: (id) => dispatch(actions.removeWebhook(id)),
+  updateWebhook: (id, data) => dispatch(actions.updateWebhook(id, data)),
+  // renameWebhook: (id, data) => dispatch(actions.renameWebhook(id, data)),
+  // toggleWebhookState: (id) => dispatch(actions.toggleWebhookState(id)),
+  // removeWebhook: (id) => dispatch(actions.removeWebhook(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Webhook);

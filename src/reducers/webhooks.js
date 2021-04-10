@@ -46,19 +46,6 @@ const webhookReducer = (state = initialState, action) => {
         webhooks: state.webhooks.push(action.payload.webhook),
       };
 
-    case ActionTypes.TOGGLE_WEBHOOK_STATE:
-      return {
-        ...state,
-        webhooks: state.webhooks.map((w, i) => {
-          return w.id === action.payload.id
-            ? {
-                ...w,
-                active: !w.active,
-              }
-            : w;
-        }),
-      };
-
     case ActionTypes.UPDATE_WEBHOOK:
       console.log(action);
       return {

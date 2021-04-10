@@ -6,7 +6,6 @@ import {
   DialogTitle,
 } from "@material-ui/core";
 import WebhookSettings from "./WebhookSettings";
-
 export function TabPanel(props) {
   const { children, value, index, className, ...other } = props;
 
@@ -24,11 +23,7 @@ export function TabPanel(props) {
   );
 }
 
-const WebhookSettingsModal = ({ webhook, visible, setVisible }) => {
-  const handleSave = (data) => {
-    console.log(data);
-  };
-
+const WebhookSettingsModal = ({ webhook, visible, handleSave, setVisible }) => {
   return (
     <Dialog
       disableBackdropClick

@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { Container, Button } from "@material-ui/core";
+import { Container, Button, Divider } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import Webhook from "./Webhook";
 import axios from "axios";
@@ -24,7 +24,7 @@ const Webhooks = ({ webhooks, token, setWebhooks }) => {
   return (
     <div className="content-container">
       <Container maxWidth="lg" className="webhooks-list">
-        <Button
+        {/* <Button
           variant="contained"
           onClick={() => {
             axios
@@ -47,10 +47,16 @@ const Webhooks = ({ webhooks, token, setWebhooks }) => {
           color="secondary"
         >
           Add Webhook
-        </Button>
+        </Button> */}
+
         <List>
           {webhooks.map((w) => {
-            return <Webhook key={w.id} webhook={w} />;
+            return (
+              <div>
+                <Webhook key={w.id} webhook={w} />
+                <Divider />
+              </div>
+            );
           })}
         </List>
       </Container>
