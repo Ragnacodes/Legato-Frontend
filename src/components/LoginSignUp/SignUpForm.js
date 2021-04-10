@@ -1,9 +1,8 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { useState, useRef } from "react";
+import Axios from "../../utils/axiosConfig";
 import { connect } from "react-redux";
 import * as actions from "../../actions/signup";
-import url from '../../utils/api-url';
 
 import {
   TextField,
@@ -27,10 +26,10 @@ export function SignUpForm({
   resetForm,
 }) {
   const signupForm = useRef(null);
+  const [touched, setTouched] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [send, setSend] = useState(false);
 
   const noError = () => {
     for (const [, value] of Object.entries(errors)) {
@@ -39,27 +38,12 @@ export function SignUpForm({
     return true;
   };
 
-  useEffect(() => {
-    if (send) {
-      if (noError()) {
-        sendData();
-        console.log("send");
-      } else {
-        errorNotification("PLease enter valid data.");
-      }
-    }
-    return () => {
-      setSend(false);
-    };
-  });
-
   const sendData = () => {
     setLoading(true);
-    axios
-      .post(`${url()}/auth/signup`, {
-        ...info,
-        confirm: "",
-      })
+    Axios.post("/auth/signup", {
+      ...info,
+      confirm: "",
+    })
       .then((response) => {
         setLoading(false);
         closeDialog();
@@ -80,22 +64,17 @@ export function SignUpForm({
       });
   };
 
-  const validateAll = () => {
-    validateInfo("email", info["email"]);
-    validateInfo("password", info["password"]);
-    validateInfo("confirm", info["confirm"]);
-    validateInfo("username", info["username"]);
-  };
-
   const onChange = (e) => {
+    setTouched((p) => {
+      return [...p, e.target.name];
+    });
     updateInfo(e.target.name, e.target.value.trim());
     validateInfo(e.target.name, e.target.value);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setSend(true);
-    validateAll();
+    sendData();
   };
 
   return (
@@ -191,7 +170,7 @@ export function SignUpForm({
         />
 
         <Button
-          disabled={loading}
+          disabled={loading || !noError() || touched.length < 4}
           type="submit"
           fullWidth
           variant="contained"

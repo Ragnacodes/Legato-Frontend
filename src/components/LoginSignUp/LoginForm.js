@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import axios from "axios";
-import url from '../../utils/api-url';
+import Axios from "../../utils/axiosConfig";
 
 import * as actions from "../../actions/login";
 import { login } from "../../actions/auth";
@@ -18,14 +17,17 @@ export function LoginForm({
   saveToken,
 }) {
   const sendData = () => {
-    axios
-      .post(`${url()}/auth/login`, {
-        ...info,
-      })
+    Axios.post("/auth/login", {
+      ...info,
+    })
       .then((response) => {
         console.log(response);
         successNotification("You are logged in!");
-        saveToken(response.data.access_token);
+        const user = {
+          token: response.data.access_token,
+          username: info.username,
+        };
+        saveToken(user);
       })
       .catch((error) => {
         console.log(error);
@@ -46,13 +48,13 @@ export function LoginForm({
     e.preventDefault();
     console.log(info);
 
-    if (!info["username"] || !info["password"]) {
-      errorNotification("Please enter your username and password.");
-      validateInfo("username", info["username"]);
-      validateInfo("password", info["password"]);
-    } else {
-      sendData();
-    }
+    // if (!info["username"] || !info["password"]) {
+    //   errorNotification("Please enter your username and password.");
+    //   validateInfo("username", info["username"]);
+    //   validateInfo("password", info["password"]);
+    // } else {
+    sendData();
+    // }
   };
 
   return (
@@ -87,6 +89,7 @@ export function LoginForm({
         />
 
         <Button
+          disabled={!info["username"] || !info["password"]}
           type="submit"
           fullWidth
           variant="contained"

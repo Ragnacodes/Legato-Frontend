@@ -6,7 +6,6 @@ import loginReducer from "../reducers/login";
 import scenariosReducer from "../reducers/scenarios";
 import webhookReducer from "../reducers/webhooks";
 import sketchpadReducer from "../reducers/sketchpad";
-import { loadState } from "./localStorage";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -26,7 +25,6 @@ const configureStore = () => {
       webhooks: webhookReducer,
       sketchpad: sketchpadReducer,
     }),
-    loadState(),
     composeEnhancers(applyMiddleware(...middleware))
   );
 

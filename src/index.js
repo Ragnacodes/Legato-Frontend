@@ -7,6 +7,7 @@ import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import './styles/styles.scss';
 import reportWebVitals from './reportWebVitals';
+import { startSetUser } from './actions/auth';
 
 const store = configureStore();
 
@@ -18,7 +19,11 @@ const jsx = (
   </ThemeProvider>
 );
 
-ReactDOM.render(jsx, document.getElementById('root'));
+ReactDOM.render(<p>Loading...</p>, document.getElementById('root'));
+
+store.dispatch(startSetUser()).then(() => {
+  ReactDOM.render(jsx, document.getElementById('root'));
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
