@@ -17,17 +17,16 @@ export function LoginForm({
   saveToken,
 }) {
   const sendData = () => {
-    Axios
-      .post('/auth/login', {
-        ...info,
-      })
+    Axios.post("/auth/login", {
+      ...info,
+    })
       .then((response) => {
         console.log(response);
         successNotification("You are logged in!");
         const user = {
           token: response.data.access_token,
-          username: info.username
-        }
+          username: info.username,
+        };
         saveToken(user);
       })
       .catch((error) => {
@@ -49,13 +48,13 @@ export function LoginForm({
     e.preventDefault();
     console.log(info);
 
-    if (!info["username"] || !info["password"]) {
-      errorNotification("Please enter your username and password.");
-      validateInfo("username", info["username"]);
-      validateInfo("password", info["password"]);
-    } else {
-      sendData();
-    }
+    // if (!info["username"] || !info["password"]) {
+    //   errorNotification("Please enter your username and password.");
+    //   validateInfo("username", info["username"]);
+    //   validateInfo("password", info["password"]);
+    // } else {
+    sendData();
+    // }
   };
 
   return (
@@ -90,6 +89,7 @@ export function LoginForm({
         />
 
         <Button
+          disabled={!info["username"] || !info["password"]}
           type="submit"
           fullWidth
           variant="contained"
