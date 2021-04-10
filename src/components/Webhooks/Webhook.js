@@ -22,10 +22,10 @@ import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import * as actions from "../../actions/webhooks";
 import EditModal from "./WebhookSettingsModal";
 import WebhookQueue from "./WebhookQueue";
-import header from "../../utils/api-header";
-import axios from "axios";
+// import header from "../../utils/api-header";
+import Axios from "../../utils/axiosConfig";
 import { errorNotification, successNotification } from "../Notification";
-const Webhook = ({ webhook, updateWebhook }) => {
+const Webhook = ({ webhook, username, updateWebhook }) => {
   const { id, name, active, url, queue, ...other } = webhook;
   const [renameToggle, setRenameToggle] = useState(false);
   const [modifiedName, setName] = useState(name);
@@ -36,7 +36,6 @@ const Webhook = ({ webhook, updateWebhook }) => {
   };
   const saveNewName = () => {
     handleUpdateWebhook({ name: modifiedName });
-    // renameWebhook(id, modifiedName);
     setRenameToggle(false);
   };
 
@@ -54,22 +53,12 @@ const Webhook = ({ webhook, updateWebhook }) => {
   // };
 
   const handleUpdateWebhook = (data) => {
-    console.log(header);
     updateWebhook(webhook.id, { ...data, active: data.enable });
-    axios
-      .patch(
-        `http://localhost:8080/api/users/d/services/webhook/18f9453d-f1a2-40ff-8d3c-5a7f12e90b6c`,
-        {
-          name: data.name,
-          enable: data.enable,
-        },
-        {
-          headers: {
-            Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImQiLCJleHAiOjE2MTgwMjYzMjN9.EUxm2NDgX4ox2BFuJzY1LqHMBsh1haSOuLhVjKs_l5g",
-          },
-        }
-      )
+    console.log(Axios.defaults.headers.common["Authorization"]);
+    Axios.patch(`/users/${username}/services/webhook/${id}/`, {
+      name: data.name,
+      enable: data.enable,
+    })
       .then((response) => {
         console.log(response);
         successNotification("Updated successfully.");
@@ -203,14 +192,11 @@ const Webhook = ({ webhook, updateWebhook }) => {
 };
 
 const mapStateToProps = (state) => ({
-  // webhook: props.webhook,
+  username: state.auth.username,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   updateWebhook: (id, data) => dispatch(actions.updateWebhook(id, data)),
-  // renameWebhook: (id, data) => dispatch(actions.renameWebhook(id, data)),
-  // toggleWebhookState: (id) => dispatch(actions.toggleWebhookState(id)),
-  // removeWebhook: (id) => dispatch(actions.removeWebhook(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Webhook);

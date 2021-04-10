@@ -4,16 +4,12 @@ import { connect } from "react-redux";
 import { Container, Button, Divider } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import Webhook from "./Webhook";
-import axios from "axios";
+import Axios from "../../utils/axiosConfig";
 import { setWebhooks } from "../../actions/webhooks";
-const Webhooks = ({ webhooks, token, setWebhooks }) => {
+const Webhooks = ({ webhooks, username, setWebhooks }) => {
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/users/d/services/webhook/", {
-        headers: { Authorization: token },
-      })
+    Axios.get(`/users/${username}/services/webhook/`)
       .then((response) => {
-        console.log(token);
         console.log(response);
         setWebhooks(response.data);
       })
@@ -66,7 +62,7 @@ const Webhooks = ({ webhooks, token, setWebhooks }) => {
 
 const mapStateToProps = (state) => ({
   webhooks: state.webhooks.webhooks,
-  token: state.auth.uid,
+  username: state.auth.username,
 });
 
 const mapDispatchToProps = (dispatch) => ({
