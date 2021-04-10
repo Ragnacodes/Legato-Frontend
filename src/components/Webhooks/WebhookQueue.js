@@ -1,5 +1,8 @@
 import React from "react";
+import { useState, useRef } from "react";
 import {
+  Popover,
+  Button,
   Typography,
   Dialog,
   DialogContent,
@@ -15,8 +18,13 @@ import TableRow from "@material-ui/core/TableRow";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 
 const WebhookQueue = ({ queue, visible, setVisible }) => {
-  const dataNames = ["Type", "Created At", "Size", "Scenarios"];
-
+  const dataNames = ["Type", "Created At", "Size", "Scenarios", ""];
+  const [openDetails, setOpenDetails] = useState(null);
+  const details = useRef(null);
+  // const openMsgDetails = () => {
+  //   const data = '{key: 1, value: "value"}';
+  //   return data;
+  // };
   return (
     <Dialog
       // disableBackdropClick
@@ -53,6 +61,33 @@ const WebhookQueue = ({ queue, visible, setVisible }) => {
                   <TableCell align="center">{row.created_at}</TableCell>
                   <TableCell align="center">{row.size}</TableCell>
                   <TableCell align="center">{row.scenarios}</TableCell>
+                  <TableCell align="center">
+                    <Popover
+                      open={Boolean(openDetails)}
+                      anchorEl={openDetails}
+                      onClose={() => setOpenDetails(null)}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
+                      }}
+                      transformOrigin={{
+                        vertical: "bottom",
+                        horizontal: "right",
+                      }}
+                    >
+                      <div style={{ padding: "10px" }}>
+                        key: 1, value: "value"
+                      </div>
+                    </Popover>
+                    <Button
+                      variant="contained"
+                      onClick={(e) => setOpenDetails(e.currentTarget)}
+                      ref={details}
+                      color="primary"
+                    >
+                      Details
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

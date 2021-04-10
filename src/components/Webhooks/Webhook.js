@@ -48,6 +48,27 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
     handleUpdateWebhook({ enable: !active });
   };
 
+  const mockQueue = [
+    {
+      type: "Text",
+      created_at: "Fri Apr 09 2021 22:44:31",
+      size: "1B",
+      scenarios: "12345",
+    },
+    {
+      type: "Text",
+      created_at: "Fri Apr 09 2021 22:44:31",
+      size: "1B",
+      scenarios: "12345",
+    },
+    {
+      type: "Text",
+      created_at: "Fri Apr 09 2021 22:44:31",
+      size: "1B",
+      scenarios: "12345",
+    },
+  ];
+
   // const handleRemoveWebhook = () => {
   //   removeWebhook(id);
   // };
@@ -168,11 +189,9 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
           className="queue-button"
           startIcon={<LocalShippingIcon />}
           onClick={() => setQueueModal(true)}
-        >
-          {queue.length}
-        </Button>
+        ></Button>
         <WebhookQueue
-          queue={queue}
+          queue={mockQueue}
           visible={queueModal}
           setVisible={setQueueModal}
         />

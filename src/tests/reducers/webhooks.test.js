@@ -31,11 +31,11 @@ test("should set webhooks", () => {
     },
   };
   const state = webhookReducer({}, action);
+
   expect(state.webhooks).toEqual(
     data.map((wh) => {
       return {
         ...wh,
-        queue: mockQueue,
         id: wh.url.split("/").reverse()[0],
         ip_restrictions: "",
         get_request_headers: false,
