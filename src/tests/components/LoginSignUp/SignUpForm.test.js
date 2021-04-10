@@ -2,9 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import { SignUpForm } from "../../../components/LoginSignUp/SignUpForm";
 import { TextField, Button } from "@material-ui/core";
-import axios from "axios";
-
-jest.mock("axios");
+import axios from "../__mocks__/axios";
 
 let wrapper, props, validateInfo, updateInfo, info, errors;
 beforeEach(() => {
@@ -44,12 +42,9 @@ test("should render Button correctly", () => {
   expect(wrapper.find(Button).length).toBe(1);
 });
 
-test("should write validate correctly (username and password empty)", () => {
-  wrapper.find("form").simulate("submit", {
-    preventDefault: () => {},
-  });
-  expect(validateInfo).toHaveBeenCalledWith("username", "");
-  expect(validateInfo).toHaveBeenCalledWith("password", "");
+test("should diable button (username and password empty)", () => {
+  const button = wrapper.find(Button);
+  expect(button).toBeDisabled;
 });
 
 test("should update data correctly(password)", () => {
@@ -92,23 +87,27 @@ test("should update data correctly(email)", () => {
 });
 
 test("should login", (done) => {
+  debugger;
   const username = "i";
   const password = "iiiiiiii";
   const email = "email@email.com";
   const confirm = password;
   info = {
-    username: username,
-    password: password,
+    username,
+    password,
     email,
+    confirm,
   };
   axios.post.mockImplementationOnce(
     (...info) => Promise.resolve({}) //promise
   );
 
   wrapper = shallow(<SignUpForm {...props} info={info} />);
+
   wrapper.find("form").simulate("submit", {
     preventDefault: () => {},
   });
+
   setTimeout(() => {
     done();
   }, 0);
