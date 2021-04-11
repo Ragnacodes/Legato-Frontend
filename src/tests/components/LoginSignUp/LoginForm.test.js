@@ -1,10 +1,8 @@
 import React from "react";
 import { shallow } from "enzyme";
+import axios from "../__mocks__/axios";
 import { LoginForm } from "../../../components/LoginSignUp/LoginForm";
 import { TextField, Button } from "@material-ui/core";
-import axios from "axios";
-
-jest.mock("axios");
 
 let wrapper, props, validateInfo, updateInfo, info, errors, saveToken;
 beforeEach(() => {
@@ -42,12 +40,9 @@ test("should render Button correctly", () => {
   expect(wrapper.find(Button).length).toBe(1);
 });
 
-test("should write validate correctly (username and password empty)", () => {
-  wrapper.find("form").simulate("submit", {
-    preventDefault: () => {},
-  });
-  expect(validateInfo).toHaveBeenCalledWith("username", "");
-  expect(validateInfo).toHaveBeenCalledWith("password", "");
+test("should disable button (username and password empty)", () => {
+  const button = wrapper.find(Button);
+  expect(button).toBeDisabled;
 });
 
 test("should update data correctly(password)", () => {

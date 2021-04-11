@@ -34,6 +34,7 @@ exports[`should render LoginForm correctly 1`] = `
     <WithStyles(ForwardRef(Button))
       className="form-button"
       color="primary"
+      disabled={true}
       fullWidth={true}
       type="submit"
       variant="contained"
