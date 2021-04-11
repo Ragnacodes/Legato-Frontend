@@ -5,14 +5,13 @@ import {
   ValueAxis,
   Chart,
   SplineSeries,
-  Legend,
-  AreaSeries,
+  Legend
 } from '@devexpress/dx-react-chart-material-ui';
 import { Animation } from '@devexpress/dx-react-chart';
 import { easeBounceOut } from 'd3-ease';
 
 const UsedChart = () => {
-  const [data, setData] = useState([
+  const [data] = useState([
     { dataTransferArgument: 10, dataTransferValue: 10 },
     { dataTransferArgument: 22, dataTransferValue: 40 },
     { dataTransferArgument: 28, dataTransferValue: 21 },

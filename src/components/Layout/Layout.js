@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'clsx';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '../AppBar'
 import List from '@material-ui/core/List';
@@ -26,7 +25,6 @@ export default function Layout(props) {
 
     return (
         <React.Fragment>
-            <CssBaseline />
             <AppBar
             position="absolute"
             className={clsx(classes.appBar, open && classes.appBarShift)}

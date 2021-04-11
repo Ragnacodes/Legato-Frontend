@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import Scenario from './Scenario';
-// import { loadScenarios } from '../../actions/scenarios';
 
-const Scenarios = (props) => {
+const Scenarios = () => {
   const defaultScenarios = [
     {
       id: "15",
@@ -138,16 +136,4 @@ const Scenarios = (props) => {
   )
 };
 
-// const mapStateToProps = (state) => {
-//   return {
-//     scenarios: state.scenarios
-//   };
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     loadScenarios: (type, data) => dispatch(loadScenarios(type, data)),
-//   }
-// }
-
-export default (Scenarios);
+export default Scenarios;

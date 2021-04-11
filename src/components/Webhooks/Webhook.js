@@ -15,18 +15,16 @@ import {
   Tooltip,
 } from "@material-ui/core";
 import SaveAltIcon from "@material-ui/icons/SaveAlt";
-import DeleteIcon from "@material-ui/icons/Delete";
 import ClearIcon from "@material-ui/icons/Clear";
 import EditIcon from "@material-ui/icons/Edit";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import * as actions from "../../actions/webhooks";
 import EditModal from "./WebhookSettingsModal";
 import WebhookQueue from "./WebhookQueue";
-// import header from "../../utils/api-header";
 import Axios from "../../utils/axiosConfig";
 import { errorNotification, successNotification } from "../Notification";
 const Webhook = ({ webhook, username, updateWebhook }) => {
-  const { id, name, active, url, queue, ...other } = webhook;
+  const { id, name, active, url } = webhook;
   const [renameToggle, setRenameToggle] = useState(false);
   const [modifiedName, setName] = useState(name);
   const [editModalVisible, setEditModalVisible] = useState(false);

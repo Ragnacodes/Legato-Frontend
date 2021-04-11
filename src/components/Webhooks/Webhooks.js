@@ -1,13 +1,13 @@
 import React from "react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { Container, Button, Divider } from "@material-ui/core";
+import { Container, Divider } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import Webhook from "./Webhook";
 import Axios from "../../utils/axiosConfig";
 import { setWebhooks } from "../../actions/webhooks";
 import { updateAppBar } from "../../actions/appbar";
-const Webhooks = ({ webhooks, username, setWebhoo, updateAppBar }) => {
+const Webhooks = ({ webhooks, username, updateAppBar }) => {
   useEffect(() => {
     updateAppBar("right_children",);
     Axios.get(`/users/${username}/services/webhook/`)

@@ -1,22 +1,13 @@
 import React from "react";
-import { useState, useRef, useEffect } from "react";
+import { useEffect } from "react";
 import {
   Paper,
-  Popover,
-  Button,
   Typography,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogActions,
 } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 
 const QueueDetails = ({ data }) => {
   //   const dataNames = ;
