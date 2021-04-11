@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Popover,
   Button,
@@ -16,15 +16,51 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import QueueDetails from "./QueueDetails";
 
 const WebhookQueue = ({ queue, visible, setVisible }) => {
   const dataNames = ["Type", "Created At", "Size", "Scenarios", ""];
-  const [openDetails, setOpenDetails] = useState(null);
-  const details = useRef(null);
-  // const openMsgDetails = () => {
-  //   const data = '{key: 1, value: "value"}';
-  //   return data;
-  // };
+  function QueueRow(row) {
+    useEffect(() => {
+      console.log(row);
+    }, []);
+    const [openDetails, setOpenDetails] = useState(null);
+    return (
+      <TableRow role="queuerow" key={row.id}>
+        <TableCell align="center" component="th" scope="row">
+          {row.type}
+        </TableCell>
+        <TableCell align="center">{row.created_at}</TableCell>
+        <TableCell align="center">{row.size}</TableCell>
+        <TableCell align="center">{row.scenarios}</TableCell>
+        <TableCell align="center">
+          <Popover
+            open={Boolean(openDetails)}
+            anchorEl={openDetails}
+            onClose={() => setOpenDetails(null)}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+          >
+            <QueueDetails data={row.data} />
+          </Popover>
+          <Button
+            id={row.id}
+            variant="contained"
+            onClick={(e) => setOpenDetails(e.currentTarget)}
+            color="primary"
+          >
+            Details
+          </Button>
+        </TableCell>
+      </TableRow>
+    );
+  }
   return (
     <Dialog
       // disableBackdropClick
@@ -52,45 +88,7 @@ const WebhookQueue = ({ queue, visible, setVisible }) => {
                 ))}
               </TableRow>
             </TableHead>
-            <TableBody>
-              {queue.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell align="center" component="th" scope="row">
-                    {row.type}
-                  </TableCell>
-                  <TableCell align="center">{row.created_at}</TableCell>
-                  <TableCell align="center">{row.size}</TableCell>
-                  <TableCell align="center">{row.scenarios}</TableCell>
-                  <TableCell align="center">
-                    <Popover
-                      open={Boolean(openDetails)}
-                      anchorEl={openDetails}
-                      onClose={() => setOpenDetails(null)}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "left",
-                      }}
-                      transformOrigin={{
-                        vertical: "bottom",
-                        horizontal: "right",
-                      }}
-                    >
-                      <div style={{ padding: "10px" }}>
-                        key: 1, value: "value"
-                      </div>
-                    </Popover>
-                    <Button
-                      variant="contained"
-                      onClick={(e) => setOpenDetails(e.currentTarget)}
-                      ref={details}
-                      color="primary"
-                    >
-                      Details
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+            <TableBody>{queue.map((row) => QueueRow(row))}</TableBody>
           </Table>
         </TableContainer>
       </DialogContent>

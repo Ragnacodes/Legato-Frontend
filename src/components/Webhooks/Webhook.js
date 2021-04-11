@@ -50,22 +50,33 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
 
   const mockQueue = [
     {
-      type: "Text",
+      id: 1,
+      type: "webhook",
       created_at: "Fri Apr 09 2021 22:44:31",
       size: "1B",
       scenarios: "12345",
+      data: {},
     },
     {
-      type: "Text",
+      id: 2,
+      type: "webhook",
       created_at: "Fri Apr 09 2021 22:44:31",
-      size: "1B",
+      size: "2B",
       scenarios: "12345",
+      data: {
+        key: "value",
+      },
     },
     {
-      type: "Text",
+      id: 3,
+      type: "webhook",
       created_at: "Fri Apr 09 2021 22:44:31",
-      size: "1B",
+      size: "3B",
       scenarios: "12345",
+      data: {
+        key: "value",
+        key2: "value2",
+      },
     },
   ];
 

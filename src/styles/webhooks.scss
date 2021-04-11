@@ -77,6 +77,20 @@
   }
 }
 
+.wh-queue-details {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px;
+  .details {
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: row;
+    .data-key {
+      font-weight: 300;
+    }
+  }
+}
+
 .queue-window {
   .close-icon {
     cursor: pointer;
