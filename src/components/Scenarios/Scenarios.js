@@ -1,25 +1,42 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import Scenario from './Scenario';
-import { loadScenarios } from '../../actions/scenarios';
+import { startGetScenarios } from '../../actions/scenarios';
+import AddScenario from './AddScenario';
 
-const Scenarios = (props) => {
+const Scenarios = ({ scenarios, getScenarios }) => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   useEffect(() => {
-    loadScenarios();
+    setLoading(true);
+    setError(false);
+    getScenarios()
+    .then(() => {
+      setLoading(false);
+      setError(false);
+    })
+    .catch(() => {
+      setLoading(false);
+      setError(true);
+    });
   }, []);
   
   return(
     <div className="content-container">
       <Container maxWidth="lg" className="scenarios">
+      {
+      scenarios ? <p>There is no item</p>:
         <List>
           {
-            props.scenarios.map((scenario) => {
+            scenarios.map((scenario) => {
               return <Scenario key={scenario.id} {...scenario} />;
             })
           }
         </List>
+      }
+        <AddScenario />
       </Container>
     </div>
 )};
@@ -32,8 +49,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadScenarios: (type, data) => dispatch(loadScenarios(type, data)),
-  }
-}
+    getScenarios: () => dispatch(startGetScenarios()),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scenarios);
