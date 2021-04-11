@@ -113,8 +113,4 @@ const mapStateToProps = (state) => ({
   logged_in: !!state.auth.token,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  updateAppBar: (type, data) => dispatch(actions.updateAppBar(type, data)),
-});
-
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
