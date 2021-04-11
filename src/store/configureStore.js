@@ -5,6 +5,7 @@ import signupReducer from "../reducers/signup";
 import loginReducer from "../reducers/login";
 import scenariosReducer from "../reducers/scenarios";
 import webhookReducer from "../reducers/webhooks";
+import appbarReducer from "../reducers/appbar";
 import sketchpadReducer from "../reducers/sketchpad";
 import appbarReducer from "../reducers/appbar";
 
@@ -24,6 +25,7 @@ const configureStore = () => {
       login: loginReducer,
       scenarios: scenariosReducer,
       webhooks: webhookReducer,
+      appbar: appbarReducer,
       sketchpad: sketchpadReducer,
       appbar: appbarReducer,
     }),
