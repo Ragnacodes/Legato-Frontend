@@ -101,13 +101,16 @@ const Header = ({ logged_in, updateAppBar }) => {
         </DialogContent>
       </Dialog>
 
-      <AppBar className="app-bar" position="static"/>
+      <AppBar className="app-bar" position="static" />
     </div>
   );
 };
+const mapDispatchToProps = (dispatch) => ({
+  updateAppBar: (type, data) => dispatch(actions.updateAppBar(type, data)),
+});
 
 const mapStateToProps = (state) => ({
-  logged_in: !!state.auth.uid,
+  logged_in: !!state.auth.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({

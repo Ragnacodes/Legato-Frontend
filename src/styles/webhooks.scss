@@ -1,4 +1,4 @@
-.edit-webhook-dialog {
+.edit-wh-dialog {
   .MuiDialogTitle-root {
     padding-bottom: 0;
   }
@@ -6,7 +6,6 @@
     margin: 0;
   }
   .MuiDialogContent-root {
-    padding-bottom: 20px;
     padding-top: 0;
     width: 400px;
   }
@@ -18,44 +17,109 @@
     top: 5px;
     color: $primary;
   }
-}
-.MuiTabs-root {
-  margin-bottom: 20px;
+  .MuiTabs-root {
+    margin-bottom: 20px;
+  }
+
+  .wh-setting-actions {
+    flex: 0 0 auto;
+    display: flex;
+    padding: 8px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 12px;
+    margin-right: -18px;
+  }
+
+  .edit-wh-tab {
+    .wh-general-settings,
+    .wh-advanced-settings {
+      display: flex;
+      flex-direction: column;
+    }
+    .data-structure-field {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      > * {
+        margin-left: 2px;
+        margin-right: 2px;
+      }
+      .select-ds-field {
+        flex: 1;
+        margin-left: 0;
+      }
+      .add-icon {
+        margin-right: 0;
+      }
+    }
+    .help-text {
+      color: #707070;
+      font-size: 0.84rem;
+      .help-icon {
+        margin-bottom: -5px;
+        margin-right: 5px;
+        font-size: 1.2rem;
+      }
+    }
+
+    .edit-wh-field {
+      margin-top: 11px;
+      margin-bottom: 11px;
+
+      .MuiFormHelperText-root {
+        &.Mui-error {
+          height: 0;
+          margin-top: 0;
+        }
+      }
+    }
+  }
 }
 
-.edit-webhook-tab {
-  // padding-top: 20px;
+.wh-queue-details {
   display: flex;
   flex-direction: column;
-  .data-structure-field {
+  padding: 8px 16px;
+  .details {
+    font-size: 0.9rem;
     display: flex;
     flex-direction: row;
+    .data-key {
+      font-weight: 300;
+    }
+  }
+}
+
+.queue-window {
+  .close-icon {
+    cursor: pointer;
+    font-size: 1.4rem;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: $primary;
+  }
+}
+
+.ds-popover {
+  padding: 8px 24px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  .wh-ds-actions {
+    flex: 0 0 auto;
+    display: flex;
+    padding: 8px;
     align-items: center;
-    > * {
-      margin-left: 2px;
-      margin-right: 2px;
-    }
-    .select-field {
-      flex: 1;
-      margin-left: 0;
-    }
-    .add-icon {
-      margin-right: 0;
-    }
+    justify-content: flex-end;
+    margin-top: 12px;
+    margin-right: -18px;
   }
-  .help-text {
-    color: #707070;
-    // border: 1px red solid;
-  }
-  // &.settings {
-  .help-icon {
-    margin-bottom: -5px;
-    margin-right: 5px;
-  }
-  // }
-  .edit-field {
+
+  .edit-wh-field {
     margin-top: 11px;
-    margin-bottom: 11px;
+    margin-bottom: 15px;
 
     .MuiFormHelperText-root {
       &.Mui-error {
@@ -64,11 +128,37 @@
       }
     }
   }
+  .ds-items-card {
+    // background-color: $primary;
+    // color: $secondary;
+    .ds-items-card-content {
+      overflow: auto;
+
+      display: flex;
+      flex-direction: row;
+      > * {
+        margin-bottom: 2px;
+      }
+    }
+    .MuiCardContent-root {
+      padding: 8px;
+    }
+    .ds-item {
+      width: 200px;
+      margin: 2px;
+    }
+  }
+  .ds-popover-title {
+    // padding: 8px 24px 0 24px;
+  }
 }
 
 .webhooks-list {
+  .MuiListItem-secondaryAction {
+    padding-right: 260px;
+  }
   .MuiListItem-container {
-    .webhook-actions {
+    .wh-actions {
       .edit-button,
       .switch,
       .queue-button {
@@ -77,17 +167,25 @@
       }
     }
   }
-  .webhook-item {
-    .webhook-text-field {
+  .wh-item {
+    .wh-name-field {
       padding-top: 0;
       padding-bottom: 0;
       width: 300px;
+      margin-bottom: 5px;
+      .MuiFormHelperText-root {
+        &.Mui-error {
+          height: 0;
+          margin-top: 0;
+        }
+      }
     }
-    .webhook-name {
+    .wh-name {
       cursor: text;
       padding-left: 14px;
       padding-top: 8.5px;
       padding-bottom: 7.5px;
+      margin-bottom: 5px;
     }
     .MuiListItemText-secondary {
       padding-left: 14px;

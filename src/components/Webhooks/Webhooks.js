@@ -1,28 +1,58 @@
 import React from "react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import Container from "@material-ui/core/Container";
+import { Container, Button, Divider } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import Webhook from "./Webhook";
-import { updateAppBar } from "../../actions/appbar";
-import { Button } from "@material-ui/core";
-
-const Webhooks = ({ webhooks, updateAppBar }) => {
+import Axios from "../../utils/axiosConfig";
+import { setWebhooks } from "../../actions/webhooks";
+const Webhooks = ({ webhooks, username, setWebhooks }) => {
   useEffect(() => {
-    updateAppBar(
-      "right_children",
-      <Button variant="contained" color="secondary">
-        Add Webhook
-      </Button>
-    );
+    Axios.get(`/users/${username}/services/webhook/`)
+      .then((response) => {
+        console.log(response);
+        setWebhooks(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
   return (
     <div className="content-container">
       <Container maxWidth="lg" className="webhooks-list">
+        {/* <Button
+          variant="contained"
+          onClick={() => {
+            axios
+              .post(
+                "http://localhost:8080/api/users/d/services/webhook/",
+                {
+                  name: "newwebhook",
+                },
+                {
+                  headers: { Authorization: token },
+                }
+              )
+              .then((response) => {
+                console.log(response);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }}
+          color="secondary"
+        >
+          Add Webhook
+        </Button> */}
+
         <List>
           {webhooks.map((w) => {
-            console.log(w);
-            return <Webhook key={w.id} webhook={w} />;
+            return (
+              <div>
+                <Webhook key={w.id} webhook={w} />
+                <Divider />
+              </div>
+            );
           })}
         </List>
       </Container>
@@ -32,10 +62,12 @@ const Webhooks = ({ webhooks, updateAppBar }) => {
 
 const mapStateToProps = (state) => ({
   webhooks: state.webhooks.webhooks,
+  username: state.auth.username,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   updateAppBar: (type, data) => dispatch(updateAppBar(type, data)),
+  setWebhooks: (data) => dispatch(setWebhooks(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Webhooks);

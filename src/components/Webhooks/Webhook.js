@@ -19,26 +19,23 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ClearIcon from "@material-ui/icons/Clear";
 import EditIcon from "@material-ui/icons/Edit";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import ScenarioNodes from "../Scenarios/ScenarioNodes";
 import * as actions from "../../actions/webhooks";
-import EditModal from "./EditWebhookModal";
-const Webhook = ({
-  webhook,
-  renameWebhook,
-  toggleWebhookState,
-  removeWebhook,
-}) => {
-  const { id, name, toggle, address, queueNumber, ...other } = webhook;
+import EditModal from "./WebhookSettingsModal";
+import WebhookQueue from "./WebhookQueue";
+// import header from "../../utils/api-header";
+import Axios from "../../utils/axiosConfig";
+import { errorNotification, successNotification } from "../Notification";
+const Webhook = ({ webhook, username, updateWebhook }) => {
+  const { id, name, active, url, queue, ...other } = webhook;
   const [renameToggle, setRenameToggle] = useState(false);
   const [modifiedName, setName] = useState(name);
   const [editModalVisible, setEditModalVisible] = useState(false);
-
+  const [queueModal, setQueueModal] = useState(false);
   const onTextFieldChange = (e) => {
     setName(e.target.value);
   };
   const saveNewName = () => {
-    console.log(modifiedName);
-    renameWebhook(id, modifiedName);
+    handleUpdateWebhook({ name: modifiedName });
     setRenameToggle(false);
   };
 
@@ -48,31 +45,92 @@ const Webhook = ({
   };
 
   const handleToggleState = () => {
-    toggleWebhookState(id);
+    handleUpdateWebhook({ enable: !active });
   };
 
-  const handleRemoveWebhook = () => {
-    removeWebhook(id);
+  const mockQueue = [
+    {
+      id: 1,
+      type: "webhook",
+      created_at: "Fri Apr 09 2021 22:44:31",
+      size: "1B",
+      scenarios: "12345",
+      data: {},
+    },
+    {
+      id: 2,
+      type: "webhook",
+      created_at: "Fri Apr 09 2021 22:44:31",
+      size: "2B",
+      scenarios: "12345",
+      data: {
+        key: "value",
+      },
+    },
+    {
+      id: 3,
+      type: "webhook",
+      created_at: "Fri Apr 09 2021 22:44:31",
+      size: "3B",
+      scenarios: "12345",
+      data: {
+        key: "value",
+        key2: "value2",
+      },
+    },
+  ];
+
+  // const handleRemoveWebhook = () => {
+  //   removeWebhook(id);
+  // };
+
+  const handleUpdateWebhook = (data) => {
+    updateWebhook(webhook.id, { ...data, active: data.enable });
+    console.log(Axios.defaults.headers.common["Authorization"]);
+    Axios.patch(`/users/${username}/services/webhook/${id}/`, {
+      name: data.name,
+      enable: data.enable,
+    })
+      .then((response) => {
+        console.log(response);
+        successNotification("Updated successfully.");
+        updateWebhook(webhook.id, data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          let str = error.response.data.message;
+          errorNotification(
+            "Unable to update: " +
+              str.charAt(0).toUpperCase() +
+              str.slice(1) +
+              "."
+          );
+        } else {
+          errorNotification("Unable to update: " + error.message);
+        }
+      });
   };
 
   return (
-    <ListItem className="webhook-item">
-      {/* <ScenarioNodes nodes={nodes} /> */}
+    <ListItem className="wh-item">
       <EditModal
         webhook={webhook}
         visible={editModalVisible}
+        handleSave={handleUpdateWebhook}
         setVisible={setEditModalVisible}
       />
       <ListItemText
         primary={
           renameToggle ? (
             <TextField
-              className="webhook-text-field"
+              className="wh-name-field"
               onChange={onTextFieldChange}
               name="webhook-name"
               variant="outlined"
               size="small"
               defaultValue={name}
+              error={!modifiedName}
+              // helperText={!modifiedName && "Required."}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -100,7 +158,7 @@ const Webhook = ({
             />
           ) : (
             <Typography
-              className="webhook-name"
+              className="wh-name"
               onClick={() => setRenameToggle(true)}
               variant="body1"
             >
@@ -108,11 +166,11 @@ const Webhook = ({
             </Typography>
           )
         }
-        secondary={<Link href={address}>{address}</Link>}
+        secondary={<Link href={url}>{url}</Link>}
         className="name"
       />
 
-      <ListItemSecondaryAction className="webhook-actions">
+      <ListItemSecondaryAction className="wh-actions">
         <Button
           size="small"
           variant="contained"
@@ -124,11 +182,11 @@ const Webhook = ({
         >
           Edit
         </Button>
-        <Tooltip title={toggle ? "Disable?" : "Enable?"} placement="top">
+        <Tooltip title={active ? "Disable?" : "Enable?"} placement="top">
           <Switch
             edge="end"
             onChange={handleToggleState}
-            checked={toggle}
+            checked={active}
             color="primary"
             size="small"
             className="switch"
@@ -141,11 +199,14 @@ const Webhook = ({
           disableElevation
           className="queue-button"
           startIcon={<LocalShippingIcon />}
-        >
-          {queueNumber}
-        </Button>
-
-        <Tooltip title="Delete Webhook" placement="right">
+          onClick={() => setQueueModal(true)}
+        ></Button>
+        <WebhookQueue
+          queue={mockQueue}
+          visible={queueModal}
+          setVisible={setQueueModal}
+        />
+        {/* <Tooltip title="Delete Webhook" placement="right">
           <IconButton
             aria-label="delete"
             className="delete-button"
@@ -154,20 +215,18 @@ const Webhook = ({
           >
             <DeleteIcon fontSize="small" />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
       </ListItemSecondaryAction>
     </ListItem>
   );
 };
 
 const mapStateToProps = (state) => ({
-  // webhook: props.webhook,
+  username: state.auth.username,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  renameWebhook: (id, data) => dispatch(actions.renameWebhook(id, data)),
-  toggleWebhookState: (id) => dispatch(actions.toggleWebhookState(id)),
-  removeWebhook: (id) => dispatch(actions.removeWebhook(id)),
+  updateWebhook: (id, data) => dispatch(actions.updateWebhook(id, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Webhook);

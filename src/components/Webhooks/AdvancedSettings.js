@@ -1,6 +1,5 @@
 import React from "react";
-import { useState, useRef, useEffect } from "react";
-import { connect } from "react-redux";
+import { useState, useRef } from "react";
 import {
   FormControl,
   InputLabel,
@@ -11,25 +10,24 @@ import {
   Typography,
   Menu,
   IconButton,
-  Popper,
+  Popover,
+  Button,
 } from "@material-ui/core";
-import HelpIcon from "@material-ui/icons/Help";
 import InfoIcon from "@material-ui/icons/Info";
-import { TabPanel } from "./EditWebhookModal";
 import AddIcon from "@material-ui/icons/Add";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-const AdvancedSettings = ({ value }) => {
-  //   const [value, setValue] = React.useState(0);
-  const dsMenu = useRef(null);
-  const [dsMenuOpen, setDsMenuOpen] = useState(false);
-  useEffect(() => {
-    console.log(dsMenu);
-  }, [dsMenuOpen]);
+// import AddDataStructure from "./AddDataStructure";
+const AdvancedSettings = ({ handleChange, info }) => {
+  // const dsMenu = useRef(null);
+  // const addDsPopper = useRef(null);
+  // const [addDsPopperOpen, setAddDsPopperOpen] = useState(false);
+  // const [dsMenuOpen, setDsMenuOpen] = useState(false);
+
   return (
-    <TabPanel className="advanced" value={value} index={1}>
-      <div className="data-structure-field">
+    <div className="wh-advanced-settings">
+      {/* <div className="data-structure-field">
         <FormControl
-          className="edit-field select-field"
+          className="edit-wh-field select-ds-field"
           size="small"
           variant="outlined"
         >
@@ -39,7 +37,7 @@ const AdvancedSettings = ({ value }) => {
           <Select
             labelId="demo-simple-select-outlined-label"
             id="demo-simple-select-outlined"
-            //   value={age}
+            value=""
             //   onChange={handleChange}
             label="Data structure"
           >
@@ -57,7 +55,6 @@ const AdvancedSettings = ({ value }) => {
           size="small"
           onClick={() => setDsMenuOpen(true)}
           // onMouseDown={(e) => e.preventDefault()}
-          // edge="end"
         >
           <MoreVertIcon ref={dsMenu} />
         </IconButton>
@@ -75,25 +72,41 @@ const AdvancedSettings = ({ value }) => {
           size="small"
           aria-label="add-data-structures"
           className="add-icon"
-          // onClick={saveNewName}
+          onClick={() => setAddDsPopperOpen(true)}
           // onMouseDown={(e) => e.preventDefault()}
-          // edge="end"
         >
-          <AddIcon />
+          <AddIcon ref={addDsPopper} />
         </IconButton>
-      </div>
+        <Popover
+          disableBackdropClick
+          open={addDsPopperOpen}
+          anchorEl={addDsPopper.current}
+          onClose={() => setAddDsPopperOpen(false)}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+        >
+          <AddDataStructure setVisible={setAddDsPopperOpen} />
+        </Popover>
+      </div> 
       <Typography className="help-text" variant="body2">
         <InfoIcon fontSize="small" className="help-icon" />
         Data structure to be used for validation of incoming data. Leave empty
         if you want us to just pass on the received data without any validation.
       </Typography>
+      */}
       <FormControlLabel
         control={
           <Checkbox
-            checked={true}
+            name="get_request_headers"
+            checked={info["get_request_headers"]}
             color="primary"
-            // onChange={handleChange}
-            inputProps={{ "aria-label": "primary checkbox" }}
+            onChange={(e) => handleChange(e.target.name, e.target.checked)}
           />
         }
         label="Get request headers"
@@ -105,10 +118,10 @@ const AdvancedSettings = ({ value }) => {
       <FormControlLabel
         control={
           <Checkbox
-            checked={true}
+            name="get_request_http"
+            checked={info["get_request_http"]}
             color="primary"
-            // onChange={handleChange}
-            inputProps={{ "aria-label": "primary checkbox" }}
+            onChange={(e) => handleChange(e.target.name, e.target.checked)}
           />
         }
         label="Get request HTTP method"
@@ -120,10 +133,10 @@ const AdvancedSettings = ({ value }) => {
       <FormControlLabel
         control={
           <Checkbox
-            checked={true}
+            name="json_passthrough"
+            checked={info["json_passthrough"]}
             color="primary"
-            // onChange={handleChange}
-            inputProps={{ "aria-label": "primary checkbox" }}
+            onChange={(e) => handleChange(e.target.name, e.target.checked)}
           />
         }
         label="JSON pass-through"
@@ -132,14 +145,8 @@ const AdvancedSettings = ({ value }) => {
         <InfoIcon fontSize="small" className="help-icon" />
         If enabled, JSON payloads are returned as a string.
       </Typography>
-    </TabPanel>
+    </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  //   webhooks: state.webhooks.webhooks,
-});
-
-const mapDispatchToProps = (dispatch) => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AdvancedSettings);
+export default AdvancedSettings;
