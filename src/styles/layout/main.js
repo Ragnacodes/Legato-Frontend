@@ -7,6 +7,6 @@ export default makeStyles((theme) => ({
       flexDirection: 'column',
       flexGrow: 1,
       height: '100vh',
-      overflow: 'auto',
+      overflow: 'hidden',
     },
 }));

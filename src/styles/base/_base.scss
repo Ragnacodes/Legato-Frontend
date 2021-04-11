@@ -13,3 +13,8 @@ body {
 .app {
     display: flex;
 }
+
+.content-container {
+  overflow: auto;
+  padding: $lg-size 0;
+}
