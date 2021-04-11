@@ -7,7 +7,6 @@ import scenariosReducer from "../reducers/scenarios";
 import webhookReducer from "../reducers/webhooks";
 import appbarReducer from "../reducers/appbar";
 import sketchpadReducer from "../reducers/sketchpad";
-import appbarReducer from "../reducers/appbar";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
