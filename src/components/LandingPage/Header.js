@@ -7,8 +7,6 @@ import SignUpForm from "../LoginSignUp/SignUpForm";
 // import * as actions from "../../actions/appbar";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import {
-  AppBar,
-  Toolbar,
   Button,
   Typography,
   Dialog,
