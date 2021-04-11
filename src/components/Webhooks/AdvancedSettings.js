@@ -1,21 +1,10 @@
 import React from "react";
-import { useState, useRef } from "react";
 import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
   Checkbox,
   FormControlLabel,
   Typography,
-  Menu,
-  IconButton,
-  Popover,
-  Button,
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
-import AddIcon from "@material-ui/icons/Add";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 // import AddDataStructure from "./AddDataStructure";
 const AdvancedSettings = ({ handleChange, info }) => {
   // const dsMenu = useRef(null);

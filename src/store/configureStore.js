@@ -26,7 +26,6 @@ const configureStore = () => {
       webhooks: webhookReducer,
       appbar: appbarReducer,
       sketchpad: sketchpadReducer,
-      appbar: appbarReducer,
     }),
     composeEnhancers(applyMiddleware(...middleware))
   );
