@@ -1,0 +1,40 @@
+.scenarios {
+
+    .scenario {
+
+        .MuiAvatarGroup-root {
+            width: 4 * $lg-size;
+            height: $lg-size;
+        }
+
+        .MuiAvatarGroup-avatar {
+            margin: 0;
+            border: 0;
+        }
+
+        .MuiAvatar-circle {
+            border-radius: 0px;
+            height: $lg-size;
+            width: $lg-size;
+        }
+
+        .name {
+            margin: 0 $md-size;
+        }
+        
+    }
+
+    .control {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .switch {
+            margin: 0 $xs-size;
+        }
+
+        .delete {
+            padding: 0;
+        }
+    }
+}
