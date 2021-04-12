@@ -116,7 +116,8 @@ const scenariosReducerDefaultState = [
 const scenariosReducer = (state = scenariosReducerDefaultState, action) => {
     switch (action.type) {
         case 'GET_SCENARIOS':
-            return [...state, action.scenarios];
+            return action.scenarios;
+
         case 'ADD_SCENARIO':
             return [...state, action.scenario];
 

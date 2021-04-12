@@ -26,8 +26,7 @@ const Scenarios = ({ scenarios, getScenarios }) => {
   return(
     <div className="content-container">
       <Container maxWidth="lg" className="scenarios">
-      {
-      scenarios ? <p>There is no item</p>:
+      { scenarios.length === 0 ? <p>There is no item</p>:
         <List>
           {
             scenarios.map((scenario) => {
