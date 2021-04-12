@@ -1,9 +1,13 @@
+.app {
+    display: flex;
+}
+
 .main {
-    display: 'flex';
-    flex-direction: 'column';
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
-    height: '100vh';
-    overflow: 'hidden';
+    height: 100vh;
+    overflow: hidden;
 }
 
 .app-bar-spacer {
@@ -14,4 +18,9 @@
     @media (min-width: 600px) {
         min-height: 64px;
     }
+}
+
+.content-container {
+    overflow: auto;
+    padding: $lg-size 0;
 }
