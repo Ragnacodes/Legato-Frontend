@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
+import Appbar from '../Layout/Appbar';
 import Scenario from './Scenario';
 import { startGetScenarios } from '../../actions/scenarios';
-import AddScenario from './AddScenario';
 
 const Scenarios = ({ scenarios, getScenarios }) => {
   const [loading, setLoading] = useState(true);
@@ -24,20 +24,27 @@ const Scenarios = ({ scenarios, getScenarios }) => {
   }, []);
   
   return(
-    <div className="content-container">
-      <Container maxWidth="lg" className="scenarios">
-      { scenarios.length === 0 ? <p>There is no item</p>:
-        <List>
+    <>
+    <Appbar />
+    <main className="main">
+      <div className="app-bar-spacer" />
+      <div className="content-container">
+        <Container maxWidth="lg" className="scenarios">
+
+        { scenarios.length === 0 ? <p>There is no item</p>:
+          <List>
           {
             scenarios.map((scenario) => {
               return <Scenario key={scenario.id} {...scenario} />;
             })
           }
-        </List>
-      }
-        <AddScenario />
-      </Container>
-    </div>
+          </List>
+        }
+        </Container>
+        
+      </div>
+    </main>
+    </>
 )};
 
 const mapStateToProps = (state) => {
