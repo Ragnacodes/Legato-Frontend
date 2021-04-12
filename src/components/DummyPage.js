@@ -1,13 +1,20 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+import Appbar from './Layout/Appbar';
 
 const DummyPage = () => (
-  <Container maxWidth="lg">
-    <Grid container>
-      <div>Hi this is a dummy page!</div>
-    </Grid>
-  </Container>
+  <>
+  <Appbar />
+  <main className="main">
+    <div className="app-bar-spacer"/>
+    <div className="content-container">
+      <Container maxWidth="lg">
+        {/* Your Content */}
+        This is a dummy page!
+      </Container>
+    </div>
+  </main>
+  </>
 );
 
 export default DummyPage;
