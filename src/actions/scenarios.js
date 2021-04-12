@@ -34,6 +34,7 @@ export const startAddScenario = (scenario) => {
         return Axios.post(`/users/${username}/scenarios`, body)
         .then(res => {
             dispatch(addScenario(res.data.scenario));
+            return res.data.scenario.id;
         })
         .catch(err => {
             console.log(err);

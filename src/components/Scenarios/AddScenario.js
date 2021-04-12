@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { startAddScenario } from '../../actions/scenarios';
+import { Redirect } from 'react-router-dom';
 
 const AddScenario = ({ addScenario }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [id, setID] = useState();
 
     const handleClick = () => {
         setLoading(true);
@@ -14,21 +16,26 @@ const AddScenario = ({ addScenario }) => {
             is_active: false
         };
         addScenario(scenario)
-        .then(res => {
+        .then(id => {
             setLoading(false);
             setError(false);
-            console.log(res);
+            setID(id);
         })
-        .catch(err => {
+        .catch(() => {
             setLoading(false);
             setError(true);
-            console.log(err);
         });
     };
 
-    return(
-        <button onClick={handleClick}>Create New Scenario</button>
-    );
+    if (id) {
+        return <Redirect to={`/sketchpad/${id}`} />;
+    }
+
+    else {
+        return (
+            <button onClick={handleClick}>Create New Scenario</button>
+        );
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
