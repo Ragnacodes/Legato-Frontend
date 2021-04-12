@@ -1,0 +1,26 @@
+.app {
+    display: flex;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app-bar-spacer {
+    min-height: 56px;
+    @media (min-width: 0px) and (orientation: landscape) {
+        min-height: 48px;
+    }
+    @media (min-width: 600px) {
+        min-height: 64px;
+    }
+}
+
+.content-container {
+    overflow: auto;
+    padding: $lg-size 0;
+}

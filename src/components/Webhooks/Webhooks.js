@@ -1,39 +1,47 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Container, Divider } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import Webhook from "./Webhook";
 import Axios from "../../utils/axiosConfig";
 import { setWebhooks } from "../../actions/webhooks";
-import { updateAppBar } from "../../actions/appbar";
-const Webhooks = ({ webhooks, username, updateAppBar }) => {
+import Appbar from '../Layout/Appbar';
+
+const Webhooks = ({ webhooks, username }) => {
+
   useEffect(() => {
-    updateAppBar("right_children",);
     Axios.get(`/users/${username}/services/webhook/`)
       .then((response) => {
-        console.log(response);
         setWebhooks(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
   return (
-    <div className="content-container">
-      <Container maxWidth="lg" className="webhooks-list">
-        <List>
-          {webhooks.map((w) => {
-            return (
-              <div>
-                <Webhook key={w.id} webhook={w} />
-                <Divider />
-              </div>
-            );
-          })}
-        </List>
-      </Container>
-    </div>
+    <>
+    <Appbar />
+    <main className="main">
+      <div className="app-bar-spacer" />
+      <div className="content-container">
+        <Container maxWidth="lg" className="webhooks-list">
+
+          <List>
+            {webhooks.map((w) => {
+              return (
+                <div>
+                  <Webhook key={w.id} webhook={w} />
+                  <Divider />
+                </div>
+              );
+            })}
+          </List>
+
+        </Container>
+      </div>
+    </main>
+    </>
   );
 };
 
@@ -43,7 +51,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateAppBar: (type, data) => dispatch(updateAppBar(type, data)),
   setWebhooks: (data) => dispatch(setWebhooks(data)),
 });
 

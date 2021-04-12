@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import Layout from '../components/Layout/Layout';
-import Main from '../components/Layout/Main';
 
 const PrivateRoute = ({
   isAuthenticated,
@@ -12,8 +10,7 @@ const PrivateRoute = ({
     <Route {...rest} component={(props) => (
       isAuthenticated ? (
         <div className="app">
-          <Layout {...props} />
-          <Main component={Component} {...props} />
+          {<Component {...props} />}
         </div>
       ) : (
           <Redirect to="/" />

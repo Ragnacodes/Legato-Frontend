@@ -2,15 +2,23 @@ import React from 'react';
 import Chart from './Chart';
 import Scenarios from './Scenarios';
 import Container from '@material-ui/core/Container';
+import Appbar from '../Layout/Appbar';
 
 const Dashboard = () => {
   return (
-    <Container style={{padding:10, overflow:"scroll"}}>
-      <Chart />
-      <Scenarios />
-    </Container>
-  )
-}
-
+    <>
+    <Appbar />
+    <main className="main">
+      <div className="app-bar-spacer"/>
+      <div className="content-container">
+        <Container maxWidth="lg">
+          <Chart />
+          <Scenarios />
+        </Container>
+      </div>
+    </main>
+    </>
+  );
+};
 
 export default Dashboard;
