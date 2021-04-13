@@ -5,15 +5,15 @@ import Switch from '@material-ui/core/Switch';
 import { connect } from 'react-redux';
 import { startEditScenario } from '../../actions/scenarios';
 
-const SketchpadControl = ({ elements, editScenario, scenario }) => {
+const SketchpadControl = ({ elements, editScenario }) => {
 
     const onClicked = () => {
         console.log(elements);
     };
 
-    const handleToggleActvie = () => {
-        editScenario(scenario.id, { isActive: !scenario.isActive });
-    };
+    // const handleToggleActvie = () => {
+    //     editScenario(scenario.id, { isActive: !scenario.isActive });
+    // };
     
     return (
         <div className="control-box">
@@ -35,7 +35,7 @@ const SketchpadControl = ({ elements, editScenario, scenario }) => {
             >
                 Run
             </Button>
-            <Tooltip title={`Turn ${scenario.isActive ? "off" : "on"}`} placement="top">
+            {/* <Tooltip title={`Turn ${scenario.isActive ? "off" : "on"}`} placement="top">
                 <Switch
                     edge="end"
                     onChange={handleToggleActvie}
@@ -44,7 +44,7 @@ const SketchpadControl = ({ elements, editScenario, scenario }) => {
                     size="large"
                     className="switch"
                 />
-            </Tooltip>
+            </Tooltip> */}
         </div>
     );
 };
