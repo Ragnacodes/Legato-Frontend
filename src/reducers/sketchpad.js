@@ -2,7 +2,7 @@ const sketchpadReducerDefaultState = [];
 
 const sketchpadReducer = (state = sketchpadReducerDefaultState, action) => {
     switch (action.type) {
-        case 'SET_ELEMENTS':
+        case 'GET_ELEMENTS':
             return action.elements
             
         case 'ADD_ELEMENT':
