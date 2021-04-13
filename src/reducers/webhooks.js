@@ -7,22 +7,35 @@ const webhookReducer = (state = initialState, action) => {
     case ActionTypes.SET_WEBHOOKS:
       return {
         ...state,
-        webhooks: action.payload.webhooks.map((wh) => {
-          return {
-            ...wh,
-            id: wh.url.split("/").reverse()[0],
-            ip_restrictions: "",
-            get_request_headers: false,
-            get_request_http: false,
-            json_passthrough: false,
-          };
-        }),
+        webhooks: action.payload.webhooks
+          .filter(
+            (wh) =>
+              wh.url.split("/").reverse()[0] !=
+              "00000000-0000-0000-0000-000000000000"
+          )
+          .map((wh) => {
+            return {
+              ...wh,
+              id: wh.url.split("/").reverse()[0],
+              ip_restrictions: "",
+              get_request_headers: false,
+              get_request_http: false,
+              json_passthrough: false,
+            };
+          }),
       };
 
     case ActionTypes.ADD_WEBHOOK:
       return {
         ...state,
-        webhooks: state.webhooks.push(action.payload.webhook),
+        webhooks: state.webhooks.concat({
+          ...action.payload.webhook,
+          id: action.payload.webhook.url.split("/").reverse()[0],
+          ip_restrictions: "",
+          get_request_headers: false,
+          get_request_http: false,
+          json_passthrough: false,
+        }),
       };
 
     case ActionTypes.UPDATE_WEBHOOK:
