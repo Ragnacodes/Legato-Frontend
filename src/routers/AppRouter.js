@@ -11,7 +11,7 @@ import Dashboard from "../components/Dashboard/Dashboard";
 import Scenarios from '../components/Scenarios/Scenarios';
 import Webhooks from "../components/Webhooks/Webhooks";
 import Connections from "../components/Connections/Connections"
-
+import Redirect from "../components/Connections/Redirect"
 export const history = createBrowserHistory();
 
 const AppRouter = () => (
@@ -22,6 +22,7 @@ const AppRouter = () => (
         <PrivateRoute path="/scenarios" component={Scenarios} />
         <PrivateRoute path="/sketchpad/:id" component={Sketchpad} />
         <PrivateRoute path="/connections" component={Connections} />
+        <PrivateRoute path="/redirect" component={Redirect} exact={false}/>
         <PrivateRoute path="/webhooks" component={Webhooks} />
         <PrivateRoute path="/keys" component={DummyPage} />
         <PrivateRoute path="/profile" component={DummyPage} />

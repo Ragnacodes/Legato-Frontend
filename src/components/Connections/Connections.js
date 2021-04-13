@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import Axios from '../../utils/axiosConfig';
+import React, { useState, useEffect } from 'react';
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import AddConnection from './AddConnection';
+import Appbar from '../Layout/Appbar';
 import {
     Button,
     Typography,
@@ -9,83 +10,93 @@ import {
     DialogContentText,
     DialogTitle,
     Container,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText
+    List
 } from "@material-ui/core";
-import { Telegram, GitHub, QueueMusic, Email }from '@material-ui/icons';
-// import QueueMusicIcon from '@material-ui/icons/QueueMusic';
+import { connect } from 'react-redux';
+import Connection from './Connection';
+import { startGetConnections } from '../../actions/connections';
 
+const Connections = ({ connections, getConnections }) => {
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    useEffect(() => {
+        setLoading(true);
+        setError(false);
+        getConnections()
+            .then(() => {
+                console.log("hvbuergyhoooraa");
+                setLoading(false);
+                setError(false);
+            })
+            .catch(() => {
+                setLoading(false);
+                setError(true);
+            });
+    }, []);
 
-const Connections = () => {
     const [addConnection, setAddConnection] = useState(false);
-    function onServiceClicked(e, inputService){
-        // Axios.get('/user/connection/${inputService}/access/url');
-        console.log(inputService);
-    };
+    const rightChildren =
+        <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => setAddConnection(true)}
+        >
+            Add connection
+        </Button>
     return (
-        <Container maxWidth="lg">
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={() => setAddConnection(true)}
-            >
-                Add connection
-            </Button>
-            <Dialog
-                disableBackdropClick
-                className="signup-dialog"
-                open={addConnection}
-                onClose={() => setAddConnection(false)}
-                aria-labelledby="form-dialog-title"
-            >
-                <DialogTitle disableTypography={true} style={{paddingBottom:4}}>
-                    <Typography variant="h5">Service</Typography>
-                </DialogTitle>
-                <DialogContent>
-                    <CloseRoundedIcon
-                        className="close-icon"
-                        onClick={() => setAddConnection(false)}
-                    />
-                    <DialogContentText>Please choose your service:</DialogContentText>
-                    <List>
-                        <ListItem button onClick={(e) => onServiceClicked(e,"Telegram")}>
-                            <ListItemIcon>
-                                <Telegram/>
-                            </ListItemIcon>
-                            <ListItemText primary="Telegram" />
-                        </ListItem>
-                        <ListItem button onClick={(e) => onServiceClicked(e,"Github")}>
-                            <ListItemIcon>
-                                <GitHub/>
-                            </ListItemIcon>
-                            <ListItemText primary="GitHub" />
-                        </ListItem>
-                        <ListItem button onClick={(e) => onServiceClicked(e,"Gmail")}>
-                            <ListItemIcon>
-                                <Email/>
-                            </ListItemIcon>
-                            <ListItemText primary="Gmail" />
-                        </ListItem>
-                        <ListItem button onClick={(e) => onServiceClicked(e,"spotify")}>
-                            <ListItemIcon>
-                                <QueueMusic/>
-                            </ListItemIcon>
-                            <ListItemText primary="Spotify" />
-                        </ListItem>
-                        {/* <ListItem button>
-                            <ListItemIcon>
-                                <Discord/>
-                            </ListItemIcon>
-                            <ListItemText primary="Discord" />
-                        </ListItem> */}
-                    </List>
-                </DialogContent>
-            </Dialog>
-
-        </Container>
+        <>
+            <Appbar rightChildren={rightChildren} />
+            <main className="main">
+                <div className="app-bar-spacer" />
+                <div className="content-container">
+                    <Container maxWidth="lg">
+                        {connections.length === 0 ? <p>There is no item</p> :
+                            <List>
+                                {
+                                    connections.map((connection) => {
+                                        return <Connection key={connection.ID} {...connection} />;
+                                    })
+                                }
+                            </List>
+                        }
+                        <Dialog
+                            disableBackdropClick
+                            className="signup-dialog"
+                            open={addConnection}
+                            onClose={() => setAddConnection(false)}
+                            aria-labelledby="form-dialog-title"
+                        >
+                            <DialogTitle disableTypography={true} style={{ paddingBottom: 4 }}>
+                                <Typography variant="h5">Service</Typography>
+                            </DialogTitle>
+                            <DialogContent>
+                                <CloseRoundedIcon
+                                    style={{ cursor: "pointer", fontSize: 24, position: "absolute", right: 10, top: 10, color: "$primary" }}
+                                    onClick={() => setAddConnection(false)}
+                                />
+                                <DialogContentText>
+                                    Please choose your service:
+                            </DialogContentText>
+                                <AddConnection closeDialog={() => setAddConnection(false)} />
+                            </DialogContent>
+                        </Dialog>
+                    </Container>
+                </div>
+            </main>
+        </>
     );
 }
 
-export default Connections;
+const mapStateToProps = (state) => {
+    return {
+        connections: state.connections
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getConnections: () => dispatch(startGetConnections()),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Connections);
