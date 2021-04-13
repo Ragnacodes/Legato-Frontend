@@ -13,11 +13,11 @@ import SketchpadControl from './SketchpadControl';
 import SketchpadTitle from './SketchpadTitle';
 
 const nodeTypes = {
-  spotify: AbstractNode,
-  github: AbstractNode,
-  webhook: AbstractNode,
-  ssh: AbstractNode,
-  telegram: AbstractNode
+  spotifys: AbstractNode,
+  githubs: AbstractNode,
+  webhooks: AbstractNode,
+  sshs: AbstractNode,
+  telegrams: AbstractNode
 };
 
 const Sketchpad = ( { elements, getElements, addElement, removeElement, match } ) => {

@@ -16,19 +16,19 @@ const SketchpadSidebar =  () => {
   return (
     <aside>
       <div className="description">Services</div>
-      <div className="dndnode" onDragStart={(event) => onDragStart(event, 'webhook')} draggable>
+      <div className="dndnode" onDragStart={(event) => onDragStart(event, 'webhooks')} draggable>
         <LanguageIcon fontSize="large" className="icon webhook" />
       </div>
-      <div className="dndnode" onDragStart={(event) => onDragStart(event, 'spotify')} draggable>
+      <div className="dndnode" onDragStart={(event) => onDragStart(event, 'spotifys')} draggable>
         <QueueMusicIcon fontSize="large" className="icon spotify" />
       </div>
-      <div className="dndnode" onDragStart={(event) => onDragStart(event, 'telegram')} draggable>
+      <div className="dndnode" onDragStart={(event) => onDragStart(event, 'telegrams')} draggable>
         <TelegramIcon fontSize="large" className="icon telegram" />
       </div>
-      <div className="dndnode" onDragStart={(event) => onDragStart(event, 'ssh')} draggable>
+      <div className="dndnode" onDragStart={(event) => onDragStart(event, 'sshs')} draggable>
         <CodeIcon fontSize="large" className="icon ssh" />
       </div>
-      <div className="dndnode" onDragStart={(event) => onDragStart(event, 'github')} draggable>
+      <div className="dndnode" onDragStart={(event) => onDragStart(event, 'githubs')} draggable>
         <GitHubIcon fontSize="large" className="icon github" />
       </div>
 
