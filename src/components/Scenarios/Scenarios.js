@@ -1,31 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import Appbar from '../Layout/Appbar';
 import Scenario from './Scenario';
+import AddScenario from './AddScenario';
 import { startGetScenarios } from '../../actions/scenarios';
 
 const Scenarios = ({ scenarios, getScenarios }) => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
   useEffect(() => {
-    setLoading(true);
-    setError(false);
     getScenarios()
     .then(() => {
-      setLoading(false);
-      setError(false);
     })
     .catch(() => {
-      setLoading(false);
-      setError(true);
     });
-  }, []);
+  }, [getScenarios]);
   
-  return(
+  return (
     <>
-    <Appbar />
+    <Appbar rightChildren={<AddScenario />} />
     <main className="main">
       <div className="app-bar-spacer" />
       <div className="content-container">
@@ -41,7 +34,7 @@ const Scenarios = ({ scenarios, getScenarios }) => {
           </List>
         }
         </Container>
-        
+
       </div>
     </main>
     </>

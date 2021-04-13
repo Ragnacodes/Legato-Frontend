@@ -2,28 +2,21 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { startAddScenario } from '../../actions/scenarios';
 import { Redirect } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 const AddScenario = ({ addScenario }) => {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
     const [id, setID] = useState();
 
     const handleClick = () => {
-        setLoading(true);
-        setError(false);
         const scenario = {
             name: 'Untitled Scenario',
-            is_active: false
+            isActive: false
         };
         addScenario(scenario)
         .then(id => {
-            setLoading(false);
-            setError(false);
             setID(id);
         })
         .catch(() => {
-            setLoading(false);
-            setError(true);
         });
     };
 
@@ -33,7 +26,13 @@ const AddScenario = ({ addScenario }) => {
 
     else {
         return (
-            <button onClick={handleClick}>Create New Scenario</button>
+            <Button
+                onClick={handleClick}
+                variant="contained"
+                color="secondary"
+            >
+                Create New Scenario
+            </Button>
         );
     }
 }
