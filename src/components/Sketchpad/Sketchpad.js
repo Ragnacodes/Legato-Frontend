@@ -1,26 +1,42 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setElements, addElement, removeElement } from '../../actions/sketchpad';
+import { startGetElements, startAddElement, startRemoveElement } from '../../actions/sketchpad';
 import ReactFlow, {
   Controls,
-  Background
+  Background,
 } from 'react-flow-renderer';
 import Sidebar from './SketchpadSidebar.js';
-import Button from '@material-ui/core/Button';
 import AbstractNode from './AbstractNode';
 import CustomEdge from './CustomEdge';
+import Appbar from '../Layout/Appbar';
+import SketchpadControl from './SketchpadControl';
+import SketchpadTitle from './SketchpadTitle';
 
 const nodeTypes = {
-  spotify: AbstractNode,
-  github: AbstractNode,
-  webhook: AbstractNode,
-  ssh: AbstractNode,
-  telegram: AbstractNode
+  spotifys: AbstractNode,
+  githubs: AbstractNode,
+  webhooks: AbstractNode,
+  sshs: AbstractNode,
+  telegrams: AbstractNode
 };
 
-const Sketchpad = ( { elements, setElements, addElement, removeElement } ) => {
+const Sketchpad = ( { elements, getElements, addElement, removeElement, match } ) => {
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
+  const [scenario, setScenario] = useState();
+  const [loading, setLoading] = useState();
+
+  useEffect(() => {
+    setLoading(true);
+    getElements(match.params.id)
+    .then((scenario) => {
+      setScenario(scenario);
+      setLoading(false);
+    })
+    .catch(() => {
+      setLoading(false);
+    });
+  }, [getElements, match.params.id]);
 
   const onLoad = (_reactFlowInstance) =>
     setReactFlowInstance(_reactFlowInstance);
@@ -43,7 +59,14 @@ const Sketchpad = ( { elements, setElements, addElement, removeElement } ) => {
       position,
       data: {},
     };
-    addElement(newNode);
+    // setLoading(true);
+    addElement(match.params.id, newNode)
+    // .then(() => {
+    //   setLoading(false);
+    // })
+    // .catch(() => {
+    //   setLoading(false);
+    // });
   };
 
   const onConnect = (params) => {
@@ -53,7 +76,14 @@ const Sketchpad = ( { elements, setElements, addElement, removeElement } ) => {
       animated: true,
       data : {}
     };
-    addElement(customParams);
+    // setLoading(true);
+    addElement(match.params.id, customParams)
+    // .then(() => {
+    //   setLoading(false);
+    // })
+    // .catch(() => {
+    //   setLoading(false);
+    // });
   };
 
   const onElementsRemove = (elementsToRemove) => {
@@ -61,58 +91,47 @@ const Sketchpad = ( { elements, setElements, addElement, removeElement } ) => {
       removeElement(element.id)
     });
   };
+
+  if (loading) {
+    return (<div>Loading</div>)
+  }
+  else {
+    return (
+      <>
+      <Appbar leftChildren={<SketchpadTitle />} />
+      <main className="main">
+      <div className="app-bar-spacer" />
   
-  const onSaveClicked = () => {
-    console.log(elements);
-  };
-
-  return (
-    <div className="sketchpad">
-      <div className="dndflow">
-          <div className="reactflow-wrapper" ref={reactFlowWrapper}>
-            <ReactFlow
-              elements={elements}
-              onConnect={onConnect}
-              onElementsRemove={onElementsRemove}
-              onLoad={onLoad}
-              onDrop={onDrop}
-              onDragOver={onDragOver}
-              nodeTypes={nodeTypes}
-              edgeTypes={{ customEdge: CustomEdge }}
-            >
-              <Background
-                variant="lines"
-                gap={16}
-                size={0.5}
-              />
-              <Controls showInteractive={false} />
-            </ReactFlow>
+        <div className="sketchpad">
+          <div className="dndflow">
+              <div className="reactflow-wrapper" ref={reactFlowWrapper}>
+                <ReactFlow
+                  elements={elements}
+                  onConnect={onConnect}
+                  onElementsRemove={onElementsRemove}
+                  onLoad={onLoad}
+                  onDrop={onDrop}
+                  onDragOver={onDragOver}
+                  nodeTypes={nodeTypes}
+                  edgeTypes={{ customEdge: CustomEdge }}
+                >
+                  <Background
+                    variant="lines"
+                    gap={16}
+                    size={0.5}
+                  />
+                  <Controls showInteractive={false} />
+                </ReactFlow>
+              </div>
+              <Sidebar />
           </div>
-          <Sidebar />
-      </div>
-
-      <div className="control-box">
-        <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            onClick={onSaveClicked}
-            className="button"
-        >
-            Save
-        </Button>
-        <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            onClick={onSaveClicked}
-            className="button"
-        >
-            Run
-        </Button>
-      </div>
-    </div>
-  );
+          <SketchpadControl />
+        </div>
+  
+      </main>
+      </>
+    )
+  }
 };
 
 const mapStateToProps = (state) => {
@@ -123,9 +142,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setElements: (type, data) => dispatch(setElements(type, data)),
-    addElement: (type, data) => dispatch(addElement(type, data)),
-    removeElement: (type, data) => dispatch(removeElement(type, data))
+    getElements: (id) => dispatch(startGetElements(id)),
+    addElement: (id, element) => dispatch(startAddElement(id, element)),
+    removeElement: (id) => dispatch(startRemoveElement(id))
   };
 };
 

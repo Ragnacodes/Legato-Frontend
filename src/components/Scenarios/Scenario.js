@@ -9,7 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import OfflineBoltOutlinedIcon from '@material-ui/icons/OfflineBoltOutlined';
 import { connect } from 'react-redux';
-import { editScenario, removeScenario} from '../../actions/scenarios';
+import { startEditScenario, startRemoveScenario } from '../../actions/scenarios';
 import Tooltip from '@material-ui/core/Tooltip';
 import ScenarioNodes from './ScenarioNodes';
 
@@ -63,8 +63,8 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    editScenario: (type, data) => dispatch(editScenario(type, data)),
-    removeScenario: (type, data) => dispatch(removeScenario(type, data)),
+    editScenario: (id, updates) => dispatch(startEditScenario(id, updates)),
+    removeScenario: (id) => dispatch(startRemoveScenario(id)),
 });
 
 export default connect(null, mapDispatchToProps)(Scenario);

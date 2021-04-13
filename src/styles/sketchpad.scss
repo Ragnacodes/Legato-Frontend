@@ -1,3 +1,15 @@
+.title-input {
+  .MuiInputBase-input {
+    padding: 10px;
+    color: white;
+  }
+
+  .MuiInputBase-input:focus {
+    border: solid 1px white;
+    border-radius: 10px;
+  }
+}
+
 .sketchpad {
   flex-grow: 1;
   display: flex;

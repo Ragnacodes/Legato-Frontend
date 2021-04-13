@@ -12,31 +12,31 @@ const ScenarioNodes = ({nodes}) => {
             {
                 nodes.map((node) => {
                     switch (node) {
-                        case 'ssh':
+                        case 'sshs':
                             return (
                                 <Avatar className="ssh">
                                     <CodeIcon fontSize="small" />
                                 </Avatar>
                             );
-                        case 'webhook':
+                        case 'webhooks':
                             return (
                                 <Avatar className="webhook">
                                     <LanguageIcon fontSize="small" />
                                 </Avatar>
                             );
-                        case 'github':
+                        case 'githubs':
                             return (
                                 <Avatar className="github">
                                     <GitHubIcon fontSize="small" />
                             </Avatar>
                             );
-                        case 'spotify':
+                        case 'spotifys':
                             return (
                                 <Avatar className="spotify">
                                     <QueueMusicIcon fontSize="small" />
                                 </Avatar>
                             );
-                        case 'telegram':
+                        case 'telegrams':
                             return (
                                 <Avatar className="telegram">
                                     <TelegramIcon fontSize="small" />
