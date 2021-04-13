@@ -10,15 +10,15 @@ import EdgeForm from './Forms/EdgeForm';
 
 const AbstractForm = (props) => {
     switch (props.type) {
-        case 'github':
+        case 'githubs':
             return <GithubForm {...props} />;
-        case 'spotify':
+        case 'spotifys':
             return <SpotifyForm {...props} />;
-        case 'ssh':
+        case 'sshs':
             return <SSHForm {...props} />;
-        case 'telegram':
+        case 'telegrams':
             return <TelegramForm {...props} />;
-        case 'webhook':
+        case 'webhooks':
             return <WebhookForm {...props} />;
         case 'edge':
             return <EdgeForm {...props} />
