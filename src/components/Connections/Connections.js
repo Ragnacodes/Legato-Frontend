@@ -24,7 +24,6 @@ const Connections = ({ connections, getConnections }) => {
         setError(false);
         getConnections()
             .then(() => {
-                console.log("hvbuergyhoooraa");
                 setLoading(false);
                 setError(false);
             })

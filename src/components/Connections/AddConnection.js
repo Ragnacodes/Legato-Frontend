@@ -7,6 +7,7 @@ import {
     ListItemText
 } from "@material-ui/core";
 import { Telegram, GitHub, QueueMusic, Email } from '@material-ui/icons';
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AddConnection = (addConnection) => {
     function onServiceClicked(e, inputService) {
@@ -40,7 +41,7 @@ const AddConnection = (addConnection) => {
             </ListItem>
             <ListItem button onClick={(e) => onServiceClicked(e, "discord")}>
                 <ListItemIcon>
-                    <Telegram />
+                    <i className="fab fa-discord"></i>
                 </ListItemIcon>
                 <ListItemText primary="Discord" />
             </ListItem>
