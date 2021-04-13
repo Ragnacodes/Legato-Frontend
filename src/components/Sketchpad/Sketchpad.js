@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { startGetElements, addElement, removeElement } from '../../actions/sketchpad';
+import { startGetElements, startAddElement, startRemoveElement } from '../../actions/sketchpad';
 import ReactFlow, {
   Controls,
-  Background
+  Background,
 } from 'react-flow-renderer';
 import Sidebar from './SketchpadSidebar.js';
 import AbstractNode from './AbstractNode';
@@ -24,17 +24,14 @@ const Sketchpad = ( { elements, getElements, addElement, removeElement, match } 
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [scenario, setScenario] = useState();
-  const [loading, setLoading] = useState(true);
+  const [loader, setLoader] = useState();
 
   useEffect(() => {
-    setLoading(true);
     getElements(match.params.id)
     .then((scenario) => {
       setScenario(scenario);
-      setLoading(false)
     })
     .catch(() => {
-      setLoading(false);
     });
   }, [getElements, match.params.id]);
 
@@ -59,7 +56,7 @@ const Sketchpad = ( { elements, getElements, addElement, removeElement, match } 
       position,
       data: {},
     };
-    addElement(newNode);
+    addElement(match.params.id, newNode);
   };
 
   const onConnect = (params) => {
@@ -69,7 +66,7 @@ const Sketchpad = ( { elements, getElements, addElement, removeElement, match } 
       animated: true,
       data : {}
     };
-    addElement(customParams);
+    addElement(match.params.id, customParams);
   };
 
   const onElementsRemove = (elementsToRemove) => {
@@ -107,7 +104,7 @@ const Sketchpad = ( { elements, getElements, addElement, removeElement, match } 
             </div>
             <Sidebar />
         </div>
-        <SketchpadControl scenario={scenario} />
+        <SketchpadControl />
       </div>
 
     </main>
@@ -124,8 +121,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getElements: (id) => dispatch(startGetElements(id)),
-    addElement: (element) => dispatch(addElement(element)),
-    removeElement: (id) => dispatch(removeElement(id))
+    addElement: (id, element) => dispatch(startAddElement(id, element)),
+    removeElement: (id) => dispatch(startRemoveElement(id))
   };
 };
 
