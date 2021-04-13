@@ -52,7 +52,7 @@ export const removeConnection = (ID) => {
 export const startRemoveConnection = (ID) => {
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.post(`/users/${username}/connection/delete/token`,{"Token_id":ID})
+        return Axios.post(`/users/${username}/connection/delete/token`,{"ID":ID})
         .then(res => {
             dispatch(removeConnection(ID));
         })
