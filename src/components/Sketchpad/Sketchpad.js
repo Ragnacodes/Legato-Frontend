@@ -24,14 +24,17 @@ const Sketchpad = ( { elements, getElements, addElement, removeElement, match } 
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [scenario, setScenario] = useState();
-  const [loader, setLoader] = useState();
+  const [loading, setLoading] = useState();
 
   useEffect(() => {
+    setLoading(true);
     getElements(match.params.id)
     .then((scenario) => {
       setScenario(scenario);
+      setLoading(false);
     })
     .catch(() => {
+      setLoading(false);
     });
   }, [getElements, match.params.id]);
 
@@ -56,7 +59,14 @@ const Sketchpad = ( { elements, getElements, addElement, removeElement, match } 
       position,
       data: {},
     };
-    addElement(match.params.id, newNode);
+    // setLoading(true);
+    addElement(match.params.id, newNode)
+    // .then(() => {
+    //   setLoading(false);
+    // })
+    // .catch(() => {
+    //   setLoading(false);
+    // });
   };
 
   const onConnect = (params) => {
@@ -66,7 +76,14 @@ const Sketchpad = ( { elements, getElements, addElement, removeElement, match } 
       animated: true,
       data : {}
     };
-    addElement(match.params.id, customParams);
+    // setLoading(true);
+    addElement(match.params.id, customParams)
+    // .then(() => {
+    //   setLoading(false);
+    // })
+    // .catch(() => {
+    //   setLoading(false);
+    // });
   };
 
   const onElementsRemove = (elementsToRemove) => {
@@ -75,41 +92,46 @@ const Sketchpad = ( { elements, getElements, addElement, removeElement, match } 
     });
   };
 
-  return (
-    <>
-    <Appbar leftChildren={<SketchpadTitle scenario={scenario} />} />
-    <main className="main">
-    <div className="app-bar-spacer" />
-
-      <div className="sketchpad">
-        <div className="dndflow">
-            <div className="reactflow-wrapper" ref={reactFlowWrapper}>
-              <ReactFlow
-                elements={elements}
-                onConnect={onConnect}
-                onElementsRemove={onElementsRemove}
-                onLoad={onLoad}
-                onDrop={onDrop}
-                onDragOver={onDragOver}
-                nodeTypes={nodeTypes}
-                edgeTypes={{ customEdge: CustomEdge }}
-              >
-                <Background
-                  variant="lines"
-                  gap={16}
-                  size={0.5}
-                />
-                <Controls showInteractive={false} />
-              </ReactFlow>
-            </div>
-            <Sidebar />
+  if (loading) {
+    return (<div>Loading</div>)
+  }
+  else {
+    return (
+      <>
+      <Appbar leftChildren={<SketchpadTitle />} />
+      <main className="main">
+      <div className="app-bar-spacer" />
+  
+        <div className="sketchpad">
+          <div className="dndflow">
+              <div className="reactflow-wrapper" ref={reactFlowWrapper}>
+                <ReactFlow
+                  elements={elements}
+                  onConnect={onConnect}
+                  onElementsRemove={onElementsRemove}
+                  onLoad={onLoad}
+                  onDrop={onDrop}
+                  onDragOver={onDragOver}
+                  nodeTypes={nodeTypes}
+                  edgeTypes={{ customEdge: CustomEdge }}
+                >
+                  <Background
+                    variant="lines"
+                    gap={16}
+                    size={0.5}
+                  />
+                  <Controls showInteractive={false} />
+                </ReactFlow>
+              </div>
+              <Sidebar />
+          </div>
+          <SketchpadControl />
         </div>
-        <SketchpadControl />
-      </div>
-
-    </main>
-    </>
-  );
+  
+      </main>
+      </>
+    )
+  }
 };
 
 const mapStateToProps = (state) => {
