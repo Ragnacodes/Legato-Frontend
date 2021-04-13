@@ -78,10 +78,6 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
     },
   ];
 
-  // const handleRemoveWebhook = () => {
-  //   removeWebhook(id);
-  // };
-
   const handleUpdateWebhook = (data) => {
     updateWebhook(webhook.id, { ...data, active: data.enable });
     console.log(Axios.defaults.headers.common["Authorization"]);
@@ -190,15 +186,13 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
             className="switch"
           />
         </Tooltip>
-        <Button
+        <IconButton 
           size="small"
           variant="contained"
           color="primary"
-          disableElevation
           className="queue-button"
-          startIcon={<LocalShippingIcon />}
           onClick={() => setQueueModal(true)}
-        ></Button>
+        ><LocalShippingIcon /></IconButton >
         <WebhookQueue
           queue={mockQueue}
           visible={queueModal}
