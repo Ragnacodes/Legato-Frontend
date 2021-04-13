@@ -7,6 +7,7 @@ import scenariosReducer from "../reducers/scenarios";
 import webhookReducer from "../reducers/webhooks";
 import sketchpadReducer from "../reducers/sketchpad";
 import drawerReducer from "../reducers/drawer";
+import connectionsReducer from "../reducers/connections"
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -25,7 +26,8 @@ const configureStore = () => {
       scenarios: scenariosReducer,
       webhooks: webhookReducer,
       sketchpad: sketchpadReducer,
-      drawer: drawerReducer
+      drawer: drawerReducer,
+      connections: connectionsReducer
     }),
     composeEnhancers(applyMiddleware(...middleware))
   );
