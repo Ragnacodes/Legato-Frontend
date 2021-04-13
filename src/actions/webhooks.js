@@ -14,6 +14,14 @@ export const setWebhooks = (webhooks) => {
   };
 };
 
+export const addWebhook = (webhook) => {
+  return {
+    type: ActionTypes.ADD_WEBHOOK,
+    payload: {
+      webhook,
+    },
+  };
+};
 // export const removeWebhook = (id) => {
 //   return {
 //     type: ActionTypes.REMOVE_WEBHOOK,
