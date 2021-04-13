@@ -41,7 +41,8 @@ const AddConnection = (addConnection) => {
             </ListItem>
             <ListItem button onClick={(e) => onServiceClicked(e, "discord")}>
                 <ListItemIcon>
-                    <i className="fab fa-discord"></i>
+                {/* <FontAwesomeIcon icon={faDiscord} /> */}
+                <i className="fab fa-discord"/>
                 </ListItemIcon>
                 <ListItemText primary="Discord" />
             </ListItem>

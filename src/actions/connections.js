@@ -1,7 +1,6 @@
 import Axios from '../utils/axiosConfig';
 
 export const getConnections = (connections) => {
-    console.log(connections);
     return {
         type: 'GET_CONNECTIONS',
         connections
@@ -13,7 +12,7 @@ export const startGetConnections = () => {
         const username = getState().auth.username;
         return Axios.get(`/users/${username}/connection/gettokens`)
         .then(res => {
-            dispatch(getConnections(res.data));
+            dispatch(getConnections(res.data.connections));
         })
         .catch(err => {
             console.log(err);
@@ -47,6 +46,20 @@ export const removeConnection = (ID) => {
     return {
         type: 'REMOVE_CONNECTION',
         ID
+    };
+};
+
+export const startRemoveConnection = (ID) => {
+    return (dispatch, getState) => {
+        const username = getState().auth.username;
+        return Axios.post(`/users/${username}/connection/delete/token`,{"Token_id":ID})
+        .then(res => {
+            dispatch(removeConnection(ID));
+        })
+        .catch(err => {
+            console.log(err);
+            // alert("you already have this account");
+        });
     };
 };
 

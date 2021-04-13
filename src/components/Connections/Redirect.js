@@ -21,10 +21,12 @@ const Redirect = (state) => {
                                                              "token": token})
             .then(res => {
                 console.log(res);
-                // window.close();
+                window.close();
+                window.location.reload()
              })
             .catch(err => {
                 console.log(err);
+                alert("you already have this account");
             });
         
     };

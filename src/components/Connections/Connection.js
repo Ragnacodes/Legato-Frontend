@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 // import EditIcon from "@material-ui/icons/Edit";
 import { connect } from 'react-redux';
-import { editConnection, removeConnection } from '../../actions/connections';
+import { editConnection, startRemoveConnection } from '../../actions/connections';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Telegram, GitHub, QueueMusic, Email } from '@material-ui/icons';
 
@@ -21,31 +21,31 @@ const Connection = ({ ID, Name, Token_type, editConnection, removeConnection }) 
     removeConnection(ID);
   };
 
+  const switchCase=(Token_type) => {
+    switch (Token_type) {
+      case 'git':
+        return (
+          <ListItemIcon><GitHub /></ListItemIcon>
+        );
+      case 'google':
+        return (
+          <ListItemIcon><Email /></ListItemIcon>
+        );
+      case 'spotify':
+        return (
+          <ListItemIcon><QueueMusic /></ListItemIcon>
+        );
+      case 'discord':
+        return (
+          <ListItemIcon><Telegram /></ListItemIcon>
+        );
+      default:
+        return null;
+    }
+  }
   return (
     <ListItem className="connection" button component={NavLink} to={`/sketchpad/${ID}`}>
-      {() => {
-        switch (Token_type) {
-          case 'git':
-            return (
-              <ListItemIcon><GitHub /></ListItemIcon>
-            );
-          case 'google':
-            return (
-              <ListItemIcon><Email /></ListItemIcon>
-            );
-          case 'spotify':
-            return (
-              <ListItemIcon><QueueMusic /></ListItemIcon>
-            );
-          case 'discord':
-            return (
-              <ListItemIcon><Telegram /></ListItemIcon>
-            );
-          default:
-            return null;
-        }
-      }
-      }
+      { switchCase(Token_type) }
 
       <ListItemText primary={Name} className="name" />
 
@@ -67,7 +67,7 @@ const Connection = ({ ID, Name, Token_type, editConnection, removeConnection }) 
 
 const mapDispatchToProps = (dispatch) => ({
   // editConnection: (type, data) => dispatch(editConnection(type, data)),
-  removeConnection: (type, data) => dispatch(removeConnection(type, data)),
+  removeConnection: (type, data) => dispatch(startRemoveConnection(type, data)),
 });
 
 export default connect(null, mapDispatchToProps)(Connection);

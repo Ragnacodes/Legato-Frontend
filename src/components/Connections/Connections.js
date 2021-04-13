@@ -42,14 +42,22 @@ const Connections = ({ connections, getConnections }) => {
         >
             Add connection
         </Button>
+    const leftChildren =
+        <Typography component="h6" variant="h6" color="inherit" noWrap>
+            Connections
+        </Typography>
     return (
         <>
-            <Appbar rightChildren={rightChildren} />
+            <Appbar leftChildren={leftChildren} rightChildren={rightChildren} />
             <main className="main">
                 <div className="app-bar-spacer" />
                 <div className="content-container">
                     <Container maxWidth="lg">
-                        {connections.length === 0 ? <p>There is no item</p> :
+                        {connections == null ? 
+                                <Typography component="h5" variant="h7" color="inherit" noWrap>
+                                    there are no items!
+                                </Typography> 
+                            :
                             <List>
                                 {
                                     connections.map((connection) => {
