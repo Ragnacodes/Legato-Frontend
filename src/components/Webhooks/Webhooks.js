@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Container, Divider } from "@material-ui/core";
+import { Container, Divider, Typography } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import Webhook from "./Webhook";
 import Axios from "../../utils/axiosConfig";
 import { setWebhooks } from "../../actions/webhooks";
 import Appbar from '../Layout/Appbar';
 
-const Webhooks = ({ webhooks, username }) => {
+const Webhooks = ({ webhooks, username, setWebhooks }) => {
 
   useEffect(() => {
     Axios.get(`/users/${username}/services/webhook/`)
@@ -21,7 +21,7 @@ const Webhooks = ({ webhooks, username }) => {
 
   return (
     <>
-    <Appbar />
+    <Appbar leftChildren={<Typography component="h6" variant="h6" color="inherit" noWrap >Webhooks</Typography>}/>
     <main className="main">
       <div className="app-bar-spacer" />
       <div className="content-container">
@@ -30,8 +30,8 @@ const Webhooks = ({ webhooks, username }) => {
           <List>
             {webhooks.map((w) => {
               return (
-                <div>
-                  <Webhook key={w.id} webhook={w} />
+                <div key={w.id}>
+                  <Webhook webhook={w} />
                   <Divider />
                 </div>
               );

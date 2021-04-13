@@ -21,9 +21,7 @@ import QueueDetails from "./QueueDetails";
 const WebhookQueue = ({ queue, visible, setVisible }) => {
   const dataNames = ["Type", "Created At", "Size", "Scenarios", ""];
   function QueueRow(row) {
-    useEffect(() => {
-      console.log(row);
-    }, []);
+
     const [openDetails, setOpenDetails] = useState(null);
     return (
       <TableRow role="queuerow" key={row.id}>
