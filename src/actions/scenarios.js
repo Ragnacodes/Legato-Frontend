@@ -74,9 +74,9 @@ export const startEditScenario = (id, updates) => {
     const body = JSON.stringify(updates);
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.post(`/users/${username}/scenarios/${id}`, body)
+        return Axios.put(`/users/${username}/scenarios/${id}`, body)
         .then(res => {
-            dispatch(editScenario(id, res.data.updates));
+            dispatch(editScenario(id, updates));
         })
         .catch(err => {
             console.log(err);
