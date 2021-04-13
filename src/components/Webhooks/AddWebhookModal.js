@@ -9,7 +9,7 @@ import WebhookSettings from "./WebhookSettings";
 
 const AddWebhookModal = ({ visible, handleSave, setVisible }) => {
   const webhook = {
-    name: "",
+    name: "New Webhook",
     ip_restrictions: "",
     get_request_headers: false,
     get_request_http: false,

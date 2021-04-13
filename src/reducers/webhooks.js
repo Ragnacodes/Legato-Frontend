@@ -16,7 +16,7 @@ const webhookReducer = (state = initialState, action) => {
           .map((wh) => {
             return {
               ...wh,
-              id: wh.url.split("/").reverse()[0],
+              active: wh.isEnable,
               ip_restrictions: "",
               get_request_headers: false,
               get_request_http: false,
@@ -30,6 +30,7 @@ const webhookReducer = (state = initialState, action) => {
         ...state,
         webhooks: state.webhooks.concat({
           ...action.payload.webhook,
+          active: action.payload.webhook.isEnable,
           id: action.payload.webhook.url.split("/").reverse()[0],
           ip_restrictions: "",
           get_request_headers: false,

@@ -79,11 +79,9 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
   ];
 
   const handleUpdateWebhook = (data) => {
-    updateWebhook(webhook.id, { ...data, active: data.enable });
-    console.log(Axios.defaults.headers.common["Authorization"]);
-    Axios.patch(`/users/${username}/services/webhook/${id}/`, {
+    Axios.put(`/users/${username}/services/webhooks/${id}`, {
       name: data.name,
-      enable: data.enable,
+      isEnable: data.enable,
     })
       .then((response) => {
         console.log(response);
@@ -186,13 +184,15 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
             className="switch"
           />
         </Tooltip>
-        <IconButton 
+        <IconButton
           size="small"
           variant="contained"
           color="primary"
           className="queue-button"
           onClick={() => setQueueModal(true)}
-        ><LocalShippingIcon /></IconButton >
+        >
+          <LocalShippingIcon />
+        </IconButton>
         <WebhookQueue
           queue={mockQueue}
           visible={queueModal}

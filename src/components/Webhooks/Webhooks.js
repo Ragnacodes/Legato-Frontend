@@ -12,9 +12,9 @@ import { errorNotification, successNotification } from "../Notification";
 const Webhooks = ({ webhooks, username, setWebhooks, addWebhook }) => {
   const [addModalVisible, setAddModalVisible] = useState(false);
   useEffect(() => {
-    Axios.get(`/users/${username}/services/webhook/`)
+    Axios.get(`/users/${username}/services/webhooks`)
       .then((response) => {
-        setWebhooks(response.data);
+        setWebhooks(response.data.webhooks);
       })
       .catch((error) => {
         console.log(error);
@@ -22,14 +22,15 @@ const Webhooks = ({ webhooks, username, setWebhooks, addWebhook }) => {
   }, []);
 
   const addNewWebhook = (data) => {
-    Axios.post(`/users/${username}/services/webhook/`, {
+    Axios.post(`/users/${username}/services/webhooks`, {
       name: data.name,
     })
       .then((response) => {
         // setWebhooks(response.data);
         console.log(response.data);
-        successNotification(`Created ${response.data.name}.`);
-        addWebhook(response.data);
+        let str = response.data.message;
+        successNotification(str.charAt(0).toUpperCase() + str.slice(1) + ".");
+        addWebhook(response.data.webhook);
       })
       .catch((error) => {
         console.log(error);
