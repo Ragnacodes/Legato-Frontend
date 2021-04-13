@@ -49,6 +49,19 @@ export const removeScenario = (id) => {
     };
 };
 
+export const startRemoveScenario = (id) => {
+    return (dispatch, getState) => {
+        const username = getState().auth.username;
+        return Axios.delete(`/users/${username}/scenarios/${id}`)
+        .then(res => {
+            dispatch(removeScenario(id));
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    };
+};
+
 export const editScenario = (id, updates) => {
     return {
         type: 'EDIT_SCENARIO',
@@ -61,7 +74,7 @@ export const startEditScenario = (id, updates) => {
     const body = JSON.stringify(updates);
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.post(`/users/${username}/scenarios/:scenario_id`, body)
+        return Axios.post(`/users/${username}/scenarios/${id}`, body)
         .then(res => {
             dispatch(editScenario(id, res.data.updates));
         })
