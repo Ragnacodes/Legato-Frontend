@@ -24,3 +24,10 @@
     overflow: auto;
     padding: $lg-size 0;
 }
+
+.centered-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
