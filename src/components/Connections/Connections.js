@@ -17,21 +17,13 @@ import Connection from './Connection';
 import { startGetConnections } from '../../actions/connections';
 
 const Connections = ({ connections, getConnections }) => {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
     useEffect(() => {
-        setLoading(true);
-        setError(false);
         getConnections()
             .then(() => {
-                setLoading(false);
-                setError(false);
             })
             .catch(() => {
-                setLoading(false);
-                setError(true);
             });
-    }, []);
+    }, [getConnections]);
 
     const [addConnection, setAddConnection] = useState(false);
     const rightChildren =

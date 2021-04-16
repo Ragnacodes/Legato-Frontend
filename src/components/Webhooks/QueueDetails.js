@@ -13,7 +13,7 @@ const QueueDetails = ({ data }) => {
   //   const dataNames = ;
   useEffect(() => {
     console.log(data);
-  }, []);
+  }, [data]);
 
   return (
     <div className="wh-queue-details">

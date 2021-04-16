@@ -19,7 +19,7 @@ const Webhooks = ({ webhooks, username, setWebhooks, addWebhook }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [setWebhooks, username]);
 
   const addNewWebhook = (data) => {
     Axios.post(`/users/${username}/services/webhooks`, {

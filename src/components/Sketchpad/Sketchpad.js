@@ -23,14 +23,12 @@ const nodeTypes = {
 const Sketchpad = ( { elements, getElements, addElement, removeElement, match } ) => {
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
-  const [scenario, setScenario] = useState();
   const [loading, setLoading] = useState();
 
   useEffect(() => {
     setLoading(true);
     getElements(match.params.id)
-    .then((scenario) => {
-      setScenario(scenario);
+    .then(() => {
       setLoading(false);
     })
     .catch(() => {

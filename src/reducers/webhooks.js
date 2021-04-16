@@ -10,7 +10,7 @@ const webhookReducer = (state = initialState, action) => {
         webhooks: action.payload.webhooks
           .filter(
             (wh) =>
-              wh.url.split("/").reverse()[0] !=
+              wh.url.split("/").reverse()[0] !==
               "00000000-0000-0000-0000-000000000000"
           )
           .map((wh) => {

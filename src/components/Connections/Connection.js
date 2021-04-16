@@ -8,11 +8,11 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 // import EditIcon from "@material-ui/icons/Edit";
 import { connect } from 'react-redux';
-import { editConnection, startRemoveConnection } from '../../actions/connections';
+import { startRemoveConnection } from '../../actions/connections';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Telegram, GitHub, QueueMusic, Email } from '@material-ui/icons';
 
-const Connection = ({ ID, Name, Token_type, editConnection, removeConnection }) => {
+const Connection = ({ ID, Name, Token_type, removeConnection }) => {
   // const handleEditConnection = () => {
   //   editConnection(ID);
   // };

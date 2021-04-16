@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Axios from '../../utils/axiosConfig';
 import {
     List,
@@ -6,7 +6,7 @@ import {
     ListItemIcon,
     ListItemText
 } from "@material-ui/core";
-import { Telegram, GitHub, QueueMusic, Email } from '@material-ui/icons';
+import { GitHub, QueueMusic, Email } from '@material-ui/icons';
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AddConnection = (addConnection) => {

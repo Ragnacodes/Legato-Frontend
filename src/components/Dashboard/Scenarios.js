@@ -124,7 +124,7 @@ const Scenarios = () => {
         <span style={{ fontSize: 25, margin: 10 }}>Active scenarios</span>
         <List>
           {
-            defaultScenarios.map((scenario) => {
+            defaultScenarios.forEach((scenario) => {
               if (scenario.isActive) {
                 return <Scenario key={scenario.id} {...scenario} />;
               }
