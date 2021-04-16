@@ -1,9 +1,7 @@
-import React from "react";
-import { useState, useRef } from "react";
-import Axios from "../../utils/axiosConfig";
-import { connect } from "react-redux";
-import * as actions from "../../actions/signup";
-
+import React, { useState, useRef } from 'react';
+import Axios from '../../utils/axiosConfig';
+import { connect } from 'react-redux';
+import * as actions from '../../actions/signup';
 import {
   TextField,
   Button,
@@ -11,11 +9,9 @@ import {
   CircularProgress,
   InputAdornment,
   IconButton,
-} from "@material-ui/core";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-
-import { successNotification, errorNotification } from "../Layout/Notification";
+} from '@material-ui/core';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { successNotification, errorNotification } from '../Layout/Notification';
 
 export function SignUpForm({
   info,

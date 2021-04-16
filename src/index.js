@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from './styles/base/theme';
-import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
-import './styles/styles.scss';
-import reportWebVitals from './reportWebVitals';
 import { startSetUser } from './actions/auth';
+import reportWebVitals from './reportWebVitals';
+import AppRouter from './routers/AppRouter';
 import Preloader from './components/Layout/Preloader';
+import { CssBaseline } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './styles/base/theme';
+import './styles/styles.scss';
 
 const store = configureStore();
 

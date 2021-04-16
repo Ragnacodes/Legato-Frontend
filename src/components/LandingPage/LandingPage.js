@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux';
 import Appbar from '../Layout/Appbar';
-import AuthButtons from '../LoginSignUp/AuthButtons';
 import LandingButtons from './LandingButtons';
+import AuthButtons from '../LoginSignUp/AuthButtons';
 
 const LandingPage = ({ isAuthenticated }) => {
 

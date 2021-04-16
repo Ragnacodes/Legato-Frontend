@@ -1,4 +1,4 @@
-import { ActionTypes } from "../actions/login";
+import { ActionTypes } from '../actions/login';
 
 const initialState = {
   login_info: {},

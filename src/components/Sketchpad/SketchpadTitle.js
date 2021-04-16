@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import InputBase from '@material-ui/core/InputBase';
 import { startEditScenario } from '../../actions/scenarios';
+import { InputBase } from '@material-ui/core';
 
 const SketchpadTitle = ({ name, editScenario }) => {
     return (

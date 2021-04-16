@@ -1,9 +1,9 @@
-import React from "react";
-import { Button, Tab, Tabs } from "@material-ui/core";
-import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
-import AdvancedSettings from "./AdvancedSettings";
-import GeneralSettings from "./GeneralSettings";
-import { useState } from "react";
+import React, { useState } from 'react';
+import { Button, Tab, Tabs } from '@material-ui/core';
+import { CloseRounded } from '@material-ui/icons';
+import AdvancedSettings from './AdvancedSettings';
+import GeneralSettings from './GeneralSettings';
+
 export function TabPanel(props) {
   const { children, value, index, className, ...other } = props;
 
@@ -38,7 +38,7 @@ const WebhookSettings = ({ webhook, visible, setVisible, handleSave }) => {
 
   return (
     <div>
-      <CloseRoundedIcon
+      <CloseRounded
         className="close-icon"
         onClick={() => setVisible(false)}
       />

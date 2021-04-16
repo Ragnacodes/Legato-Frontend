@@ -5,9 +5,8 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText
-} from "@material-ui/core";
+} from '@material-ui/core';
 import { GitHub, QueueMusic, Email } from '@material-ui/icons';
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AddConnection = (addConnection) => {
     function onServiceClicked(e, inputService) {

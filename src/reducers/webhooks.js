@@ -1,4 +1,4 @@
-import { ActionTypes } from "../actions/webhooks";
+import { ActionTypes } from '../actions/webhooks';
 const initialState = {
   webhooks: [],
 };

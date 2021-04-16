@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
-import AddConnection from './AddConnection';
-import Appbar from '../Layout/Appbar';
+import { connect } from 'react-redux';
+import { startGetConnections } from '../../actions/connections';
 import {
     Button,
     Typography,
@@ -12,10 +11,11 @@ import {
     Container,
     List
 } from "@material-ui/core";
-import { connect } from 'react-redux';
-import Connection from './Connection';
-import { startGetConnections } from '../../actions/connections';
+import { CloseRounded } from "@material-ui/icons";
+import Appbar from '../Layout/Appbar';
 import PageTitle from '../Layout/PageTitle';
+import AddConnection from './AddConnection';
+import Connection from './Connection';
 
 const Connections = ({ connections, getConnections }) => {
     useEffect(() => {
@@ -66,7 +66,7 @@ const Connections = ({ connections, getConnections }) => {
                                 <Typography variant="h5">Service</Typography>
                             </DialogTitle>
                             <DialogContent>
-                                <CloseRoundedIcon
+                                <CloseRounded
                                     style={{ cursor: "pointer", fontSize: 24, position: "absolute", right: 10, top: 10, color: "$primary" }}
                                     onClick={() => setAddConnection(false)}
                                 />

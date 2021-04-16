@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { Container, Divider, Button } from "@material-ui/core";
-import List from "@material-ui/core/List";
-import Webhook from "./Webhook";
-import Axios from "../../utils/axiosConfig";
-import { setWebhooks, addWebhook } from "../../actions/webhooks";
-import Appbar from "../Layout/Appbar";
-import AddWebhookModal from "./AddWebhookModal";
-import { errorNotification, successNotification } from "../Layout/Notification";
-import PageTitle from "../Layout/PageTitle";
+import React, { useEffect, useState } from 'react';
+import Axios from '../../utils/axiosConfig';
+import { connect } from 'react-redux';
+import { setWebhooks, addWebhook } from '../../actions/webhooks';
+import { Container, Divider, Button, List } from '@material-ui/core';
+import Appbar from '../Layout/Appbar';
+import PageTitle from '../Layout/PageTitle';
+import Webhook from './Webhook';
+import AddWebhookModal from './AddWebhookModal';
+import { errorNotification, successNotification } from '../Layout/Notification';
 
 const Webhooks = ({ webhooks, username, setWebhooks, addWebhook }) => {
   const [addModalVisible, setAddModalVisible] = useState(false);

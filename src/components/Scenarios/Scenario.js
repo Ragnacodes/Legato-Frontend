@@ -1,16 +1,20 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Switch from '@material-ui/core/Switch';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import OfflineBoltOutlinedIcon from '@material-ui/icons/OfflineBoltOutlined';
 import { connect } from 'react-redux';
 import { startEditScenario, startRemoveScenario } from '../../actions/scenarios';
-import Tooltip from '@material-ui/core/Tooltip';
+import {
+    ListItem,
+    ListItemSecondaryAction,
+    ListItemText,
+    Switch,
+    IconButton,
+    Tooltip
+} from '@material-ui/core';
+import {
+    Delete,
+    AccessTime,
+    OfflineBoltOutlined,
+} from '@material-ui/icons';
 import ScenarioNodes from './ScenarioNodes';
 
 const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeScenario }) => {
@@ -32,11 +36,11 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
                 {
                     interval ? (
                         <Tooltip title={`Each ${interval} minutes.`} placement="left">
-                            <AccessTimeIcon fontSize="small" />
+                            <AccessTime fontSize="small" />
                         </Tooltip>
                     ) : (
                             <Tooltip title={`Immediately when triggered.`} placement="left">
-                                <OfflineBoltOutlinedIcon fontSize="small" />
+                                <OfflineBoltOutlined fontSize="small" />
                             </Tooltip>
                         )
                 }
@@ -54,7 +58,7 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
 
                 <Tooltip title="Delete scenario." placement="right">
                     <IconButton aria-label="delete" className="delete" color="secondary" onClick={handleRemoveScenario}>
-                        <DeleteIcon fontSize="small" />
+                        <Delete fontSize="small" />
                     </IconButton>
                 </Tooltip>
             </ListItemSecondaryAction>

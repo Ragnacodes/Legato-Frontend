@@ -1,11 +1,12 @@
-import React from "react";
+import React from 'react';
 import {
   Typography,
   Dialog,
   DialogContent,
   DialogTitle,
-} from "@material-ui/core";
-import WebhookSettings from "./WebhookSettings";
+} from '@material-ui/core';
+import WebhookSettings from './WebhookSettings';
+
 export function TabPanel(props) {
   const { children, value, index, className, ...other } = props;
 

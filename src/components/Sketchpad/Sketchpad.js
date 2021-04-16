@@ -5,12 +5,12 @@ import ReactFlow, {
   Controls,
   Background,
 } from 'react-flow-renderer';
+import Appbar from '../Layout/Appbar';
+import SketchpadTitle from './SketchpadTitle';
 import Sidebar from './SketchpadSidebar.js';
 import AbstractNode from './AbstractNode';
 import CustomEdge from './CustomEdge';
-import Appbar from '../Layout/Appbar';
 import SketchpadControl from './SketchpadControl';
-import SketchpadTitle from './SketchpadTitle';
 
 const nodeTypes = {
   spotifys: AbstractNode,

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Paper from '@material-ui/core/Paper';
+import { Paper } from '@material-ui/core';
 import {
   ArgumentAxis,
   ValueAxis,

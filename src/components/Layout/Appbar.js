@@ -1,12 +1,14 @@
 import React from 'react';
 import clsx from 'clsx';
 import { connect } from 'react-redux';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import CustomDrawer from '../Layout/CustomDrawer';
 import { toggleDrawer } from '../../actions/drawer';
+import {
+    AppBar,
+    Toolbar,
+    IconButton
+} from '@material-ui/core';
+import { Menu } from '@material-ui/icons';
+import CustomDrawer from '../Layout/CustomDrawer';
 import style from '../../styles/layout/layout';
 
 const Appbar = ({
@@ -35,7 +37,7 @@ const Appbar = ({
                             onClick={() => toggleDrawer()}
                             className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
                         >
-                            <MenuIcon />
+                            <Menu />
                         </IconButton>
                     }
 

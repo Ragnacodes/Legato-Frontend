@@ -1,10 +1,10 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import { Typography } from '@material-ui/core';
 
 const Preloader = () => {
     return (
-        <section class="wrapper centered-container">
-            <div class="spinner">
+        <section className="wrapper centered-container">
+            <div className="spinner">
                 <i></i>
                 <i></i>
                 <i></i>

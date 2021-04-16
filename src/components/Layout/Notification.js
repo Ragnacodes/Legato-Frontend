@@ -1,8 +1,7 @@
-import React from "react";
-import Notification from "rc-notification";
-import "rc-notification/assets/index.css";
-import Alert from "@material-ui/lab/Alert";
-import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import React from 'react';
+import Notification from 'rc-notification';
+import { Alert } from '@material-ui/lab';
+import { CloseRounded } from '@material-ui/icons';
 
 let notification = null;
 Notification.newInstance({}, (n) => (notification = n));
@@ -18,7 +17,7 @@ export function successNotification(text) {
       </Alert>
     ),
     className: "success",
-    closeIcon: <CloseRoundedIcon />,
+    closeIcon: <CloseRounded />,
   });
 }
 
@@ -32,6 +31,6 @@ export function errorNotification(text) {
       </Alert>
     ),
     className: "error",
-    closeIcon: <CloseRoundedIcon />,
+    closeIcon: <CloseRounded />,
   });
 }

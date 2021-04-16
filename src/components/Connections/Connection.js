@@ -1,16 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-// import EditIcon from "@material-ui/icons/Edit";
 import { connect } from 'react-redux';
 import { startRemoveConnection } from '../../actions/connections';
-import Tooltip from '@material-ui/core/Tooltip';
-import { Telegram, GitHub, QueueMusic, Email } from '@material-ui/icons';
+import {
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+  ListItemIcon,
+  IconButton,
+  Tooltip
+} from '@material-ui/core';
+import { Delete, Telegram, GitHub, QueueMusic, Email } from '@material-ui/icons';
 
 const Connection = ({ ID, Name, Token_type, removeConnection }) => {
   // const handleEditConnection = () => {
@@ -57,7 +57,7 @@ const Connection = ({ ID, Name, Token_type, removeConnection }) => {
         </Tooltip> */}
         <Tooltip title="Delete connection." placement="top">
           <IconButton aria-label="delete" color="primary" onClick={handleRemoveConnection}>
-            <DeleteIcon fontSize="small" />
+            <Delete fontSize="small" />
           </IconButton>
         </Tooltip>
       </ListItemSecondaryAction>

@@ -1,9 +1,9 @@
 import React from 'react';
-import Chart from './Chart';
-import Scenarios from './Scenarios';
-import Container from '@material-ui/core/Container';
+import { Container } from '@material-ui/core';
 import Appbar from '../Layout/Appbar';
 import PageTitle from '../Layout/PageTitle';
+import Chart from './Chart';
+import Scenarios from './Scenarios';
 
 const Dashboard = () => {
   return (

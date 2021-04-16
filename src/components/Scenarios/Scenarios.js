@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import Container from '@material-ui/core/Container';
-import List from '@material-ui/core/List';
-import Appbar from '../Layout/Appbar';
-import Scenario from './Scenario';
-import AddScenario from './AddScenario';
 import { startGetScenarios } from '../../actions/scenarios';
+import { Container, List } from '@material-ui/core';
+import Appbar from '../Layout/Appbar';
 import PageTitle from '../Layout/PageTitle';
+import AddScenario from './AddScenario';
+import Scenario from './Scenario';
 
 const Scenarios = ({ scenarios, getScenarios }) => {
   useEffect(() => {

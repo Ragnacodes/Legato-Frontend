@@ -1,13 +1,12 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from 'react';
 import {
   Paper,
   Typography,
-} from "@material-ui/core";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
+  Table,
+  TableBody,
+  TableCell,
+  TableRow
+} from '@material-ui/core';
 
 const QueueDetails = ({ data }) => {
   //   const dataNames = ;

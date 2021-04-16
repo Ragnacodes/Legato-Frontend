@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
+import { Button } from '@material-ui/core';
 
 const LandingButtons = ({ logout }) => {
     return (

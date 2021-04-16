@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import Popover from '@material-ui/core/Popover';
 import {
     getBezierPath,
     getMarkerEnd,
     EdgeText,
     getEdgeCenter
 } from 'react-flow-renderer';
+import { Popover } from '@material-ui/core';
 import AbstractForm from './AbstractForm';
 
 const CustomEdge = ({

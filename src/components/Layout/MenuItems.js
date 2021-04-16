@@ -1,14 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import AccountTreeIcon from '@material-ui/icons/AccountTree';
-import LinkIcon from '@material-ui/icons/Link';
-import LanguageIcon from '@material-ui/icons/Language';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import {
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from '@material-ui/core';
+import {
+  Dashboard,
+  AccountTree,
+  Link,
+  Language,
+  VpnKey,
+  AccountCircle
+} from '@material-ui/icons';
 import Logout from './Logout';
 
 export const mainListItems = (
@@ -16,35 +20,35 @@ export const mainListItems = (
 
     <ListItem button component={NavLink} to="/dashboard" activeClassName="Mui-selected">
       <ListItemIcon>
-        <DashboardIcon />
+        <Dashboard />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItem>
 
     <ListItem button component={NavLink} to="/scenarios" activeClassName="Mui-selected">
       <ListItemIcon>
-        <AccountTreeIcon />
+        <AccountTree />
       </ListItemIcon>
       <ListItemText primary="Scenarios" />
     </ListItem>
 
     <ListItem button component={NavLink} to="/connections" activeClassName="Mui-selected">
       <ListItemIcon>
-        <LinkIcon />
+        <Link />
       </ListItemIcon>
       <ListItemText primary="Connections" />
     </ListItem>
 
     <ListItem button component={NavLink} to="/webhooks" activeClassName="Mui-selected">
       <ListItemIcon>
-        <LanguageIcon />
+        <Language />
       </ListItemIcon>
       <ListItemText primary="Webhooks" />
     </ListItem>
 
     <ListItem button component={NavLink} to="/keys" activeClassName="Mui-selected">
       <ListItemIcon>
-        <VpnKeyIcon />
+        <VpnKey />
       </ListItemIcon>
       <ListItemText primary="SSH Keys" />
     </ListItem>
@@ -57,7 +61,7 @@ export const bottomListItems = (
 
     <ListItem button component={NavLink} to="/profile" activeClassName="Mui-selected">
       <ListItemIcon>
-        <AccountCircleIcon />
+        <AccountCircle />
       </ListItemIcon>
       <ListItemText primary="Profile" />
     </ListItem>

@@ -1,15 +1,17 @@
 import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
+import {
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from '@material-ui/core';
+import { ExitToApp } from '@material-ui/icons';
 
 export const Logout = ({ logout }) => (
     <ListItem button onClick={logout}>
       <ListItemIcon>
-        <ExitToAppIcon />
+        <ExitToApp />
       </ListItemIcon>
       <ListItemText primary="Logout" />
     </ListItem>

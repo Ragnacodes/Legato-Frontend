@@ -1,10 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import OfflineBoltOutlinedIcon from '@material-ui/icons/OfflineBoltOutlined';
+import {
+    ListItem,
+    ListItemSecondaryAction,
+    ListItemText
+} from '@material-ui/core';
+import {
+    AccessTime,
+    OfflineBoltOutlined
+} from '@material-ui/icons';
 import ScenarioNodes from '../Scenarios/ScenarioNodes';
 
 const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeScenario }) => (
@@ -17,12 +21,12 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
                 {
                     interval ? (
                         <React.Fragment>
-                            <AccessTimeIcon fontSize="small" />
+                            <AccessTime fontSize="small" />
                             <p style={{padding:7, fontSize:"small", width:90}}>{`${interval} minutes`}</p>
                         </React.Fragment>
                     ) : (
                         <React.Fragment>
-                            <OfflineBoltOutlinedIcon fontSize="small" />
+                            <OfflineBoltOutlined fontSize="small" />
                             <p style={{padding:7, fontSize:"small", width:90}}>{`Immediately`} </p>
                         </React.Fragment>
                         )

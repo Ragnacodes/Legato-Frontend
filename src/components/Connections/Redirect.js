@@ -1,8 +1,7 @@
 import React from 'react';
-import Axios from "../../utils/axiosConfig";
-import { TextField, Button, Typography } from '@material-ui/core';
+import Axios from '../../utils/axiosConfig';
 import { connect } from 'react-redux';
-
+import { TextField, Button, Typography } from '@material-ui/core';
 
 const Redirect = (state) => {
     //console.log(window.location.href.substring(window.location.href.indexOf("code=")));

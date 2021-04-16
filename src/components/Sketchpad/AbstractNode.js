@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Handle } from 'react-flow-renderer';
-import Popover from '@material-ui/core/Popover';
+import { Popover } from '@material-ui/core';
 import AbstractForm from './AbstractForm';
 
 const AbstractNode = (props) => {

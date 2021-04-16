@@ -1,10 +1,12 @@
-import AvatarGroup from '@material-ui/lab/AvatarGroup';
-import Avatar from '@material-ui/core/Avatar';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import TelegramIcon from '@material-ui/icons/Telegram';
-import CodeIcon from '@material-ui/icons/Code';
-import QueueMusicIcon from '@material-ui/icons/QueueMusic';
-import LanguageIcon from '@material-ui/icons/Language';
+import { AvatarGroup } from '@material-ui/lab';
+import { Avatar } from '@material-ui/core';
+import {
+    GitHub,
+    Telegram,
+    Code,
+    QueueMusic,
+    Language
+} from '@material-ui/icons/GitHub';
 
 const ScenarioNodes = ({nodes}) => {
     return (
@@ -15,31 +17,31 @@ const ScenarioNodes = ({nodes}) => {
                         case 'sshs':
                             return (
                                 <Avatar className="ssh">
-                                    <CodeIcon fontSize="small" />
+                                    <Code fontSize="small" />
                                 </Avatar>
                             );
                         case 'webhooks':
                             return (
                                 <Avatar className="webhook">
-                                    <LanguageIcon fontSize="small" />
+                                    <Language fontSize="small" />
                                 </Avatar>
                             );
                         case 'githubs':
                             return (
                                 <Avatar className="github">
-                                    <GitHubIcon fontSize="small" />
+                                    <GitHub fontSize="small" />
                             </Avatar>
                             );
                         case 'spotifys':
                             return (
                                 <Avatar className="spotify">
-                                    <QueueMusicIcon fontSize="small" />
+                                    <QueueMusic fontSize="small" />
                                 </Avatar>
                             );
                         case 'telegrams':
                             return (
                                 <Avatar className="telegram">
-                                    <TelegramIcon fontSize="small" />
+                                    <Telegram fontSize="small" />
                                 </Avatar>
                             );
                         default:

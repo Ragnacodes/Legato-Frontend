@@ -1,6 +1,7 @@
-import React from "react";
-import { useState } from "react";
-import { connect } from "react-redux";
+import React, { useState } from 'react';
+import Axios from '../../utils/axiosConfig';
+import { connect } from 'react-redux';
+import * as actions from '../../actions/webhooks';
 import {
   Button,
   ListItem,
@@ -13,16 +14,12 @@ import {
   InputAdornment,
   IconButton,
   Tooltip,
-} from "@material-ui/core";
-import SaveAltIcon from "@material-ui/icons/SaveAlt";
-import ClearIcon from "@material-ui/icons/Clear";
-import EditIcon from "@material-ui/icons/Edit";
-import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import * as actions from "../../actions/webhooks";
-import EditModal from "./WebhookSettingsModal";
-import WebhookQueue from "./WebhookQueue";
-import Axios from "../../utils/axiosConfig";
-import { errorNotification, successNotification } from "../Layout/Notification";
+} from '@material-ui/core';
+import { SaveAlt, Clear, Edit, LocalShipping} from '@material-ui/icons';
+import EditModal from './WebhookSettingsModal';
+import WebhookQueue from './WebhookQueue';
+import { errorNotification, successNotification } from '../Layout/Notification';
+
 const Webhook = ({ webhook, username, updateWebhook }) => {
   const { id, name, active, url } = webhook;
   const [renameToggle, setRenameToggle] = useState(false);
@@ -133,7 +130,7 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
                         onMouseDown={(e) => e.preventDefault()}
                         edge="end"
                       >
-                        <SaveAltIcon />
+                        <SaveAlt />
                       </IconButton>
                     )}
                     <IconButton
@@ -142,7 +139,7 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
                       onMouseDown={(e) => e.preventDefault()}
                       edge="end"
                     >
-                      <ClearIcon />
+                      <Clear />
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -169,7 +166,7 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
           color="primary"
           disableElevation
           className="edit-button"
-          startIcon={<EditIcon />}
+          startIcon={<Edit />}
           onClick={() => setEditModalVisible(true)}
         >
           Edit
@@ -191,7 +188,7 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
           className="queue-button"
           onClick={() => setQueueModal(true)}
         >
-          <LocalShippingIcon />
+          <LocalShipping />
         </IconButton>
         <WebhookQueue
           queue={mockQueue}

@@ -1,10 +1,11 @@
-import React from "react";
+import React from 'react';
 import {
   Checkbox,
   FormControlLabel,
   Typography,
-} from "@material-ui/core";
-import InfoIcon from "@material-ui/icons/Info";
+} from '@material-ui/core';
+import { Info } from '@material-ui/icons';
+
 // import AddDataStructure from "./AddDataStructure";
 const AdvancedSettings = ({ handleChange, info }) => {
   // const dsMenu = useRef(null);
@@ -101,7 +102,7 @@ const AdvancedSettings = ({ handleChange, info }) => {
         label="Get request headers"
       />
       <Typography className="help-text" variant="body2">
-        <InfoIcon fontSize="small" className="help-icon" />
+        <Info fontSize="small" className="help-icon" />
         The headers will be added to the request body.
       </Typography>
       <FormControlLabel
@@ -116,7 +117,7 @@ const AdvancedSettings = ({ handleChange, info }) => {
         label="Get request HTTP method"
       />
       <Typography className="help-text" variant="body2">
-        <InfoIcon fontSize="small" className="help-icon" />
+        <Info fontSize="small" className="help-icon" />
         The HTTP method (verb) will be added to the request body.
       </Typography>
       <FormControlLabel
@@ -131,7 +132,7 @@ const AdvancedSettings = ({ handleChange, info }) => {
         label="JSON pass-through"
       />
       <Typography className="help-text" variant="body2">
-        <InfoIcon fontSize="small" className="help-icon" />
+        <Info fontSize="small" className="help-icon" />
         If enabled, JSON payloads are returned as a string.
       </Typography>
     </div>

@@ -1,13 +1,10 @@
-import React from "react";
-import { connect } from "react-redux";
-import Axios from "../../utils/axiosConfig";
-
-import * as actions from "../../actions/login";
-import { login } from "../../actions/auth";
-
-import { TextField, Button } from "@material-ui/core";
-
-import { successNotification, errorNotification } from "../Layout/Notification";
+import React from 'react';
+import Axios from '../../utils/axiosConfig';
+import { connect } from 'react-redux';
+import * as actions from '../../actions/login';
+import { login } from '../../actions/auth';
+import { TextField, Button } from '@material-ui/core';
+import { successNotification, errorNotification } from '../Layout/Notification';
 
 export function LoginForm({
   errors,

@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from 'react';
 import {
   Popover,
   Button,
@@ -8,15 +7,15 @@ import {
   DialogContent,
   DialogTitle,
   DialogActions,
-} from "@material-ui/core";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
-import QueueDetails from "./QueueDetails";
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow
+} from '@material-ui/core';
+import { CloseRounded }  from "@material-ui/icons";
+import QueueDetails from './QueueDetails';
 
 const WebhookQueue = ({ queue, visible, setVisible }) => {
   const dataNames = ["Type", "Created At", "Size", "Scenarios", ""];
@@ -71,7 +70,7 @@ const WebhookQueue = ({ queue, visible, setVisible }) => {
         <Typography variant="h5">Incoming Messages</Typography>
       </DialogTitle>
       <DialogContent>
-        <CloseRoundedIcon
+        <CloseRounded
           className="close-icon"
           onClick={() => setVisible(false)}
         />

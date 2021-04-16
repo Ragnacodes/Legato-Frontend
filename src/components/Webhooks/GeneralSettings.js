@@ -1,7 +1,6 @@
-import React from "react";
-import { TextField, Typography } from "@material-ui/core";
-
-import InfoIcon from "@material-ui/icons/Info";
+import React from 'react';
+import { TextField, Typography } from '@material-ui/core';
+import { Info } from '@material-ui/icons';
 
 const GeneralSettings = ({ handleChange, info }) => {
   return (
@@ -26,7 +25,7 @@ const GeneralSettings = ({ handleChange, info }) => {
         size="small"
       />
       <Typography className="help-text" variant="body2">
-        <InfoIcon fontSize="small" className="help-icon" />A whitelist of IP
+        <Info fontSize="small" className="help-icon" />A whitelist of IP
         addresses delimited by comma. You can use CIDR notation to whitelist a
         subnet. Leave empty if you don't want to check the IP address.
       </Typography>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startAddScenario } from '../../actions/scenarios';
-import { Redirect } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import { Button } from '@material-ui/core';
 
 const AddScenario = ({ addScenario }) => {
     const [id, setID] = useState();

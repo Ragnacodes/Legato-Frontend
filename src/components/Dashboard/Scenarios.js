@@ -1,6 +1,5 @@
 import React from 'react';
-import Container from '@material-ui/core/Container';
-import List from '@material-ui/core/List';
+import { Container, List } from '@material-ui/core';
 import Scenario from './Scenario';
 
 const Scenarios = () => {

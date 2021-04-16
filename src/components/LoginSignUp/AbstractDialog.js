@@ -1,10 +1,12 @@
 import React from 'react';
-import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
-import Typography from '@material-ui/core/Typography';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+import {
+    Typography,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText
+} from '@material-ui/core';
+import { CloseRounded } from '@material-ui/icons';
 
 const AbstractDialog = ({ open, onClick, title, description, form }) => {
     return (
@@ -20,7 +22,7 @@ const AbstractDialog = ({ open, onClick, title, description, form }) => {
             </DialogTitle>
 
             <DialogContent>
-                <CloseRoundedIcon
+                <CloseRounded
                     className="close-icon"
                     onClick={() => onClick(false)}
                 />

@@ -1,13 +1,15 @@
 import React from 'react';
 import clsx from 'clsx';
 import { connect } from 'react-redux';
-import List from '@material-ui/core/List';
-import IconButton from '@material-ui/core/IconButton';
-import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { mainListItems, bottomListItems } from './MenuItems';
 import { toggleDrawer } from '../../actions/drawer';
+import {
+    List,
+    IconButton,
+    Drawer,
+    Divider
+} from '@material-ui/core';
+import { ChevronLeft } from '@material-ui/icons';
+import { mainListItems, bottomListItems } from './MenuItems';
 import Logo from '../../styles/assets/Legato-Logo.png';
 import style from '../../styles/layout/layout';
 
@@ -28,7 +30,7 @@ const CustomDrawer = ({ isAuthenticated, open, toggleDrawer }) => {
                         <img src={Logo} height="32px" alt="Legato logo"/>
                     </div>
                     <IconButton onClick={() => toggleDrawer()}>
-                        <ChevronLeftIcon />
+                        <ChevronLeft />
                     </IconButton>
                 </div>
                 <Divider />

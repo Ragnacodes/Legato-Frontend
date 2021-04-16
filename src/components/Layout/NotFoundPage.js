@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import { Button } from '@material-ui/core';
 import PageNotFoundSVG from '../../styles/assets/page-not-found.svg';
 
 const NotFoundPage = () => {
