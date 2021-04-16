@@ -7,7 +7,7 @@ import Axios from "../../utils/axiosConfig";
 import { setWebhooks, addWebhook } from "../../actions/webhooks";
 import Appbar from "../Layout/Appbar";
 import AddWebhookModal from "./AddWebhookModal";
-import { errorNotification, successNotification } from "../Notification";
+import { errorNotification, successNotification } from "../Layout/Notification";
 import PageTitle from "../Layout/PageTitle";
 
 const Webhooks = ({ webhooks, username, setWebhooks, addWebhook }) => {

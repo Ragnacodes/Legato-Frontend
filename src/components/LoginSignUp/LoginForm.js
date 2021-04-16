@@ -7,7 +7,7 @@ import { login } from "../../actions/auth";
 
 import { TextField, Button } from "@material-ui/core";
 
-import { successNotification, errorNotification } from "../Notification";
+import { successNotification, errorNotification } from "../Layout/Notification";
 
 export function LoginForm({
   errors,

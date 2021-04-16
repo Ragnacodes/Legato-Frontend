@@ -15,7 +15,7 @@ import {
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-import { successNotification, errorNotification } from "../Notification";
+import { successNotification, errorNotification } from "../Layout/Notification";
 
 export function SignUpForm({
   info,
