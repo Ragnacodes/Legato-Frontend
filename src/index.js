@@ -9,10 +9,11 @@ import configureStore from './store/configureStore';
 import './styles/styles.scss';
 import reportWebVitals from './reportWebVitals';
 import { startSetUser } from './actions/auth';
+import Preloader from './components/Layout/Preloader';
 
 const store = configureStore();
 
-const jsx = (
+const app = (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <Provider store={store}>
@@ -21,10 +22,17 @@ const jsx = (
   </ThemeProvider>
 );
 
-ReactDOM.render(<p>Loading...</p>, document.getElementById('root'));
+const preloader = (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <Preloader />
+  </ThemeProvider>
+);
+
+ReactDOM.render(preloader, document.getElementById('root'));
 
 store.dispatch(startSetUser()).then(() => {
-  ReactDOM.render(jsx, document.getElementById('root'));
+  ReactDOM.render(app, document.getElementById('root'));
 });
 
 // If you want to start measuring performance in your app, pass a function
