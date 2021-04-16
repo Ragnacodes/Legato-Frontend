@@ -15,6 +15,7 @@ import {
 import { connect } from 'react-redux';
 import Connection from './Connection';
 import { startGetConnections } from '../../actions/connections';
+import PageTitle from '../Layout/PageTitle';
 
 const Connections = ({ connections, getConnections }) => {
     useEffect(() => {
@@ -34,13 +35,9 @@ const Connections = ({ connections, getConnections }) => {
         >
             Add connection
         </Button>
-    const leftChildren =
-        <Typography component="h6" variant="h6" color="inherit" noWrap>
-            Connections
-        </Typography>
     return (
         <>
-            <Appbar leftChildren={leftChildren} rightChildren={rightChildren} />
+            <Appbar leftChildren={<PageTitle title="Connections" />} rightChildren={rightChildren} />
             <main className="main">
                 <div className="app-bar-spacer" />
                 <div className="content-container">

@@ -6,6 +6,7 @@ import Appbar from '../Layout/Appbar';
 import Scenario from './Scenario';
 import AddScenario from './AddScenario';
 import { startGetScenarios } from '../../actions/scenarios';
+import PageTitle from '../Layout/PageTitle';
 
 const Scenarios = ({ scenarios, getScenarios }) => {
   useEffect(() => {
@@ -18,7 +19,7 @@ const Scenarios = ({ scenarios, getScenarios }) => {
   
   return (
     <>
-    <Appbar rightChildren={<AddScenario />} />
+    <Appbar leftChildren={<PageTitle title="Scenarios" />} rightChildren={<AddScenario />} />
     <main className="main">
       <div className="app-bar-spacer" />
       <div className="content-container">
