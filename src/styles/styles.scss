@@ -3,11 +3,11 @@
 @import "./layout/main.scss";
 @import "./layout/preloader.scss";
 @import "rc-notification/assets/index.css";
-@import "./notification";
+@import "./layout/notification";
+@import "./sketchpad/element.scss";
+@import "./sketchpad/icons.scss";
+@import "./sketchpad/sketchpad.scss";
 @import "./landing-page";
 @import "./login-signup";
 @import "./scenarios.scss";
 @import "./webhooks.scss";
-@import "./element.scss";
-@import "./icons.scss";
-@import "./sketchpad.scss";
