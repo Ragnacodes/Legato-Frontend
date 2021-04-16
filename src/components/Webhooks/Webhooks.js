@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Container, Divider, Typography, Button } from "@material-ui/core";
+import { Container, Divider, Button } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import Webhook from "./Webhook";
 import Axios from "../../utils/axiosConfig";
 import { setWebhooks, addWebhook } from "../../actions/webhooks";
 import Appbar from "../Layout/Appbar";
 import AddWebhookModal from "./AddWebhookModal";
-import { errorNotification, successNotification } from "../Notification";
+import { errorNotification, successNotification } from "../Layout/Notification";
+import PageTitle from "../Layout/PageTitle";
 
 const Webhooks = ({ webhooks, username, setWebhooks, addWebhook }) => {
   const [addModalVisible, setAddModalVisible] = useState(false);
@@ -60,11 +61,7 @@ const Webhooks = ({ webhooks, username, setWebhooks, addWebhook }) => {
             Add Webhook
           </Button>
         }
-        leftChildren={
-          <Typography component="h6" variant="h6" color="inherit" noWrap>
-            Webhooks
-          </Typography>
-        }
+        leftChildren={<PageTitle title="Webhooks" />}
       />
       <main className="main">
         <div className="app-bar-spacer" />

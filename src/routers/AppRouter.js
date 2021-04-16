@@ -3,8 +3,8 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history'
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
-import NotFoundPage from '../components/NotFoundPage';
-import DummyPage from '../components/DummyPage';
+import NotFoundPage from '../components/Layout/NotFoundPage';
+import DummyPage from '../components/Layout/DummyPage';
 import LandingPage from "../components/LandingPage/LandingPage";
 import Sketchpad from "../components/Sketchpad/Sketchpad";
 import Dashboard from "../components/Dashboard/Dashboard";

@@ -22,7 +22,7 @@ import * as actions from "../../actions/webhooks";
 import EditModal from "./WebhookSettingsModal";
 import WebhookQueue from "./WebhookQueue";
 import Axios from "../../utils/axiosConfig";
-import { errorNotification, successNotification } from "../Notification";
+import { errorNotification, successNotification } from "../Layout/Notification";
 const Webhook = ({ webhook, username, updateWebhook }) => {
   const { id, name, active, url } = webhook;
   const [renameToggle, setRenameToggle] = useState(false);
