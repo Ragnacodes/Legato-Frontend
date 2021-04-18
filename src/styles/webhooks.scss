@@ -165,23 +165,10 @@
     }
   }
   .wh-item {
-    .wh-name-field {
-      padding-top: 0;
-      padding-bottom: 0;
-      width: 300px;
-      margin-bottom: 5px;
-      .MuiFormHelperText-root {
-        &.Mui-error {
-          height: 0;
-          margin-top: 0;
-        }
+    .onclick-textfield {
+      .text-field {
+        width: 300px;
       }
-    }
-    .wh-name {
-      cursor: text;
-      padding-left: 14px;
-      padding-top: 8.5px;
-      padding-bottom: 7.5px;
       margin-bottom: 5px;
     }
     .MuiListItemText-secondary {
