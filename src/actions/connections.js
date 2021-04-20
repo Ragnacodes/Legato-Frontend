@@ -20,27 +20,27 @@ export const startGetConnections = () => {
     };
 };
 
-// export const addConnection = (connection) => {
-//     return {
-//         type: 'ADD_CONNECTION',
-//         connection
-//     };
-// };
+export const addConnection = (connection) => {
+    return {
+        type: 'ADD_CONNECTION',
+        connection
+    };
+};
 
-// export const startAddConnection = (connection) => {
-//     const body = JSON.stringify(connection);
-//     return (dispatch, getState) => {
-//         const username = getState().auth.username;
-//         return Axios.post(``, body)
-//         .then(res => {
-//             dispatch(addConnection(res.data.connection));
-//             return res.data.connection.ID;
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         });
-//     };
-// };
+export const startAddConnection = (connection) => {
+    const body = JSON.stringify(connection);
+    return (dispatch, getState) => {
+        // const username = getState().auth.username;
+        return Axios.post(``, body)
+        .then(res => {
+            dispatch(addConnection(res.data.connection));
+            return res.data.connection.ID;
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    };
+};
 
 export const removeConnection = (ID) => {
     return {
@@ -58,7 +58,6 @@ export const startRemoveConnection = (ID) => {
         })
         .catch(err => {
             console.log(err);
-            // alert("you already have this account");
         });
     };
 };

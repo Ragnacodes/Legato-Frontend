@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startRemoveConnection } from '../../actions/connections';
 import {
@@ -10,7 +9,7 @@ import {
   IconButton,
   Tooltip
 } from '@material-ui/core';
-import { Delete, Telegram, GitHub, QueueMusic, Email } from '@material-ui/icons';
+import { Delete, Telegram, GitHub, QueueMusic, Email, Edit } from '@material-ui/icons';
 
 const Connection = ({ ID, Name, Token_type, removeConnection }) => {
   // const handleEditConnection = () => {
@@ -21,19 +20,23 @@ const Connection = ({ ID, Name, Token_type, removeConnection }) => {
     removeConnection(ID);
   };
 
-  const switchCase=(Token_type) => {
+  const switchCase = (Token_type) => {
     switch (Token_type) {
-      case 'git':
+      case 'github':
         return (
           <ListItemIcon><GitHub /></ListItemIcon>
         );
-      case 'google':
+      case 'gmail':
         return (
           <ListItemIcon><Email /></ListItemIcon>
         );
       case 'spotify':
         return (
           <ListItemIcon><QueueMusic /></ListItemIcon>
+        );
+      case 'telegram':
+        return (
+          <ListItemIcon><Telegram /></ListItemIcon>
         );
       case 'discord':
         return (
@@ -44,17 +47,17 @@ const Connection = ({ ID, Name, Token_type, removeConnection }) => {
     }
   }
   return (
-    <ListItem className="connection" button component={NavLink} to={`/sketchpad/${ID}`}>
-      { switchCase(Token_type) }
+    <ListItem>
+      { switchCase(Token_type)}
 
-      <ListItemText primary={Name} className="name" />
+      <ListItemText primary={Name} />
 
       <ListItemSecondaryAction className="control">
-        {/* <Tooltip title="Edit connection." placement="top">
-          <IconButton aria-label="edit" color="primary" onClick={handleEditConnection}>
-            <EditIcon fontSize="small" />
+        <Tooltip title="Rename." placement="top">
+          <IconButton aria-label="edit" color="primary">
+            <Edit fontSize="small" />
           </IconButton>
-        </Tooltip> */}
+        </Tooltip>
         <Tooltip title="Delete connection." placement="top">
           <IconButton aria-label="delete" color="primary" onClick={handleRemoveConnection}>
             <Delete fontSize="small" />
