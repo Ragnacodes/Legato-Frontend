@@ -1,0 +1,32 @@
+.onclick-textfield {
+  .text-field {
+    width: 300px;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    input {
+      line-height: 24px;
+    }
+  }
+  .text {
+    cursor: text;
+    line-height: 24px;
+    padding-right: 14px;
+    padding-left: 14px;
+    padding-top: 7.5px;
+    padding-bottom: 8.5px;
+  }
+
+  &.small {
+    .text {
+      padding-top: 7.5px;
+      padding-bottom: 8.5px;
+    }
+  }
+  &.normal {
+    .text {
+      padding-top: 15.5px;
+      padding-bottom: 16.5px;
+    }
+  }
+}

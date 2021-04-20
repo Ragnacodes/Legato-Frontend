@@ -9,35 +9,19 @@ import {
   ListItemSecondaryAction,
   Switch,
   Link,
-  TextField,
-  Typography,
-  InputAdornment,
   IconButton,
   Tooltip,
 } from '@material-ui/core';
-import { SaveAlt, Clear, Edit, LocalShipping} from '@material-ui/icons';
+import { Edit, LocalShipping } from '@material-ui/icons';
 import EditModal from './WebhookSettingsModal';
 import WebhookQueue from './WebhookQueue';
 import { errorNotification, successNotification } from '../Layout/Notification';
+import OnClickTextField from '../OnClickTextField';
 
 const Webhook = ({ webhook, username, updateWebhook }) => {
   const { id, name, active, url } = webhook;
-  const [renameToggle, setRenameToggle] = useState(false);
-  const [modifiedName, setName] = useState(name);
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [queueModal, setQueueModal] = useState(false);
-  const onTextFieldChange = (e) => {
-    setName(e.target.value);
-  };
-  const saveNewName = () => {
-    handleUpdateWebhook({ name: modifiedName });
-    setRenameToggle(false);
-  };
-
-  const cancelNewName = () => {
-    setRenameToggle(false);
-    setName(name);
-  };
 
   const handleToggleState = () => {
     handleUpdateWebhook({ enable: !active });
@@ -46,31 +30,31 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
   const mockQueue = [
     {
       id: 1,
-      type: "webhook",
-      created_at: "Fri Apr 09 2021 22:44:31",
-      size: "1B",
-      scenarios: "12345",
+      type: 'webhook',
+      created_at: 'Fri Apr 09 2021 22:44:31',
+      size: '1B',
+      scenarios: '12345',
       data: {},
     },
     {
       id: 2,
-      type: "webhook",
-      created_at: "Fri Apr 09 2021 22:44:31",
-      size: "2B",
-      scenarios: "12345",
+      type: 'webhook',
+      created_at: 'Fri Apr 09 2021 22:44:31',
+      size: '2B',
+      scenarios: '12345',
       data: {
-        key: "value",
+        key: 'value',
       },
     },
     {
       id: 3,
-      type: "webhook",
-      created_at: "Fri Apr 09 2021 22:44:31",
-      size: "3B",
-      scenarios: "12345",
+      type: 'webhook',
+      created_at: 'Fri Apr 09 2021 22:44:31',
+      size: '3B',
+      scenarios: '12345',
       data: {
-        key: "value",
-        key2: "value2",
+        key: 'value',
+        key2: 'value2',
       },
     },
   ];
@@ -82,20 +66,20 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
     })
       .then((response) => {
         console.log(response);
-        successNotification("Updated successfully.");
+        successNotification('Updated successfully.');
         updateWebhook(webhook.id, data);
       })
       .catch((error) => {
         if (error.response) {
           let str = error.response.data.message;
           errorNotification(
-            "Unable to update: " +
+            'Unable to update: ' +
               str.charAt(0).toUpperCase() +
               str.slice(1) +
-              "."
+              '.'
           );
         } else {
-          errorNotification("Unable to update: " + error.message);
+          errorNotification('Unable to update: ' + error.message);
         }
       });
   };
@@ -109,54 +93,19 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
         setVisible={setEditModalVisible}
       />
       <ListItemText
+        className="name"
         primary={
-          renameToggle ? (
-            <TextField
-              className="wh-name-field"
-              onChange={onTextFieldChange}
-              name="webhook-name"
-              variant="outlined"
-              size="small"
-              defaultValue={name}
-              error={!modifiedName}
-              // helperText={!modifiedName && "Required."}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    {modifiedName && (
-                      <IconButton
-                        aria-label="save-name"
-                        onClick={saveNewName}
-                        onMouseDown={(e) => e.preventDefault()}
-                        edge="end"
-                      >
-                        <SaveAlt />
-                      </IconButton>
-                    )}
-                    <IconButton
-                      aria-label="save-name"
-                      onClick={cancelNewName}
-                      onMouseDown={(e) => e.preventDefault()}
-                      edge="end"
-                    >
-                      <Clear />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          ) : (
-            <Typography
-              className="wh-name"
-              onClick={() => setRenameToggle(true)}
-              variant="body1"
-            >
-              {name}
-            </Typography>
-          )
+          <OnClickTextField
+            defaultText={name}
+            handleSave={(modifiedName) =>
+              handleUpdateWebhook({ name: modifiedName })
+            }
+            handleCancel={() => {}}
+            divClassName=""
+            textfieldSize="small"
+          />
         }
         secondary={<Link href={url}>{url}</Link>}
-        className="name"
       />
 
       <ListItemSecondaryAction className="wh-actions">
@@ -171,7 +120,7 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
         >
           Edit
         </Button>
-        <Tooltip title={active ? "Disable?" : "Enable?"} placement="top">
+        <Tooltip title={active ? 'Disable?' : 'Enable?'} placement="top">
           <Switch
             edge="end"
             onChange={handleToggleState}
