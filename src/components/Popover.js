@@ -32,7 +32,7 @@ const CustomPopover = ({
         <Typography variant="h5">{title}</Typography>
         {children}
         <div className="actions">
-          <Button autoFocus onClick={handleCancel} color="primary">
+          <Button onClick={handleCancel} color="primary">
             Cancel
           </Button>
           <Button
