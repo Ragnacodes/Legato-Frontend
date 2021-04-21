@@ -22,13 +22,7 @@ const Sketchpad = ( { elements, addEdge, removeElement } ) => {
   const reactFlowWrapper = useRef(null);
 
   const onConnect = (params) => {
-    const customParams = {
-      ...params,
-      type: 'customEdge',
-      animated: true,
-      data : {}
-    };
-    addEdge(customParams)
+    addEdge({...params, animated: true});
   };
 
   const onElementsRemove = (elementsToRemove) => {

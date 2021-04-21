@@ -6,7 +6,7 @@ import {
     getEdgeCenter
 } from 'react-flow-renderer';
 import { Popover } from '@material-ui/core';
-import NodeForm from './NodeForm';
+import EdgeForm from './EdgeForm';
 
 const CustomEdge = ({
     id,
@@ -66,7 +66,7 @@ const CustomEdge = ({
                     horizontal: 'left',
                 }}
             >
-                <NodeForm id={id} type="edge" data={data} />
+                <EdgeForm id={id} data={data} />
             </Popover>
         </>
     );
