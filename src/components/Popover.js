@@ -28,7 +28,7 @@ const CustomPopover = ({
       }}
     >
       <div className={clsx('sketchpad-popover', className)}>
-        <CloseRounded className="close-icon" />
+        <CloseRounded className="close-icon" onClick={handleCancel} />
         <Typography variant="h5">{title}</Typography>
         {children}
         <div className="actions">
