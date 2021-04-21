@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startRemoveConnection } from '../../actions/connections';
+import { startRemoveConnection, startEditConnection } from '../../actions/connections';
 import {
   ListItem,
   ListItemSecondaryAction,
@@ -9,12 +9,14 @@ import {
   IconButton,
   Tooltip
 } from '@material-ui/core';
-import { Delete, Telegram, GitHub, QueueMusic, Email, Edit } from '@material-ui/icons';
+import { Delete, Telegram, GitHub, QueueMusic, Email } from '@material-ui/icons';
+import OnClickTextField from '../OnClickTextField';
 
-const Connection = ({ ID, Name, Token_type, removeConnection }) => {
-  // const handleEditConnection = () => {
-  //   editConnection(ID);
-  // };
+
+const Connection = ({ ID, Name, Token_type, removeConnection, editConnection }) => {
+  const handleEditConnection = (newName) => {
+    editConnection(ID, newName);
+  };
 
   const handleRemoveConnection = () => {
     removeConnection(ID);
@@ -50,14 +52,15 @@ const Connection = ({ ID, Name, Token_type, removeConnection }) => {
     <ListItem>
       { switchCase(Token_type)}
 
-      <ListItemText primary={Name} />
+      <ListItemText primary={<OnClickTextField
+        defaultText={Name}
+        handleSave={(modifiedName) => handleEditConnection(modifiedName)}
+        handleCancel={() => {}}
+        divClassName=""
+        textfieldSize="small"
+      />} />
 
       <ListItemSecondaryAction className="control">
-        <Tooltip title="Rename." placement="top">
-          <IconButton aria-label="edit" color="primary">
-            <Edit fontSize="small" />
-          </IconButton>
-        </Tooltip>
         <Tooltip title="Delete connection." placement="top">
           <IconButton aria-label="delete" color="primary" onClick={handleRemoveConnection}>
             <Delete fontSize="small" />
@@ -69,7 +72,7 @@ const Connection = ({ ID, Name, Token_type, removeConnection }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  // editConnection: (type, data) => dispatch(editConnection(type, data)),
+  editConnection: (type, data) => dispatch(startEditConnection(type, data)),
   removeConnection: (type, data) => dispatch(startRemoveConnection(type, data)),
 });
 
