@@ -8,7 +8,7 @@ import DummyPage from '../components/Layout/DummyPage';
 import LandingPage from '../components/LandingPage/LandingPage';
 import Sketchpad from '../components/Sketchpad/Sketchpad';
 import Dashboard from '../components/Dashboard/Dashboard';
-import Scenarios from '../components/Scenarios/Scenarios';
+import ScenariosPage from '../components/Scenarios/ScenariosPage';
 import Webhooks from '../components/Webhooks/Webhooks';
 import Connections from '../components/Connections/Connections';
 import Redirect from '../components/Connections/Redirect';
@@ -19,7 +19,7 @@ const AppRouter = () => (
       <Switch>
         <PublicRoute path="/" component={LandingPage} exact={true} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
-        <PrivateRoute path="/scenarios" component={Scenarios} />
+        <PrivateRoute path="/scenarios" component={ScenariosPage} />
         <PrivateRoute path="/sketchpad/:id" component={Sketchpad} />
         <PrivateRoute path="/connections" component={Connections} />
         <PrivateRoute path="/redirect" component={Redirect} exact={false}/>
