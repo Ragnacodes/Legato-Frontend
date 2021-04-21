@@ -7,6 +7,7 @@ const CustomPopover = ({
   title,
   anchor,
   className,
+  disabledSave,
   handleSave,
   handleCancel,
   setAnchor,
@@ -34,7 +35,12 @@ const CustomPopover = ({
           <Button autoFocus onClick={handleCancel} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleSave} variant="contained" color="primary">
+          <Button
+            disabled={disabledSave}
+            onClick={handleSave}
+            variant="contained"
+            color="primary"
+          >
             Save
           </Button>
         </div>
