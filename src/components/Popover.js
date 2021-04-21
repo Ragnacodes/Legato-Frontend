@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import {
   Button,
   Popover,
@@ -12,6 +13,7 @@ import { CloseRounded } from '@material-ui/icons';
 const CustomPopover = ({
   title,
   anchor,
+  className,
   handleSave,
   handleCancel,
   setAnchor,
@@ -31,7 +33,7 @@ const CustomPopover = ({
         horizontal: 'left',
       }}
     >
-      <div className="sketchpad-popover">
+      <div className={clsx('sketchpad-popover', className)}>
         <CloseRounded className="close-icon" />
         <Typography variant="h5">{title}</Typography>
         {children}
