@@ -24,10 +24,13 @@ export const startGetElements = (id) => {
     }
 };
 
-export const addNode = (element) => {
+export const addNode = (node) => {
     return {
         type: 'ADD_ELEMENT',
-        element
+        element: {
+            id: uuid(),
+            ...node
+        }
     };
 };
 
@@ -100,7 +103,6 @@ export const editElement = (id, updates) => {
 };
 
 export const startEditElement = (scenarioID, nodeID, updates) => {
-    console.log("sdsdsdsd")
     const body = JSON.stringify(updates);
     return (dispatch, getState) => {
         const username = getState().auth.username;
