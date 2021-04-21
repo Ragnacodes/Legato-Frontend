@@ -1,13 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import {
-  Button,
-  Popover,
-  Typography,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from '@material-ui/core';
+import { Button, Popover, Typography } from '@material-ui/core';
 import { CloseRounded } from '@material-ui/icons';
 
 const CustomPopover = ({
