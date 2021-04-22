@@ -1,12 +1,10 @@
 import React from 'react';
 import { Divider } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
-import SidebarItem from './SidebarItem';
-import WebhookSidebarItem from '../../Services/Webhook/WebhookSidebarItem';
-import SpotifySidebarItem from '../../Services/Spotify/SpotifySidebarItem';
-import TelegramSidebarItem from '../../Services/Telegram/TelegramSidebarItem';
-import SSHSidebarItem from '../../Services/SSH/SSHSidebarItem';
-import GithubSidebarItem from '../../Services/Github/GithubSidebarItem';
+import WebhookSidebarItem from '../../Services/Webhook/SidebarItem';
+import SpotifySidebarItem from '../../Services/Spotify/SidebarItem';
+import TelegramSidebarItem from '../../Services/Telegram/SidebarItem';
+import SSHSidebarItem from '../../Services/SSH/SidebarItem';
+import GithubSidebarItem from '../../Services/Github/SidebarItem';
 
 const SketchpadSidebar =  () => {
   return (
@@ -20,8 +18,6 @@ const SketchpadSidebar =  () => {
 
       <Divider />
       <div className="description">Toolbox</div>
-      <SidebarItem icon={<Add fontSize="large" className="icon" />} />
-      <SidebarItem icon={<Add fontSize="large" className="icon" />} />
     </aside>
   );
 };
