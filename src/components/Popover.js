@@ -12,6 +12,7 @@ const CustomPopover = ({
   handleCancel,
   setAnchor,
   children,
+  ...properties
 }) => {
   return (
     <Popover
@@ -26,6 +27,7 @@ const CustomPopover = ({
         vertical: 'bottom',
         horizontal: 'left',
       }}
+      {...properties}
     >
       <div className={clsx('sketchpad-popover', className)}>
         <CloseRounded className="close-icon" onClick={handleCancel} />
