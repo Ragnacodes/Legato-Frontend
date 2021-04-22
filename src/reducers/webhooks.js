@@ -8,6 +8,7 @@ const webhookReducer = (state = initialState, action) => {
       return {
         ...state,
         webhooks: action.payload.webhooks
+          .reverse()
           .filter(
             (wh) =>
               wh.url.split('/').reverse()[0] !==
@@ -28,15 +29,17 @@ const webhookReducer = (state = initialState, action) => {
     case ActionTypes.ADD_WEBHOOK:
       return {
         ...state,
-        webhooks: state.webhooks.concat({
-          ...action.payload.webhook,
-          active: action.payload.webhook.isEnable,
-          id: action.payload.webhook.url.split('/').reverse()[0],
-          ip_restrictions: '',
-          get_request_headers: false,
-          get_request_http: false,
-          json_passthrough: false,
-        }),
+        webhooks: [
+          {
+            ...action.payload.webhook,
+            active: action.payload.webhook.isEnable,
+            id: action.payload.webhook.url.split('/').reverse()[0],
+            ip_restrictions: '',
+            get_request_headers: false,
+            get_request_http: false,
+            json_passthrough: false,
+          },
+        ].concat(state.webhooks),
       };
 
     case ActionTypes.UPDATE_WEBHOOK:
