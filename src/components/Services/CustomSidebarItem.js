@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import SidebarItem from '../Sketchpad/Sidebar/SidebarItem';
 
 const CustomSidebarItem = ({ icon, serviceName, services }) => {
-    const triggers = services[serviceName].filter(service => service.type === 'trigger');
-    const actions = services[serviceName].filter(service => service.type === 'action');
+    const triggers = services[serviceName].filter(service => service.kind === 'trigger');
+    const actions = services[serviceName].filter(service => service.kind === 'action');
 
     return (
         <SidebarItem

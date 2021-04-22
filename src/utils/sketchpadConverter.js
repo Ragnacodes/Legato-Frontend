@@ -5,11 +5,12 @@ export const elementsBackToFront = (nodesBack) => {
     const nodesFront = nodesBack.map(nodeBack => {
         const nodeFront = {
             id: nodeBack.id.toString(),
-            type: 'trigger',
+            type: `${nodeBack.type}_${nodeBack.subType}`,
             position: nodeBack.position,
             data: {
                 name: nodeBack.name,
                 service: nodeBack.type,
+                subService: nodeBack.subType,
                 ...nodeBack.data
             }
         };
@@ -33,13 +34,13 @@ export const elementsBackToFront = (nodesBack) => {
 };
 
 export const nodeFrontToBack = (nodeFront) => {
-    const backData = nodeFront.data;
     const nodeBack = {
         parentId: null,
         name: nodeFront.data.name,
         type: nodeFront.data.service,
+        subType: nodeFront.data.subService,
         position: nodeFront.position,
-        data: backData,
+        data: nodeFront.data,
     };
     return nodeBack;
 };

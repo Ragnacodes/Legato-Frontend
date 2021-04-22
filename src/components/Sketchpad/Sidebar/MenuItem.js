@@ -10,14 +10,14 @@ const MenuItem = ({ service, item, close, addNode }) => {
 
     const handleClick = () => {
         const node = {
-            type: `${service}_${item.id}`,
+            type: `${service}_${item.subService}`,
             position: {
                 x: 0,
                 y: 0
             },
             data: {
                 service,
-                serviceIndex: item.id,
+                subService: item.subService,
                 name: ''
             }
         };
