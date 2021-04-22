@@ -6,7 +6,7 @@ import PrivateRoute from './PrivateRoute';
 import NotFoundPage from '../components/Layout/NotFoundPage';
 import DummyPage from '../components/Layout/DummyPage';
 import LandingPage from '../components/LandingPage/LandingPage';
-import Sketchpad from '../components/Sketchpad/Sketchpad';
+import SketchpadPage from '../components/Sketchpad/SketchpadPage';
 import Dashboard from '../components/Dashboard/Dashboard';
 import ScenariosPage from '../components/Scenarios/ScenariosPage';
 import Webhooks from '../components/Webhooks/Webhooks';
@@ -20,7 +20,7 @@ const AppRouter = () => (
         <PublicRoute path="/" component={LandingPage} exact={true} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/scenarios" component={ScenariosPage} />
-        <PrivateRoute path="/sketchpad/:id" component={Sketchpad} />
+        <PrivateRoute path="/sketchpad/:id" component={SketchpadPage} />
         <PrivateRoute path="/connections" component={Connections} />
         <PrivateRoute path="/redirect" component={Redirect} exact={false}/>
         <PrivateRoute path="/webhooks" component={Webhooks} />
