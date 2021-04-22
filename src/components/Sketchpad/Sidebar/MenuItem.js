@@ -6,19 +6,20 @@ import {
     ListItemText,
 } from '@material-ui/core';
 
-const MenuItem = ({ type, service, item, close, addNode }) => {
+const MenuItem = ({ service, item, close, addNode }) => {
 
-    const handleClick = (e) => {
+    const handleClick = () => {
         const node = {
-            type,
-            data: {
-                service,
-                form: item.form
-            },
+            type: `${service}_${item.id}`,
             position: {
                 x: 0,
                 y: 0
             },
+            data: {
+                service,
+                serviceIndex: item.id,
+                name: ''
+            }
         };
         addNode(node);
         close();
