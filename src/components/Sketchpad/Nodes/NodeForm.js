@@ -4,7 +4,7 @@ import { editElement } from '../../../actions/sketchpad';
 
 const NodeForm = (props) => {
     return (
-        <props.data.form {...props} />
+        <props.form {...props} />
     );
 };
 

@@ -16,7 +16,6 @@ const ServiceMenu = ({ service, triggers, actions, close }) => {
                         return (
                             <MenuItem
                                 key={index}
-                                type="trigger"
                                 service={service}
                                 item={trigger}
                                 close={close}
@@ -35,7 +34,6 @@ const ServiceMenu = ({ service, triggers, actions, close }) => {
                         return (
                             <MenuItem
                                 key={index}
-                                type="action"
                                 service={service}
                                 item={action}
                                 close={close}
