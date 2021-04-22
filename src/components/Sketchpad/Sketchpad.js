@@ -1,79 +1,76 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addEdge, removeElement } from '../../actions/sketchpad';
+import { startGetSketchpad, addEdge, startRemoveElement } from '../../actions/sketchpad';
 import ReactFlow, {
   Controls,
   Background,
 } from 'react-flow-renderer';
-import Appbar from '../Layout/Appbar';
-import SketchpadTitle from './SketchpadTitle';
 import Sidebar from './Sidebar/SketchpadSidebar';
-import CustomEdge from './Nodes/CustomEdge';
+import CustomEdge from './Edges/CustomEdge';
 import SketchpadControl from './SketchpadControl';
-import TriggerNode from './Nodes/TriggerNode';
-import ActionNode from './Nodes/ActionNode';
+import { nodeTypes } from './Nodes/nodeTypes';
 
-const nodeTypes = {
-  trigger: TriggerNode,
-  action: ActionNode
-};
-
-const Sketchpad = ( { elements, addEdge, removeElement } ) => {
+const Sketchpad = ( { id, elements, getSketchpad, addEdge, removeElement } ) => {
   const reactFlowWrapper = useRef(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    getSketchpad(id)
+    .then(() => {
+      setLoading(false);
+    })
+    .catch(() => {
+      setLoading(false);
+    });
+  }, [getSketchpad, id]);
 
   const onConnect = (params) => {
-    addEdge({...params, animated: true});
+    addEdge({...params, animated: true, type: 'edge'});
   };
 
   const onElementsRemove = (elementsToRemove) => {
     elementsToRemove.forEach(element => {
-      removeElement(element.id)
+      removeElement(element)
     });
   };
 
   return (
-    <>
-    <Appbar leftChildren={<SketchpadTitle />} />
-    <main className="main">
-    <div className="app-bar-spacer" />
-
-      <div className="sketchpad">
-        <div className="dndflow">
-            <div className="reactflow-wrapper" ref={reactFlowWrapper}>
-              <ReactFlow
-                elements={elements}
-                onConnect={onConnect}
-                onElementsRemove={onElementsRemove}
-                nodeTypes={nodeTypes}
-                edgeTypes={{ customEdge: CustomEdge }}
-              >
-                <Background
-                  variant="lines"
-                  gap={16}
-                  size={0.5}
-                />
-                <Controls showInteractive={false} />
-              </ReactFlow>
-            </div>
-            <Sidebar />
-        </div>
-        <SketchpadControl />
+    <div className="sketchpad">
+      <div className="dndflow">
+          <div className="reactflow-wrapper" ref={reactFlowWrapper}>
+            <ReactFlow
+              elements={elements}
+              onConnect={onConnect}
+              onElementsRemove={onElementsRemove}
+              nodeTypes={nodeTypes}
+              edgeTypes={{ customEdge: CustomEdge }}
+            >
+              <Background
+                variant="lines"
+                gap={16}
+                size={0.5}
+              />
+              <Controls showInteractive={false} />
+            </ReactFlow>
+          </div>
+          <Sidebar />
       </div>
-
-    </main>
-    </>
-  )
+      <SketchpadControl />
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {
   return {
-    elements: state.sketchpad
+    elements: state.sketchpad.elements
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeElement: (id) => dispatch(removeElement(id)),
+    getSketchpad: (scenarioID) => dispatch(startGetSketchpad(scenarioID)),
+    removeElement: (id) => dispatch(startRemoveElement(id)),
     addEdge: (edge) => dispatch(addEdge(edge))
   };
 };
