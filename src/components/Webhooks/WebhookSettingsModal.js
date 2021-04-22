@@ -1,49 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
+  Button,
   Typography,
   Dialog,
   DialogContent,
   DialogTitle,
 } from '@material-ui/core';
+import { CloseRounded } from '@material-ui/icons';
+
 import WebhookSettings from './WebhookSettings';
-
-export function TabPanel(props) {
-  const { children, value, index, className, ...other } = props;
-
-  return (
-    <div
-      className={"edit-webhook-tab " + className}
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && children}
-    </div>
-  );
-}
-
 const WebhookSettingsModal = ({ webhook, visible, handleSave, setVisible }) => {
+  const [info, setInfo] = useState(webhook);
+
+  useEffect(() => {
+    setInfo((prev) => ({ ...prev, ...webhook }));
+  }, [webhook]);
+
   return (
     <Dialog
       disableBackdropClick
       className="edit-wh-dialog"
       open={visible}
       onClose={() => setVisible(false)}
-      aria-labelledby="edit-wh-dialog"
     >
       <DialogTitle disableTypography={true} className="edit-wh-dialog-title">
         <Typography variant="h5">{webhook.name}</Typography>
       </DialogTitle>
+      <CloseRounded className="close-icon" onClick={() => setVisible(false)} />
       <DialogContent>
-        <WebhookSettings
-          webhook={webhook}
-          visible={visible}
-          handleSave={handleSave}
-          setVisible={setVisible}
-        />
+        <WebhookSettings info={info} setInfo={setInfo} />
       </DialogContent>
+      <div className="actions">
+        <Button autoFocus onClick={() => setVisible(false)} color="primary">
+          Cancel
+        </Button>
+        <Button
+          onClick={() => {
+            handleSave(info);
+            setVisible(false);
+          }}
+          variant="contained"
+          color="primary"
+        >
+          Save
+        </Button>
+      </div>
     </Dialog>
   );
 };

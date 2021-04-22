@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Axios from '../../utils/axiosConfig';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/webhooks';
 import {
@@ -22,6 +21,7 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
   const { id, name, active, url } = webhook;
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [queueModal, setQueueModal] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleToggleState = () => {
     handleUpdateWebhook({ enable: !active });
@@ -60,28 +60,25 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
   ];
 
   const handleUpdateWebhook = (data) => {
-    Axios.put(`/users/${username}/services/webhooks/${id}`, {
-      name: data.name,
-      isEnable: data.enable,
-    })
-      .then((response) => {
-        console.log(response);
-        successNotification('Updated successfully.');
-        updateWebhook(webhook.id, data);
+    updateWebhook(id, data)
+      .then((str) => {
+        successNotification(str);
       })
-      .catch((error) => {
-        if (error.response) {
-          let str = error.response.data.message;
-          errorNotification(
-            'Unable to update: ' +
-              str.charAt(0).toUpperCase() +
-              str.slice(1) +
-              '.'
-          );
-        } else {
-          errorNotification('Unable to update: ' + error.message);
-        }
+      .catch((str) => {
+        errorNotification(str);
       });
+  };
+
+  const CopyToClipboard = () => {
+    navigator.clipboard.writeText(url).then(
+      function () {
+        /* clipboard successfully set */
+        setCopied(true);
+      },
+      function () {
+        /* clipboard write failed */
+      }
+    );
   };
 
   return (
@@ -105,7 +102,19 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
             textfieldSize="small"
           />
         }
-        secondary={<Link href={url}>{url}</Link>}
+        secondary={
+          <Tooltip
+            onClose={() => setCopied(false)}
+            title={copied ? 'Copied!' : 'Copy to Clipboard'}
+            placement="bottom-start"
+            arrow
+            classes={{
+              popper: 'custom-helper-tooltip',
+            }}
+          >
+            <span onClick={CopyToClipboard}>{url}</span>
+          </Tooltip>
+        }
       />
 
       <ListItemSecondaryAction className="wh-actions">
@@ -164,7 +173,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateWebhook: (id, data) => dispatch(actions.updateWebhook(id, data)),
+  updateWebhook: (id, data) => dispatch(actions.startUpdateWebhook(id, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Webhook);

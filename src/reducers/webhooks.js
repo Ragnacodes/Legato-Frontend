@@ -10,14 +10,14 @@ const webhookReducer = (state = initialState, action) => {
         webhooks: action.payload.webhooks
           .filter(
             (wh) =>
-              wh.url.split("/").reverse()[0] !==
-              "00000000-0000-0000-0000-000000000000"
+              wh.url.split('/').reverse()[0] !==
+              '00000000-0000-0000-0000-000000000000'
           )
           .map((wh) => {
             return {
               ...wh,
               active: wh.isEnable,
-              ip_restrictions: "",
+              ip_restrictions: '',
               get_request_headers: false,
               get_request_http: false,
               json_passthrough: false,
@@ -31,8 +31,8 @@ const webhookReducer = (state = initialState, action) => {
         webhooks: state.webhooks.concat({
           ...action.payload.webhook,
           active: action.payload.webhook.isEnable,
-          id: action.payload.webhook.url.split("/").reverse()[0],
-          ip_restrictions: "",
+          id: action.payload.webhook.url.split('/').reverse()[0],
+          ip_restrictions: '',
           get_request_headers: false,
           get_request_http: false,
           json_passthrough: false,
