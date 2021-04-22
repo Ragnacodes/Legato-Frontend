@@ -1,28 +1,36 @@
-const sketchpadReducerDefaultState = [];
-
-const sketchpadReducer = (state = sketchpadReducerDefaultState, action) => {
+const sketchpadReducer = (state = {scenario: {}, elements: []}, action) => {
     switch (action.type) {
-        case 'GET_ELEMENTS':
-            return action.elements
+        case 'GET_SKETCHPAD':
+            return {
+                scenario: action.scenario,
+                elements: action.elements
+            };
             
         case 'ADD_ELEMENT':
-            return [...state, action.element]
+            return {
+                ...state,
+                elements: [...state.elements, action.element]
+            };
 
         case 'REMOVE_ELEMENT':
-            return state.filter(({id}) => id !== action.id);
+            return {
+                ...state,
+                elements: state.elements.filter(({id}) => id !== action.id)
+            };
 
         case 'EDIT_ELEMENT':
-            return state.map((element) => {
-                if (element.id === action.id) {
-                    return {
-                        ...element,
-                        ...action.updates
-                    };
-                }
-                else {
-                    return element;
-                }
-            });
+            return {
+                ...state,
+                elements: state.elements.map((element) => {
+                    if (element.id === action.id) {
+                        return {
+                            ...element,
+                            ...action.updates
+                        };
+                    }
+                    else return element;
+                })
+            };
 
         default:
             return state;
