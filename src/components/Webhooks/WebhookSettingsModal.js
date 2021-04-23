@@ -16,22 +16,27 @@ const WebhookSettingsModal = ({ webhook, visible, handleSave, setVisible }) => {
     setInfo((prev) => ({ ...prev, ...webhook }));
   }, [webhook]);
 
+  const handleCancel = () => {
+    setInfo(webhook);
+    setVisible(false);
+  };
+
   return (
     <Dialog
       disableBackdropClick
       className="edit-wh-dialog"
       open={visible}
-      onClose={() => setVisible(false)}
+      onClose={handleCancel}
     >
       <DialogTitle disableTypography={true} className="edit-wh-dialog-title">
         <Typography variant="h5">{webhook.name}</Typography>
       </DialogTitle>
-      <CloseRounded className="close-icon" onClick={() => setVisible(false)} />
+      <CloseRounded className="close-icon" onClick={handleCancel} />
       <DialogContent>
         <WebhookSettings info={info} setInfo={setInfo} />
       </DialogContent>
       <div className="actions">
-        <Button autoFocus onClick={() => setVisible(false)} color="primary">
+        <Button autoFocus onClick={handleCancel} color="primary">
           Cancel
         </Button>
         <Button

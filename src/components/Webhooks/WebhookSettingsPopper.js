@@ -14,6 +14,11 @@ const WebhookSettingsPopper = ({
     setInfo((prev) => ({ ...prev, ...webhook }));
   }, [webhook]);
 
+  const handleCancel = () => {
+    setInfo(webhook);
+    setAnchor(null);
+  };
+
   return (
     <Popover
       anchorOrigin={{
@@ -33,7 +38,7 @@ const WebhookSettingsPopper = ({
         handleSave(info);
         setAnchor(null);
       }}
-      handleCancel={() => setAnchor(null)}
+      handleCancel={handleCancel}
     >
       <WebhookSettings info={info} setInfo={setInfo} />
     </Popover>
