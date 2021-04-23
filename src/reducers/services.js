@@ -1,4 +1,4 @@
-import { services } from '../playground/services';
+import { services } from '../components/Services/services';
 
 const servicesReducer = (state = services, action) => {
     switch(action.type) {
