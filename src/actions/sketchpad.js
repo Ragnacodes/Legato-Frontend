@@ -101,21 +101,18 @@ export const startAddElement = (element) => {
 };
 
 export const startRemoveElement = (id) => {
-    return (dispatch, getState) => {
-        const username = getState().auth.username;
-        const scenarioID = getState().sketchpad.scenario.id;
-    }
-    
+    return (dispatch, getState) => {};
 };
 
-export const startEditElement = (scenarioID, nodeID, updates) => {
+export const startEditElement = (id, updates) => {
     const body = JSON.stringify(updates);
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.put(`/users/${username}/scenarios/${scenarioID}/nodes/${nodeID}`, body)
+        const scenarioID = getState().sketchpad.scenario.id;
+        return Axios.put(`/users/${username}/scenarios/${scenarioID}/nodes/${id}`, body)
         .then(res => {
             if (!updates.hasOwnProperty('parentId')) {
-                dispatch(editElement(nodeID, updates));
+                dispatch(editElement(id, updates));
             }
         })
         .catch(err => {
