@@ -4,7 +4,7 @@ import CustomNode from '../../CustomNode';
 
 const Node = (props) => {
     return (
-        <CustomNode kind="action" form={Form} {...props} />
+        <CustomNode kind="trigger" form={Form} {...props} />
     );
 };
 

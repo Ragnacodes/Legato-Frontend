@@ -25,10 +25,10 @@ const Form = ({ id, data, editElement }) => {
 
     return (
         <div className="dummy-form">
-            <label>Webhook Action1 in1</label>
+            <label>Webhook service1 in1</label>
             <input value={input1} onChange={onChange1} />
 
-            <label>Webhook Action1 in2</label>
+            <label>Webhook service1 in2</label>
             <input value={input2} onChange={onChange2} />
 
             <button onClick={onClick}>OK</button>
