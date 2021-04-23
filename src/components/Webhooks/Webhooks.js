@@ -8,6 +8,8 @@ import Webhook from './Webhook';
 import AddWebhookModal from './AddWebhookModal';
 import { errorNotification, successNotification } from '../Layout/Notification';
 import WebhookPopover from './WebhookResponse';
+import WebhookSettingsModal from './WebhookSettingsModal';
+
 const Webhooks = ({ webhooks, getWebhooks, addWebhook }) => {
   const [addModalVisible, setAddModalVisible] = useState(false);
   const [anchor, setAnchor] = useState(null);
@@ -20,11 +22,11 @@ const Webhooks = ({ webhooks, getWebhooks, addWebhook }) => {
 
   const addNewWebhook = (data) => {
     addWebhook(data)
-      .then((str) => {
-        successNotification(str);
+      .then((res) => {
+        successNotification(res.message);
       })
-      .catch((str) => {
-        errorNotification(str);
+      .catch((err) => {
+        errorNotification(err.message);
       });
   };
 
@@ -45,12 +47,13 @@ const Webhooks = ({ webhooks, getWebhooks, addWebhook }) => {
       <main className="main">
         <div className="app-bar-spacer" />
         <div className="content-container">
-          <WebhookPopover
+          {/* <WebhookPopover
             anchor={anchorRef.current}
             setAnchor={setAnchor}
             handleSave={() => {}}
-          />
-          <AddWebhookModal
+          /> */}
+          <WebhookSettingsModal
+            webhook={{ name: 'New Webhook' }}
             visible={addModalVisible}
             setVisible={setAddModalVisible}
             handleSave={addNewWebhook}
@@ -60,7 +63,7 @@ const Webhooks = ({ webhooks, getWebhooks, addWebhook }) => {
               {webhooks.map((w) => {
                 return (
                   <div key={w.id}>
-                    <Webhook webhook={w} />
+                    <Webhook key={w} webhook={w} />
                     <Divider />
                   </div>
                 );
