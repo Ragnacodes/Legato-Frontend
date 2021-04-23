@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 
 const Form = ({ id, data, editElement }) => {
+    const [name, setName] = useState(data.name || '')
     const [input1, setInput1] = useState(data.input1 || '');
     const [input2, setInput2] = useState(data.input2 || '');
+
+    const onChangeName = (e) => {
+        setName(e.target.value);
+    }
 
     const onChange1 = (e) => {
         setInput1(e.target.value);
@@ -14,6 +19,7 @@ const Form = ({ id, data, editElement }) => {
 
     const onClick = () => {
         const updates = {
+            name,
             data: {
                 ...data,
                 input1,
@@ -25,6 +31,8 @@ const Form = ({ id, data, editElement }) => {
 
     return (
         <div className="dummy-form">
+            <label>name</label>
+            <input value={name} onChange={onChangeName} />
             <label>Webhook service1 in1</label>
             <input value={input1} onChange={onChange1} />
 
