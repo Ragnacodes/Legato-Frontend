@@ -1,0 +1,44 @@
+.sketchpad-popover {
+  &.custom-webhook,
+  &.webhook-response,
+  &.watch-playlist {
+    display: flex;
+    flex-direction: column;
+  }
+  &.watch-playlist {
+  }
+  &.webhook-response {
+  }
+  &.custom-webhook {
+    .url-helper-text {
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+      width: 250px;
+      cursor: pointer;
+    }
+  }
+  &.custom-webhook,
+  &.watch-playlist {
+    .connection-field {
+      display: flex;
+      flex-direction: row;
+      align-items: start;
+      > .text-field {
+        margin-right: 5px;
+        flex: 1;
+      }
+      > .add-icon {
+        margin-top: 16px;
+      }
+      > .edit-icon {
+        margin-top: 16px;
+        margin-right: 2px;
+      }
+    }
+  }
+}
+
+.custom-helper-tooltip {
+  margin-top: -10px;
+}

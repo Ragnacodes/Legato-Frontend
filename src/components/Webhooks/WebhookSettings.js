@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Tab, Tabs } from '@material-ui/core';
-import { CloseRounded } from '@material-ui/icons';
+import React from 'react';
+import { Tab, Tabs } from '@material-ui/core';
 import AdvancedSettings from './AdvancedSettings';
 import GeneralSettings from './GeneralSettings';
 
@@ -9,7 +8,7 @@ export function TabPanel(props) {
 
   return (
     <div
-      className={"edit-wh-tab " + className}
+      className={'edit-wh-tab ' + className}
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -21,11 +20,8 @@ export function TabPanel(props) {
   );
 }
 
-const WebhookSettings = ({ webhook, visible, setVisible, handleSave }) => {
+const WebhookSettings = ({ info, setInfo }) => {
   const [tabValue, setTabValue] = React.useState(0);
-  const [info, setInfo] = useState({
-    ...webhook,
-  });
 
   const handleChange = (name, value) => {
     setInfo((prev) => {
@@ -38,11 +34,8 @@ const WebhookSettings = ({ webhook, visible, setVisible, handleSave }) => {
 
   return (
     <div>
-      <CloseRounded
-        className="close-icon"
-        onClick={() => setVisible(false)}
-      />
       <Tabs
+        variant="standard"
         value={tabValue}
         onChange={(event, newValue) => setTabValue(newValue)}
         indicatorColor="primary"
@@ -58,21 +51,6 @@ const WebhookSettings = ({ webhook, visible, setVisible, handleSave }) => {
       <TabPanel value={tabValue} index={1}>
         <AdvancedSettings handleChange={handleChange} info={info} />
       </TabPanel>
-      <div className="wh-setting-actions">
-        <Button autoFocus onClick={() => setVisible(false)} color="primary">
-          Cancel
-        </Button>
-        <Button
-          onClick={() => {
-            handleSave(info);
-            setVisible(false);
-          }}
-          variant="contained"
-          color="primary"
-        >
-          Save
-        </Button>
-      </div>
     </div>
   );
 };

@@ -20,6 +20,10 @@ const OnClickTextField = ({
   const [renameToggle, setRenameToggle] = useState(false);
   const [text, setText] = useState(defaultText);
 
+  React.useEffect(() => {
+    setText(defaultText);
+  }, [defaultText]);
+
   const onTextFieldChange = (e) => {
     setText(e.target.value);
   };
