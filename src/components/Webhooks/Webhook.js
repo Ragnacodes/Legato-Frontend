@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Axios from '../../utils/axiosConfig';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/webhooks';
 import {
@@ -12,21 +11,24 @@ import {
   IconButton,
   Tooltip,
 } from '@material-ui/core';
-import { Edit, LocalShipping } from '@material-ui/icons';
+import { Edit, Delete, LocalShipping } from '@material-ui/icons';
 import EditModal from './WebhookSettingsModal';
 import WebhookQueue from './WebhookQueue';
 import { errorNotification, successNotification } from '../Layout/Notification';
 import OnClickTextField from '../OnClickTextField';
-
-const Webhook = ({ webhook, username, updateWebhook }) => {
-  const { id, name, active, url } = webhook;
+import YesNoModal from '../YesNoModal'
+const Webhook = ({ webhook, updateWebhook, deleteWebhook }) => {
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [queueModal, setQueueModal] = useState(false);
-
+  const [copied, setCopied] = useState(false);
+  const [yesNoVisible, setYesNoVisible] = useState(false)
   const handleToggleState = () => {
-    handleUpdateWebhook({ enable: !active });
+    handleUpdateWebhook({ enable: !webhook['active'] });
   };
 
+  React.useEffect(() => {
+    console.log('changed');
+  }, [webhook]);
   const mockQueue = [
     {
       id: 1,
@@ -60,32 +62,39 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
   ];
 
   const handleUpdateWebhook = (data) => {
-    Axios.put(`/users/${username}/services/webhooks/${id}`, {
-      name: data.name,
-      isEnable: data.enable,
-    })
-      .then((response) => {
-        console.log(response);
-        successNotification('Updated successfully.');
-        updateWebhook(webhook.id, data);
+    updateWebhook(webhook['id'], data)
+      .then((res) => {
+        successNotification(res.message);
       })
-      .catch((error) => {
-        if (error.response) {
-          let str = error.response.data.message;
-          errorNotification(
-            'Unable to update: ' +
-              str.charAt(0).toUpperCase() +
-              str.slice(1) +
-              '.'
-          );
-        } else {
-          errorNotification('Unable to update: ' + error.message);
-        }
+      .catch((err) => {
+        errorNotification(err.message);
       });
   };
 
+  const handleDeleteWebhook = () => {
+    deleteWebhook(webhook['id'])
+      .then((res) => {
+        successNotification(res.message);
+      })
+      .catch((err) => {
+        errorNotification(err.message);
+      });
+  };
+
+  const CopyToClipboard = () => {
+    navigator.clipboard.writeText(webhook['url']).then(
+      function () {
+        /* clipboard successfully set */
+        setCopied(true);
+      },
+      function () {
+        /* clipboard write failed */
+      }
+    );
+  };
+
   return (
-    <ListItem className="wh-item">
+    <ListItem key={webhook} className="wh-item">
       <EditModal
         webhook={webhook}
         visible={editModalVisible}
@@ -96,7 +105,7 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
         className="name"
         primary={
           <OnClickTextField
-            defaultText={name}
+            defaultText={webhook['name']}
             handleSave={(modifiedName) =>
               handleUpdateWebhook({ name: modifiedName })
             }
@@ -105,7 +114,26 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
             textfieldSize="small"
           />
         }
-        secondary={<Link href={url}>{url}</Link>}
+        secondary={
+          <Tooltip
+            onClose={() => setCopied(false)}
+            title={copied ? 'Copied!' : 'Copy to Clipboard'}
+            placement="bottom-start"
+            arrow
+            classes={{
+              popper: 'custom-helper-tooltip',
+            }}
+          >
+            <Link
+              onClick={(e) => {
+                e.preventDefault();
+                CopyToClipboard();
+              }}
+            >
+              {webhook['url']}
+            </Link>
+          </Tooltip>
+        }
       />
 
       <ListItemSecondaryAction className="wh-actions">
@@ -120,11 +148,14 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
         >
           Edit
         </Button>
-        <Tooltip title={active ? 'Disable?' : 'Enable?'} placement="top">
+        <Tooltip
+          title={webhook['active'] ? 'Disable?' : 'Enable?'}
+          placement="top"
+        >
           <Switch
             edge="end"
             onChange={handleToggleState}
-            checked={active}
+            checked={webhook['active']}
             color="primary"
             size="small"
             className="switch"
@@ -144,27 +175,31 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
           visible={queueModal}
           setVisible={setQueueModal}
         />
-        {/* <Tooltip title="Delete Webhook" placement="right">
+        <Tooltip title="Delete Webhook" placement="right">
           <IconButton
             aria-label="delete"
             className="delete-button"
             color="primary"
-            onClick={handleRemoveWebhook}
+            onClick={()=>setYesNoVisible(true)}
           >
-            <DeleteIcon fontSize="small" />
+            <Delete fontSize="small" />
           </IconButton>
-        </Tooltip> */}
+        </Tooltip>
+        <YesNoModal
+        text={`Delete ${webhook["name"]}?`}
+        visible={yesNoVisible}
+        setVisible={setYesNoVisible}
+        handleYes={handleDeleteWebhook}
+        handleNo={()=>{}}
+        />
       </ListItemSecondaryAction>
     </ListItem>
   );
 };
 
-const mapStateToProps = (state) => ({
-  username: state.auth.username,
-});
-
 const mapDispatchToProps = (dispatch) => ({
-  updateWebhook: (id, data) => dispatch(actions.updateWebhook(id, data)),
+  updateWebhook: (id, data) => dispatch(actions.startUpdateWebhook(id, data)),
+  deleteWebhook: (id) => dispatch(actions.startDeleteWebhook(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Webhook);
+export default connect(null, mapDispatchToProps)(Webhook);

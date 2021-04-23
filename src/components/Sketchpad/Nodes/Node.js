@@ -36,7 +36,7 @@ const Node = (props) => {
                     horizontal: 'left',
                 }}
             >
-                <NodeForm {...props} />
+                <NodeForm setAnchorEl={setAnchorEl} {...props} />
             </Popover>
         </>
     );

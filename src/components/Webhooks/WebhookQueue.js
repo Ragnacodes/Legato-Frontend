@@ -12,15 +12,13 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow
+  TableRow,
 } from '@material-ui/core';
-import { CloseRounded }  from "@material-ui/icons";
+import { CloseRounded } from '@material-ui/icons';
 import QueueDetails from './QueueDetails';
-
 const WebhookQueue = ({ queue, visible, setVisible }) => {
-  const dataNames = ["Type", "Created At", "Size", "Scenarios", ""];
+  const dataNames = ['Type', 'Created At', 'Size', 'Scenarios', ''];
   function QueueRow(row) {
-
     const [openDetails, setOpenDetails] = useState(null);
     return (
       <TableRow role="queuerow" key={row.id}>
@@ -36,12 +34,12 @@ const WebhookQueue = ({ queue, visible, setVisible }) => {
             anchorEl={openDetails}
             onClose={() => setOpenDetails(null)}
             anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
+              vertical: 'top',
+              horizontal: 'right',
             }}
             transformOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
+              vertical: 'bottom',
+              horizontal: 'left',
             }}
           >
             <QueueDetails data={row.data} />

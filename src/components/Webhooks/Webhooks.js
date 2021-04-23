@@ -1,50 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import Axios from '../../utils/axiosConfig';
 import { connect } from 'react-redux';
-import { setWebhooks, addWebhook } from '../../actions/webhooks';
+import * as actions from '../../actions/webhooks';
 import { Container, Divider, Button, List } from '@material-ui/core';
 import Appbar from '../Layout/Appbar';
 import PageTitle from '../Layout/PageTitle';
 import Webhook from './Webhook';
-import AddWebhookModal from './AddWebhookModal';
 import { errorNotification, successNotification } from '../Layout/Notification';
+import WebhookSettingsModal from './WebhookSettingsModal';
 
-const Webhooks = ({ webhooks, username, setWebhooks, addWebhook }) => {
+const Webhooks = ({ webhooks, getWebhooks, addWebhook }) => {
   const [addModalVisible, setAddModalVisible] = useState(false);
   useEffect(() => {
-    Axios.get(`/users/${username}/services/webhooks`)
-      .then((response) => {
-        setWebhooks(response.data.webhooks);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [setWebhooks, username]);
+    getWebhooks()
+      .then(() => {})
+      .catch(() => {});
+  }, [getWebhooks]);
 
   const addNewWebhook = (data) => {
-    Axios.post(`/users/${username}/services/webhooks`, {
-      name: data.name,
-    })
-      .then((response) => {
-        // setWebhooks(response.data);
-        console.log(response.data);
-        let str = response.data.message;
-        successNotification(str.charAt(0).toUpperCase() + str.slice(1) + ".");
-        addWebhook(response.data.webhook);
+    addWebhook(data)
+      .then((res) => {
+        successNotification(res.message);
       })
-      .catch((error) => {
-        console.log(error);
-        if (error.response) {
-          let str = error.response.data.message;
-          errorNotification(
-            "Unable to update: " +
-              str.charAt(0).toUpperCase() +
-              str.slice(1) +
-              "."
-          );
-        } else {
-          errorNotification("Unable to update: " + error.message);
-        }
+      .catch((err) => {
+        errorNotification(err.message);
       });
   };
 
@@ -65,7 +43,8 @@ const Webhooks = ({ webhooks, username, setWebhooks, addWebhook }) => {
       <main className="main">
         <div className="app-bar-spacer" />
         <div className="content-container">
-          <AddWebhookModal
+          <WebhookSettingsModal
+            webhook={{ name: 'New Webhook' }}
             visible={addModalVisible}
             setVisible={setAddModalVisible}
             handleSave={addNewWebhook}
@@ -75,7 +54,7 @@ const Webhooks = ({ webhooks, username, setWebhooks, addWebhook }) => {
               {webhooks.map((w) => {
                 return (
                   <div key={w.id}>
-                    <Webhook webhook={w} />
+                    <Webhook key={w} webhook={w} />
                     <Divider />
                   </div>
                 );
@@ -94,8 +73,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setWebhooks: (data) => dispatch(setWebhooks(data)),
-  addWebhook: (data) => dispatch(addWebhook(data)),
+  getWebhooks: () => dispatch(actions.startSetWebhooks()),
+  addWebhook: (data) => dispatch(actions.startAddWebhook(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Webhooks);

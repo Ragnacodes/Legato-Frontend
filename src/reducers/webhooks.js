@@ -8,16 +8,17 @@ const webhookReducer = (state = initialState, action) => {
       return {
         ...state,
         webhooks: action.payload.webhooks
+          .reverse()
           .filter(
             (wh) =>
-              wh.url.split("/").reverse()[0] !==
-              "00000000-0000-0000-0000-000000000000"
+              wh.url.split('/').reverse()[0] !==
+              '00000000-0000-0000-0000-000000000000'
           )
           .map((wh) => {
             return {
               ...wh,
               active: wh.isEnable,
-              ip_restrictions: "",
+              ip_restrictions: '',
               get_request_headers: false,
               get_request_http: false,
               json_passthrough: false,
@@ -28,19 +29,19 @@ const webhookReducer = (state = initialState, action) => {
     case ActionTypes.ADD_WEBHOOK:
       return {
         ...state,
-        webhooks: state.webhooks.concat({
-          ...action.payload.webhook,
-          active: action.payload.webhook.isEnable,
-          id: action.payload.webhook.url.split("/").reverse()[0],
-          ip_restrictions: "",
-          get_request_headers: false,
-          get_request_http: false,
-          json_passthrough: false,
-        }),
+        webhooks: [
+          {
+            ...action.payload.webhook,
+            active: action.payload.webhook.isEnable,
+            ip_restrictions: '',
+            get_request_headers: false,
+            get_request_http: false,
+            json_passthrough: false,
+          },
+        ].concat(state.webhooks),
       };
 
     case ActionTypes.UPDATE_WEBHOOK:
-      console.log(action);
       return {
         ...state,
         webhooks: state.webhooks.map((w, i) => {
@@ -53,7 +54,7 @@ const webhookReducer = (state = initialState, action) => {
         }),
       };
 
-    case ActionTypes.REMOVE_WEBHOOK:
+    case ActionTypes.DELETE_WEBHOOK:
       return {
         ...state,
         webhooks: state.webhooks.filter((w, i) => w.id !== action.payload.id),
