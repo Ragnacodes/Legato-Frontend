@@ -5,7 +5,7 @@ export const elementsBackToFront = (nodesBack) => {
     const nodesFront = nodesBack.map(nodeBack => {
         const nodeFront = {
             id: nodeBack.id.toString(),
-            type: `${nodeBack.type}_${nodeBack.subType}`,
+            type: nodeBack.hasOwnProperty('subType') ? `${nodeBack.type}_${nodeBack.subType}` : `${nodeBack.type}_`,
             position: nodeBack.position,
             data: {
                 name: nodeBack.name,
