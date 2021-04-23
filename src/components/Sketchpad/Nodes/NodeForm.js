@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { editElement } from '../../../actions/sketchpad';
+import { startEditElement } from '../../../actions/sketchpad';
 
 const NodeForm = (props) => {
     return (
@@ -10,7 +10,7 @@ const NodeForm = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        editElement: (id, updates) => dispatch(editElement(id, updates))
+        editElement: (id, updates) => dispatch(startEditElement(id, updates))
     };
 };
 
