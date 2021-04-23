@@ -33,7 +33,6 @@ const webhookReducer = (state = initialState, action) => {
           {
             ...action.payload.webhook,
             active: action.payload.webhook.isEnable,
-            id: action.payload.webhook.url.split('/').reverse()[0],
             ip_restrictions: '',
             get_request_headers: false,
             get_request_http: false,
@@ -43,7 +42,6 @@ const webhookReducer = (state = initialState, action) => {
       };
 
     case ActionTypes.UPDATE_WEBHOOK:
-      console.log(action);
       return {
         ...state,
         webhooks: state.webhooks.map((w, i) => {
