@@ -5,12 +5,14 @@ import SpotifySidebarItem from '../../Services/Spotify/SidebarItem';
 import TelegramSidebarItem from '../../Services/Telegram/SidebarItem';
 import SSHSidebarItem from '../../Services/SSH/SidebarItem';
 import GithubSidebarItem from '../../Services/Github/SidebarItem';
+import HTTPSidebarItem from '../../Services/HTTP/SidebarItem';
 
 const SketchpadSidebar =  () => {
   return (
     <aside id="sketchpad-sidebar">
       <div className="description">Services</div>
       <WebhookSidebarItem />
+      <HTTPSidebarItem />
       <SpotifySidebarItem />
       <TelegramSidebarItem />
       <SSHSidebarItem />
