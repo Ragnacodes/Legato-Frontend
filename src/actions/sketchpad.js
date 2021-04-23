@@ -14,7 +14,6 @@ export const addNode = (node) => {
     return {
         type: 'ADD_ELEMENT',
         element: {
-            id: uuid(),
             ...node
         }
     };

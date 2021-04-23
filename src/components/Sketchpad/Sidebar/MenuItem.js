@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addNode } from '../../../actions/sketchpad';
+import { startAddElement } from '../../../actions/sketchpad';
 import {
     ListItem,
     ListItemText,
@@ -8,12 +8,12 @@ import {
 
 const MenuItem = ({ service, item, close, addNode }) => {
 
-    const handleClick = () => {
+    const handleClick = (e) => {
         const node = {
             type: `${service}_${item.subService}`,
             position: {
-                x: 0,
-                y: 0
+                x: e.clientX,
+                y: e.clientY
             },
             data: {
                 service,
@@ -37,7 +37,7 @@ const MenuItem = ({ service, item, close, addNode }) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      addNode: (node) => dispatch(addNode(node)),
+        addNode: (node) => dispatch(startAddElement(node)),
     };
 };
 
