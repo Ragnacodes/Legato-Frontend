@@ -87,14 +87,9 @@ export const startDeleteWebhook = (id) => {
         console.log(err);
         if (err.response) {
           let str = err.response.data.message;
-          throw new Error(
-            'Unable to delete: ' +
-              str.charAt(0).toUpperCase() +
-              str.slice(1) +
-              '.'
-          );
+          throw new Error(str.charAt(0).toUpperCase() + str.slice(1) + '.');
         } else {
-          throw 'Unable to delete: ' + err;
+          throw err;
         }
       });
   };
@@ -128,14 +123,9 @@ export const startUpdateWebhook = (id, data) => {
         console.log(err);
         if (err.response) {
           let str = err.response.data.message;
-          throw new Error(
-            'Unable to update: ' +
-              str.charAt(0).toUpperCase() +
-              str.slice(1) +
-              '.'
-          );
+          throw new Error(str.charAt(0).toUpperCase() + str.slice(1) + '.');
         } else {
-          throw 'Unable to update: ' + err;
+          throw err;
         }
       });
   };
