@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { startGetSketchpad, addEdge, startRemoveElement } from '../../actions/sketchpad';
 import ReactFlow, {
@@ -12,16 +12,12 @@ import { nodeTypes } from './Nodes/nodeTypes';
 
 const Sketchpad = ( { id, elements, getSketchpad, addEdge, removeElement } ) => {
   const reactFlowWrapper = useRef(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
     getSketchpad(id)
     .then(() => {
-      setLoading(false);
     })
     .catch(() => {
-      setLoading(false);
     });
   }, [getSketchpad, id]);
 
