@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const TelegramForm = ({ id, data, editElement }) => {
+const Form = ({ id, data, editElement }) => {
     const [input1, setInput1] = useState(data.input1 || '');
     const [input2, setInput2] = useState(data.input2 || '');
 
@@ -24,11 +24,11 @@ const TelegramForm = ({ id, data, editElement }) => {
     };
 
     return (
-        <div>
-            <label>Telegram in1</label>
+        <div className="dummy-form">
+            <label>Github Action1 in1</label>
             <input value={input1} onChange={onChange1} />
 
-            <label>Telegram in2</label>
+            <label>Github Action1 in2</label>
             <input value={input2} onChange={onChange2} />
 
             <button onClick={onClick}>OK</button>
@@ -36,4 +36,4 @@ const TelegramForm = ({ id, data, editElement }) => {
     );
 }
 
-export default TelegramForm;
+export default Form;

@@ -8,6 +8,7 @@ import webhookReducer from '../reducers/webhooks';
 import sketchpadReducer from '../reducers/sketchpad';
 import drawerReducer from '../reducers/drawer';
 import connectionsReducer from '../reducers/connections';
+import servicesReducer from '../reducers/services';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -27,7 +28,8 @@ const configureStore = () => {
       webhooks: webhookReducer,
       sketchpad: sketchpadReducer,
       drawer: drawerReducer,
-      connections: connectionsReducer
+      connections: connectionsReducer,
+      services :servicesReducer
     }),
     composeEnhancers(applyMiddleware(...middleware))
   );

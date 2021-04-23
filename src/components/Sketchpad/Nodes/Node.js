@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import { Handle } from 'react-flow-renderer';
 import { Popover } from '@material-ui/core';
-import AbstractForm from './AbstractForm';
+import NodeForm from './NodeForm';
 
-const AbstractNode = (props) => {
+const Node = (props) => {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClick = (event) => {
@@ -20,11 +19,7 @@ const AbstractNode = (props) => {
     return (
         <>
             <div onClick={handleClick}>
-                <Handle type="target" position="left" className="handle" />
-                <div className="node">
-                    <p className="text">{props.type}</p>
-                </div>
-                <Handle type="source" position="right" className="handle" />
+                {props.node}
             </div>
 
             <Popover
@@ -41,10 +36,10 @@ const AbstractNode = (props) => {
                     horizontal: 'left',
                 }}
             >
-                <AbstractForm {...props} />
+                <NodeForm {...props} />
             </Popover>
         </>
     );
 };
 
-export default AbstractNode;
+export default Node;

@@ -1,23 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { startEditScenario } from '../../actions/scenarios';
-import { InputBase } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 import OnClickTextField from '../OnClickTextField';
-const SketchpadTitle = ({ name, editScenario }) => {
-  return (
-    <OnClickTextField
-      defaultText={name}
-      handleSave={(modifiedName) => console.log(modifiedName)}
-      handleCancel={() => {}}
-      divClassName=""
-      textfieldSize="small"
-    />
-    // <InputBase
-    //     defaultValue={name}
-    //     inputProps={{ 'aria-label': 'naked' }}
-    //     className="title-input"
-    // />
-  );
+
+const SketchpadTitle = ({ scenario, editScenario }) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (scenario.hasOwnProperty('name')) {
+      setLoading(false);
+    }
+    else setLoading(true);
+  }, [scenario]);
+
+  if (loading) {
+    return <Skeleton />;
+  }
+
+  else {
+    return (
+      <OnClickTextField
+        defaultText={scenario.name}
+        handleSave={(modifiedName) => console.log(modifiedName)}
+        handleCancel={() => {}}
+        divClassName="sketchpad-title"
+        textfieldSize="small"
+      />
+    );
+  }
+};
+
+const mapStateToProps = (state) => {
+  return {
+    scenario: state.sketchpad.scenario
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -26,4 +43,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(SketchpadTitle);
+export default connect(mapStateToProps, mapDispatchToProps)(SketchpadTitle);

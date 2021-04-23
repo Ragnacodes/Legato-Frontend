@@ -1,44 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { startGetScenarios } from '../../actions/scenarios';
-import { Container, List } from '@material-ui/core';
-import Appbar from '../Layout/Appbar';
-import PageTitle from '../Layout/PageTitle';
-import AddScenario from './AddScenario';
+import { List } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
+import NoItem from '../Layout/NoItem';
 import Scenario from './Scenario';
 
 const Scenarios = ({ scenarios, getScenarios }) => {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     getScenarios()
     .then(() => {
+      setLoading(false);
     })
     .catch(() => {
+      setLoading(false);
     });
   }, [getScenarios]);
-  
-  return (
-    <>
-    <Appbar leftChildren={<PageTitle title="Scenarios" />} rightChildren={<AddScenario />} />
-    <main className="main">
-      <div className="app-bar-spacer" />
-      <div className="content-container">
-        <Container maxWidth="lg" className="scenarios">
 
-        { scenarios.length === 0 ? <p>There is no item</p>:
-          <List>
-          {
-            scenarios.map((scenario) => {
-              return <Scenario key={scenario.id} {...scenario} />;
-            })
-          }
-          </List>
-        }
-        </Container>
+  if (loading) {
+    return (
+      <React.Fragment>
+        <Skeleton />
+        <Skeleton animation={false} />
+        <Skeleton animation="wave" />
+      </React.Fragment>
+    );
+  }
 
-      </div>
-    </main>
-    </>
-)};
+  else if (scenarios.length === 0) {
+    return <NoItem name="Scenario" />;
+  }
+
+  else {
+    return (
+      <List>
+      {
+        scenarios.map((scenario, index) => {
+          return <Scenario key={index} {...scenario} />;
+        })
+      }
+      </List>
+    );
+  }
+
+};
 
 const mapStateToProps = (state) => {
   return {
