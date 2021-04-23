@@ -1,4 +1,4 @@
-import Webhook1 from './Webhook/01/Node';
+import Webhook1 from './Webhook/CustomWebhook/Node';
 import HTTP1 from './HTTP/01/Node';
 
 export const nodeTypes = {
