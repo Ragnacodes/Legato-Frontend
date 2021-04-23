@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { Button, Typography } from '@material-ui/core';
 import { CloseRounded } from '@material-ui/icons';
 
-const ServiceForm = ({
+const PopoverForm = ({
   title,
   className,
   disabledSave,
@@ -33,4 +33,4 @@ const ServiceForm = ({
   );
 };
 
-export default ServiceForm;
+export default PopoverForm;

@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../actions/webhooks';
 import { MenuItem, IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Add, Edit } from '@material-ui/icons';
-
 import {
   errorNotification,
   successNotification,
 } from '../../../Layout/Notification';
 import WebhookSettingsPopper from '../../../Webhooks/WebhookSettingsPopper';
 
-import ServiceForm from '../../ServiceForm';
+import ServiceForm from '../../../PopoverForm';
 const Form = ({
   id,
   data,
@@ -27,7 +26,6 @@ const Form = ({
   });
 
   const [errors, setErrors] = useState({
-    max: false,
     webhook: !!data.webhook,
   });
 
@@ -40,18 +38,18 @@ const Form = ({
       .catch(() => {});
   }, [getWebhooks]);
 
-  useEffect(() => {
-    if (info['webhook']) {
-      setInfo((prev) => ({
-        ...prev,
-        webhook: webhooks.find((w) => w.id === info['webhook'].id),
-      }));
-    }
-  }, [webhooks]);
+  // useEffect(() => {
+  //   // if (info['webhook']) {
+  //   setInfo((prev) => ({
+  //     ...prev,
+  //     webhook: webhooks.find((w) => w.id === info['webhook'].id),
+  //   }));
+  //   // }
+  // }, [webhooks]);
 
   const handleUpdateWebhook = (data) => {
     if (info['webhook']) {
-      updateWebhook(info['webhook'].id, data)
+      updateWebhook(info['webhook'], data)
         .then((res) => {
           successNotification(res.message);
         })
@@ -72,7 +70,6 @@ const Form = ({
   };
 
   useEffect(() => {
-    console.log(info, data);
     if (!!info['webhook']) {
       setErrors((prev) => ({
         ...prev,
@@ -82,22 +79,38 @@ const Form = ({
   }, [info]);
 
   const handleChange = (e) => {
+    console.log(e.target.value);
     setInfo((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const CopyToClipboard = () => {
-    navigator.clipboard.writeText(info['webhook'].url).then(
-      function () {
-        /* clipboard successfully set */
-        setCopied(true);
-      },
-      function () {
-        /* clipboard write failed */
-      }
-    );
+  const CopyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(function () {
+      setCopied(true);
+    });
+  };
+
+  const handleCancel = () => {
+    setAnchorEl(null);
+    setInfo({
+      webhook: data.webhook || '',
+      max: data.webhook || '',
+    });
+    setErrors({
+      webhook: !!data.webhook,
+    });
+  };
+
+  const handleSave = () => {
+    editElement(id, { data: { ...data, ...info } });
+    setAnchorEl(null);
+  };
+
+  const FindWebhook = (id) => {
+    if (id === '') return {};
+    return webhooks.find((w) => w.id === id);
   };
 
   const HelperTextComponent = React.forwardRef((props, ref) => {
@@ -111,7 +124,11 @@ const Form = ({
           popper: 'custom-helper-tooltip',
         }}
       >
-        <span onClick={() => CopyToClipboard()} ref={ref} {...props} />
+        <span
+          onClick={() => CopyToClipboard(FindWebhook(info['webhook']))}
+          ref={ref}
+          {...props}
+        />
       </Tooltip>
     );
   });
@@ -120,23 +137,6 @@ const Form = ({
     classes: {
       root: 'url-helper-text MuiFormHelperText-root',
     },
-  };
-
-  const handleCancel = () => {
-    setAnchorEl(null);
-    setInfo({
-      webhook: data.webhook || '',
-      max: data.webhook || '',
-    });
-    setErrors({
-      max: false,
-      webhook: !!data.webhook,
-    });
-  };
-
-  const handleSave = () => {
-    editElement(id, { data: { ...data, ...info } });
-    setAnchorEl(null);
   };
 
   return (
@@ -158,13 +158,15 @@ const Form = ({
           value={info['webhook']}
           onChange={handleChange}
           helperText={
-            info['webhook'] ? info['webhook'].url : 'Please select a webhook.'
+            info['webhook']
+              ? FindWebhook(info['webhook']).url
+              : 'Please select a webhook.'
           }
-          FormHelperTextProps={FormHelperTextProps}
+          FormHelperTextProps={info['webhook'] ? FormHelperTextProps : {}}
           variant="outlined"
         >
           {webhooks.map((wh) => (
-            <MenuItem key={wh.id} value={wh}>
+            <MenuItem key={wh.id} value={wh.id}>
               {wh.name}
             </MenuItem>
           ))}
@@ -179,8 +181,8 @@ const Form = ({
           <Edit />
         </IconButton>
         <WebhookSettingsPopper
-          title={info['webhook'].name}
-          webhook={info['webhook']}
+          title={FindWebhook(info['webhook']).name}
+          webhook={FindWebhook(info['webhook'])}
           anchor={editWhPopper}
           setAnchor={setEditWhPopper}
           handleSave={handleUpdateWebhook}

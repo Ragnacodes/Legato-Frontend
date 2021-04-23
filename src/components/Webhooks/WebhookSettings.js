@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { Tab, Tabs } from '@material-ui/core';
 import AdvancedSettings from './AdvancedSettings';
 import GeneralSettings from './GeneralSettings';
@@ -32,19 +32,9 @@ const WebhookSettings = ({ info, setInfo }) => {
     });
   };
 
-  const actions = useRef();
-
-  useEffect(() => {
-    if (actions.current) {
-      console.log(actions.current);
-      actions.current.updateIndicator(1);
-    }
-  }, [actions]);
-
   return (
     <div>
       <Tabs
-        action={actions}
         variant="standard"
         value={tabValue}
         onChange={(event, newValue) => setTabValue(newValue)}

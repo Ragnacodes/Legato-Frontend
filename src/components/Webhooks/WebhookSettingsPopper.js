@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Popover from '../Popover';
+import { Popover } from '@material-ui/core';
 import WebhookSettings from './WebhookSettings';
+import PopoverForm from '../PopoverForm';
 const WebhookSettingsPopper = ({
   title,
   webhook,
@@ -21,6 +22,9 @@ const WebhookSettingsPopper = ({
 
   return (
     <Popover
+      open={Boolean(anchor)}
+      anchorEl={anchor}
+      onClose={() => setAnchor(null)}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'left',
@@ -29,18 +33,20 @@ const WebhookSettingsPopper = ({
         vertical: 'top',
         horizontal: 'left',
       }}
-      className="add-wh-popper"
-      title={title}
-      anchor={anchor}
-      disabledSave={false}
-      setAnchor={setAnchor}
-      handleSave={() => {
-        handleSave(info);
-        setAnchor(null);
-      }}
-      handleCancel={handleCancel}
     >
-      <WebhookSettings info={info} setInfo={setInfo} />
+      <PopoverForm
+        className="add-wh-popper"
+        title={title}
+        anchor={anchor}
+        disabledSave={false}
+        handleSave={() => {
+          handleSave(info);
+          setAnchor(null);
+        }}
+        handleCancel={handleCancel}
+      >
+        <WebhookSettings info={info} setInfo={setInfo} />
+      </PopoverForm>
     </Popover>
   );
 };
