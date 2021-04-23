@@ -6,7 +6,7 @@ const SidebarItem = () => {
     return (
         <CustomSidebarItem
             icon={<Telegram fontSize="large" className="icon telegram" />}
-            serviceName="telegram"
+            serviceName="telegrams"
         />
     );
 };

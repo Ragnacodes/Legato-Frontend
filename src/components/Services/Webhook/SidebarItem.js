@@ -6,7 +6,7 @@ const SidebarItem = () => {
     return (
         <CustomSidebarItem
             icon={<Language fontSize="large" className="icon webhook" />}
-            serviceName="webhook"
+            serviceName="webhooks"
         />
     );
 };

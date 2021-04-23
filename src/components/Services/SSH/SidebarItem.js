@@ -6,7 +6,7 @@ const SidebarItem = () => {
     return (
         <CustomSidebarItem
             icon={<Code fontSize="large" className="icon ssh" />}
-            serviceName="ssh"
+            serviceName="sshs"
         />
     );
 };

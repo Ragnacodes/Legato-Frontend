@@ -6,7 +6,7 @@ const SidebarItem = () => {
     return (
         <CustomSidebarItem
             icon={<GitHub fontSize="large" className="icon github" />}
-            serviceName="github"
+            serviceName="githubs"
         />
     );
 };
