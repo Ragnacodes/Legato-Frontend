@@ -76,3 +76,9 @@
   }
 
 }
+
+.dummy-form {
+  display: flex;
+  flex-direction: column;
+  padding: $sm-size;
+}

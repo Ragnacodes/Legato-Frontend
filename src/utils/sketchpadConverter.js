@@ -1,33 +1,46 @@
 import { v4 as uuid } from 'uuid';
 
-export const backToFront = (back) => {
+export const elementsBackToFront = (nodesBack) => {
     const edges = [];
-    const nodes = back.map(node => {
-        const element = {
-            id: node.id,
-            data: node.data,
-            position: node.position,
-            type: node.type
+    const nodesFront = nodesBack.map(nodeBack => {
+        const nodeFront = {
+            id: nodeBack.id.toString(),
+            type: `${nodeBack.type}_${nodeBack.subType}`,
+            position: nodeBack.position,
+            data: {
+                name: nodeBack.name,
+                service: nodeBack.type,
+                subService: nodeBack.subType,
+                ...nodeBack.data
+            }
         };
 
-        if (node.parentId !== null) {
+        if (nodeBack.parentId !== null) {
             const edge = {
                 id: uuid(),
                 animated: true,
                 data: {},
-                source: node.parentId,
+                source: nodeBack.parentId.toString(),
                 sourceHandle: null,
-                target: node.id,
+                target: nodeBack.id.toString(),
                 targetHandle: null,
-                type: 'customEdge'
+                type: 'edge'
             };
             edges.push(edge);
         }
-        return element;
+        return nodeFront;
     })
-    return [...nodes, ...edges];
+    return [...nodesFront, ...edges];
 };
 
-export const frontToBack = (front) => {
-    return [];
+export const nodeFrontToBack = (nodeFront) => {
+    const nodeBack = {
+        parentId: null,
+        name: nodeFront.data.name,
+        type: nodeFront.data.service,
+        subType: nodeFront.data.subService,
+        position: nodeFront.position,
+        data: nodeFront.data,
+    };
+    return nodeBack;
 };
