@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { startGetSketchpad, addEdge, removeElements, startEditElement } from '../../actions/sketchpad';
+import { startGetSketchpad, startAddElement, removeElements, startEditElement } from '../../actions/sketchpad';
 import ReactFlow, {
   Controls,
   Background,
@@ -70,7 +70,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getSketchpad: (scenarioID) => dispatch(startGetSketchpad(scenarioID)),
     removeElements: (elements) => dispatch(removeElements(elements)),
-    addEdge: (edge) => dispatch(addEdge(edge)),
+    addEdge: (edge) => dispatch(startAddElement(edge)),
     editElement: (id, updates) => dispatch(startEditElement(id, updates))
   };
 };
