@@ -8,7 +8,7 @@ import ReactFlow, {
 import Sidebar from './Sidebar/SketchpadSidebar';
 import CustomEdge from './Edges/CustomEdge';
 import SketchpadControl from './SketchpadControl';
-import { nodeTypes } from './Nodes/nodeTypes';
+import { nodeTypes } from '../Services/nodeTypes';
 
 const Sketchpad = ( { id, elements, getSketchpad, addEdge, removeElement } ) => {
   const reactFlowWrapper = useRef(null);
