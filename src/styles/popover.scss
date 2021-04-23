@@ -1,0 +1,47 @@
+.sketchpad-popover {
+  width: 350px;
+  padding: 8px 24px;
+  padding-top: 16px;
+  h5 {
+    padding-bottom: 16px;
+  }
+  .close-icon {
+    cursor: pointer;
+    font-size: 1.4rem;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: $primary;
+  }
+
+  .help-text {
+    color: #707070;
+    font-size: 0.84rem;
+    margin-bottom: 10px;
+    .help-icon {
+      margin-bottom: -5px;
+      margin-right: 5px;
+      font-size: 1.2rem;
+    }
+  }
+
+  .text-field {
+    margin-top: 11px;
+    margin-bottom: 11px;
+    .MuiFormHelperText-root {
+      margin-bottom: -5px;
+    }
+  }
+
+  .actions {
+    flex: 0 0 auto;
+    display: flex;
+    padding: 8px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: -18px;
+    button {
+      margin-left: 5px;
+    }
+  }
+}
