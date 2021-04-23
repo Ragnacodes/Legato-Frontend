@@ -100,8 +100,70 @@ export const startAddElement = (element) => {
     };
 };
 
-export const startRemoveElement = (id) => {
-    return (dispatch, getState) => {};
+export const removeElements = (elements) => {
+    return (dispatch) => {
+        
+        if (elements.length === 1) {
+            if (elements[0].type === 'edge') {
+                const edge = elements[0];
+                const childNodeID = edge.target;
+                const updates = {
+                    parentId: null
+                };
+                dispatch(startEditElement(childNodeID, updates))
+                .then(() => {
+                    dispatch(removeElement(edge.id));
+                })
+                .catch(() => {
+                    console.log('Error in removing edge.');
+                });
+            }
+            else {
+                const node = elements[0];
+                dispatch(startRemoveNode(node.id))
+            }
+        }
+
+        else if (elements.length === 2) {
+            const edge = elements[0].type === 'edge' ? elements[0] : elements[1];
+            const node = elements[0].type === 'edge' ? elements[1] : elements[0];
+                dispatch(startRemoveNode(node.id));
+                dispatch(removeElement(edge.id));
+        }
+
+        else if (elements.length === 3) {
+            const node = elements.find(element => element.type !== 'edge');
+            const leftEdge = elements.find(element => element.target === node.id);
+            const rightEdge = elements.find(element => element.source === node.id);
+            const newEdge = {
+                source: leftEdge.source,
+                sourceHandle: null,
+                target: rightEdge.target,
+                targetHandle: null,
+                animated: true,
+                type: 'edge',
+            };
+            dispatch(startRemoveNode(node.id));
+            dispatch(removeElement(leftEdge.id));
+            dispatch(removeElement(rightEdge.id));
+            dispatch(addEdge(newEdge));
+        }
+
+    };
+};
+
+export const startRemoveNode = (id) => {
+    return (dispatch, getState) => {
+        const username = getState().auth.username;
+        const scenarioID = getState().sketchpad.scenario.id;
+        return Axios.delete(`/users/${username}/scenarios/${scenarioID}/nodes/${id}`)
+        .then(res => {
+            dispatch(removeElement(id));
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    };
 };
 
 export const startEditElement = (id, updates) => {

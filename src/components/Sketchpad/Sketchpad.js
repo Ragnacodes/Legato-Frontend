@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { startGetSketchpad, addEdge, startRemoveElement, startEditElement } from '../../actions/sketchpad';
+import { startGetSketchpad, addEdge, removeElements, startEditElement } from '../../actions/sketchpad';
 import ReactFlow, {
   Controls,
   Background,
@@ -10,7 +10,7 @@ import CustomEdge from './Edges/CustomEdge';
 import SketchpadControl from './SketchpadControl';
 import { nodeTypes } from '../Services/nodeTypes';
 
-const Sketchpad = ( { id, elements, getSketchpad, addEdge, removeElement, editElement } ) => {
+const Sketchpad = ( { id, elements, getSketchpad, addEdge, removeElements, editElement } ) => {
   const reactFlowWrapper = useRef(null);
 
   useEffect(() => {
@@ -26,9 +26,7 @@ const Sketchpad = ( { id, elements, getSketchpad, addEdge, removeElement, editEl
   };
 
   const onElementsRemove = (elementsToRemove) => {
-    elementsToRemove.forEach(element => {
-      removeElement(element)
-    });
+    removeElements(elementsToRemove);
   };
 
   const onNodeDragStop = (event, node) => {
@@ -71,7 +69,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getSketchpad: (scenarioID) => dispatch(startGetSketchpad(scenarioID)),
-    removeElement: (id) => dispatch(startRemoveElement(id)),
+    removeElements: (elements) => dispatch(removeElements(elements)),
     addEdge: (edge) => dispatch(addEdge(edge)),
     editElement: (id, updates) => dispatch(startEditElement(id, updates))
   };
