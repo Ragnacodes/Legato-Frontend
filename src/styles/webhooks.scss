@@ -1,3 +1,26 @@
+.yes-no-modal {
+  .close-icon {
+    cursor: pointer;
+    font-size: 1.4rem;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: $primary;
+  }
+
+  .actions {
+    flex: 0 0 auto;
+    display: flex;
+    padding: 8px;
+    align-items: center;
+    justify-content: center;
+    button {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+  }
+}
+
 .edit-wh-dialog,
 .add-wh-popper {
   .MuiDialogTitle-root {
@@ -178,7 +201,7 @@
       cursor: pointer;
       padding-left: 14px;
       a {
-        word-break: break-all;
+        word-break: break-allq;
         color: adjust-color($color: $primary, $lightness: 20%);
       }
     }

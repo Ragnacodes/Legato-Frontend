@@ -11,22 +11,24 @@ import {
   IconButton,
   Tooltip,
 } from '@material-ui/core';
-import { Edit, LocalShipping } from '@material-ui/icons';
+import { Edit, Delete, LocalShipping } from '@material-ui/icons';
 import EditModal from './WebhookSettingsModal';
 import WebhookQueue from './WebhookQueue';
 import { errorNotification, successNotification } from '../Layout/Notification';
 import OnClickTextField from '../OnClickTextField';
-
-const Webhook = ({ webhook, username, updateWebhook }) => {
-  const { id, name, active, url } = webhook;
+import YesNoModal from '../YesNoModal'
+const Webhook = ({ webhook, updateWebhook, deleteWebhook }) => {
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [queueModal, setQueueModal] = useState(false);
   const [copied, setCopied] = useState(false);
-
+  const [yesNoVisible, setYesNoVisible] = useState(false)
   const handleToggleState = () => {
-    handleUpdateWebhook({ enable: !active });
+    handleUpdateWebhook({ enable: !webhook['active'] });
   };
 
+  React.useEffect(() => {
+    console.log('changed');
+  }, [webhook]);
   const mockQueue = [
     {
       id: 1,
@@ -60,17 +62,27 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
   ];
 
   const handleUpdateWebhook = (data) => {
-    updateWebhook(id, data)
-      .then((str) => {
-        successNotification(str);
+    updateWebhook(webhook['id'], data)
+      .then((res) => {
+        successNotification(res.message);
       })
-      .catch((str) => {
-        errorNotification(str);
+      .catch((err) => {
+        errorNotification(err.message);
+      });
+  };
+
+  const handleDeleteWebhook = () => {
+    deleteWebhook(webhook['id'])
+      .then((res) => {
+        successNotification(res.message);
+      })
+      .catch((err) => {
+        errorNotification(err.message);
       });
   };
 
   const CopyToClipboard = () => {
-    navigator.clipboard.writeText(url).then(
+    navigator.clipboard.writeText(webhook['url']).then(
       function () {
         /* clipboard successfully set */
         setCopied(true);
@@ -82,7 +94,7 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
   };
 
   return (
-    <ListItem className="wh-item">
+    <ListItem key={webhook} className="wh-item">
       <EditModal
         webhook={webhook}
         visible={editModalVisible}
@@ -93,7 +105,7 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
         className="name"
         primary={
           <OnClickTextField
-            defaultText={name}
+            defaultText={webhook['name']}
             handleSave={(modifiedName) =>
               handleUpdateWebhook({ name: modifiedName })
             }
@@ -112,7 +124,14 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
               popper: 'custom-helper-tooltip',
             }}
           >
-            <span onClick={CopyToClipboard}>{url}</span>
+            <Link
+              onClick={(e) => {
+                e.preventDefault();
+                CopyToClipboard();
+              }}
+            >
+              {webhook['url']}
+            </Link>
           </Tooltip>
         }
       />
@@ -129,11 +148,14 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
         >
           Edit
         </Button>
-        <Tooltip title={active ? 'Disable?' : 'Enable?'} placement="top">
+        <Tooltip
+          title={webhook['active'] ? 'Disable?' : 'Enable?'}
+          placement="top"
+        >
           <Switch
             edge="end"
             onChange={handleToggleState}
-            checked={active}
+            checked={webhook['active']}
             color="primary"
             size="small"
             className="switch"
@@ -153,27 +175,31 @@ const Webhook = ({ webhook, username, updateWebhook }) => {
           visible={queueModal}
           setVisible={setQueueModal}
         />
-        {/* <Tooltip title="Delete Webhook" placement="right">
+        <Tooltip title="Delete Webhook" placement="right">
           <IconButton
             aria-label="delete"
             className="delete-button"
             color="primary"
-            onClick={handleRemoveWebhook}
+            onClick={()=>setYesNoVisible(true)}
           >
-            <DeleteIcon fontSize="small" />
+            <Delete fontSize="small" />
           </IconButton>
-        </Tooltip> */}
+        </Tooltip>
+        <YesNoModal
+        text={`Delete ${webhook["name"]}?`}
+        visible={yesNoVisible}
+        setVisible={setYesNoVisible}
+        handleYes={handleDeleteWebhook}
+        handleNo={()=>{}}
+        />
       </ListItemSecondaryAction>
     </ListItem>
   );
 };
 
-const mapStateToProps = (state) => ({
-  username: state.auth.username,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   updateWebhook: (id, data) => dispatch(actions.startUpdateWebhook(id, data)),
+  deleteWebhook: (id) => dispatch(actions.startDeleteWebhook(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Webhook);
+export default connect(null, mapDispatchToProps)(Webhook);

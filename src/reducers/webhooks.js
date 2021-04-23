@@ -56,7 +56,7 @@ const webhookReducer = (state = initialState, action) => {
         }),
       };
 
-    case ActionTypes.REMOVE_WEBHOOK:
+    case ActionTypes.DELETE_WEBHOOK:
       return {
         ...state,
         webhooks: state.webhooks.filter((w, i) => w.id !== action.payload.id),
