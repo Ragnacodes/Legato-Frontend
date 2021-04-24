@@ -1,10 +1,10 @@
 import React from 'react';
 import Form from './Form';
-import CustomNode from '../../CustomNode';
+import CustomServiceNode from '../CustomServiceNode';
 
 const Node = (props) => {
     return (
-        <CustomNode kind="action" form={Form} {...props} />
+        <CustomServiceNode kind="action" form={Form} {...props} />
     );
 };
 

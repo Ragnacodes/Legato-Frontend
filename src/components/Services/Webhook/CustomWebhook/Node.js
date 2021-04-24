@@ -1,9 +1,9 @@
 import React from 'react';
 import Form from './Form';
-import CustomNode from '../../CustomNode';
+import CustomServiceNode from '../CustomServiceNode';
 
 const Node = (props) => {
-  return <CustomNode kind="trigger" form={Form} {...props} />;
+  return <CustomServiceNode kind="trigger" form={Form} {...props} />;
 };
 
 export default Node;
