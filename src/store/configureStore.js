@@ -9,6 +9,7 @@ import sketchpadReducer from '../reducers/sketchpad';
 import drawerReducer from '../reducers/drawer';
 import connectionsReducer from '../reducers/connections';
 import servicesReducer from '../reducers/services';
+import httpReducer from '../reducers/http'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -26,6 +27,7 @@ const configureStore = () => {
       login: loginReducer,
       scenarios: scenariosReducer,
       webhooks: webhookReducer,
+      https: httpReducer,
       sketchpad: sketchpadReducer,
       drawer: drawerReducer,
       connections: connectionsReducer,
