@@ -7,13 +7,13 @@
 }
 
 .node {
-    background-color: #fff;
-    padding: 10px;
-    border-style: solid;
-    border-color: #0041d0;
-    border-width: 1px;
-    border-radius: 3px;
-    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    background-color: inherit;
 }
 
 .edge_text {

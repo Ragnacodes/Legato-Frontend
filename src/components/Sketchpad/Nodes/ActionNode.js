@@ -6,9 +6,7 @@ const ActionNode = (props) => {
     const node = (
         <>
             <Handle type="target" position="left" className="handle" />
-            <div className="node">
-                <p className="text">{props.data.service}</p>
-            </div>
+            {props.shape}
             <Handle type="source" position="right" className="handle" />
         </>
     );

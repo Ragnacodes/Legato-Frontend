@@ -5,9 +5,7 @@ import { Handle } from 'react-flow-renderer';
 const TriggerNode = (props) => {
     const node = (
         <>
-            <div className="node">
-                <p className="text">{props.data.service}</p>
-            </div>
+            {props.shape}
             <Handle type="source" position="right" className="handle" />
         </>
     );
