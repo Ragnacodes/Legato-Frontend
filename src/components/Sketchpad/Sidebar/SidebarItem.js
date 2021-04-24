@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Popover } from '@material-ui/core';
+import { Popover, Tooltip } from '@material-ui/core';
 import ServiceMenu from './ServiceMenu';
 
 const SidebarItem = ({ service, icon, triggers, actions }) => {
@@ -18,10 +18,12 @@ const SidebarItem = ({ service, icon, triggers, actions }) => {
 
     return (
         <>
-        
-        <div className="dndnode" onClick={handleClick}>
-            {icon}
-        </div>
+
+        <Tooltip title={service.slice(0, -1).toUpperCase()} placement="left">
+            <div className="dndnode" onClick={handleClick}>
+                {icon}
+            </div>
+        </Tooltip>
 
         <Popover
             id={idPopover}
