@@ -1,42 +1,36 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import ServiceForm from '../../../PopoverForm';
 import { TextField, Select, MenuItem } from '@material-ui/core';
-import { startAddHttp } from '../../../../actions/http'
 
-const Form = ({ id, data, editElement, setAnchorEl, addHtml }) => {
+const Form = ({ id, data, editElement, setAnchorEl }) => {
     const [info, setInfo] = useState({
         name: data.name || '',
-        in1: data.in1 || '',
-        in2: data.in2 || '',
+        url: data.url || '',
+        method: data.method || 'get',
+        body: data.body || ''
     });
 
-    const handleSelectChange = (e) => {
-        setMethodType(e.target.value);
-    }
-    
     const handleChange = (e) => {
         setInfo((prev) => ({
             ...prev,
             [e.target.name]: e.target.value,
         }));
     };
-
+    
     const handleCancel = () => {
         setAnchorEl(null);
     };
-
     const handleSave = () => {
+        
         const updates = {
-            name: info['name'],
+            name: info.name,
             data: { ...data, ...info }
         };
+        console.log(updates);
         editElement(id, updates);
         setAnchorEl(null);
-        addHtml();
     };
 
-    const [methodType, setMethodType] = useState("get");
     return (
         <ServiceForm
             className="dummy-form"
@@ -55,30 +49,32 @@ const Form = ({ id, data, editElement, setAnchorEl, addHtml }) => {
                 onChange={handleChange}
                 helperText="write the URL of your HTTP request here."
                 multiline
+                value={info.url}
             />
             <Select
                 className="select"
-                name="Method"
+                name="method"
                 variant="outlined"
                 size="small"
-                onChange={handleSelectChange}
-                value = {methodType}
+                onChange={handleChange}
+                value = {info.method}
             >
                 <MenuItem value="get">GET</MenuItem>
                 <MenuItem value="post">POST</MenuItem>
             </Select>
             {
-                methodType==="post" ?
+                info.method === "post" ?
                 <TextField
-                className="text-field"
-                name="body"
-                label="body"
-                type="text"
-                variant="outlined"
-                size="small"
-                onChange={handleChange}
-                helperText="write the body of your post request here."
-                multiline
+                    className="text-field"
+                    name="body"
+                    label="body"
+                    type="text"
+                    variant="outlined"
+                    size="small"
+                    onChange={handleChange}
+                    helperText="write the body of your post request here."
+                    multiline
+                    value={info.body}
                 />
                 :
                 null
@@ -88,8 +84,4 @@ const Form = ({ id, data, editElement, setAnchorEl, addHtml }) => {
     );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    addHtml: (data) => dispatch(startAddHttp(data)),
-});
-
-export default connect(mapDispatchToProps)(Form);
+export default Form;
