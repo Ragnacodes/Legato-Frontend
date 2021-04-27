@@ -10,7 +10,7 @@ export const getConnections = (connections) => {
 export const startGetConnections = () => {
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.get(`/users/${username}/connection/gettokens`)
+        return Axios.get(`/users/${username}/get/connections`)
         .then(res => {
             dispatch(getConnections(res.data.connections));
         })
@@ -29,22 +29,29 @@ export const addConnection = (connection) => {
 
 export const startAddConnection = () => {
     const url = window.location.href;
-    const name = "spotify 3";
     const token = url.substring(url.indexOf("code=")+5);
     const token_type = url.slice(url.indexOf("redirect/")+9, url.indexOf("/?code"));
+    const name = "my " + token_type;
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.post(`users/${username}/connections/addtoken`,{"name":name, 
+        // const userConnections = getState().connections;
+        // console.log(userConnections);
+        // const counter=0;
+        // for (var connection in userConnections){
+        //     console.log(connection);
+        //     if (connection.token_type === token_type){
+        //         counter = counter + 1;
+        //     }
+        // }
+        // const name = "my " + token_type + " " + counter.toString();
+        return Axios.post(`users/${username}/add/connection`,{"name":name, 
                                                              "token_type": token_type,
                                                              "token": token})
             .then(res => {
-                dispatch(addConnection(res.data.connection));
-                window.close();
-                return res.data.connection.ID;
+                dispatch(addConnection(res.data["connection"]));
              })
             .catch(err => {
                 console.log(err);
-                // alert("you already have this account");
             });
     };
 };
@@ -59,7 +66,7 @@ export const removeConnection = (ID) => {
 export const startRemoveConnection = (ID) => {
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.post(`/users/${username}/connection/delete/token`,{"ID":ID})
+        return Axios.delete(`/users/${username}/connection/delete/${ID}`)
         .then(res => {
             dispatch(removeConnection(ID));
         })
@@ -80,8 +87,7 @@ export const editConnection = (ID, updates) => {
 export const startEditConnection = (ID, newName) => {
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        console.log(newName);
-        return Axios.post(`/users/${username}/connection/edit/token`,{"ID":ID, "Name":newName})
+        return Axios.put(`/users/${username}/update/connection/name/${ID}`,{"name":newName})
         .then(res => {
             dispatch(editConnection(ID, res.data.updates));
         })

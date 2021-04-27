@@ -14,8 +14,8 @@ import NoItem from '../Layout/NoItem'
 
 const Connections = ({ connections, getConnections }) => {
     useEffect(() => {
-        getConnections();
         setAddConnection(false);
+        getConnections();
     }, [getConnections]);
 
     const [addConnection, setAddConnection] = useState(false);
@@ -34,7 +34,7 @@ const Connections = ({ connections, getConnections }) => {
                 <div className="app-bar-spacer" />
                 <div className="content-container">
                     <Container maxWidth="lg">
-                        {connections == null ? 
+                        {connections === null || connections.length === 0 ? 
                                 <NoItem/>
                             :
                             <List>
@@ -46,7 +46,7 @@ const Connections = ({ connections, getConnections }) => {
                             </List>
                         }
                         {addConnection ? 
-                        <AddConnection addConnection={addConnection} />
+                        <AddConnection addDialog={addConnection} setAddDialog={setAddConnection} />
                         
                         :
                         null
