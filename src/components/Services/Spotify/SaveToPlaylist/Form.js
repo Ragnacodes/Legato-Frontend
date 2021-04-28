@@ -2,9 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { MenuItem, Typography, IconButton, TextField } from '@material-ui/core';
 import { Refresh, Add } from '@material-ui/icons';
 import { connect } from 'react-redux';
-import * as actions from '../../../../actions/webhooks';
+import { startGetConnections } from '../../../../actions/connections';
 import ServiceForm from '../../../PopoverForm';
-const Form = ({ id, data, editElement, webhooks, setAnchorEl }) => {
+const Form = ({
+  id,
+  data,
+  connections,
+  editElement,
+  webhooks,
+  setAnchorEl,
+}) => {
   const [info, setInfo] = useState({
     connection: data.connection || '',
     playlist: data.playlist || '',
@@ -17,6 +24,10 @@ const Form = ({ id, data, editElement, webhooks, setAnchorEl }) => {
     playlist: !!data.playlist,
     id: !!data.id,
   });
+
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
 
   useEffect(() => {
     console.log(errors);
@@ -52,7 +63,7 @@ const Form = ({ id, data, editElement, webhooks, setAnchorEl }) => {
 
   useEffect(() => {
     handleGetPlaylist();
-  }, [info['connection']]);
+  }, [info.connection]);
 
   const handleChange = (e) => {
     setInfo((prev) => ({
@@ -101,11 +112,11 @@ const Form = ({ id, data, editElement, webhooks, setAnchorEl }) => {
           onChange={handleChange}
           variant="outlined"
         >
-          {webhooks.map((wh) => (
+          {/* {connections.map((wh) => (
             <MenuItem key={wh.id} value={wh.id}>
               {wh.name}
             </MenuItem>
-          ))}
+          ))} */}
         </TextField>
 
         <IconButton size="small" className="add-icon">
@@ -170,11 +181,11 @@ const Form = ({ id, data, editElement, webhooks, setAnchorEl }) => {
 };
 const mapStateToProps = (state) => ({
   webhooks: state.webhooks.webhooks,
+  connections: state.connections,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getWebhooks: () => dispatch(actions.startSetWebhooks()),
-  addWebhook: (data) => dispatch(actions.startAddWebhook(data)),
+  getConnections: () => dispatch(startGetConnections()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
