@@ -21,6 +21,7 @@ export const startGetConnections = () => {
 };
 
 export const addConnection = (connection) => {
+    console.log(connection);
     return {
         type: 'ADD_CONNECTION',
         connection
@@ -34,21 +35,11 @@ export const startAddConnection = () => {
     const name = "my " + token_type;
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        // const userConnections = getState().connections;
-        // console.log(userConnections);
-        // const counter=0;
-        // for (var connection in userConnections){
-        //     console.log(connection);
-        //     if (connection.token_type === token_type){
-        //         counter = counter + 1;
-        //     }
-        // }
-        // const name = "my " + token_type + " " + counter.toString();
-        return Axios.post(`users/${username}/add/connection`,{"name":name, 
-                                                             "token_type": token_type,
-                                                             "token": token})
+        return Axios.post(`users/${username}/add/connection`,{"Name":name, 
+                                                             "Token_type": token_type,
+                                                             "Token": token})
             .then(res => {
-                dispatch(addConnection(res.data["connection"]));
+                dispatch(addConnection(res.data));
              })
             .catch(err => {
                 console.log(err);
@@ -56,19 +47,19 @@ export const startAddConnection = () => {
     };
 };
 
-export const removeConnection = (ID) => {
+export const removeConnection = (Id) => {
     return {
         type: 'REMOVE_CONNECTION',
-        ID
+        Id
     };
 };
 
-export const startRemoveConnection = (ID) => {
+export const startRemoveConnection = (Id) => {
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.delete(`/users/${username}/connection/delete/${ID}`)
+        return Axios.delete(`/users/${username}/connection/delete/${Id}`)
         .then(res => {
-            dispatch(removeConnection(ID));
+            dispatch(removeConnection(Id));
         })
         .catch(err => {
             console.log(err);
@@ -76,20 +67,20 @@ export const startRemoveConnection = (ID) => {
     };
 };
 
-export const editConnection = (ID, updates) => {
+export const editConnection = (Id, updates) => {
     return {
         type: 'EDIT_CONNECTION',
-        ID,
+        Id,
         updates
     };
 };
 
-export const startEditConnection = (ID, newName) => {
+export const startEditConnection = (Id, newName) => {
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.put(`/users/${username}/update/connection/name/${ID}`,{"name":newName})
+        return Axios.put(`/users/${username}/update/connection/name/${Id}`,{"name":newName})
         .then(res => {
-            dispatch(editConnection(ID, res.data.updates));
+            dispatch(editConnection(Id, res.data.updates));
         })
         .catch(err => {
             console.log(err);

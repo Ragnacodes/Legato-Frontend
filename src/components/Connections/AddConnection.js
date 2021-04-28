@@ -19,7 +19,7 @@ import { faDiscord, faSpotify, faGoogle, faTelegram, faGithub } from '@fortaweso
 const AddConnection = ({addDialog, setAddDialog}) => {
     function onServiceClicked(e, service) {
         setAddDialog(false);
-        Axios.post("user/connection/access/token/urls", { "token_type": service })
+        Axios.get(`user/connection/access/token/${service}`)
             .then(res => {
                 window.open(res.data["url"], "", "width=500, height=400, left=425, top=150");
             })
@@ -47,7 +47,7 @@ const AddConnection = ({addDialog, setAddDialog}) => {
                     Please choose your service:
                 </DialogContentText>
                 <List>
-                    <ListItem button onClick={(e) => onServiceClicked(e, "git")}>
+                    <ListItem button onClick={(e) => onServiceClicked(e, "github")}>
                         <ListItemIcon style={{fontSize:30}}>
                             <FontAwesomeIcon icon={faGithub} />
                         </ListItemIcon>
@@ -70,12 +70,6 @@ const AddConnection = ({addDialog, setAddDialog}) => {
                             <FontAwesomeIcon icon={faDiscord} />
                         </ListItemIcon>
                         <ListItemText primary="Discord" />
-                    </ListItem>
-                    <ListItem button onClick={(e) => onServiceClicked(e, "telegram")}>
-                        <ListItemIcon style={{fontSize:30}}>
-                            <FontAwesomeIcon icon={faTelegram} />
-                        </ListItemIcon>
-                        <ListItemText primary="Telegram" />
                     </ListItem>
                 </List>
             </DialogContent>

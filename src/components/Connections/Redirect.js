@@ -6,7 +6,7 @@ import { startAddConnection } from '../../actions/connections';
 const Redirect = ({addConnection}) => {
     useEffect(() => {
         addConnection();
-        window.close();
+        // window.close();
     },[addConnection]);
 
     return null;

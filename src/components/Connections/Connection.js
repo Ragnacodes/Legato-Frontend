@@ -9,40 +9,46 @@ import {
   IconButton,
   Tooltip
 } from '@material-ui/core';
-import { Delete, Telegram, GitHub, QueueMusic, Email } from '@material-ui/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDiscord, faSpotify, faGoogle, faTelegram, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { Delete } from '@material-ui/icons'
 import OnClickTextField from '../OnClickTextField';
 
 
-const Connection = ({ ID, Name, Token_type, removeConnection, editConnection }) => {
+const Connection = ({ Id, Name, Token_type, removeConnection, editConnection }) => {
   const handleEditConnection = (newName) => {
-    editConnection(ID, newName);
+    editConnection(Id, newName);
   };
 
   const handleRemoveConnection = () => {
-    removeConnection(ID);
+    removeConnection(Id);
   };
 
   const switchCase = (Token_type) => {
     switch (Token_type) {
       case 'github':
         return (
-          <ListItemIcon><GitHub /></ListItemIcon>
+          <ListItemIcon style={{fontSize:30}}>
+            <FontAwesomeIcon icon={faGithub} />
+          </ListItemIcon>
         );
       case 'gmail':
         return (
-          <ListItemIcon><Email /></ListItemIcon>
+          <ListItemIcon style={{fontSize:30}}>
+            <FontAwesomeIcon icon={faGoogle} />
+          </ListItemIcon>
         );
       case 'spotify':
         return (
-          <ListItemIcon><QueueMusic /></ListItemIcon>
-        );
-      case 'telegram':
-        return (
-          <ListItemIcon><Telegram /></ListItemIcon>
+          <ListItemIcon style={{fontSize:30}}>
+            <FontAwesomeIcon icon={faSpotify} />
+          </ListItemIcon>
         );
       case 'discord':
         return (
-          <ListItemIcon><Telegram /></ListItemIcon>
+          <ListItemIcon style={{fontSize:30}}>
+            <FontAwesomeIcon icon={faDiscord} />
+          </ListItemIcon>
         );
       default:
         return null;

@@ -40,7 +40,7 @@ const Connections = ({ connections, getConnections }) => {
                             <List>
                                 {
                                     connections.map((connection) => {
-                                        return <Connection key={connection.ID} {...connection} />;
+                                        return <Connection key={connection.Id} {...connection} />;
                                     })
                                 }
                             </List>
