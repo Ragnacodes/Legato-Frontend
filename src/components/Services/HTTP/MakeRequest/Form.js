@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
 import ServiceForm from '../../../PopoverForm';
+import { TextField, Select, MenuItem } from '@material-ui/core';
 
 const Form = ({ id, data, editElement, setAnchorEl }) => {
     const [info, setInfo] = useState({
         name: data.name || '',
-        in1: data.in1 || '',
-        in2: data.in2 || '',
+        url: data.url || '',
+        method: data.method || 'get',
+        body: data.body || ''
     });
 
     const handleChange = (e) => {
         setInfo((prev) => ({
-          ...prev,
-          [e.target.name]: e.target.value,
+            ...prev,
+            [e.target.name]: e.target.value,
         }));
     };
-
+    
     const handleCancel = () => {
         setAnchorEl(null);
     };
-    
     const handleSave = () => {
+        
         const updates = {
-            name: info['name'],
+            name: info.name,
             data: { ...data, ...info }
         };
+        console.log(updates);
         editElement(id, updates);
         setAnchorEl(null);
     };
@@ -36,14 +39,46 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
             handleSave={handleSave}
             handleCancel={handleCancel}
         >
-            <label>Name</label>
-            <input name="name" value={info['name']} onChange={handleChange} />
-
-            <label>HTTP service1 in1</label>
-            <input name="in1" value={info['in1']} onChange={handleChange} />
-
-            <label>HTTP service2 in2</label>
-            <input name="in2" value={info['in2']} onChange={handleChange} />
+            <TextField
+                className="text-field"
+                name="url"
+                label="URL"
+                type="text"
+                variant="outlined"
+                size="small"
+                onChange={handleChange}
+                helperText="write the URL of your HTTP request here."
+                multiline
+                value={info.url}
+            />
+            <Select
+                className="select"
+                name="method"
+                variant="outlined"
+                size="small"
+                onChange={handleChange}
+                value = {info.method}
+            >
+                <MenuItem value="get">GET</MenuItem>
+                <MenuItem value="post">POST</MenuItem>
+            </Select>
+            {
+                info.method === "post" ?
+                <TextField
+                    className="text-field"
+                    name="body"
+                    label="body"
+                    type="text"
+                    variant="outlined"
+                    size="small"
+                    onChange={handleChange}
+                    helperText="write the body of your post request here."
+                    multiline
+                    value={info.body}
+                />
+                :
+                null
+            }
 
         </ServiceForm>
     );
