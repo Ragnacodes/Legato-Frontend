@@ -7,7 +7,7 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
         name: data.name || '',
         chat_id: data.chat_id || '',
         key: data.key || '',
-        text: data.text || 'hi this is legato!',
+        user_id: data.user_id || '',
     });
 
     const handleChange = (e) => {
@@ -33,7 +33,7 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
     return (
         <ServiceForm
             className="dummy-form"
-            title="send a message"
+            title="Get member information"
             disabledSave={false}
             handleSave={handleSave}
             handleCancel={handleCancel}
@@ -59,24 +59,23 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
                 variant="outlined"
                 size="small"
                 onChange={handleChange}
-                helperText="write the chat_id of your target user."
+                helperText="write the target telegram chat id."
                 multiline
                 value={info.chat_id}
             />
 
             <TextField
                 className="text-field"
-                name="text"
-                label="Message text"
+                name="user_id"
+                label="Username ID"
                 type="text"
                 variant="outlined"
                 size="small"
                 onChange={handleChange}
-                helperText="type your message."
+                helperText="write the target telegram user id."
                 multiline
-                value={info.text}
+                value={info.user_id}
             />
-
         </ServiceForm>
     );
 }

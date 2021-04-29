@@ -81,4 +81,11 @@
   display: flex;
   flex-direction: column;
   padding: $sm-size;
+  .text-field {
+    margin-top: 110px;
+    margin-bottom: 11px;
+    .MuiFormHelperText-root {
+      margin-bottom: -5px;
+    }
+  }
 }
