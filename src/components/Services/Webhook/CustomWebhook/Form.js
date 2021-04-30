@@ -21,6 +21,7 @@ const Form = ({
   updateWebhook,
 }) => {
   const [info, setInfo] = useState({
+    name: data.name || '',
     webhook: data.webhook || '',
     max: data.max || '',
   });
@@ -37,15 +38,6 @@ const Form = ({
       .then(() => {})
       .catch(() => {});
   }, [getWebhooks]);
-
-  // useEffect(() => {
-  //   // if (info['webhook']) {
-  //   setInfo((prev) => ({
-  //     ...prev,
-  //     webhook: webhooks.find((w) => w.id === info['webhook'].id),
-  //   }));
-  //   // }
-  // }, [webhooks]);
 
   const handleUpdateWebhook = (data) => {
     if (info['webhook']) {
@@ -104,7 +96,7 @@ const Form = ({
   };
 
   const handleSave = () => {
-    editElement(id, { data: { ...data, ...info } });
+    editElement(id, { name: info.name, data: { ...data, ...info } });
     setAnchorEl(null);
   };
 
