@@ -1,49 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { MenuItem, Typography, IconButton, TextField } from '@material-ui/core';
+import { MenuItem, IconButton, TextField } from '@material-ui/core';
 import { Refresh, Add } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { startGetConnections } from '../../../../actions/connections';
+import { startGetPlaylists } from '../../../../actions/spotify';
 import ServiceForm from '../../../PopoverForm';
 const Form = ({
   id,
   data,
   connections,
   editElement,
-  webhooks,
+  playlists,
   setAnchorEl,
+  getPlaylists
 }) => {
   const [info, setInfo] = useState({
     connection: data.connection || '',
-    playlist: data.playlist || '',
-    id: data.id || '',
+    PlaylistId: data.PlaylistId || '',
+    TrackId: data.TrackId || '',
     position: data.position || '',
   });
 
   const [errors, setErrors] = useState({
     connection: !!data.connection,
-    playlist: !!data.playlist,
-    id: !!data.id,
+    PlaylistId: !!data.PlaylistId,
+    TrackId: !!data.TrackId,
   });
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
+  
   useEffect(() => {
     console.log(info);
-    if (!info['max']) {
+    if (!info['TrackId']) {
       setErrors((prev) => ({
         ...prev,
-        max: true,
+        TrackId: true,
       }));
     } else {
       setErrors((prev) => ({
         ...prev,
-        max: false,
+        TrackId: false,
       }));
     }
     if (!!info['connection']) {
@@ -53,16 +48,16 @@ const Form = ({
       }));
     }
 
-    if (!!info['playlist']) {
+    if (!!info['PlaylistId']) {
       setErrors((prev) => ({
         ...prev,
-        playlist: false,
+        PlaylistId: false,
       }));
     }
   }, [info]);
 
   useEffect(() => {
-    handleGetPlaylist();
+    getPlaylists();
   }, [info.connection]);
 
   const handleChange = (e) => {
@@ -72,24 +67,29 @@ const Form = ({
     }));
   };
 
-  const handleGetPlaylist = () => {};
+  
 
   const handleCancel = () => {
     setAnchorEl(null);
     setInfo({
       connection: data.connection || '',
-      playlist: data.playlist || '',
-      max: data.max || 2,
+      PlaylistId: data.PlaylistId || '',
+      TrackId: data.TrackId || '',
     });
     setErrors({
-      max: !!data.max,
-      playlist: !!data.playlist,
+      TrackId: !!data.TrackId,
+      PlaylistId: !!data.PlaylistId,
       connection: !!data.connection,
     });
   };
 
   const handleSave = () => {
-    editElement(id, { data: { ...data, ...info } });
+    const updates = {
+      name: info.name,
+      data: { ...data, ...info },
+    };
+    console.log(updates);
+    editElement(id, updates);
     setAnchorEl(null);
   };
 
@@ -97,11 +97,11 @@ const Form = ({
     <ServiceForm
       className="save-to-playlist"
       title="Save to a Playlist"
-      disabledSave={errors['connection'] || errors['max']}
+      // disabledSave={errors['connection']}
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
-      <div className="connection-field">
+      {/* <div className="connection-field">
         <TextField
           name="connection"
           className="text-field"
@@ -112,33 +112,33 @@ const Form = ({
           onChange={handleChange}
           variant="outlined"
         >
-          {/* {connections.map((wh) => (
+          {connections.map((wh) => (
             <MenuItem key={wh.id} value={wh.id}>
               {wh.name}
             </MenuItem>
-          ))} */}
+          ))}
         </TextField>
 
         <IconButton size="small" className="add-icon">
           <Add />
         </IconButton>
-      </div>
+      </div> */}
 
       <div className="playlist-field">
         <TextField
-          name="playlist"
+          name="PlaylistId"
           className="text-field"
           size="small"
           select
           label="Playlist"
-          value={info['playlist']}
+          value={info['PlaylistId']}
           onChange={handleChange}
           variant="outlined"
-          disabled={!info['connection']}
+          // disabled={!info['connection']}
         >
-          {webhooks.map((wh) => (
-            <MenuItem key={wh.id} value={wh.id}>
-              {wh.name}
+          {playlists.map((p) => (
+            <MenuItem key={p.id} value={p.id}>
+              {p.name}
             </MenuItem>
           ))}
         </TextField>
@@ -146,21 +146,21 @@ const Form = ({
         <IconButton
           size="small"
           className="add-icon"
-          onClick={() => {}}
           disabled={!info['connection']}
+          onClick={getPlaylists}
         >
-          <Refresh onClick={handleGetPlaylist} />
+          <Refresh />
         </IconButton>
       </div>
 
       <TextField
-        name="ID"
+        name="TrackId"
         className="text-field"
-        label="ID"
+        label="Track ID"
         variant="outlined"
         size="small"
-        value={info['id']}
-        error={errors['id']}
+        value={info['TrackId']}
+        error={errors['TrackId']}
         onChange={handleChange}
       />
 
@@ -180,12 +180,13 @@ const Form = ({
   );
 };
 const mapStateToProps = (state) => ({
-  webhooks: state.webhooks.webhooks,
   connections: state.connections,
+  playlists: state.spotify.playlists
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getConnections: () => dispatch(startGetConnections()),
+  getPlaylists: () => dispatch(startGetPlaylists())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
