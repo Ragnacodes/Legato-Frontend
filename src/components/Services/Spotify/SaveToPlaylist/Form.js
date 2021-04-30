@@ -12,7 +12,7 @@ const Form = ({
   editElement,
   playlists,
   setAnchorEl,
-  getPlaylists
+  getPlaylists,
 }) => {
   const [info, setInfo] = useState({
     connection: data.connection || '',
@@ -27,7 +27,6 @@ const Form = ({
     TrackId: !!data.TrackId,
   });
 
-  
   useEffect(() => {
     console.log(info);
     if (!info['TrackId']) {
@@ -57,8 +56,8 @@ const Form = ({
   }, [info]);
 
   useEffect(() => {
-    getPlaylists();
-  }, [info.connection]);
+    if (info.connection) getPlaylists();
+  }, [info.connection, getPlaylists]);
 
   const handleChange = (e) => {
     setInfo((prev) => ({
@@ -66,8 +65,6 @@ const Form = ({
       [e.target.name]: e.target.value,
     }));
   };
-
-  
 
   const handleCancel = () => {
     setAnchorEl(null);
@@ -181,12 +178,12 @@ const Form = ({
 };
 const mapStateToProps = (state) => ({
   connections: state.connections,
-  playlists: state.spotify.playlists
+  playlists: state.spotify.playlists,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getConnections: () => dispatch(startGetConnections()),
-  getPlaylists: () => dispatch(startGetPlaylists())
+  getPlaylists: () => dispatch(startGetPlaylists()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
