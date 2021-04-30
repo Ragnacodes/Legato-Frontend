@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import { CloseRounded } from '@material-ui/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiscord, faSpotify, faGoogle, faTelegram, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faDiscord, faSpotify, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 
 
 const AddConnection = ({addDialog, setAddDialog}) => {
@@ -21,7 +21,7 @@ const AddConnection = ({addDialog, setAddDialog}) => {
         setAddDialog(false);
         Axios.get(`user/connection/access/token/${service}`)
             .then(res => {
-                window.open(res.data["url"], "", "width=500, height=400, left=425, top=150");
+                window.location.href = res.data.url;
             })
             .catch(err => {
                 console.log(err);

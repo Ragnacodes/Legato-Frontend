@@ -5,10 +5,9 @@ import { startAddConnection } from '../../actions/connections';
 
 const Redirect = ({addConnection}) => {
     useEffect(() => {
-        addConnection();
-        setTimeout(function(){
-            window.close();
-        }, 2000);
+        addConnection().then(()=>{ 
+            window.location.href = "http://localhost:3000/connections"
+        });
     },[addConnection]);
 
     return null;
