@@ -10,7 +10,7 @@ export const getConnections = (connections) => {
 export const startGetConnections = () => {
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.get(`/users/${username}/connection/gettokens`)
+        return Axios.get(`/users/${username}/get/connections`)
         .then(res => {
             dispatch(getConnections(res.data.connections));
         })
@@ -20,67 +20,70 @@ export const startGetConnections = () => {
     };
 };
 
-// export const addConnection = (connection) => {
-//     return {
-//         type: 'ADD_CONNECTION',
-//         connection
-//     };
-// };
-
-// export const startAddConnection = (connection) => {
-//     const body = JSON.stringify(connection);
-//     return (dispatch, getState) => {
-//         const username = getState().auth.username;
-//         return Axios.post(``, body)
-//         .then(res => {
-//             dispatch(addConnection(res.data.connection));
-//             return res.data.connection.ID;
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         });
-//     };
-// };
-
-export const removeConnection = (ID) => {
+export const addConnection = (connection) => {
+    console.log(connection);
     return {
-        type: 'REMOVE_CONNECTION',
-        ID
+        type: 'ADD_CONNECTION',
+        connection
     };
 };
 
-export const startRemoveConnection = (ID) => {
+export const startAddConnection = () => {
+    const url = window.location.href;
+    const token = url.substring(url.indexOf("code=")+5);
+    const token_type = url.slice(url.indexOf("redirect/")+9, url.indexOf("/?code"));
+    const name = "my " + token_type;
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.post(`/users/${username}/connection/delete/token`,{"ID":ID})
+        return Axios.post(`users/${username}/add/connection`,{"Name":name, 
+                                                             "Token_type": token_type,
+                                                             "Token": token})
+            .then(res => {
+                dispatch(addConnection(res.data));
+             })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+};
+
+export const removeConnection = (Id) => {
+    return {
+        type: 'REMOVE_CONNECTION',
+        Id
+    };
+};
+
+export const startRemoveConnection = (Id) => {
+    return (dispatch, getState) => {
+        const username = getState().auth.username;
+        return Axios.delete(`/users/${username}/connection/delete/${Id}`)
         .then(res => {
-            dispatch(removeConnection(ID));
+            dispatch(removeConnection(Id));
         })
         .catch(err => {
             console.log(err);
-            // alert("you already have this account");
         });
     };
 };
 
-// export const editConnection = (ID, updates) => {
-//     return {
-//         type: 'EDIT_CONNECTION',
-//         ID,
-//         updates
-//     };
-// };
+export const editConnection = (Id, updates) => {
+    return {
+        type: 'EDIT_CONNECTION',
+        Id,
+        updates
+    };
+};
 
-// export const startEditConnection = (ID, updates) => {
-//     const body = JSON.stringify(updates);
-//     return (dispatch, getState) => {
-//         const username = getState().auth.username;
-//         return Axios.post(``, body)
-//         .then(res => {
-//             dispatch(editConnection(ID, res.data.updates));
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         });
-//     };
-// };
+export const startEditConnection = (Id, newName) => {
+    return (dispatch, getState) => {
+        const username = getState().auth.username;
+        return Axios.put(`/users/${username}/update/connection/name/${Id}`,{"name":newName})
+        .then(res => {
+            dispatch(editConnection(Id, res.data.updates));
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    };
+};
