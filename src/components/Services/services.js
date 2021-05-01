@@ -42,7 +42,20 @@ export const services = {
       secondaryText: 'Get user\'s top tracks.',
     },
   ],
-  telegrams: [],
-  sshs: [],
-  githubs: [],
+    telegrams: [
+        {
+            subService: 'sendMessage',
+            kind: 'action',
+            primaryText: 'Send a message',
+            secondaryText: 'sends a message from your telegram bot to specific user.'
+        },
+        {
+            subService: 'getChatMember',
+            kind: 'action',
+            primaryText: 'Get members',
+            secondaryText: 'to see who has joined in your bot.'
+        }
+    ],
+    sshs: [],
+    githubs: [],
 };
