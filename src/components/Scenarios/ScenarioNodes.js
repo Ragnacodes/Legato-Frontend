@@ -32,7 +32,7 @@ const ScenarioNodes = ({nodes}) => {
                                     <GitHub fontSize="small" />
                             </Avatar>
                             );
-                        case 'spotifys':
+                        case 'spotifies':
                             return (
                                 <Avatar className="spotify">
                                     <QueueMusic fontSize="small" />
