@@ -1,60 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { startGetConnections } from '../../actions/connections';
-import {
-    Button,
-    Container,
-    List
-} from "@material-ui/core";
-import Appbar from '../Layout/Appbar';
-import PageTitle from '../Layout/PageTitle';
-import AddConnection from './AddConnection';
+import { List } from '@material-ui/core';
 import Connection from './Connection';
-import NoItem from '../Layout/NoItem'
+import NoItem from '../Layout/NoItem';
+import ListLoader from '../Layout/ListLoader';
 
 const Connections = ({ connections, getConnections }) => {
+    const [loading, setLoading] = useState(true)
+
     useEffect(() => {
-        setAddConnection(false);
-        getConnections();
+        setLoading(true);
+        getConnections()
+        .then(() => {
+            setLoading(false);
+        })
+        .catch(() => {
+            setLoading(false);
+        });
     }, [getConnections]);
 
-    const [addConnection, setAddConnection] = useState(false);
-    const rightChildren =
-        <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => setAddConnection(true)}
-        >
-            Add connection
-        </Button>
+    if (loading) {
+        return <ListLoader />
+    }
+
+    else if (connections === null || connections.length === 0) {
+        return <NoItem name="Connection" />;
+    }
+    
     return (
-        <>
-            <Appbar leftChildren={<PageTitle title="Connections" />} rightChildren={rightChildren} />
-            <main className="main">
-                <div className="app-bar-spacer" />
-                <div className="content-container">
-                    <Container maxWidth="lg">
-                        {connections === null || connections.length === 0 ? 
-                                <NoItem/>
-                            :
-                            <List>
-                                {
-                                    connections.map((connection) => {
-                                        return <Connection key={connection.Id} {...connection} />;
-                                    })
-                                }
-                            </List>
-                        }
-                        {addConnection ? 
-                        <AddConnection addDialog={addConnection} setAddDialog={setAddConnection} />
-                        
-                        :
-                        null
-                        }
-                    </Container>
-                </div>
-            </main>
-        </>
+        <List>
+            {
+                connections.map((connection) => {
+                    return <Connection key={connection.Id} {...connection} />;
+                })
+            }
+        </List>
     );
 }
 
