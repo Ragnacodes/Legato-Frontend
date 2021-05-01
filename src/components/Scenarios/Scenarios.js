@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { startGetScenarios } from '../../actions/scenarios';
 import { List } from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
 import NoItem from '../Layout/NoItem';
+import ListLoader from '../Layout/ListLoader';
 import Scenario from './Scenario';
 
 const Scenarios = ({ scenarios, getScenarios }) => {
@@ -21,31 +21,22 @@ const Scenarios = ({ scenarios, getScenarios }) => {
   }, [getScenarios]);
 
   if (loading) {
-    return (
-      <React.Fragment>
-        <Skeleton />
-        <Skeleton animation={false} />
-        <Skeleton animation="wave" />
-      </React.Fragment>
-    );
+    return <ListLoader />;
   }
 
   else if (scenarios.length === 0) {
     return <NoItem name="Scenario" />;
   }
 
-  else {
-    return (
-      <List>
-      {
-        scenarios.map((scenario, index) => {
-          return <Scenario key={index} {...scenario} />;
-        })
-      }
-      </List>
-    );
-  }
-
+  return (
+    <List>
+    {
+      scenarios.map((scenario, index) => {
+        return <Scenario key={index} {...scenario} />;
+      })
+    }
+    </List>
+  );
 };
 
 const mapStateToProps = (state) => {
