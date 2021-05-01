@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { startEditScenario } from '../../actions/scenarios';
+import { startEditSketchpadScenario } from '../../actions/sketchpad';
 import { Skeleton } from '@material-ui/lab';
 import OnClickTextField from '../OnClickTextField';
 
-const SketchpadTitle = ({ scenario, editScenario }) => {
+const SketchpadTitle = ({ scenario, editSketchpadScenario }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,21 +14,26 @@ const SketchpadTitle = ({ scenario, editScenario }) => {
     else setLoading(true);
   }, [scenario]);
 
+  const handleSave = (newName) => {
+    const updates = {
+      name: newName
+    };
+    editSketchpadScenario(updates);
+  };
+
   if (loading) {
     return <Skeleton />;
   }
 
-  else {
-    return (
-      <OnClickTextField
-        defaultText={scenario.name}
-        handleSave={(modifiedName) => console.log(modifiedName)}
-        handleCancel={() => {}}
-        divClassName="sketchpad-title"
-        textfieldSize="small"
-      />
-    );
-  }
+  return (
+    <OnClickTextField
+      defaultText={scenario.name}
+      handleSave={handleSave}
+      handleCancel={() => {}}
+      divClassName="Sketchpad_title"
+      textfieldSize="small"
+    />
+  );
 };
 
 const mapStateToProps = (state) => {
@@ -39,7 +44,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    editScenario: (id, updates) => dispatch(startEditScenario(id, updates)),
+    editSketchpadScenario: (updates) => dispatch(startEditSketchpadScenario(updates)),
   };
 };
 
