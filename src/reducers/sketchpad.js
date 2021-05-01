@@ -32,6 +32,15 @@ const sketchpadReducer = (state = {scenario: {}, elements: []}, action) => {
                 })
             };
 
+        case 'EDIT_SKETCHPAD_SCENARIO':
+            return {
+                ...state,
+                scenario : {
+                    ...state.scenario,
+                    ...action.updates
+                }
+            }
+
         default:
             return state;
     }

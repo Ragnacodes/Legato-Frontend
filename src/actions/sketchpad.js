@@ -1,6 +1,7 @@
 import Axios from '../utils/axiosConfig';
 import { v4 as uuid } from 'uuid';
 import { elementsBackToFront, nodeFrontToBack } from '../utils/sketchpadConverter';
+import { startEditScenario } from './scenarios';
 
 export const getSketchpad = (scenario, elements) => {
     return {
@@ -179,5 +180,20 @@ export const startEditElement = (id, updates) => {
         .catch(err => {
             console.log(err);
         });
+    };
+};
+
+export const editSketchpadScenario = (updates) => {
+    return {
+        type: 'EDIT_SKETCHPAD_SCENARIO',
+        updates
+    };
+};
+
+export const startEditSketchpadScenario = (updates) => {
+    return (dispatch, getState) => {
+        const scenarioID = getState().sketchpad.scenario.id;
+        dispatch(startEditScenario(scenarioID, updates));
+        dispatch(editSketchpadScenario(updates));
     };
 };
