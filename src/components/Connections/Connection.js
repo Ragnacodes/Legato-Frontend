@@ -10,7 +10,7 @@ import {
   Tooltip
 } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiscord, faSpotify, faGoogle, faTelegram, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faDiscord, faSpotify, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { Delete } from '@material-ui/icons'
 import OnClickTextField from '../OnClickTextField';
 
