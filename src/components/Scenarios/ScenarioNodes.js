@@ -1,3 +1,4 @@
+import React from 'react';
 import { AvatarGroup } from '@material-ui/lab';
 import { Avatar } from '@material-ui/core';
 import {
@@ -5,14 +6,15 @@ import {
     Telegram,
     Code,
     QueueMusic,
-    Language
-} from '@material-ui/icons/GitHub';
+    Language,
+    Http
+} from '@material-ui/icons';
 
 const ScenarioNodes = ({nodes}) => {
     return (
         <AvatarGroup max={4}>
             {
-                nodes.map((node) => {
+                nodes.reverse().map((node) => {
                     switch (node) {
                         case 'sshs':
                             return (
@@ -42,6 +44,12 @@ const ScenarioNodes = ({nodes}) => {
                             return (
                                 <Avatar className="telegram">
                                     <Telegram fontSize="small" />
+                                </Avatar>
+                            );
+                        case 'https':
+                            return (
+                                <Avatar className="http">
+                                    <Http fontSize="small" />
                                 </Avatar>
                             );
                         default:
