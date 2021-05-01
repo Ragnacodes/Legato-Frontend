@@ -7,7 +7,7 @@ import PageTitle from '../Layout/PageTitle';
 import Webhook from './Webhook';
 import { errorNotification, successNotification } from '../Layout/Notification';
 import WebhookSettingsModal from './WebhookSettingsModal';
-
+import NoItem from '../Layout/NoItem';
 const Webhooks = ({ webhooks, getWebhooks, addWebhook }) => {
   const [addModalVisible, setAddModalVisible] = useState(false);
   useEffect(() => {
@@ -50,16 +50,18 @@ const Webhooks = ({ webhooks, getWebhooks, addWebhook }) => {
             handleSave={addNewWebhook}
           />
           <Container maxWidth="lg" className="webhooks-list">
-            <List>
-              {webhooks.map((w) => {
-                return (
+            {webhooks.length ? (
+              <List>
+                {webhooks.map((w) => (
                   <div key={w.id}>
                     <Webhook key={w} webhook={w} />
                     <Divider />
                   </div>
-                );
-              })}
-            </List>
+                ))}
+              </List>
+            ) : (
+              <NoItem />
+            )}
           </Container>
         </div>
       </main>
