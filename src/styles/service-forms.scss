@@ -1,7 +1,8 @@
 .sketchpad-popover {
   &.custom-webhook,
   &.webhook-response,
-  &.watch-playlist {
+  &.watch-playlist,
+  &.save-to-playlist {
     display: flex;
     flex-direction: column;
   }
@@ -15,8 +16,9 @@
     }
   }
   &.custom-webhook,
-  &.watch-playlist {
-    .connection-field {
+  &.watch-playlist,
+  &.save-to-playlist {
+    .connection-field,.playlist-field,  {
       display: flex;
       flex-direction: row;
       align-items: flex-start;

@@ -58,7 +58,7 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
       handleCancel={handleCancel}
     >
       <TextField
-        defaultValue={info['status']}
+        value={info['status']}
         className="text-field"
         name="status"
         label="Status"
@@ -71,6 +71,7 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
       />
 
       <TextField
+        value={info['body']}
         name="body"
         className="text-field"
         size="small"

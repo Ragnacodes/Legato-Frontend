@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import Axios from '../../utils/axiosConfig';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/signup';
 import {
@@ -19,7 +18,7 @@ export function SignUpForm({
   updateInfo,
   validateInfo,
   closeDialog,
-  resetForm,
+  Signup,
 }) {
   const signupForm = useRef(null);
   const [touched, setTouched] = useState([]);
@@ -36,27 +35,17 @@ export function SignUpForm({
 
   const sendData = () => {
     setLoading(true);
-    Axios.post("/auth/signup", {
-      ...info,
-      confirm: "",
-    })
-      .then((response) => {
+    Signup(info)
+      .then(() => {
         setLoading(false);
-        closeDialog();
-        console.log("response", response);
+        // closeDialog();
         signupForm.current.reset();
-        resetForm();
-        successNotification("You have created your account. Please log in.");
+        successNotification('You have created your account. Please log in.');
       })
-      .catch((error) => {
+      .catch((err) => {
+        console.log('errirrr');
         setLoading(false);
-        if (error.response) {
-          let str = error.response.data.message;
-          errorNotification(str.charAt(0).toUpperCase() + str.slice(1) + ".");
-        } else {
-          errorNotification(error.message);
-        }
-        console.log("error", error.message);
+        errorNotification(err.message);
       });
   };
 
@@ -91,9 +80,9 @@ export function SignUpForm({
           required
           onChange={onChange}
           name="username"
-          error={!!errors["username"]}
+          error={!!errors['username']}
           label="Username"
-          helperText={errors["username"]}
+          helperText={errors['username']}
           variant="outlined"
           size="small"
         />
@@ -103,23 +92,23 @@ export function SignUpForm({
           required
           onChange={onChange}
           name="email"
-          error={!!errors["email"]}
+          error={!!errors['email']}
           label="Email"
-          helperText={errors["email"]}
+          helperText={errors['email']}
           variant="outlined"
           size="small"
         />
 
         <TextField
-          type={showPassword ? "text" : "password"}
+          type={showPassword ? 'text' : 'password'}
           autoComplete="false"
           className="text-field"
           required
           onChange={onChange}
           name="password"
-          error={!!errors["password"]}
+          error={!!errors['password']}
           label="Password"
-          helperText={errors["password"]}
+          helperText={errors['password']}
           variant="outlined"
           InputProps={{
             endAdornment: (
@@ -139,14 +128,14 @@ export function SignUpForm({
         />
 
         <TextField
-          type={showPasswordConfirm ? "text" : "password"}
+          type={showPasswordConfirm ? 'text' : 'password'}
           className="text-field"
           required
           onChange={onChange}
           name="confirm"
-          error={!!errors["confirm"]}
+          error={!!errors['confirm']}
           label="Confirm Password"
-          helperText={errors["confirm"]}
+          helperText={errors['confirm']}
           variant="outlined"
           InputProps={{
             endAdornment: (
@@ -188,7 +177,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   updateInfo: (type, data) => dispatch(actions.updateInfo(type, data)),
   validateInfo: (type, data) => dispatch(actions.validateInfo(type, data)),
-  resetForm: () => dispatch(actions.resetSignupForm()),
+  Signup: (info) => dispatch(actions.startSignup(info)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);

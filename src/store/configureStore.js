@@ -9,13 +9,13 @@ import sketchpadReducer from '../reducers/sketchpad';
 import drawerReducer from '../reducers/drawer';
 import connectionsReducer from '../reducers/connections';
 import servicesReducer from '../reducers/services';
-
+import spotifyReducer from '../reducers/spotify';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const configureStore = () => {
   const middleware = [thunk];
-  if (process.env.NODE_ENV === "development") {
-    const { createLogger } = require("redux-logger");
+  if (process.env.NODE_ENV === 'development') {
+    const { createLogger } = require('redux-logger');
     middleware.push(createLogger({ collapsed: true }));
   }
 
@@ -29,7 +29,8 @@ const configureStore = () => {
       sketchpad: sketchpadReducer,
       drawer: drawerReducer,
       connections: connectionsReducer,
-      services :servicesReducer
+      services: servicesReducer,
+      spotify: spotifyReducer,
     }),
     composeEnhancers(applyMiddleware(...middleware))
   );

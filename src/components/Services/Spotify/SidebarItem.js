@@ -6,7 +6,7 @@ const SidebarItem = () => {
     return (
         <CustomSidebarItem
             icon={<QueueMusic fontSize="large" className="icon spotify" />}
-            serviceName="spotifys"
+            serviceName="spotifies"
         />
     );
 };

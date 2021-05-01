@@ -34,7 +34,7 @@ const ScenarioNodes = ({nodes}) => {
                                     <GitHub fontSize="small" />
                             </Avatar>
                             );
-                        case 'spotifys':
+                        case 'spotifies':
                             return (
                                 <Avatar key={index} className="spotify">
                                     <QueueMusic fontSize="small" />
