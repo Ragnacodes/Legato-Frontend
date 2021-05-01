@@ -14,41 +14,41 @@ const ScenarioNodes = ({nodes}) => {
     return (
         <AvatarGroup max={4}>
             {
-                nodes.reverse().map((node) => {
+                nodes.reverse().map((node, index) => {
                     switch (node) {
                         case 'sshs':
                             return (
-                                <Avatar className="ssh">
+                                <Avatar key={index} className="ssh">
                                     <Code fontSize="small" />
                                 </Avatar>
                             );
                         case 'webhooks':
                             return (
-                                <Avatar className="webhook">
+                                <Avatar key={index} className="webhook">
                                     <Language fontSize="small" />
                                 </Avatar>
                             );
                         case 'githubs':
                             return (
-                                <Avatar className="github">
+                                <Avatar key={index} className="github">
                                     <GitHub fontSize="small" />
                             </Avatar>
                             );
                         case 'spotifys':
                             return (
-                                <Avatar className="spotify">
+                                <Avatar key={index} className="spotify">
                                     <QueueMusic fontSize="small" />
                                 </Avatar>
                             );
                         case 'telegrams':
                             return (
-                                <Avatar className="telegram">
+                                <Avatar key={index} className="telegram">
                                     <Telegram fontSize="small" />
                                 </Avatar>
                             );
                         case 'https':
                             return (
-                                <Avatar className="http">
+                                <Avatar key={index} className="http">
                                     <Http fontSize="small" />
                                 </Avatar>
                             );
