@@ -1,39 +1,18 @@
 import React from 'react';
-import Axios from '../../utils/axiosConfig';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/login';
-import { login } from '../../actions/auth';
+import { startLogin } from '../../actions/auth';
 import { TextField, Button } from '@material-ui/core';
 import { successNotification, errorNotification } from '../Layout/Notification';
 
-export function LoginForm({
-  errors,
-  info,
-  updateInfo,
-  validateInfo,
-  saveToken,
-}) {
+export function LoginForm({ errors, info, updateInfo, validateInfo, Login }) {
   const sendData = () => {
-    Axios.post("/auth/login", {
-      ...info,
-    })
-      .then((response) => {
-        console.log(response);
-        successNotification("You are logged in!");
-        const user = {
-          token: response.data.access_token,
-          username: info.username,
-        };
-        saveToken(user);
+    Login(info)
+      .then(() => {
+        successNotification('Welcome Back!');
       })
-      .catch((error) => {
-        console.log(error);
-        if (error.response) {
-          let str = error.response.data.message;
-          errorNotification(str.charAt(0).toUpperCase() + str.slice(1) + ".");
-        } else {
-          errorNotification(error.message);
-        }
+      .catch((err) => {
+        errorNotification(err.message);
       });
   };
 
@@ -41,17 +20,10 @@ export function LoginForm({
     updateInfo(e.target.name, e.target.value.trim());
     validateInfo(e.target.name, e.target.value.trim());
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(info);
-
-    // if (!info["username"] || !info["password"]) {
-    //   errorNotification("Please enter your username and password.");
-    //   validateInfo("username", info["username"]);
-    //   validateInfo("password", info["password"]);
-    // } else {
     sendData();
-    // }
   };
 
   return (
@@ -69,8 +41,8 @@ export function LoginForm({
           label="Username"
           variant="outlined"
           size="small"
-          error={!!errors["username"]}
-          helperText={errors["username"]}
+          error={!!errors['username']}
+          helperText={errors['username']}
         />
 
         <TextField
@@ -81,12 +53,12 @@ export function LoginForm({
           label="Password"
           variant="outlined"
           size="small"
-          error={!!errors["password"]}
-          helperText={errors["password"]}
+          error={!!errors['password']}
+          helperText={errors['password']}
         />
 
         <Button
-          disabled={!info["username"] || !info["password"]}
+          disabled={!info['username'] || !info['password']}
           type="submit"
           fullWidth
           variant="contained"
@@ -108,7 +80,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   updateInfo: (type, data) => dispatch(actions.updateLoginInfo(type, data)),
   validateInfo: (type, data) => dispatch(actions.validateLoginInfo(type, data)),
-  saveToken: (token) => dispatch(login(token)),
+  Login: (info) => dispatch(startLogin(info)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
