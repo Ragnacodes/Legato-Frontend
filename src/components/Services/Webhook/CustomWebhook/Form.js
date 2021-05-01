@@ -117,7 +117,7 @@ const Form = ({
         }}
       >
         <span
-          onClick={() => CopyToClipboard(FindWebhook(info['webhook']))}
+          onClick={() => CopyToClipboard(FindWebhook(info['webhook']).url)}
           ref={ref}
           {...props}
         />
@@ -197,16 +197,7 @@ const Form = ({
         />
       </div>
 
-      <TextField
-        value={info['max']}
-        name="max"
-        className="text-field"
-        label="Maximum number of results"
-        type="number"
-        variant="outlined"
-        size="small"
-        onChange={handleChange}
-      />
+      
     </ServiceForm>
   );
 };

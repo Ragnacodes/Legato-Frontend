@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { TextField } from '@material-ui/core';
-
+import { connect } from 'react-redux';
+import { TextField, MenuItem, IconButton } from '@material-ui/core';
+import { Refresh } from '@material-ui/icons';
 import ServiceForm from '../../../PopoverForm';
-const Form = ({ id, data, editElement, setAnchorEl }) => {
+import { startGetPlaylists } from '../../../../actions/spotify';
+
+const Form = ({ id, data, playlists, getPlaylists, editElement, setAnchorEl }) => {
   const [info, setInfo] = useState({
     connection: data.connection || '',
     playlist: data.playlist || '',
@@ -48,8 +51,8 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
   }, [info]);
 
   useEffect(() => {
-    handleGetPlaylist();
-  }, [info['connection']]);
+    getPlaylists();
+  }, [getPlaylists]);
 
   const handleChange = (e) => {
     setInfo((prev) => ({
@@ -57,8 +60,6 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
       [e.target.name]: e.target.value,
     }));
   };
-
-  const handleGetPlaylist = () => {};
 
   const handleCancel = () => {
     setAnchorEl(null);
@@ -83,32 +84,11 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
     <ServiceForm
       className="watch-playlist"
       title="Watch a Playlist"
-      disabledSave={errors['connection'] || errors['max']}
+      disabledSave={errors['playlist']}
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
-      <div className="connection-field">
-        <TextField
-          name="connection"
-          className="text-field"
-          size="small"
-          select
-          label="Connection"
-          value={info['connection']}
-          onChange={handleChange}
-          variant="outlined"
-        >
-          {webhooks.map((wh) => (
-            <MenuItem key={wh.id} value={wh.id}>
-              {wh.name}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <IconButton size="small" className="add-icon" onClick={() => {}}>
-          <Add />
-        </IconButton>
-      </div>
+     
 
       <div className="playlist-field">
         <TextField
@@ -120,9 +100,8 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
           value={info['playlist']}
           onChange={handleChange}
           variant="outlined"
-          disabled={!info['connection']}
         >
-          {webhooks.map((wh) => (
+          {playlists.map((wh) => (
             <MenuItem key={wh.id} value={wh.id}>
               {wh.name}
             </MenuItem>
@@ -132,10 +111,9 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
         <IconButton
           size="small"
           className="add-icon"
-          onClick={() => {}}
-          disabled={!info['connection']}
+          onClick={getPlaylists}
         >
-          <Refresh onClick={handleGetPlaylist} />
+          <Refresh />
         </IconButton>
       </div>
 
@@ -155,4 +133,12 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
   );
 };
 
-export default Form;
+const mapStateToProps = (state) => ({
+  playlists: state.spotify.playlists,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getPlaylists: () => dispatch(startGetPlaylists()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

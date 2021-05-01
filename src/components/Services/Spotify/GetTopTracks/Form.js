@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { TextField } from '@material-ui/core';
 
 import ServiceForm from '../../../PopoverForm';
 const Form = ({ id, data, editElement, setAnchorEl }) => {
@@ -22,14 +21,6 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
   }, [info]);
 
 
-  const handleChange = (e) => {
-    setInfo((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-
   const handleCancel = () => {
     setAnchorEl(null);
     setInfo({
@@ -50,33 +41,11 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
     <ServiceForm
       className="watch-playlist"
       title="Watch a Playlist"
-      disabledSave={errors['connection'] || errors['max']}
+      disabledSave={false}
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
-      <div className="connection-field">
-        <TextField
-          name="connection"
-          className="text-field"
-          size="small"
-          select
-          label="Connection"
-          value={info['connection']}
-          onChange={handleChange}
-          variant="outlined"
-        >
-          {webhooks.map((wh) => (
-            <MenuItem key={wh.id} value={wh.id}>
-              {wh.name}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <IconButton size="small" className="add-icon" onClick={() => {}}>
-          <Add />
-        </IconButton>
-      </div>
-
+      
       
     </ServiceForm>
   );

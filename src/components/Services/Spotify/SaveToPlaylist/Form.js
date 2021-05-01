@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MenuItem, IconButton, TextField } from '@material-ui/core';
-import { Refresh, Add } from '@material-ui/icons';
+import { Refresh } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { startGetConnections } from '../../../../actions/connections';
 import { startGetPlaylists } from '../../../../actions/spotify';
@@ -56,8 +56,8 @@ const Form = ({
   }, [info]);
 
   useEffect(() => {
-    if (info.connection) getPlaylists();
-  }, [info.connection, getPlaylists]);
+    getPlaylists();
+  }, [getPlaylists]);
 
   const handleChange = (e) => {
     setInfo((prev) => ({
@@ -94,32 +94,11 @@ const Form = ({
     <ServiceForm
       className="save-to-playlist"
       title="Save to a Playlist"
-      // disabledSave={errors['connection']}
+      disabledSave={errors['playlist']}
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
-      {/* <div className="connection-field">
-        <TextField
-          name="connection"
-          className="text-field"
-          size="small"
-          select
-          label="Connection"
-          value={info['connection']}
-          onChange={handleChange}
-          variant="outlined"
-        >
-          {connections.map((wh) => (
-            <MenuItem key={wh.id} value={wh.id}>
-              {wh.name}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <IconButton size="small" className="add-icon">
-          <Add />
-        </IconButton>
-      </div> */}
+     
 
       <div className="playlist-field">
         <TextField
@@ -131,7 +110,6 @@ const Form = ({
           value={info['PlaylistId']}
           onChange={handleChange}
           variant="outlined"
-          // disabled={!info['connection']}
         >
           {playlists.map((p) => (
             <MenuItem key={p.id} value={p.id}>
@@ -143,7 +121,6 @@ const Form = ({
         <IconButton
           size="small"
           className="add-icon"
-          disabled={!info['connection']}
           onClick={getPlaylists}
         >
           <Refresh />
@@ -161,18 +138,6 @@ const Form = ({
         onChange={handleChange}
       />
 
-      <TextField
-        name="position"
-        className="text-field"
-        label="Position"
-        type="number"
-        variant="outlined"
-        size="small"
-        value={info['position']}
-        error={errors['position']}
-        helperText="If you leave this field empty, the track will be added to the end of the playlist."
-        onChange={handleChange}
-      />
     </ServiceForm>
   );
 };
