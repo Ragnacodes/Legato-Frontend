@@ -7,7 +7,7 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
         name: data.name || '',
         url: data.url || '',
         method: data.method || 'get',
-        body: data.body || ''
+        body: JSON.stringify(data.body) || ''
     });
 
     const handleChange = (e) => {
@@ -21,12 +21,11 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
         setAnchorEl(null);
     };
     const handleSave = () => {
-        
+        info.body = JSON.parse(info.body);
         const updates = {
             name: info.name,
             data: { ...data, ...info }
         };
-        console.log(updates);
         editElement(id, updates);
         setAnchorEl(null);
     };
@@ -75,6 +74,7 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
                     helperText="write the body of your post request here."
                     multiline
                     value={info.body}
+                    placeholder='{"key": "value"}'
                 />
                 :
                 null
