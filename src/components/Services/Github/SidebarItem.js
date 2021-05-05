@@ -1,11 +1,12 @@
 import React from 'react';
-import { GitHub } from '@material-ui/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import CustomSidebarItem from '../CustomSidebarItem';
 
 const SidebarItem = () => {
     return (
         <CustomSidebarItem
-            icon={<GitHub fontSize="large" className="icon github" />}
+            icon={<FontAwesomeIcon icon={faGithub} className="icon github" />}
             serviceName="githubs"
         />
     );

@@ -1,11 +1,12 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import { GitHub } from '@material-ui/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const CustomServiceNode = (props) => {
     const shape = (
         <div className="node github">
-            <GitHub fontSize="large" className="github" />
+            <FontAwesomeIcon icon={faGithub} className="github" />
         </div>
     );
 

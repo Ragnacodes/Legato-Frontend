@@ -1,11 +1,12 @@
 import React from 'react';
-import { Telegram } from '@material-ui/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTelegram } from '@fortawesome/free-brands-svg-icons';
 import CustomSidebarItem from '../CustomSidebarItem';
 
 const SidebarItem = () => {
     return (
         <CustomSidebarItem
-            icon={<Telegram fontSize="large" className="icon telegram" />}
+            icon={<FontAwesomeIcon icon={faTelegram} className="icon telegram" />}
             serviceName="telegrams"
         />
     );

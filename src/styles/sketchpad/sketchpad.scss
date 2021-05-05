@@ -38,8 +38,8 @@
         cursor: grab;
 
         .icon {
-          padding: 2px;
-          border-radius: 4px;
+          border-radius: 100%;
+          font-size: 35px;
         }
         .icon:hover {
           box-shadow: 0 5px 5px 0 rgba(0,0,0,0.24), 0 5px 5px 0 rgba(0,0,0,0.14);

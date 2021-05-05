@@ -1,11 +1,12 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import { Telegram } from '@material-ui/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTelegram } from '@fortawesome/free-brands-svg-icons';
 
 const CustomServiceNode = (props) => {
     const shape = (
         <div className="node telegram">
-            <Telegram fontSize="large" className="telegram" />
+            <FontAwesomeIcon icon={faTelegram} className="telegram" />
         </div>
     );
 
