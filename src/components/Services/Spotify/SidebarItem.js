@@ -1,11 +1,12 @@
 import React from 'react';
-import { QueueMusic } from '@material-ui/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 import CustomSidebarItem from '../CustomSidebarItem';
 
 const SidebarItem = () => {
     return (
         <CustomSidebarItem
-            icon={<QueueMusic fontSize="large" className="icon spotify" />}
+            icon={<FontAwesomeIcon icon={faSpotify} className="icon spotify" />}
             serviceName="spotifies"
         />
     );

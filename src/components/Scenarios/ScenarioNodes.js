@@ -1,14 +1,8 @@
 import React from 'react';
 import { AvatarGroup } from '@material-ui/lab';
 import { Avatar } from '@material-ui/core';
-import {
-    GitHub,
-    Telegram,
-    Code,
-    QueueMusic,
-    Language,
-    Http
-} from '@material-ui/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDiscord, faSpotify, faTelegram, faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const ScenarioNodes = ({nodes}) => {
     return (
@@ -19,37 +13,43 @@ const ScenarioNodes = ({nodes}) => {
                         case 'sshs':
                             return (
                                 <Avatar key={index} className="ssh">
-                                    <Code fontSize="small" />
+                                    <FontAwesomeIcon icon={faGithub} />
                                 </Avatar>
                             );
                         case 'webhooks':
                             return (
                                 <Avatar key={index} className="webhook">
-                                    <Language fontSize="small" />
+                                    <FontAwesomeIcon icon={faGithub} />
                                 </Avatar>
                             );
                         case 'githubs':
                             return (
                                 <Avatar key={index} className="github">
-                                    <GitHub fontSize="small" />
+                                    <FontAwesomeIcon icon={faGithub} />
                             </Avatar>
                             );
                         case 'spotifies':
                             return (
                                 <Avatar key={index} className="spotify">
-                                    <QueueMusic fontSize="small" />
+                                    <FontAwesomeIcon icon={faSpotify} />
                                 </Avatar>
                             );
                         case 'telegrams':
                             return (
                                 <Avatar key={index} className="telegram">
-                                    <Telegram fontSize="small" />
+                                    <FontAwesomeIcon icon={faTelegram} />
                                 </Avatar>
                             );
                         case 'https':
                             return (
                                 <Avatar key={index} className="http">
-                                    <Http fontSize="small" />
+                                    <FontAwesomeIcon icon={faGithub} />
+                                </Avatar>
+                            );
+                        case 'discord':
+                            return (
+                                <Avatar key={index} className="discord">
+                                    <FontAwesomeIcon icon={faDiscord} />
                                 </Avatar>
                             );
                         default:

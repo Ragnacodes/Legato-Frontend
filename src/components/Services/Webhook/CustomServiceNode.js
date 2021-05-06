@@ -1,11 +1,12 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import { Language } from '@material-ui/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const CustomServiceNode = (props) => {
     const shape = (
         <div className="node webhook">
-            <Language fontSize="large" className="webhook" />
+            <FontAwesomeIcon icon={faGithub} className="webhook" />
         </div>
     );
 

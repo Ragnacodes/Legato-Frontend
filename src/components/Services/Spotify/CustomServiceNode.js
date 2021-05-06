@@ -1,11 +1,12 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import { QueueMusic } from '@material-ui/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 
 const CustomServiceNode = (props) => {
     const shape = (
         <div className="node spotify">
-            <QueueMusic fontSize="large" className="spotify" />
+            <FontAwesomeIcon icon={faSpotify} className="spotify" />
         </div>
     );
 

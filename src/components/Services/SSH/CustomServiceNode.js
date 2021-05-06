@@ -1,11 +1,12 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import { Code } from '@material-ui/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const CustomServiceNode = (props) => {
     const shape = (
         <div className="node ssh">
-            <Code fontSize="large" className="ssh" />
+            <FontAwesomeIcon icon={faGithub} className="ssh" />
         </div>
     );
 
