@@ -88,9 +88,17 @@ export const startAddElement = (element) => {
             const body = JSON.stringify(nodeBack);
             return Axios.post(`/users/${username}/scenarios/${scenarioID}/nodes`, body)
             .then(res => {
+                const backData = res.data.node.data;
+                const newElement = {
+                    ...element,
+                    data: {
+                        ...element.data,
+                        ...backData
+                    }
+                };
                 dispatch(addNode({
                     id: res.data.node.id.toString(),
-                    ...element
+                    ...newElement,
                 }));
             })
             .catch(err => {
