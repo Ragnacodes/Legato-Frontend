@@ -22,7 +22,7 @@ const Form = ({
 }) => {
   const [info, setInfo] = useState({
     name: data.name || '',
-    webhook: data.webhook || '',
+    webhook: data.id || '',
     max: data.max || '',
   });
 
@@ -117,7 +117,7 @@ const Form = ({
         }}
       >
         <span
-          onClick={() => CopyToClipboard(FindWebhook(info['webhook']).url)}
+          onClick={() => CopyToClipboard(`http://localhost:8080/api/services/webhook/${data.url}`)}
           ref={ref}
           {...props}
         />
@@ -149,11 +149,7 @@ const Form = ({
           label="Webhook"
           value={info['webhook']}
           onChange={handleChange}
-          helperText={
-            info['webhook']
-              ? FindWebhook(info['webhook']).url
-              : 'Please select a webhook.'
-          }
+          helperText={`http://localhost:8080/api/services/webhook/${data.url}`}
           FormHelperTextProps={info['webhook'] ? FormHelperTextProps : {}}
           variant="outlined"
         >
@@ -173,8 +169,8 @@ const Form = ({
           <Edit />
         </IconButton>
         <WebhookSettingsPopper
-          title={FindWebhook(info['webhook']).name}
-          webhook={FindWebhook(info['webhook'])}
+          title={data.name}
+          webhook={data.id}
           anchor={editWhPopper}
           setAnchor={setEditWhPopper}
           handleSave={handleUpdateWebhook}
