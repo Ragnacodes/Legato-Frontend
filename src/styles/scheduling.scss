@@ -1,0 +1,10 @@
+.dialog{
+    .close-icon {
+        cursor: pointer;
+        font-size: 1.4rem;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        color: $primary;
+    }
+}

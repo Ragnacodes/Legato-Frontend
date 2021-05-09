@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { startEditScenario } from '../../actions/scenarios';
 import { Button } from '@material-ui/core';
-import Axios from '../../utils/axiosConfig'
+import Scheduling from './Scheduling/Scheduling';
+import Axios from '../../utils/axiosConfig';
 
 const SketchpadControl = ({ elements, editScenario, username, id }) => {
 
@@ -10,7 +11,7 @@ const SketchpadControl = ({ elements, editScenario, username, id }) => {
         console.log(elements);
         Axios.patch(`/users/${username}/scenarios/${id}`)
     };
-
+    const [showScheduling, setShowScheduling] = useState(false);
     // const handleToggleActvie = () => {
     //     editScenario(scenario.id, { isActive: !scenario.isActive });
     // };
@@ -21,11 +22,12 @@ const SketchpadControl = ({ elements, editScenario, username, id }) => {
                 variant="contained"
                 color="primary"
                 size="large"
-                onClick={onClicked}
+                onClick={()=>setShowScheduling(true)}
                 className="button"
             >
-              Save
+              Scheduling
             </Button>
+            <Scheduling showScheduling={showScheduling} setShowScheduling={setShowScheduling}/>
             <Button
                 variant="contained"
                 color="primary"
