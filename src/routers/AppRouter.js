@@ -12,6 +12,7 @@ import ScenariosPage from '../components/Scenarios/ScenariosPage';
 import Webhooks from '../components/Webhooks/Webhooks';
 import ConnectionsPage from '../components/Connections/ConnectionsPage';
 import Redirect from '../components/Connections/Redirect';
+import ScenarioHistoryPage from '../components/ScenarioHistory/ScenarioHistoryPage';
 export const history = createBrowserHistory();
 
 const AppRouter = () => (
@@ -19,8 +20,9 @@ const AppRouter = () => (
       <Switch>
         <PublicRoute path="/" component={LandingPage} exact={true} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
-        <PrivateRoute path="/scenarios" component={ScenariosPage} />
-        <PrivateRoute path="/sketchpad/:id" component={SketchpadPage} />
+        <PrivateRoute exact={true} path="/scenarios" component={ScenariosPage} />
+        <PrivateRoute path="/scenarios/:id/sketchpad" component={SketchpadPage} />
+        <PrivateRoute path="/scenarios/:id/history" component={ScenarioHistoryPage} />
         <PrivateRoute path="/connections" component={ConnectionsPage} />
         <PrivateRoute path="/redirect" component={Redirect} exact={false}/>
         <PrivateRoute path="/webhooks" component={Webhooks} />
