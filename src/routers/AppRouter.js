@@ -21,10 +21,10 @@ const AppRouter = () => (
       <Switch>
         <PublicRoute path="/" component={LandingPage} exact={true} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
-        <PrivateRoute exact={true} path="/scenarios" component={ScenariosPage} />
+        <PrivateRoute path="/scenarios" component={ScenariosPage} exact={true} />
         <PrivateRoute path="/scenarios/:id/sketchpad" component={SketchpadPage} />
-        <PrivateRoute path="/scenarios/:id/history" component={HistoryPage} />
-        <PrivateRoute path="/scenarios/:id/history/:id" component={LogPage} />
+        <PrivateRoute path="/scenarios/:id/history" component={HistoryPage} exact={true} />
+        <PrivateRoute path="/scenarios/:id/history/:logID" component={LogPage} />
         <PrivateRoute path="/connections" component={ConnectionsPage} />
         <PrivateRoute path="/redirect" component={Redirect} exact={false}/>
         <PrivateRoute path="/webhooks" component={Webhooks} />
