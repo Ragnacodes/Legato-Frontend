@@ -14,7 +14,7 @@ import {
 import Record from './Record';
 import Caption from './Caption';
 
-const ScenarioHistory = ({ records, getHistory }) => {
+const History = ({ records, getHistory }) => {
     const [loading, setLoading] = useState(true);
     const scenarioID = useParams().id;
 
@@ -70,4 +70,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ScenarioHistory);
+export default connect(mapStateToProps, mapDispatchToProps)(History);

@@ -2,9 +2,9 @@ import React from 'react';
 import { Container } from '@material-ui/core';
 import Appbar from '../Layout/Appbar';
 import PageTitle from '../Layout/PageTitle';
-import ScenarioHistory from './ScenarioHistory';
+import History from './History';
 
-const ScenarioHistoryPage = () => {
+const HistoryPage = () => {
     return (
         <React.Fragment>
             <Appbar leftChildren={<PageTitle title="History" />} />
@@ -12,7 +12,7 @@ const ScenarioHistoryPage = () => {
                 <div className="app-bar-spacer" />
                 <div className="content-container">
                     <Container maxWidth="lg">
-                        <ScenarioHistory />
+                        <History />
                     </Container>
                 </div>
             </main>
@@ -20,4 +20,4 @@ const ScenarioHistoryPage = () => {
     );
 };
 
-export default ScenarioHistoryPage;
+export default HistoryPage;
