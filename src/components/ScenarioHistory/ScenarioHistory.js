@@ -25,7 +25,7 @@ const ScenarioHistory = ({ records, getHistory }) => {
             setLoading(false);
         })
         .catch(() => {
-            setLoading(false)
+            setLoading(false);
         });
     }, [getHistory, scenarioID]);
 
