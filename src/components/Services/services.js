@@ -56,6 +56,14 @@ export const services = {
             secondaryText: 'to see who has joined in your bot.'
         }
     ],
-    sshs: [],
+    sshs: [
+      {
+        subService: '',
+        kind: 'action',
+        primaryText: 'Execute a command',
+        secondaryText:
+          'Execute a command on a remote device.',
+      },
+    ],
     githubs: [],
 };

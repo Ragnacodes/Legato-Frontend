@@ -6,6 +6,7 @@ import GetTopTracks from './Spotify/GetTopTracks/Node';
 import WatchPlaylist from './Spotify/WatchPlaylist/Node';
 import Telegram1 from './Telegram/SendMessage/Node';
 import Telegram2 from './Telegram/getChatMember/Node';
+import SSHExecuteCommand from './SSH/ExecuteCommand/Node';
 
 export const nodeTypes = {
     webhooks_customWebhook: CustomWebhook,
@@ -15,5 +16,6 @@ export const nodeTypes = {
     spotifies_getTopTracks: GetTopTracks,
     spotifies_watchPlaylist: WatchPlaylist,
     telegrams_sendMessage: Telegram1,
-    telegrams_getChatMember: Telegram2
+    telegrams_getChatMember: Telegram2,
+    sshs_: SSHExecuteCommand,
 };
