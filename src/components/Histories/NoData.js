@@ -1,12 +1,12 @@
 import React from 'react';
 import { Typography } from '@material-ui/core/';
 
-const Caption = ({ caption }) => {
+const NoData = () => {
     return (
         <caption>
-            <Typography align="center">{caption}</Typography>
+            <Typography align="center">NoData.</Typography>
         </caption>
     );
 };
 
-export default Caption;
+export default NoData;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Breadcrumbs, Link, Typography } from '@material-ui/core';
-import { AccountTree, TurnedIn, History } from '@material-ui/icons';
+import { Breadcrumbs, Link } from '@material-ui/core';
+import { AccountTree, TurnedIn, History, Schedule } from '@material-ui/icons';
 import { Skeleton } from '@material-ui/lab';
 import style from '../../styles/breadcrumbs';
 
-const AppbarBread = ({ loading, scenarioID, scenarioName }) => {
+const AppbarBread = ({ scenario, history }) => {
     const classes = style();
     
     return (
@@ -21,23 +21,37 @@ const AppbarBread = ({ loading, scenarioID, scenarioName }) => {
                 Scenarios
             </Link>
 
-            <Typography
+            <Link
+                component={RouterLink}
+                to={`/scenarios/${scenario.id}/sketchpad`}
+                underline="none"
                 color="inherit"
                 className={classes.link}
             >
                 <TurnedIn className={classes.icon} />
-                {loading ? <Skeleton width={120} className="skeleton-light" /> : scenarioName}
-            </Typography>
+                {scenario.name === undefined ? <Skeleton width={120} className="skeleton-light" /> : scenario.name}
+            </Link>
 
             <Link
                 component={RouterLink}
-                to={`/scenarios/${scenarioID}/history`}
+                to={`/scenarios/${scenario.id}/history`}
                 underline="none"
                 color="inherit"
                 className={classes.link}
             >
                 <History className={classes.icon} />
                 History
+            </Link>
+
+            <Link
+                component={RouterLink}
+                to={`/scenarios/${scenario.id}/history/${history.id}`}
+                underline="none"
+                color="inherit"
+                className={classes.link}
+            >
+                <Schedule className={classes.icon} />
+                {history.time === undefined ? <Skeleton width={120} className="skeleton-light" /> : history.time}
             </Link>
         </Breadcrumbs>
     );

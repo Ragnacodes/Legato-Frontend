@@ -10,6 +10,7 @@ import drawerReducer from '../reducers/drawer';
 import connectionsReducer from '../reducers/connections';
 import servicesReducer from '../reducers/services';
 import spotifyReducer from '../reducers/spotify';
+import historiesReducer from '../reducers/histories';
 import historyReducer from '../reducers/history';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -32,7 +33,8 @@ const configureStore = () => {
       connections: connectionsReducer,
       services: servicesReducer,
       spotify: spotifyReducer,
-      history: historyReducer,
+      histories: historiesReducer,
+      history: historyReducer
     }),
     composeEnhancers(applyMiddleware(...middleware))
   );

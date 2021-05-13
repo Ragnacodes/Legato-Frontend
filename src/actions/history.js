@@ -1,4 +1,4 @@
-import { defaultHistoryState } from '../playground/history';
+import { mockedHistory } from '../playground/mockedHistory';
 
 export const getHistory = (history) => {
     return {
@@ -7,11 +7,11 @@ export const getHistory = (history) => {
     };
 };
 
-export const startGetHistory = (scenarioID) => {
+export const startGetHistory = (scenarioID, historyID) => {
     return (dispatch, getState) => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(defaultHistoryState);
+                resolve(mockedHistory);
             }, 3000);
         })
         .then(res => {

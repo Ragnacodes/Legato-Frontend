@@ -1,31 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
-import { startGetHistory } from '../../actions/history';
+import { startGetHistories } from '../../actions/histories';
 import { Container } from '@material-ui/core';
 import Appbar from '../Layout/Appbar';
 import AppbarBread from '../Layout/AppbarBread';
-import History from './History';
+import Histories from './Histories';
 import { getParts } from './breadcrumbsParts';
 
-const HistoryPage = ({ scenario, history, logs }) => {
+const HistoriesPage = ({ scenario, records }) => {
     const dispatch = useDispatch();
-    const scenarioID = useParams().id;
-    const historyID = useParams().historyID;
+    const id = useParams().id;
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setLoading(true);
-        dispatch(startGetHistory(scenarioID, historyID))
+        dispatch(startGetHistories(id))
         .then(() => {
             setLoading(false);
         })
         .catch(() => {
             setLoading(false);
         });
-    }, [dispatch, scenarioID, historyID]);
+    }, [dispatch, id]);
 
-    const parts = getParts(scenario, history);
+    const parts = getParts(scenario);
 
     return (
         <React.Fragment>
@@ -34,7 +33,7 @@ const HistoryPage = ({ scenario, history, logs }) => {
                 <div className="app-bar-spacer" />
                 <div className="content-container">
                     <Container maxWidth="lg">
-                        <History loading={loading} logs={logs} />
+                        <Histories loading={loading} records={records}/>
                     </Container>
                 </div>
             </main>
@@ -44,10 +43,9 @@ const HistoryPage = ({ scenario, history, logs }) => {
 
 const mapStateToProps = (state) => {
     return {
-        scenario: state.history.scenario,
-        history: state.history.history,
-        logs: state.history.logs
+        scenario: state.histories.scenario,
+        records: state.histories.histories,
     };
 };
 
-export default connect(mapStateToProps)(HistoryPage);
+export default connect(mapStateToProps)(HistoriesPage);
