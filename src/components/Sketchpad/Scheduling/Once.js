@@ -11,17 +11,31 @@ const Once = ({schedulingInfo, setSchedulingInfo}) => {
     }
 
     return(
+        <React.Fragment>
         <TextField
             name="date"
             type="date"
             variant="outlined"
             size="small"
-            helperText="pick a date ro run your scenario."
+            helperText="pick a date to run your scenario."
             onChange={handleChange}
             value={schedulingInfo.date}
             required
             fullWidth
         />
+        <TextField 
+            name="time"
+            type="time"
+            variant="outlined"
+            size="small"
+            helperText="pick a time on that day to run your scenario."
+            onChange={handleChange}
+            value={schedulingInfo.time}
+            required
+            fullWidth
+        />
+        </React.Fragment>
+        
     );
 };
 

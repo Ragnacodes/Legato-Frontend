@@ -19,7 +19,8 @@ const Scheduling = ({ showScheduling, setShowScheduling }) => {
     const [schedulingInfo, setSchedulingInfo] = useState({
         plan: 'interval',
         minutes: '',
-        date: ' '
+        date: '',
+        time : ''
     });
 
     const useStyles = makeStyles({
@@ -38,7 +39,11 @@ const Scheduling = ({ showScheduling, setShowScheduling }) => {
     }
 
     const handleSave = () => {
-        console.log(schedulingInfo);
+        const request = {
+            plan: schedulingInfo.plan,
+            date_time: schedulingInfo.date + 'T' + schedulingInfo.time + ':00.00Z'
+        }
+        console.log(request);
     }
 
     const switchCase = (plan) => {
