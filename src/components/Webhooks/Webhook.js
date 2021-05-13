@@ -16,12 +16,12 @@ import EditModal from './WebhookSettingsModal';
 import WebhookQueue from './WebhookQueue';
 import { errorNotification, successNotification } from '../Layout/Notification';
 import OnClickTextField from '../OnClickTextField';
-import YesNoModal from '../YesNoModal'
+import YesNoModal from '../YesNoModal';
 const Webhook = ({ webhook, updateWebhook, deleteWebhook }) => {
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [queueModal, setQueueModal] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [yesNoVisible, setYesNoVisible] = useState(false)
+  const [yesNoVisible, setYesNoVisible] = useState(false);
   const handleToggleState = () => {
     handleUpdateWebhook({ enable: !webhook['active'] });
   };
@@ -180,17 +180,17 @@ const Webhook = ({ webhook, updateWebhook, deleteWebhook }) => {
             aria-label="delete"
             className="delete-button"
             color="primary"
-            onClick={()=>setYesNoVisible(true)}
+            onClick={() => setYesNoVisible(true)}
           >
             <Delete fontSize="small" />
           </IconButton>
         </Tooltip>
         <YesNoModal
-        text={`Delete ${webhook["name"]}?`}
-        visible={yesNoVisible}
-        setVisible={setYesNoVisible}
-        handleYes={handleDeleteWebhook}
-        handleNo={()=>{}}
+          text={`Delete ${webhook['name']}?`}
+          visible={yesNoVisible}
+          setVisible={setYesNoVisible}
+          handleYes={handleDeleteWebhook}
+          handleNo={() => {}}
         />
       </ListItemSecondaryAction>
     </ListItem>
