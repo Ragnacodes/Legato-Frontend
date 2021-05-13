@@ -1,23 +1,35 @@
 import React, { useState } from 'react';
 import {
     Typography,
+    makeStyles,
     Dialog,
     DialogContent,
     DialogTitle,
     Select,
-    MenuItem
+    MenuItem,
+    Button
 } from '@material-ui/core';
 import { CloseRounded } from '@material-ui/icons';
 import Once from './Once';
 import Interval from './Interval';
 
 
-const Scheduling = ({showScheduling, setShowScheduling}) => {
+const Scheduling = ({ showScheduling, setShowScheduling }) => {
     
     const [schedulingInfo, setSchedulingInfo] = useState({
         plan: 'interval',
+        minutes: '',
+        date: ' '
     });
-    
+
+    const useStyles = makeStyles({
+        dialog: {
+            position: 'absolute',
+            left: 70,
+            bottom: 40
+        }
+    });
+
     const handleChange = (e) => {
         setSchedulingInfo((prev) => ({
             ...prev,
@@ -25,30 +37,37 @@ const Scheduling = ({showScheduling, setShowScheduling}) => {
         }));
     }
 
+    const handleSave = () => {
+        console.log(schedulingInfo);
+    }
+
     const switchCase = (plan) => {
-        switch(plan) {
+        switch (plan) {
             case 'interval':
                 return (
-                    <Interval/>
+                    <Interval schedulingInfo={schedulingInfo} setSchedulingInfo={setSchedulingInfo}/>
                 );
             case 'once':
                 return (
-                    <Once/>
+                    <Once schedulingInfo={schedulingInfo} setSchedulingInfo={setSchedulingInfo}/>
                 );
             default:
                 return null;
         }
     }
-    
+
     return (
         <Dialog
+            classes={{ paper: useStyles().dialog }}
             disableBackdropClick
-            className="dialog"
+            className="scheduling-dialog"
             open={showScheduling}
             onClose={() => setShowScheduling(false)}
             aria-labelledby="form-dialog-title"
+            fullWidth
+            maxWidth="xs"
         >
-            <DialogTitle disableTypography={true}>
+            <DialogTitle disableTypography={true} className="title">
                 <Typography variant="h5">Scheduling settings</Typography>
             </DialogTitle>
             <DialogContent>
@@ -57,19 +76,40 @@ const Scheduling = ({showScheduling, setShowScheduling}) => {
                     className="close-icon"
                 />
                 <Select
+                    className = "select"
                     name="plan"
                     variant="outlined"
                     size="small"
                     onChange={handleChange}
-                    value = {schedulingInfo.plan}
+                    value={schedulingInfo.plan}
+                    fullWidth
                 >
                     <MenuItem value="once">Once</MenuItem>
-                    <MenuItem value="interval">Interval</MenuItem>
+                    <MenuItem value="interval">At regular intervals</MenuItem>
                 </Select>
                 {
                     switchCase(schedulingInfo.plan)
                 }
             </DialogContent>
+            <div className="options">
+                <Button
+                    autoFocus
+                    onClick={() =>setShowScheduling(false)}
+                    color="primary"
+                >
+                    Cancel
+                </Button>
+                <Button
+                    onClick={() => {
+                        handleSave();
+                        setShowScheduling(false)
+                    }}
+                    variant="contained"
+                    color="primary"
+                >
+                    Save
+                </Button>
+            </div>
         </Dialog>
 
     )

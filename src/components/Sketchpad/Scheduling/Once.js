@@ -1,8 +1,27 @@
 import React from 'react';
+import { TextField } from '@material-ui/core';
 
-const Once = () => {
+const Once = ({schedulingInfo, setSchedulingInfo}) => {
+    
+    const handleChange = (e) => {
+        setSchedulingInfo((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+        }));
+    }
+
     return(
-        <p>this is once</p>
+        <TextField
+            name="date"
+            type="date"
+            variant="outlined"
+            size="small"
+            helperText="pick a date ro run your scenario."
+            onChange={handleChange}
+            value={schedulingInfo.date}
+            required
+            fullWidth
+        />
     );
 };
 
