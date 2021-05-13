@@ -2,6 +2,7 @@ import Axios from '../utils/axiosConfig';
 
 export const ActionTypes = {
   SET_PLAYLISTS: 'SET_PLAYLISTS',
+  SET_TRACK_INFO: 'SET_TRACK_INFO',
 }
 
 export const setPlaylists = (playlists) => {
@@ -25,3 +26,24 @@ export const startGetPlaylists = () => {
       });
   };
 };
+
+export const setTrackInfo = (track) => {
+  return {
+    type: ActionTypes.SET_TRACK_INFO,
+    payload: {
+        track,
+    },
+  };
+};
+
+export const startGetTrackInfo = (id) =>{
+  return (dispatch) => {
+    return Axios.get(`/services/spotify/track/${id}`)
+    .then((res) => {
+        dispatch(setTrackInfo(res.data));
+    })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}

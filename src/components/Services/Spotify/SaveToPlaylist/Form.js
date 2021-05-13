@@ -1,59 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { MenuItem, IconButton, TextField } from '@material-ui/core';
-import { Refresh } from '@material-ui/icons';
+import { MenuItem, IconButton, TextField, Popover } from '@material-ui/core';
+import { Refresh, Search } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { startGetConnections } from '../../../../actions/connections';
-import { startGetPlaylists } from '../../../../actions/spotify';
+import * as actions from '../../../../actions/spotify';
 import ServiceForm from '../../../PopoverForm';
+import TrackInfo from './TrackInfo';
+
 const Form = ({
   id,
   data,
+  track,
   connections,
   editElement,
   playlists,
   setAnchorEl,
   getPlaylists,
+  getTrackInfo,
+  setTrackInfo,
 }) => {
+  const [trackInfoVisible, setTrackInfoVisible] = useState(null);
+
   const [info, setInfo] = useState({
     connection: data.connection || '',
     PlaylistId: data.PlaylistId || '',
     TrackId: data.TrackId || '',
+    trackUrl: data.trackUrl || '',
     position: data.position || '',
   });
 
-  const [errors, setErrors] = useState({
-    connection: !!data.connection,
-    PlaylistId: !!data.PlaylistId,
-    TrackId: !!data.TrackId,
-  });
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    console.log(info);
-    if (!info['TrackId']) {
-      setErrors((prev) => ({
-        ...prev,
-        TrackId: true,
-      }));
-    } else {
-      setErrors((prev) => ({
-        ...prev,
-        TrackId: false,
-      }));
-    }
-    if (!!info['connection']) {
-      setErrors((prev) => ({
-        ...prev,
-        connection: false,
-      }));
-    }
-
-    if (!!info['PlaylistId']) {
-      setErrors((prev) => ({
-        ...prev,
-        PlaylistId: false,
-      }));
-    }
-  }, [info]);
+    console.log(errors);
+  }, [errors]);
 
   useEffect(() => {
     getPlaylists();
@@ -72,34 +52,62 @@ const Form = ({
       connection: data.connection || '',
       PlaylistId: data.PlaylistId || '',
       TrackId: data.TrackId || '',
+      trackUrl: data.trackUrl || '',
+      position: data.position || '',
     });
-    setErrors({
-      TrackId: !!data.TrackId,
-      PlaylistId: !!data.PlaylistId,
-      connection: !!data.connection,
-    });
+    setErrors({});
   };
 
   const handleSave = () => {
-    const updates = {
-      name: info.name,
-      data: { ...data, ...info },
-    };
-    console.log(updates);
-    editElement(id, updates);
-    setAnchorEl(null);
+    try {
+      const TrackId = info['trackUrl']
+        .split('spotify.com/track/')[1]
+        .split('?')[0];
+      const updates = {
+        name: info.name,
+        data: { ...data, ...info, TrackId },
+      };
+      editElement(id, updates);
+      setAnchorEl(null);
+    } catch (err) {
+      setErrors((prev) => ({
+        ...prev,
+        trackUrl: 'Please enter valid url.',
+      }));
+      setTrackInfo('');
+      return;
+    }
   };
+
+  const searchTrack = (e) => {
+    setTrackInfoVisible(e.currentTarget);
+    try {
+      const TrackId = info['trackUrl']
+        .split('spotify.com/track/')[1]
+        .split('?')[0];
+      getTrackInfo(TrackId);
+      setInfo((p) => ({ ...p, TrackId }));
+    } catch (err) {
+      setErrors((prev) => ({
+        ...prev,
+        trackUrl: 'Please enter valid url.',
+      }));
+      setTrackInfo('');
+      return;
+    }
+  };
+
+  const disabledSave =
+    !info['PlaylistId'] || !info['trackUrl'] || errors['trackUrl'];
 
   return (
     <ServiceForm
       className="save-to-playlist"
       title="Save to a Playlist"
-      disabledSave={errors['playlist']}
+      disabledSave={false}
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
-     
-
       <div className="playlist-field">
         <TextField
           name="PlaylistId"
@@ -118,37 +126,60 @@ const Form = ({
           ))}
         </TextField>
 
-        <IconButton
-          size="small"
-          className="add-icon"
-          onClick={getPlaylists}
-        >
+        <IconButton size="small" className="add-icon" onClick={getPlaylists}>
           <Refresh />
         </IconButton>
       </div>
 
-      <TextField
-        name="TrackId"
-        className="text-field"
-        label="Track ID"
-        variant="outlined"
-        size="small"
-        value={info['TrackId']}
-        error={errors['TrackId']}
-        onChange={handleChange}
-      />
+      <div className="track-field">
+        <TextField
+          name="trackUrl"
+          className="text-field"
+          label="Track URL"
+          variant="outlined"
+          size="small"
+          value={info['trackUrl']}
+          error={!!errors['trackUrl']}
+          helperText={'Please enter valid url.'}
+          onChange={handleChange}
+        />
 
+        <IconButton size="small" className="add-icon" onClick={searchTrack}>
+          <Search />
+        </IconButton>
+      </div>
+
+      {/* <Popover
+        open={Boolean(trackInfoVisible)}
+        anchorEl={trackInfoVisible}
+        onClose={() => {
+          setTrackInfoVisible(null);
+        }}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+      > */}
+      {!!track && <TrackInfo track={track} />}
+      {/* </Popover> */}
     </ServiceForm>
   );
 };
 const mapStateToProps = (state) => ({
   connections: state.connections,
   playlists: state.spotify.playlists,
+  track: state.spotify.track,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getConnections: () => dispatch(startGetConnections()),
-  getPlaylists: () => dispatch(startGetPlaylists()),
+  getPlaylists: () => dispatch(actions.startGetPlaylists()),
+  getTrackInfo: (track) => dispatch(actions.startGetTrackInfo(track)),
+  setTrackInfo: (track) => dispatch(actions.setTrackInfo(track)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
