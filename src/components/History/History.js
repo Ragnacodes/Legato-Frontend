@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import { connect } from 'react-redux';
-import { startGetHistory } from '../../actions/history';
+import React from 'react';
 import {
     TableContainer,
     Table,
@@ -9,30 +6,17 @@ import {
     TableRow,
     TableCell,
     TableBody,
-    Paper
+    Paper,
+    CircularProgress
 } from '@material-ui/core/';
 import Record from './Record';
 import Caption from './Caption';
 
-const History = ({ records, getHistory }) => {
-    const [loading, setLoading] = useState(true);
-    const scenarioID = useParams().id;
-
-    useEffect(() => {
-        setLoading(true);
-        getHistory(scenarioID)
-        .then(() => {
-            setLoading(false);
-        })
-        .catch(() => {
-            setLoading(false);
-        });
-    }, [getHistory, scenarioID]);
-
+const History = ({ loading, records }) => {
     return (
         <TableContainer component={Paper}>
             <Table stickyHeader={true} >
-                { loading && <Caption caption="Loading ..." />}
+                { loading && <Caption caption={<CircularProgress size={30} thickness={1.8} />} />}
                 { !loading && !records.length && <Caption caption="No Data." />}
                 
                 <TableHead>
@@ -48,7 +32,7 @@ const History = ({ records, getHistory }) => {
 
                 <TableBody>
                     {
-                        records.map((record, index) => {
+                        (records || []).map((record, index) => {
                             return <Record key={index} {...record} />
                         })
                     }
@@ -58,16 +42,4 @@ const History = ({ records, getHistory }) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        records: state.history
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getHistory: (scenarioID) => dispatch(startGetHistory(scenarioID))
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(History);
+export default History;
