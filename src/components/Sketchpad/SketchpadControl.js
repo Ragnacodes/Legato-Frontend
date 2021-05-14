@@ -27,7 +27,7 @@ const SketchpadControl = ({ elements, editScenario, username, id }) => {
             >
               Scheduling
             </Button>
-            <Scheduling showScheduling={showScheduling} setShowScheduling={setShowScheduling}/>
+            <Scheduling showScheduling={showScheduling} setShowScheduling={setShowScheduling} Id={id}/>
             <Button
                 variant="contained"
                 color="primary"

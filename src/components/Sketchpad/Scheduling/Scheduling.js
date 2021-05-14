@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import {
     Typography,
     makeStyles,
@@ -7,20 +8,17 @@ import {
     DialogTitle,
     Select,
     MenuItem,
-    Button
 } from '@material-ui/core';
 import { CloseRounded } from '@material-ui/icons';
 import Once from './Once';
 import Interval from './Interval';
 
 
-const Scheduling = ({ showScheduling, setShowScheduling }) => {
-    
+const Scheduling = ({ showScheduling, setShowScheduling, Id, scenarios}) => {
     const [schedulingInfo, setSchedulingInfo] = useState({
-        plan: 'interval',
-        minutes: '',
-        date: '',
-        time : ''
+        plan: 'once',
+        interval: 720,
+        dateTime: '',
     });
 
     const useStyles = makeStyles({
@@ -36,30 +34,33 @@ const Scheduling = ({ showScheduling, setShowScheduling }) => {
             ...prev,
             [e.target.name]: e.target.value,
         }));
-    }
-
-    const handleSave = () => {
-        const request = {
-            plan: schedulingInfo.plan,
-            date_time: schedulingInfo.date + 'T' + schedulingInfo.time + ':00.00Z'
-        }
-        console.log(request);
-    }
+        console.log(scenarios);
+    };
 
     const switchCase = (plan) => {
         switch (plan) {
             case 'interval':
                 return (
-                    <Interval schedulingInfo={schedulingInfo} setSchedulingInfo={setSchedulingInfo}/>
+                    <Interval 
+                        schedulingInfo = {schedulingInfo} 
+                        setSchedulingInfo = {setSchedulingInfo}
+                        setShowScheduling = {setShowScheduling}
+                        id = {Id}
+                    />
                 );
             case 'once':
                 return (
-                    <Once schedulingInfo={schedulingInfo} setSchedulingInfo={setSchedulingInfo}/>
+                    <Once 
+                        schedulingInfo = {schedulingInfo} 
+                        setSchedulingInfo = {setSchedulingInfo}
+                        setShowScheduling = {setShowScheduling}
+                        id = {Id}
+                    />
                 );
             default:
                 return null;
-        }
-    }
+        };
+    };
 
     return (
         <Dialog
@@ -81,7 +82,7 @@ const Scheduling = ({ showScheduling, setShowScheduling }) => {
                     className="close-icon"
                 />
                 <Select
-                    className = "select"
+                    className = "select-in"
                     name="plan"
                     variant="outlined"
                     size="small"
@@ -96,28 +97,16 @@ const Scheduling = ({ showScheduling, setShowScheduling }) => {
                     switchCase(schedulingInfo.plan)
                 }
             </DialogContent>
-            <div className="options">
-                <Button
-                    autoFocus
-                    onClick={() =>setShowScheduling(false)}
-                    color="primary"
-                >
-                    Cancel
-                </Button>
-                <Button
-                    onClick={() => {
-                        handleSave();
-                        setShowScheduling(false)
-                    }}
-                    variant="contained"
-                    color="primary"
-                >
-                    Save
-                </Button>
-            </div>
         </Dialog>
 
-    )
-}
+    );
+};
 
-export default Scheduling;
+const mapStateToProps = (state) => {
+    return {
+        scenarios: state.scenarios
+    };
+};
+
+
+export default connect(mapStateToProps, null)(Scheduling);
