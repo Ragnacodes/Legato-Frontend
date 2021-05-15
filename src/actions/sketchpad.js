@@ -53,7 +53,9 @@ export const startGetSketchpad = (id) => {
             const scenario = {
                 id: res.data.scenario.id,
                 name: res.data.scenario.name,
-                isActive: res.data.scenario.isActive
+                isActive: res.data.scenario.isActive,
+                lastScheduledTime: res.data.scenario.lastScheduledTime,
+                interval: res.data.scenario.interval
             };
             const nodesBack = res.data.scenario.services;
             const elementsFront = elementsBackToFront(nodesBack);
@@ -195,5 +197,18 @@ export const startEditSketchpadScenario = (updates) => {
         const scenarioID = getState().sketchpad.scenario.id;
         dispatch(startEditScenario(scenarioID, updates));
         dispatch(editSketchpadScenario(updates));
+    };
+};
+
+export const startSchedulingScenario = (id, scheduling) => {
+    return (dispatch, getState) => {
+        const username = getState().auth.username;
+        return Axios.post(`/users/${username}/scenarios/${id}/schedule`, scheduling)
+        .then(res => {
+            dispatch(editSketchpadScenario(res));
+        })
+        .catch(err => {
+            console.log(err);
+        });
     };
 };

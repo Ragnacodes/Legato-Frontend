@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
     Typography,
@@ -14,12 +14,19 @@ import Once from './Once';
 import Interval from './Interval';
 
 
-const Scheduling = ({ showScheduling, setShowScheduling, Id, scenarios}) => {
-    const [schedulingInfo, setSchedulingInfo] = useState({
-        plan: 'once',
-        interval: 720,
-        dateTime: '',
-    });
+const Scheduling = ({ showScheduling, setShowScheduling, scenario}) => {
+    
+    const [schedulingInfo, setSchedulingInfo] = useState({});
+
+    useEffect(() => {
+        var date = new Date(scenario.lastScheduledTime);
+        var isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace('Z','');
+        setSchedulingInfo({
+            plan: scenario.interval === 0 ? 'once' : 'interval',
+            interval: scenario.interval || 0,
+            dateTime:scenario.lastScheduledTime ? isoDateTime: new Date(),
+        });
+    }, [scenario])
 
     const useStyles = makeStyles({
         dialog: {
@@ -34,7 +41,6 @@ const Scheduling = ({ showScheduling, setShowScheduling, Id, scenarios}) => {
             ...prev,
             [e.target.name]: e.target.value,
         }));
-        console.log(scenarios);
     };
 
     const switchCase = (plan) => {
@@ -45,7 +51,7 @@ const Scheduling = ({ showScheduling, setShowScheduling, Id, scenarios}) => {
                         schedulingInfo = {schedulingInfo} 
                         setSchedulingInfo = {setSchedulingInfo}
                         setShowScheduling = {setShowScheduling}
-                        id = {Id}
+                        id = {scenario.id}
                     />
                 );
             case 'once':
@@ -54,7 +60,7 @@ const Scheduling = ({ showScheduling, setShowScheduling, Id, scenarios}) => {
                         schedulingInfo = {schedulingInfo} 
                         setSchedulingInfo = {setSchedulingInfo}
                         setShowScheduling = {setShowScheduling}
-                        id = {Id}
+                        id = {scenario.id}
                     />
                 );
             default:
@@ -98,15 +104,13 @@ const Scheduling = ({ showScheduling, setShowScheduling, Id, scenarios}) => {
                 }
             </DialogContent>
         </Dialog>
-
     );
 };
 
 const mapStateToProps = (state) => {
     return {
-        scenarios: state.scenarios
-    };
+        scenario: state.sketchpad.scenario
+    }
 };
-
 
 export default connect(mapStateToProps, null)(Scheduling);

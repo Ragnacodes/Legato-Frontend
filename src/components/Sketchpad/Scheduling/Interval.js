@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Select,MenuItem, TextField } from '@material-ui/core';
-import { startSchedulingScenario } from '../../../actions/scenarios'
+import { startSchedulingScenario } from '../../../actions/sketchpad';
 
 
 const Interval = ({schedulingInfo, setSchedulingInfo, setShowScheduling, id, schedulingScenario}) => {
@@ -15,7 +15,7 @@ const Interval = ({schedulingInfo, setSchedulingInfo, setShowScheduling, id, sch
     
     const handleSave = () => {
         const requestBody = {
-            scheduledTime : schedulingInfo.dateTime + ":00.000Z",
+            scheduledTime : new Date(schedulingInfo.dateTime).toISOString(),
             systemTime:  new Date().toISOString(),
             interval: schedulingInfo.interval
         }
@@ -44,7 +44,6 @@ const Interval = ({schedulingInfo, setSchedulingInfo, setShowScheduling, id, sch
                     size="small"
                     onChange={handleChange}
                     value={schedulingInfo.interval}
-                    helperText="your scenario will run repetedly with this period of time."
                     fullWidth
                 >
                     <MenuItem value={2}>2 minutes</MenuItem>
@@ -55,6 +54,7 @@ const Interval = ({schedulingInfo, setSchedulingInfo, setShowScheduling, id, sch
                     <MenuItem value={360}>6 hours</MenuItem>
                     <MenuItem value={720}>1 day</MenuItem>
                     <MenuItem value={10080}>1 week</MenuItem>
+                    <MenuItem value={0}>NOT INTERVAL</MenuItem>
                     
             </Select>
             

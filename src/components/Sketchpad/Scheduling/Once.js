@@ -1,10 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { TextField, Button } from '@material-ui/core';
-import { startSchedulingScenario } from '../../../actions/scenarios';
-// import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
-// import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
-// import DateTimePicker from '@material-ui/lab/DateTimePicker';
+import { startSchedulingScenario } from '../../../actions/sketchpad';
 
 
 const Once = ({schedulingInfo, setSchedulingInfo, setShowScheduling, id, schedulingScenario}) => {
@@ -17,12 +14,15 @@ const Once = ({schedulingInfo, setSchedulingInfo, setShowScheduling, id, schedul
     }
 
     const handleSave = () => {
+        setSchedulingInfo((prev) => ({
+            ...prev,
+            interval: 0,
+        }));
         const requestBody = {
-            scheduledTime : schedulingInfo.dateTime + ":00.000Z",
+            scheduledTime : new Date(schedulingInfo.dateTime).toISOString(),
             systemTime:  new Date().toISOString(),
             interval: 0
         }
-        console.log(requestBody);
         schedulingScenario(id, requestBody);
     };
 

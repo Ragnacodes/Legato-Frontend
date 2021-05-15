@@ -5,13 +5,14 @@ import { Button } from '@material-ui/core';
 import Scheduling from './Scheduling/Scheduling';
 import Axios from '../../utils/axiosConfig';
 
-const SketchpadControl = ({ elements, editScenario, username, id }) => {
+const SketchpadControl = ({ elements, editScenario, username, scenario }) => {
 
     const onClicked = () => {
         console.log(elements);
-        Axios.patch(`/users/${username}/scenarios/${id}`)
+        Axios.patch(`/users/${username}/scenarios/${scenario.id}`)
     };
     const [showScheduling, setShowScheduling] = useState(false);
+    
     // const handleToggleActvie = () => {
     //     editScenario(scenario.id, { isActive: !scenario.isActive });
     // };
@@ -27,7 +28,10 @@ const SketchpadControl = ({ elements, editScenario, username, id }) => {
             >
               Scheduling
             </Button>
-            <Scheduling showScheduling={showScheduling} setShowScheduling={setShowScheduling} Id={id}/>
+            <Scheduling 
+                showScheduling={showScheduling} 
+                setShowScheduling={setShowScheduling}
+            />
             <Button
                 variant="contained"
                 color="primary"
@@ -55,7 +59,7 @@ const mapStateToProps = (state) => {
     return {
         elements: state.sketchpad,
         username: state.auth.username,
-        id: state.sketchpad.scenario.id
+        scenario: state.sketchpad.scenario
     }
 };
 
