@@ -1,63 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { MenuItem, IconButton, TextField } from '@material-ui/core';
-import { Refresh } from '@material-ui/icons';
+import { Refresh, Search } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { startGetConnections } from '../../../../actions/connections';
-import { startGetPlaylists } from '../../../../actions/spotify';
+import * as actions from '../../../../actions/spotify';
 import ServiceForm from '../../../PopoverForm';
-const Form = ({
+import TrackInfo from './TrackInfo';
+import { errorNotification } from '../../../Layout/Notification';
+export function Form({
   id,
   data,
+  track,
   connections,
   editElement,
   playlists,
   setAnchorEl,
   getPlaylists,
-}) => {
+  getTrackInfo,
+  setTrackInfo,
+}) {
   const [info, setInfo] = useState({
     connection: data.connection || '',
     PlaylistId: data.PlaylistId || '',
     TrackId: data.TrackId || '',
+    trackUrl: data.trackUrl || '',
     position: data.position || '',
   });
 
-  const [errors, setErrors] = useState({
-    connection: !!data.connection,
-    PlaylistId: !!data.PlaylistId,
-    TrackId: !!data.TrackId,
-  });
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    console.log(info);
-    if (!info['TrackId']) {
-      setErrors((prev) => ({
-        ...prev,
-        TrackId: true,
-      }));
-    } else {
-      setErrors((prev) => ({
-        ...prev,
-        TrackId: false,
-      }));
-    }
-    if (!!info['connection']) {
-      setErrors((prev) => ({
-        ...prev,
-        connection: false,
-      }));
-    }
-
-    if (!!info['PlaylistId']) {
-      setErrors((prev) => ({
-        ...prev,
-        PlaylistId: false,
-      }));
-    }
-  }, [info]);
+    console.log(errors);
+  }, [errors]);
 
   useEffect(() => {
     getPlaylists();
   }, [getPlaylists]);
+
+  const ExtractIdFromUrl = (url) => {
+    try {
+      const id = info['trackUrl'].split('spotify.com/track/')[1].split('?')[0];
+      return id;
+    } catch (err) {
+      throw new Error('Please enter valid url.');
+    }
+  };
+
+  const handleError = (err) => {
+    if (err.message === 'Please enter valid url.') {
+      setErrors((prev) => ({
+        ...prev,
+        trackUrl: err.message,
+      }));
+    } else {
+      errorNotification(err.message);
+    }
+    setTrackInfo('');
+  };
 
   const handleChange = (e) => {
     setInfo((prev) => ({
@@ -72,34 +71,57 @@ const Form = ({
       connection: data.connection || '',
       PlaylistId: data.PlaylistId || '',
       TrackId: data.TrackId || '',
+      trackUrl: data.trackUrl || '',
+      position: data.position || '',
     });
-    setErrors({
-      TrackId: !!data.TrackId,
-      PlaylistId: !!data.PlaylistId,
-      connection: !!data.connection,
-    });
+    setErrors({});
   };
 
   const handleSave = () => {
-    const updates = {
-      name: info.name,
-      data: { ...data, ...info },
-    };
-    console.log(updates);
-    editElement(id, updates);
-    setAnchorEl(null);
+    try {
+      const TrackId = ExtractIdFromUrl(info['trackUrl']);
+      const updates = {
+        name: info.name,
+        data: { ...data, ...info, TrackId },
+      };
+      editElement(id, updates);
+      setAnchorEl(null);
+    } catch (err) {
+      handleError(err);
+    }
   };
+
+  const searchTrack = (e) => {
+    try {
+      const TrackId = ExtractIdFromUrl(info['trackUrl']);
+
+      getTrackInfo(TrackId)
+        .then(() => {
+          setInfo((p) => ({ ...p, TrackId }));
+          setErrors((prev) => ({
+            ...prev,
+            trackUrl: '',
+          }));
+        })
+        .catch((err) => {
+          handleError(err);
+        });
+    } catch (err) {
+      handleError(err);
+    }
+  };
+
+  const disabledSave =
+    !info['PlaylistId'] || !info['trackUrl'] || errors['trackUrl'];
 
   return (
     <ServiceForm
       className="save-to-playlist"
       title="Save to a Playlist"
-      disabledSave={errors['playlist']}
+      disabledSave={disabledSave}
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
-     
-
       <div className="playlist-field">
         <TextField
           name="PlaylistId"
@@ -119,6 +141,7 @@ const Form = ({
         </TextField>
 
         <IconButton
+          name="refreshPlaylists"
           size="small"
           className="add-icon"
           onClick={getPlaylists}
@@ -127,28 +150,45 @@ const Form = ({
         </IconButton>
       </div>
 
-      <TextField
-        name="TrackId"
-        className="text-field"
-        label="Track ID"
-        variant="outlined"
-        size="small"
-        value={info['TrackId']}
-        error={errors['TrackId']}
-        onChange={handleChange}
-      />
+      <div className="track-field">
+        <TextField
+          name="trackUrl"
+          className="text-field"
+          label="Track URL"
+          variant="outlined"
+          size="small"
+          value={info['trackUrl']}
+          error={!!errors['trackUrl']}
+          helperText={errors['trackUrl']}
+          onChange={handleChange}
+        />
 
+        <IconButton
+          name="searchForTrack"
+          disabled={!info['trackUrl']}
+          size="small"
+          className="add-icon"
+          onClick={searchTrack}
+        >
+          <Search />
+        </IconButton>
+      </div>
+
+      {!!track && <TrackInfo track={track} />}
     </ServiceForm>
   );
-};
+}
 const mapStateToProps = (state) => ({
   connections: state.connections,
   playlists: state.spotify.playlists,
+  track: state.spotify.track,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getConnections: () => dispatch(startGetConnections()),
-  getPlaylists: () => dispatch(startGetPlaylists()),
+  getPlaylists: () => dispatch(actions.startGetPlaylists()),
+  getTrackInfo: (track) => dispatch(actions.startGetTrackInfo(track)),
+  setTrackInfo: (track) => dispatch(actions.setTrackInfo(track)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
