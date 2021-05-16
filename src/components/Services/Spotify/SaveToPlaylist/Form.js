@@ -159,7 +159,7 @@ export function Form({
           size="small"
           value={info['trackUrl']}
           error={!!errors['trackUrl']}
-          helperText={'Please enter valid url.'}
+          helperText={errors['trackUrl']}
           onChange={handleChange}
         />
 
