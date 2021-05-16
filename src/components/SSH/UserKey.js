@@ -1,33 +1,42 @@
-import React from 'react';
-import { TextField, Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import { TextField, Button, Popover } from '@material-ui/core';
 import { Info } from '@material-ui/icons';
+import ExtractKey from './ExtractKey';
 
 const UserKey = ({ info, handleChange }) => {
+  const [extractKeyAnchor, setExtractKeyAnchor] = useState(null);
+
+  const openExtractKey = (e) => {
+    setExtractKeyAnchor(e.currentTarget);
+  };
+
+  const handleClose = () => {
+    setExtractKeyAnchor(null);
+  };
+
   return (
     <div className="private-key">
       <TextField
-        disabled
+        value={info['key']}
         name="key"
         className="text-field"
-        label="Private Key"
-        variant="outlined"
         size="small"
-        value={info['key'] ? info['key'].name : ''}
+        label="Private Key"
+        multiline
+        rowsMax={3}
+        variant="outlined"
+        onChange={handleChange}
       />
 
-      <input
-        name="key"
-        accept="*"
-        className="file-input"
-        id="contained-button-file"
-        type="file"
-        onChange={(e) => handleChange(e.target.name, e.target.files[0])}
-      />
-      <label htmlFor="contained-button-file">
-        <Button variant="contained" color="primary" component="span">
-          Upload
-        </Button>
-      </label>
+      <ExtractKey anchor={extractKeyAnchor} setAnchor={setExtractKeyAnchor} />
+      <Button
+        onClick={openExtractKey}
+        variant="contained"
+        color="primary"
+        className="extract-key"
+      >
+        Extract
+      </Button>
     </div>
   );
 };

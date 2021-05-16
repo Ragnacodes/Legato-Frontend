@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Button,
-  Typography,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from '@material-ui/core';
-import { CloseRounded } from '@material-ui/icons';
+import { Dialog, DialogContent } from '@material-ui/core';
 
 import ConnectionForm from './ConnectionForm';
 const ConnectionFormModal = ({ visible, setVisible }) => {
@@ -16,11 +9,10 @@ const ConnectionFormModal = ({ visible, setVisible }) => {
     authType: 0,
     username: '',
   });
-  const handleChange = (name, value) => {
-    console.log(value);
+  const handleChange = (e) => {
     setInfo((prev) => ({
       ...prev,
-      [name]: value,
+      [e.target.name]: e.target.value,
     }));
   };
 

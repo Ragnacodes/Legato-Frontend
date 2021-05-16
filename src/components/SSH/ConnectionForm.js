@@ -22,7 +22,7 @@ const SSHConnection = ({ info, handleChange, handleCancel, handleSave }) => {
         variant="outlined"
         size="small"
         value={info['name']}
-        onChange={(e) => handleChange(e.target.name, e.target.value)}
+        onChange={handleChange}
       />
 
       <TextField
@@ -32,7 +32,7 @@ const SSHConnection = ({ info, handleChange, handleCancel, handleSave }) => {
         variant="outlined"
         size="small"
         value={info['host']}
-        onChange={(e) => handleChange(e.target.name, e.target.value)}
+        onChange={handleChange}
       />
 
       <TextField
@@ -42,7 +42,7 @@ const SSHConnection = ({ info, handleChange, handleCancel, handleSave }) => {
         select
         label="Authorization type"
         value={info['authType']}
-        onChange={(e) => handleChange(e.target.name, e.target.value)}
+        onChange={handleChange}
         variant="outlined"
       >
         <MenuItem value={0}>Username and password</MenuItem>
@@ -56,7 +56,7 @@ const SSHConnection = ({ info, handleChange, handleCancel, handleSave }) => {
         variant="outlined"
         size="small"
         value={info['username']}
-        onChange={(e) => handleChange(e.target.name, e.target.value)}
+        onChange={handleChange}
       />
 
       {info['authType'] === 0 ? (
