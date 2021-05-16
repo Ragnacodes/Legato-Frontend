@@ -44,6 +44,7 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
       disabledSave={false}
       handleSave={handleSave}
       handleCancel={handleCancel}
+      error = {errors}
     >
       
       
