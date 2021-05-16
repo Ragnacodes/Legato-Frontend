@@ -42,28 +42,6 @@
 }
 
 .sketchpad-popover {
-  &.ssh-connection {
-    display: flex;
-    flex-direction: column;
-    .password {
-      width: 100%;
-      .text-field {
-        width: 100%;
-      }
-    }
-    .private-key {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      .file-input {
-        display: none;
-      }
-    }
-  }
-}
-
-.sketchpad-popover {
   &.wh-settings,
   &.ssh-connection {
     .close-icon {
@@ -125,13 +103,23 @@
 }
 
 .wh-queue-details {
+  width: 300px;
   display: flex;
   flex-direction: column;
   padding: 8px 16px;
   .details {
-    font-size: 0.9rem;
     display: flex;
     flex-direction: row;
+    .MuiPaper-root {
+      width: 100%;
+    }
+    .wh-json-data {
+      width: 100%;
+      max-height: 200px;
+      overflow: auto;
+    }
+    .react-json-view {
+    }
     .data-key {
       font-weight: 300;
     }
