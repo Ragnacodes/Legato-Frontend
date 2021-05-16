@@ -110,7 +110,7 @@ export const startUpdateWebhook = (id, data) => {
     const username = getState().auth.username;
     return Axios.put(`/users/${username}/services/webhooks/${id}`, {
       name: data.name,
-      isEnable: data.enable,
+      isEnable: data.isEnable,
     })
       .then((res) => {
         dispatch(updateWebhook(id, data));
