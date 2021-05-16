@@ -78,7 +78,6 @@ const Form = ({
     setAnchorEl(null);
   };
 
-
   return (
     <ServiceForm
       className="execute-command"
@@ -88,6 +87,8 @@ const Form = ({
       handleCancel={handleCancel}
     >
       <TextField
+        multiline
+        rowsMax={5}
         name="command"
         className="text-field"
         label="Command"
@@ -95,18 +96,17 @@ const Form = ({
         size="small"
         value={info['command']}
         onChange={handleChange}
+        helperText="Write each command in a line."
       />
     </ServiceForm>
   );
 };
 const mapStateToProps = (state) => ({
   // connections: state.connections,
-  // playlists: state.spotify.playlists,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   // getConnections: () => dispatch(startGetConnections()),
-  // getPlaylists: () => dispatch(startGetPlaylists()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
