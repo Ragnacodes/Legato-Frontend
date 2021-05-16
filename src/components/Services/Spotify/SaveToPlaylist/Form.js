@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { MenuItem, IconButton, TextField, Popover } from '@material-ui/core';
+import { MenuItem, IconButton, TextField } from '@material-ui/core';
 import { Refresh, Search } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { startGetConnections } from '../../../../actions/connections';
 import * as actions from '../../../../actions/spotify';
 import ServiceForm from '../../../PopoverForm';
 import TrackInfo from './TrackInfo';
-
-const Form = ({
+import { errorNotification } from '../../../Layout/Notification';
+export function Form({
   id,
   data,
   track,
@@ -18,9 +18,7 @@ const Form = ({
   getPlaylists,
   getTrackInfo,
   setTrackInfo,
-}) => {
-  const [trackInfoVisible, setTrackInfoVisible] = useState(null);
-
+}) {
   const [info, setInfo] = useState({
     connection: data.connection || '',
     PlaylistId: data.PlaylistId || '',
@@ -38,6 +36,27 @@ const Form = ({
   useEffect(() => {
     getPlaylists();
   }, [getPlaylists]);
+
+  const ExtractIdFromUrl = (url) => {
+    try {
+      const id = info['trackUrl'].split('spotify.com/track/')[1].split('?')[0];
+      return id;
+    } catch (err) {
+      throw new Error('Please enter valid url.');
+    }
+  };
+
+  const handleError = (err) => {
+    if (err.message === 'Please enter valid url.') {
+      setErrors((prev) => ({
+        ...prev,
+        trackUrl: err.message,
+      }));
+    } else {
+      errorNotification(err.message);
+    }
+    setTrackInfo('');
+  };
 
   const handleChange = (e) => {
     setInfo((prev) => ({
@@ -60,9 +79,7 @@ const Form = ({
 
   const handleSave = () => {
     try {
-      const TrackId = info['trackUrl']
-        .split('spotify.com/track/')[1]
-        .split('?')[0];
+      const TrackId = ExtractIdFromUrl(info['trackUrl']);
       const updates = {
         name: info.name,
         data: { ...data, ...info, TrackId },
@@ -70,30 +87,27 @@ const Form = ({
       editElement(id, updates);
       setAnchorEl(null);
     } catch (err) {
-      setErrors((prev) => ({
-        ...prev,
-        trackUrl: 'Please enter valid url.',
-      }));
-      setTrackInfo('');
-      return;
+      handleError(err);
     }
   };
 
   const searchTrack = (e) => {
-    setTrackInfoVisible(e.currentTarget);
     try {
-      const TrackId = info['trackUrl']
-        .split('spotify.com/track/')[1]
-        .split('?')[0];
-      getTrackInfo(TrackId);
-      setInfo((p) => ({ ...p, TrackId }));
+      const TrackId = ExtractIdFromUrl(info['trackUrl']);
+
+      getTrackInfo(TrackId)
+        .then(() => {
+          setInfo((p) => ({ ...p, TrackId }));
+          setErrors((prev) => ({
+            ...prev,
+            trackUrl: '',
+          }));
+        })
+        .catch((err) => {
+          handleError(err);
+        });
     } catch (err) {
-      setErrors((prev) => ({
-        ...prev,
-        trackUrl: 'Please enter valid url.',
-      }));
-      setTrackInfo('');
-      return;
+      handleError(err);
     }
   };
 
@@ -104,7 +118,7 @@ const Form = ({
     <ServiceForm
       className="save-to-playlist"
       title="Save to a Playlist"
-      disabledSave={false}
+      disabledSave={disabledSave}
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
@@ -126,7 +140,12 @@ const Form = ({
           ))}
         </TextField>
 
-        <IconButton size="small" className="add-icon" onClick={getPlaylists}>
+        <IconButton
+          name="refreshPlaylists"
+          size="small"
+          className="add-icon"
+          onClick={getPlaylists}
+        >
           <Refresh />
         </IconButton>
       </div>
@@ -144,31 +163,21 @@ const Form = ({
           onChange={handleChange}
         />
 
-        <IconButton size="small" className="add-icon" onClick={searchTrack}>
+        <IconButton
+          name="searchForTrack"
+          disabled={!info['trackUrl']}
+          size="small"
+          className="add-icon"
+          onClick={searchTrack}
+        >
           <Search />
         </IconButton>
       </div>
 
-      {/* <Popover
-        open={Boolean(trackInfoVisible)}
-        anchorEl={trackInfoVisible}
-        onClose={() => {
-          setTrackInfoVisible(null);
-        }}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-      > */}
       {!!track && <TrackInfo track={track} />}
-      {/* </Popover> */}
     </ServiceForm>
   );
-};
+}
 const mapStateToProps = (state) => ({
   connections: state.connections,
   playlists: state.spotify.playlists,

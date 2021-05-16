@@ -3,12 +3,11 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-const TrackInfo = ({ track }) => {
+export function TrackInfo({ track }) {
   return (
     <Card variant="outlined">
       <CardContent className="track-info">
-        {/* <div className="track-info"> */}
-        <img src={track.album.images[0].url} />
+        <img src={track.album.images[0].url} alt="track's album cover" />
         <div className="info">
           <div>
             <Typography className="name" variant="h6" component="h2">
@@ -29,11 +28,9 @@ const TrackInfo = ({ track }) => {
             </Typography>
           </div>
         </div>
-
-        {/* </div> */}
       </CardContent>
     </Card>
   );
-};
+}
 
 export default TrackInfo;

@@ -9,14 +9,14 @@ const loginReducer = (state = initialState, action) => {
     case ActionTypes.SET_PLAYLISTS:
       return {
         ...state,
-        playlists: action.payload.playlists
+        playlists: action.payload.playlists,
       };
-      case ActionTypes.SET_TRACK_INFO:
-        return {
-          ...state,
-          track: action.payload.track
-        };
-    
+    case ActionTypes.SET_TRACK_INFO:
+      return {
+        ...state,
+        track: action.payload.track,
+      };
+
     default:
       return state;
   }
