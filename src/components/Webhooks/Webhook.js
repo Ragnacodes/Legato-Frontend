@@ -17,18 +17,15 @@ import WebhookQueue from './WebhookQueue';
 import { errorNotification, successNotification } from '../Layout/Notification';
 import OnClickTextField from '../OnClickTextField';
 import YesNoModal from '../YesNoModal';
-const Webhook = ({ webhook, updateWebhook, deleteWebhook }) => {
+export function Webhook({ webhook, updateWebhook, deleteWebhook }) {
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [queueModal, setQueueModal] = useState(false);
   const [copied, setCopied] = useState(false);
   const [yesNoVisible, setYesNoVisible] = useState(false);
   const handleToggleState = () => {
-    handleUpdateWebhook({ enable: !webhook['active'] });
+    handleUpdateWebhook({ isEnable: !webhook['isEnable'] });
   };
 
-  React.useEffect(() => {
-    console.log('changed');
-  }, [webhook]);
   const mockQueue = [
     {
       id: 1,
@@ -149,13 +146,13 @@ const Webhook = ({ webhook, updateWebhook, deleteWebhook }) => {
           Edit
         </Button>
         <Tooltip
-          title={webhook['active'] ? 'Disable?' : 'Enable?'}
+          title={webhook['isEnable'] ? 'Disable?' : 'Enable?'}
           placement="top"
         >
           <Switch
             edge="end"
             onChange={handleToggleState}
-            checked={webhook['active']}
+            checked={webhook['isEnable']}
             color="primary"
             size="small"
             className="switch"
@@ -195,7 +192,7 @@ const Webhook = ({ webhook, updateWebhook, deleteWebhook }) => {
       </ListItemSecondaryAction>
     </ListItem>
   );
-};
+}
 
 const mapDispatchToProps = (dispatch) => ({
   updateWebhook: (id, data) => dispatch(actions.startUpdateWebhook(id, data)),
