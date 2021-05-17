@@ -5,15 +5,15 @@ import {
   Card,
   CardActions,
   CardContent,
-  Typography
+  Typography,
 } from '@material-ui/core';
 
 const AddDataStructure = ({ setVisible }) => {
   const [dsInfo, setDsInfo] = useState({
     items: [
-      { key: 1, tye: "Array", label: "item1" },
-      { key: 2, type: "Text", label: "item2" },
-      { key: 3, type: "Text", label: "item2" },
+      { key: 1, tye: 'Array', label: 'item1' },
+      { key: 2, type: 'Text', label: 'item2' },
+      { key: 3, type: 'Text', label: 'item2' },
     ],
   });
   const handleDelete = (chipToDelete) => {
@@ -23,7 +23,6 @@ const AddDataStructure = ({ setVisible }) => {
         items: prev.items.filter((chip) => chip.key !== chipToDelete.key),
       };
     });
-    console.log(chipToDelete);
   };
   const handleChangeName = (e) => {
     setDsInfo((prev) => {
@@ -32,7 +31,6 @@ const AddDataStructure = ({ setVisible }) => {
         name: e.target.value,
       };
     });
-    console.log(dsInfo);
   };
   return (
     <div className="ds-popover">
@@ -46,9 +44,9 @@ const AddDataStructure = ({ setVisible }) => {
         label="Data Structure Name"
         variant="outlined"
         size="small"
-        defaultValue={dsInfo["name"]}
-        error={"name" in dsInfo && !dsInfo["name"]}
-        helperText={"name" in dsInfo ? !dsInfo["name"] && "Required." : ""}
+        defaultValue={dsInfo['name']}
+        error={'name' in dsInfo && !dsInfo['name']}
+        helperText={'name' in dsInfo ? !dsInfo['name'] && 'Required.' : ''}
       />
       <Typography variant="h6" component="h2">
         Items

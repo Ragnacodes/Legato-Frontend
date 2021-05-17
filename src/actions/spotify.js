@@ -51,7 +51,6 @@ export const startGetTrackInfo = (id) => {
           }
         } catch (err) {
         } finally {
-          console.log(msg);
           throw new Error(msg);
         }
       });

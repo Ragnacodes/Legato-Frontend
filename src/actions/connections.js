@@ -97,7 +97,6 @@ export const startAddSSHConnection = (info) => {
       })
         .then((res) => {
           dispatch(addConnection(res.data));
-          console.log(res.data);
           return;
         })
         .catch((err) => {
