@@ -87,3 +87,22 @@ export const startEditConnection = (Id, newName) => {
         });
     };
 };
+
+export const startAddSSHConnection = (info) => {
+    return (dispatch, getState) => {
+      const username = getState().auth.username;
+      return Axios.post(`users/${username}/add/connection`, {
+        data: info,
+        name: info.name,
+      })
+        .then((res) => {
+          dispatch(addConnection(res.data));
+          console.log(res.data);
+          return;
+        })
+        .catch((err) => {
+          console.log(err);
+          return;
+        });
+    };
+  };
