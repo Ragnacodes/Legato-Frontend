@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Popover } from '@material-ui/core';
-import { Info } from '@material-ui/icons';
+import { TextField, Button } from '@material-ui/core';
 import ExtractKey from './ExtractKey';
 
 const UserKey = ({ info, handleChange }) => {
@@ -10,25 +9,25 @@ const UserKey = ({ info, handleChange }) => {
     setExtractKeyAnchor(e.currentTarget);
   };
 
-  const handleClose = () => {
-    setExtractKeyAnchor(null);
-  };
-
   return (
     <div className="private-key">
       <TextField
-        value={info['key']}
-        name="key"
+        value={info['sshKey']}
+        name="sshKey"
         className="text-field"
         size="small"
         label="Private Key"
         multiline
         rowsMax={3}
         variant="outlined"
-        onChange={handleChange}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
       />
 
-      <ExtractKey anchor={extractKeyAnchor} setAnchor={setExtractKeyAnchor} />
+      <ExtractKey
+        handleChange={handleChange}
+        anchor={extractKeyAnchor}
+        setAnchor={setExtractKeyAnchor}
+      />
       <Button
         onClick={openExtractKey}
         variant="contained"

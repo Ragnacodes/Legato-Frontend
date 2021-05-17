@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogContent } from '@material-ui/core';
-
 import ConnectionForm from './ConnectionForm';
 const ConnectionFormModal = ({ visible, setVisible }) => {
   const [info, setInfo] = useState({
@@ -9,18 +8,32 @@ const ConnectionFormModal = ({ visible, setVisible }) => {
     authType: 0,
     username: '',
   });
-  const handleChange = (e) => {
+  const handleChange = (name, value) => {
     setInfo((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
   const handleCancel = () => {
     setVisible(false);
+    setInfo({
+      name: 'My SSH connection',
+      host: '',
+      authType: 0,
+      username: '',
+    });
   };
 
-  const handleSave = () => {};
+  const handleSave = () => {
+    setVisible(false);
+    setInfo({
+      name: 'My SSH connection',
+      host: '',
+      authType: 0,
+      username: '',
+    });
+  };
 
   return (
     <Dialog disableBackdropClick open={visible} onClose={handleCancel}>
@@ -30,7 +43,6 @@ const ConnectionFormModal = ({ visible, setVisible }) => {
           handleChange={handleChange}
           handleCancel={handleCancel}
           handleSave={handleSave}
-          handleChange={handleChange}
         />
       </DialogContent>
     </Dialog>

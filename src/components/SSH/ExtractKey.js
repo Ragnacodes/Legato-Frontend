@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Button, Typography, Popover, TextField } from '@material-ui/core';
 import { CloseRounded } from '@material-ui/icons';
-
-const ExtractKey = ({ anchor, setAnchor, info, setInfo }) => {
+import Axios from '../../utils/axiosConfig';
+const ExtractKey = ({ anchor, setAnchor, handleChange }) => {
   const handleCancel = () => {
     setAnchor(null);
     setKeyFile('');
   };
 
   const handleSave = () => {
+    extractKey();
     setAnchor(null);
   };
 
@@ -16,9 +17,27 @@ const ExtractKey = ({ anchor, setAnchor, info, setInfo }) => {
     setAnchor(null);
   };
 
+  const extractKey = () => {
+    const data = new FormData();
+    data.append('File', keyFile);
+    Axios.post('extract/sshkey/file', data)
+      .then((res) => {
+        handleChange('sshKey', res.data['SshKey']);
+      })
+      .catch((err) => {
+        if ('SshKey' in err.response.data) {
+          handleChange('sshKey', err.response.data['SshKey']);
+        }
+      });
+  };
+
+  const saveFile = (e) => {
+    setKeyFile(e.target.files[0]);
+  };
+
   const [keyFile, setKeyFile] = useState('');
 
-  const disabledSave = false;
+  let disabledSave = !keyFile;
   return (
     <Popover
       open={Boolean(anchor)}
@@ -53,7 +72,7 @@ const ExtractKey = ({ anchor, setAnchor, info, setInfo }) => {
             className="file-input"
             id="contained-button-file"
             type="file"
-            onChange={(e) => setKeyFile(e.target.files[0])}
+            onChange={saveFile}
           />
           <label htmlFor="contained-button-file">
             <Button variant="contained" color="primary" component="span">

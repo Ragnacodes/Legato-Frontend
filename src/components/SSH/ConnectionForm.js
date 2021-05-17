@@ -1,18 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { TextField, MenuItem } from '@material-ui/core';
-import { Info } from '@material-ui/icons';
 import PopoverForm from '../PopoverForm';
 import UserPass from './UserPass';
 import UserKey from './UserKey';
-const SSHConnection = ({ info, handleChange, handleCancel, handleSave }) => {
+import { startAddSSHConnection } from '../../actions/connections';
+const SSHConnection = ({
+  info,
+  handleChange,
+  handleCancel,
+  handleSave,
+  addConnection,
+}) => {
+  const handleAddConnection = () => {
+    addConnection(info);
+    handleSave();
+  };
+
+  let disabledSave =
+    !info['name'] ||
+    !info['host'] ||
+    !info['username'] ||
+    !(info['authType'] === 0 && info['password']) ||
+    (info['authType'] === 1 && info['sshKey']);
   return (
     <PopoverForm
       className="ssh-connection "
       title="New SSH Connection"
-      disabledSave={false}
-      handleSave={() => {
-        handleSave(info);
-      }}
+      disabledSave={disabledSave}
+      handleSave={handleAddConnection}
       handleCancel={handleCancel}
     >
       <TextField
@@ -22,7 +38,7 @@ const SSHConnection = ({ info, handleChange, handleCancel, handleSave }) => {
         variant="outlined"
         size="small"
         value={info['name']}
-        onChange={handleChange}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
       />
 
       <TextField
@@ -32,7 +48,7 @@ const SSHConnection = ({ info, handleChange, handleCancel, handleSave }) => {
         variant="outlined"
         size="small"
         value={info['host']}
-        onChange={handleChange}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
       />
 
       <TextField
@@ -42,7 +58,7 @@ const SSHConnection = ({ info, handleChange, handleCancel, handleSave }) => {
         select
         label="Authorization type"
         value={info['authType']}
-        onChange={handleChange}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
         variant="outlined"
       >
         <MenuItem value={0}>Username and password</MenuItem>
@@ -56,7 +72,7 @@ const SSHConnection = ({ info, handleChange, handleCancel, handleSave }) => {
         variant="outlined"
         size="small"
         value={info['username']}
-        onChange={handleChange}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
       />
 
       {info['authType'] === 0 ? (
@@ -68,4 +84,12 @@ const SSHConnection = ({ info, handleChange, handleCancel, handleSave }) => {
   );
 };
 
-export default SSHConnection;
+const mapStateToProps = (state) => ({
+  sshConnections: state.connections,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addConnection: (info) => dispatch(startAddSSHConnection(info)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SSHConnection);

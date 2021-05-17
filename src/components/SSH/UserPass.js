@@ -1,6 +1,5 @@
 import React from 'react';
-import { TextField, Typography } from '@material-ui/core';
-import { Info } from '@material-ui/icons';
+import { TextField } from '@material-ui/core';
 
 const UserPass = ({ info, handleChange }) => {
   return (
