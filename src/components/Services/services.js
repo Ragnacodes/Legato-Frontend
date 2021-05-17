@@ -56,7 +56,7 @@ export const services = {
             secondaryText: 'to see who has joined in your bot.'
         }
     ],
-    sshs: [
+    sshes: [
       {
         subService: '',
         kind: 'action',

@@ -17,5 +17,5 @@ export const nodeTypes = {
     spotifies_watchPlaylist: WatchPlaylist,
     telegrams_sendMessage: Telegram1,
     telegrams_getChatMember: Telegram2,
-    sshs_: SSHExecuteCommand,
+    sshes_: SSHExecuteCommand,
 };
