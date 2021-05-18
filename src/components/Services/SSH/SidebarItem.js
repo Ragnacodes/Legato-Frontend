@@ -7,7 +7,7 @@ const SidebarItem = () => {
     return (
         <CustomSidebarItem
             icon={<FontAwesomeIcon icon={faGithub} className="icon ssh" />}
-            serviceName="sshs"
+            serviceName="sshes"
         />
     );
 };

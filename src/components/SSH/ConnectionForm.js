@@ -1,18 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { TextField, MenuItem } from '@material-ui/core';
-import { Info } from '@material-ui/icons';
 import PopoverForm from '../PopoverForm';
 import UserPass from './UserPass';
 import UserKey from './UserKey';
-const SSHConnection = ({ info, handleChange, handleCancel, handleSave }) => {
+import { startAddSSHConnection, startCheckSSHConnection } from '../../actions/connections';
+const SSHConnection = ({
+  info,
+  handleChange,
+  handleCancel,
+  handleSave,
+  addConnection,
+  checkSSHConnection
+}) => {
+
+  const [loading, setLoading] = useState(false);
+
+  const handleAddConnection = () => {
+    setLoading(true)
+    checkSSHConnection(info)
+    .then((res)=>{
+      if(res){
+        setLoading(false)
+        addConnection(info);
+        handleSave();
+      }
+    })
+    
+  };
+
+  let disabledSave = loading ||
+    !info['name'] ||
+    !info['host'] ||
+    !info['username'] ||
+    !(
+      info['authType']===0 ? info['password'] : info['sshKey']
+    );
+    
   return (
     <PopoverForm
       className="ssh-connection "
       title="New SSH Connection"
-      disabledSave={false}
-      handleSave={() => {
-        handleSave(info);
-      }}
+      disabledSave={disabledSave}
+      handleSave={handleAddConnection}
       handleCancel={handleCancel}
     >
       <TextField
@@ -68,4 +98,14 @@ const SSHConnection = ({ info, handleChange, handleCancel, handleSave }) => {
   );
 };
 
-export default SSHConnection;
+const mapStateToProps = (state) => ({
+  sshConnections: state.connections,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addConnection: (info) => dispatch(startAddSSHConnection(info)),
+  checkSSHConnection: (info) => dispatch(startCheckSSHConnection(info)),
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SSHConnection);

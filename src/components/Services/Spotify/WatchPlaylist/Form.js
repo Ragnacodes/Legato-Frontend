@@ -26,11 +26,6 @@ export function Form({
   });
 
   useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
-  useEffect(() => {
-    console.log(info);
     if (!info['max']) {
       setErrors((prev) => ({
         ...prev,

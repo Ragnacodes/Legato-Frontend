@@ -10,9 +10,6 @@ export function Webhooks({ webhooks, getWebhooks }) {
 
   useEffect(() => {
     setLoading(true);
-
-    console.log(actions.startSetWebhooks);
-
     getWebhooks()
       .then(() => {
         setLoading(false);
@@ -43,7 +40,6 @@ export function Webhooks({ webhooks, getWebhooks }) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     webhooks: state.webhooks.webhooks,
   };

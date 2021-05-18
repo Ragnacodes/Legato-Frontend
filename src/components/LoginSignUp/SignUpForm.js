@@ -43,7 +43,6 @@ export function SignUpForm({
         successNotification('You have created your account. Please log in.');
       })
       .catch((err) => {
-        console.log('errirrr');
         setLoading(false);
         errorNotification(err.message);
       });

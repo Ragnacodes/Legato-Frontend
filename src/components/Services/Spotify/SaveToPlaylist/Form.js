@@ -30,10 +30,6 @@ export function Form({
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
-  useEffect(() => {
     getPlaylists();
   }, [getPlaylists]);
 

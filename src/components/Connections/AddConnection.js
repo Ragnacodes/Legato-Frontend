@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Axios from '../../utils/axiosConfig';
 import {
     List,
@@ -15,8 +15,6 @@ import { CloseRounded } from '@material-ui/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faSpotify, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faTerminal } from '@fortawesome/free-solid-svg-icons';
-import ConnectionFormModal from '../SSH/ConnectionFormModal';
-
 
 const AddConnection = ({addDialog, setAddDialog, createSSHConnetion}) => {
     function onServiceClicked(e, service) {

@@ -10,7 +10,7 @@ const ScenarioNodes = ({nodes}) => {
             {
                 nodes.reverse().map((node, index) => {
                     switch (node) {
-                        case 'sshs':
+                        case 'sshes':
                             return (
                                 <Avatar key={index} className="ssh">
                                     <FontAwesomeIcon icon={faGithub} />

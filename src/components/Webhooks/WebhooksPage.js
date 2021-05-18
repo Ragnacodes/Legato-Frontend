@@ -51,7 +51,6 @@ export function WebhooksPage({ addWebhook }) {
 }
 
 const mapStateToProps = (state) => {
-  console.log('st', state.webhooks);
   return {};
 };
 

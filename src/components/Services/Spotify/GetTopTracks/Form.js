@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import ServiceForm from '../../../PopoverForm';
 const Form = ({ id, data, editElement, setAnchorEl }) => {
   const [info, setInfo] = useState({
@@ -10,7 +9,6 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
     connection: !!data.connection,
   });
 
-
   useEffect(() => {
     if (!!info['connection']) {
       setErrors((prev) => ({
@@ -20,12 +18,10 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
     }
   }, [info]);
 
-
   const handleCancel = () => {
     setAnchorEl(null);
     setInfo({
       connection: data.connection || '',
-
     });
     setErrors({
       connection: !!data.connection,
@@ -44,11 +40,8 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
       disabledSave={false}
       handleSave={handleSave}
       handleCancel={handleCancel}
-      error = {errors}
-    >
-      
-      
-    </ServiceForm>
+      error={errors}
+    ></ServiceForm>
   );
 };
 

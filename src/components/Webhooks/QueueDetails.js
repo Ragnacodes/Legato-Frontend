@@ -3,11 +3,6 @@ import { Typography, Card, CardContent } from '@material-ui/core';
 import ReactJson from 'react-json-view';
 
 const QueueDetails = ({ data }) => {
-  //   const dataNames = ;
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   const CopyToClipboard = (data) => {
     navigator.clipboard.writeText(data);
   };
@@ -22,36 +17,11 @@ const QueueDetails = ({ data }) => {
               src={data}
               name={false}
               enableClipboard={(copy) => {
-                console.log(copy);
                 CopyToClipboard(JSON.stringify(copy.src));
               }}
             />
           </CardContent>
         </Card>
-
-        {/* {Object.keys(data).length ? (
-          <Paper variant="outlined">
-            <Table size="small" aria-label="a dense table">
-              <TableBody>
-                {Object.keys(data).map((k) => (
-                  <TableRow key={k}>
-                    <TableCell
-                      className="data-key"
-                      align="right"
-                      component="th"
-                      scope="row"
-                    >
-                      {k}
-                    </TableCell>
-                    <TableCell align="left">{data[k]}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Paper>
-        ) : (
-          <Typography variant="caption">(empty)</Typography>
-        )} */}
       </div>
     </div>
   );

@@ -1,42 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { MenuItem, IconButton, TextField } from '@material-ui/core';
-import { Refresh, Search } from '@material-ui/icons';
+import { Add } from '@material-ui/icons';
 import { connect } from 'react-redux';
-import { startGetConnections } from '../../../../actions/connections';
+import {
+  startGetConnections,
+  startCheckSSHConnection,
+} from '../../../../actions/connections';
 import ServiceForm from '../../../PopoverForm';
-
+import ConnectionFormPopper from '../../../SSH/ConnectionFormPopper';
 const Form = ({
   id,
   data,
-  connections,
+  sshConnections,
+  getSshConnections,
+  checkSSHConnection,
   editElement,
-  playlists,
   setAnchorEl,
-  getPlaylists,
 }) => {
   const [info, setInfo] = useState({
     connection: data.connection || '',
-    mode: data.mode || 0,
     command: data.command || '',
   });
 
   const [errors, setErrors] = useState({
     connection: !!data.connection,
-    mode: !!data.mode,
     command: !!data.command,
   });
 
+  const [addAnchor, setAddAnchor] = useState(null);
+
   useEffect(() => {
-    console.log(info);
+    getSshConnections();
+  }, [getSshConnections]);
+
+  useEffect(() => {
     if (!info['command']) {
       setErrors((prev) => ({
         ...prev,
-        TrackId: true,
+        command: true,
       }));
     } else {
       setErrors((prev) => ({
         ...prev,
-        TrackId: false,
+        command: false,
       }));
     }
     if (!!info['connection']) {
@@ -58,36 +64,84 @@ const Form = ({
     setAnchorEl(null);
     setInfo({
       connection: data.connection || '',
-      mode: data.mode || 0,
       command: data.command || '',
     });
     setErrors({
-      mode: !!data.mode,
       command: !!data.command,
       connection: !!data.connection,
     });
   };
 
   const handleSave = () => {
+    checkSSHConnection(JSON.parse(info['connection'].Data).data).then(
+      (check) => {
+        if (!check) return;
+      }
+    );
+
     const updates = {
       name: info.name,
-      data: { ...data, ...info },
+      data: {
+        ...data,
+        ...info,
+        commands: info['command'].split('\n'),
+        ...JSON.parse(info['connection'].Data).data,
+      },
     };
-    console.log(updates);
     editElement(id, updates);
     setAnchorEl(null);
   };
 
+  const handleAddConnection = (e) => {
+    setAddAnchor(e.currentTarget);
+  };
+
+  useEffect(() => {
+    console.log(info);
+  }, [info]);
+
+  let disabledSave = errors['connection'] || errors['command'];
 
   return (
     <ServiceForm
       className="execute-command"
       title="Execute a command"
-      disabledSave={errors['command']}
+      disabledSave={disabledSave}
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
+      <div className="connection-field">
+        <TextField
+          name="connection"
+          className="text-field"
+          size="small"
+          select
+          label="Connection"
+          value={info['connection']}
+          onChange={handleChange}
+          variant="outlined"
+        >
+          {sshConnections &&
+            sshConnections.map((c) => {
+              return <MenuItem value={c}>{c.Name}</MenuItem>;
+            })}
+        </TextField>
+
+        <IconButton
+          name="addConnection"
+          size="small"
+          className="add-icon"
+          onClick={handleAddConnection}
+        >
+          <Add />
+        </IconButton>
+      </div>
+
+      <ConnectionFormPopper anchor={addAnchor} setAnchor={setAddAnchor} />
+
       <TextField
+        multiline
+        rowsMax={5}
         name="command"
         className="text-field"
         label="Command"
@@ -95,18 +149,18 @@ const Form = ({
         size="small"
         value={info['command']}
         onChange={handleChange}
+        helperText="Write each command in a line."
       />
     </ServiceForm>
   );
 };
 const mapStateToProps = (state) => ({
-  // connections: state.connections,
-  // playlists: state.spotify.playlists,
+  sshConnections: state.connections.filter((c) => c.Type === 'ssh'),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // getConnections: () => dispatch(startGetConnections()),
-  // getPlaylists: () => dispatch(startGetPlaylists()),
+  getSshConnections: () => dispatch(startGetConnections()),
+  checkSSHConnection: (c) => dispatch(startCheckSSHConnection(c)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
