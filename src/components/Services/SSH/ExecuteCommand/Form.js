@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { MenuItem, IconButton, TextField } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { connect } from 'react-redux';
-// import { getConnection, startsetSSHConnections } from '../../../../actions/ssh';
-import { startGetConnections } from '../../../../actions/connections';
+import { getConnection } from '../../../../actions/ssh';
+import {
+  startGetConnections,
+  startCheckSSHConnection,
+} from '../../../../actions/connections';
 import ServiceForm from '../../../PopoverForm';
 import ConnectionFormPopper from '../../../SSH/ConnectionFormPopper';
 const Form = ({
@@ -12,9 +15,9 @@ const Form = ({
   sshConnections,
   getConnection,
   getSshConnections,
+  checkSSHConnection,
   editElement,
   setAnchorEl,
-  startsetSSHConnections,
 }) => {
   const [info, setInfo] = useState({
     connection: data.connection || '',
@@ -72,24 +75,32 @@ const Form = ({
   };
 
   const handleSave = () => {
-    getConnection(info['connection']).then((res) => {
-      const updates = {
-        name: info.name,
-        data: {
-          ...data,
-          ...info,
-          commands: info['command'].split('\n'),
-          ...JSON.parse(res.data).data,
-        },
-      };
-      editElement(id, updates);
-      setAnchorEl(null);
-    });
+    checkSSHConnection(JSON.parse(info['connection'].Data).data).then(
+      (check) => {
+        if (!check) return;
+      }
+    );
+
+    const updates = {
+      name: info.name,
+      data: {
+        ...data,
+        ...info,
+        commands: info['command'].split('\n'),
+        ...JSON.parse(info['connection'].Data).data,
+      },
+    };
+    editElement(id, updates);
+    setAnchorEl(null);
   };
 
   const handleAddConnection = (e) => {
     setAddAnchor(e.currentTarget);
   };
+
+  useEffect(() => {
+    console.log(info);
+  }, [info]);
 
   let disabledSave = errors['connection'] || errors['command'];
 
@@ -114,7 +125,7 @@ const Form = ({
         >
           {sshConnections &&
             sshConnections.map((c) => {
-              return <MenuItem value={c.Id}>{c.Name}</MenuItem>;
+              return <MenuItem value={c}>{c.Name}</MenuItem>;
             })}
         </TextField>
 
@@ -146,13 +157,13 @@ const Form = ({
   );
 };
 const mapStateToProps = (state) => ({
-  sshConnections: state.connections,
+  sshConnections: state.connections.filter((c) => c.Type === 'ssh'),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // getConnection: (id) => dispatch(getConnection(id)),
+  getConnection: (id) => dispatch(getConnection(id)),
   getSshConnections: () => dispatch(startGetConnections()),
-  // startsetSSHConnections: () => dispatch(startsetSSHConnections()),
+  checkSSHConnection: (c) => dispatch(startCheckSSHConnection(c)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

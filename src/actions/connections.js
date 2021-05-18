@@ -94,6 +94,7 @@ export const startAddSSHConnection = (info) => {
       return Axios.post(`users/${username}/add/connection`, {
         data: info,
         name: info.name,
+        type: 'ssh'
       })
         .then((res) => {
           dispatch(addConnection(res.data));
@@ -102,6 +103,22 @@ export const startAddSSHConnection = (info) => {
         .catch((err) => {
           console.log(err);
           return;
+        });
+    };
+  };
+
+  export const startCheckSSHConnection = (info) => {
+    return (dispatch, getState) => {
+      const type = info['authType']===0? 'password' : 'sshKey';
+      return Axios.post(`check/ssh/${type}`, {
+        ...info
+      })
+        .then((res) => {
+          return true;
+        })
+        .catch((err) => {
+          console.log(err);
+          return false;
         });
     };
   };
