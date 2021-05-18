@@ -6,18 +6,18 @@ const GeneralSettings = ({ handleChange, info }) => {
   return (
     <div className="wh-general-settings">
       <TextField
-        className="edit-wh-field"
+        className="edit-wh-field text-field"
         onChange={(e) => handleChange(e.target.name, e.target.value)}
         name="name"
         label="Webhook Name"
         variant="outlined"
         size="small"
-        defaultValue={info["name"]}
-        error={!info["name"]}
-        helperText={!info["name"] && "Required."}
+        defaultValue={info['name']}
+        error={!info['name']}
+        helperText={!info['name'] && 'Required.'}
       />
       <TextField
-        className="edit-wh-field"
+        className="edit-wh-field text-field"
         onChange={(e) => handleChange(e.target.name, e.target.value)}
         name="ip_restrictions"
         label="IP restrictions"

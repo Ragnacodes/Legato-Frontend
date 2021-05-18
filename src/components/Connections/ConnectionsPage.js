@@ -4,10 +4,13 @@ import Appbar from '../Layout/Appbar';
 import PageTitle from '../Layout/PageTitle';
 import Connections from './Connections';
 import AddConnection from './AddConnection';
-
+import SSHConnectionFormModal from '../SSH/ConnectionFormModal';
 const ConnectionsPage = () => {
     const [addConnection, setAddConnection] = useState(false);
-
+    const [sshConnectionModal, setSshConnectionModal] = useState(false);
+    const createSSHConnetion = () =>{
+        setSshConnectionModal(true);
+    }
     const rightChildren = (
         <Button
         variant="contained"
@@ -31,8 +34,10 @@ const ConnectionsPage = () => {
                         />
 
                         { addConnection &&
-                            <AddConnection addDialog={addConnection} setAddDialog={setAddConnection} />
+                            <AddConnection addDialog={addConnection} setAddDialog={setAddConnection} 
+                            createSSHConnetion={createSSHConnetion}/>
                         }
+                        <SSHConnectionFormModal visible={sshConnectionModal} setVisible={setSshConnectionModal} />
                     </Container>
                 </div>
             </main>

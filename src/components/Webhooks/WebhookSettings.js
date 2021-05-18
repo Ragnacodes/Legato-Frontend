@@ -2,7 +2,7 @@ import React from 'react';
 import { Tab, Tabs } from '@material-ui/core';
 import AdvancedSettings from './AdvancedSettings';
 import GeneralSettings from './GeneralSettings';
-
+import PopoverForm from '../PopoverForm';
 export function TabPanel(props) {
   const { children, value, index, className, ...other } = props;
 
@@ -20,7 +20,13 @@ export function TabPanel(props) {
   );
 }
 
-const WebhookSettings = ({ info, setInfo }) => {
+const WebhookSettings = ({
+  title,
+  info,
+  setInfo,
+  handleCancel,
+  handleSave,
+}) => {
   const [tabValue, setTabValue] = React.useState(0);
 
   const handleChange = (name, value) => {
@@ -33,7 +39,15 @@ const WebhookSettings = ({ info, setInfo }) => {
   };
 
   return (
-    <div>
+    <PopoverForm
+      className="wh-settings "
+      title={title}
+      disabledSave={false}
+      handleSave={() => {
+        handleSave(info);
+      }}
+      handleCancel={handleCancel}
+    >
       <Tabs
         variant="standard"
         value={tabValue}
@@ -51,7 +65,7 @@ const WebhookSettings = ({ info, setInfo }) => {
       <TabPanel value={tabValue} index={1}>
         <AdvancedSettings handleChange={handleChange} info={info} />
       </TabPanel>
-    </div>
+    </PopoverForm>
   );
 };
 
