@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { MenuItem, IconButton, TextField } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { connect } from 'react-redux';
-import { getConnection } from '../../../../actions/ssh';
 import {
   startGetConnections,
   startCheckSSHConnection,
@@ -13,7 +12,6 @@ const Form = ({
   id,
   data,
   sshConnections,
-  getConnection,
   getSshConnections,
   checkSSHConnection,
   editElement,
@@ -161,7 +159,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getConnection: (id) => dispatch(getConnection(id)),
   getSshConnections: () => dispatch(startGetConnections()),
   checkSSHConnection: (c) => dispatch(startCheckSSHConnection(c)),
 });
