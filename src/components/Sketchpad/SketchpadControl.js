@@ -8,7 +8,6 @@ import Axios from '../../utils/axiosConfig';
 const SketchpadControl = ({ elements, editScenario, username, scenario }) => {
 
     const onClicked = () => {
-        console.log(elements);
         Axios.patch(`/users/${username}/scenarios/${scenario.id}`)
     };
     const [showScheduling, setShowScheduling] = useState(false);
