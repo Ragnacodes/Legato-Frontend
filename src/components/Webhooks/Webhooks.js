@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/webhooks';
-import { Container, Divider, List, Paper } from '@material-ui/core';
+import { Divider, List, Paper } from '@material-ui/core';
 import Webhook from './Webhook';
 import NoItem from '../Layout/NoItem';
 import ListLoader from '../Layout/ListLoader';
@@ -26,16 +26,14 @@ export function Webhooks({ webhooks, getWebhooks }) {
   }
 
   return (
-    <Container maxWidth="lg" className="webhooks-list">
-      <List component={Paper}>
-        {webhooks.map((w, index) => (
-          <div key={w.id}>
-            <Webhook key={w} webhook={w} />
-            {index < webhooks.length - 1 && <Divider />}
-          </div>
-        ))}
-      </List>
-    </Container>
+    <List component={Paper}>
+      {webhooks.map((w, index) => (
+        <div key={w.id}>
+          <Webhook key={w} webhook={w} />
+          {index < webhooks.length - 1 && <Divider />}
+        </div>
+      ))}
+    </List>
   );
 }
 
