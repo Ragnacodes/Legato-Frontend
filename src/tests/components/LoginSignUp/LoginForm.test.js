@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import axios from '../__mocks__/axios';
 import { LoginForm } from '../../../components/LoginSignUp/LoginForm';
 import { TextField, Button } from '@material-ui/core';
 
@@ -74,7 +73,6 @@ test('should update data correctly(username)', () => {
 });
 
 test('should login', (done) => {
-  debugger;
   const username = 'i';
   const password = 'iiiiiiii';
   info = {
@@ -87,7 +85,7 @@ test('should login', (done) => {
     preventDefault: () => {},
   });
   setTimeout(() => {
-    expect(Login).toHaveBeenCalled();
+    expect(Login).toBeCalled();
     done();
   }, 0);
 });

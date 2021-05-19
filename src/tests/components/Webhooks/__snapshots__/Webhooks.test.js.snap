@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Webhooks Page correctly with more than one webhook 1`] = `<ListLoader />`;
+
+exports[`should render Webhooks Page correctly with no webhook 1`] = `<ListLoader />`;
+
+exports[`should render Webhooks Page correctly with onr webhook 1`] = `<ListLoader />`;
