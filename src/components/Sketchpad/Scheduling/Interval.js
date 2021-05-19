@@ -19,7 +19,6 @@ const Interval = ({schedulingInfo, setSchedulingInfo, setShowScheduling, id, sch
             systemTime:  new Date().toISOString(),
             interval: schedulingInfo.interval
         }
-        console.log(requestBody);
         schedulingScenario(id, requestBody);
     };
 

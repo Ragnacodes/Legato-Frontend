@@ -4,7 +4,6 @@ const connectionsReducer = (state = [], action) => {
             return action.connections;
 
         case 'ADD_CONNECTION':
-            console.log(action.connection);
             return [...state, action.connection];
 
         case 'REMOVE_CONNECTION':
