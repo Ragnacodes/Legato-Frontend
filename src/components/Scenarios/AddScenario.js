@@ -21,7 +21,7 @@ const AddScenario = ({ addScenario }) => {
     };
 
     if (id) {
-        return <Redirect to={`/sketchpad/${id}`} />;
+        return <Redirect to={`/scenarios/${id}/sketchpad`} />;
     }
 
     else {
