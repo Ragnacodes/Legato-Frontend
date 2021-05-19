@@ -14,9 +14,9 @@ import {
 import { CloseRounded } from '@material-ui/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faSpotify, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faTerminal } from '@fortawesome/free-solid-svg-icons';
 
-
-const AddConnection = ({addDialog, setAddDialog}) => {
+const AddConnection = ({addDialog, setAddDialog, createSSHConnetion}) => {
     function onServiceClicked(e, service) {
         setAddDialog(false);
         Axios.get(`user/connection/access/token/${service}`)
@@ -27,6 +27,12 @@ const AddConnection = ({addDialog, setAddDialog}) => {
                 console.log(err);
             });
     };
+
+    function handleCreateSSH() {
+        setAddDialog(false);
+        createSSHConnetion();
+    }
+
     return (
         <Dialog
             disableBackdropClick
@@ -70,6 +76,12 @@ const AddConnection = ({addDialog, setAddDialog}) => {
                             <FontAwesomeIcon icon={faDiscord} />
                         </ListItemIcon>
                         <ListItemText primary="Discord" />
+                    </ListItem>
+                    <ListItem button onClick={handleCreateSSH}>
+                        <ListItemIcon style={{fontSize:30}}>
+                            <FontAwesomeIcon icon={faTerminal} />
+                        </ListItemIcon>
+                        <ListItemText primary="SSH" />
                     </ListItem>
                 </List>
             </DialogContent>

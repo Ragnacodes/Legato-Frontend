@@ -1,82 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/webhooks';
-import { Container, Divider, Button, List } from '@material-ui/core';
-import Appbar from '../Layout/Appbar';
-import PageTitle from '../Layout/PageTitle';
+import { Container, Divider, List, Paper } from '@material-ui/core';
 import Webhook from './Webhook';
-import { errorNotification, successNotification } from '../Layout/Notification';
-import WebhookSettingsModal from './WebhookSettingsModal';
 import NoItem from '../Layout/NoItem';
-const Webhooks = ({ webhooks, getWebhooks, addWebhook }) => {
-  const [addModalVisible, setAddModalVisible] = useState(false);
+import ListLoader from '../Layout/ListLoader';
+export function Webhooks({ webhooks, getWebhooks }) {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     getWebhooks()
-      .then(() => {})
-      .catch(() => {});
+      .then(() => {
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   }, [getWebhooks]);
 
-  const addNewWebhook = (data) => {
-    addWebhook(data)
-      .then((res) => {
-        successNotification(res.message);
-      })
-      .catch((err) => {
-        errorNotification(err.message);
-      });
-  };
+  if (loading) {
+    return <ListLoader />;
+  } else if (!webhooks.length) {
+    return <NoItem name="Webhook" />;
+  }
 
   return (
-    <>
-      <Appbar
-        rightChildren={
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => setAddModalVisible(true)}
-          >
-            Add Webhook
-          </Button>
-        }
-        leftChildren={<PageTitle title="Webhooks" />}
-      />
-      <main className="main">
-        <div className="app-bar-spacer" />
-        <div className="content-container">
-          <WebhookSettingsModal
-            webhook={{ name: 'New Webhook' }}
-            visible={addModalVisible}
-            setVisible={setAddModalVisible}
-            handleSave={addNewWebhook}
-          />
-          <Container maxWidth="lg" className="webhooks-list">
-            {webhooks.length ? (
-              <List>
-                {webhooks.map((w) => (
-                  <div key={w.id}>
-                    <Webhook key={w} webhook={w} />
-                    <Divider />
-                  </div>
-                ))}
-              </List>
-            ) : (
-              <NoItem />
-            )}
-          </Container>
-        </div>
-      </main>
-    </>
+    <Container maxWidth="lg" className="webhooks-list">
+      <List component={Paper}>
+        {webhooks.map((w, index) => (
+          <div key={w.id}>
+            <Webhook key={w} webhook={w} />
+            {index < webhooks.length - 1 && <Divider />}
+          </div>
+        ))}
+      </List>
+    </Container>
   );
-};
+}
 
-const mapStateToProps = (state) => ({
-  webhooks: state.webhooks.webhooks,
-  username: state.auth.username,
-});
+const mapStateToProps = (state) => {
+  return {
+    webhooks: state.webhooks.webhooks,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   getWebhooks: () => dispatch(actions.startSetWebhooks()),
-  addWebhook: (data) => dispatch(actions.startAddWebhook(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Webhooks);

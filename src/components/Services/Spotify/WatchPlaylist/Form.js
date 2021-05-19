@@ -5,7 +5,14 @@ import { Refresh } from '@material-ui/icons';
 import ServiceForm from '../../../PopoverForm';
 import { startGetPlaylists } from '../../../../actions/spotify';
 
-const Form = ({ id, data, playlists, getPlaylists, editElement, setAnchorEl }) => {
+export function Form({
+  id,
+  data,
+  playlists,
+  getPlaylists,
+  editElement,
+  setAnchorEl,
+}) {
   const [info, setInfo] = useState({
     connection: data.connection || '',
     playlist: data.playlist || '',
@@ -19,11 +26,6 @@ const Form = ({ id, data, playlists, getPlaylists, editElement, setAnchorEl }) =
   });
 
   useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
-  useEffect(() => {
-    console.log(info);
     if (!info['max']) {
       setErrors((prev) => ({
         ...prev,
@@ -88,8 +90,6 @@ const Form = ({ id, data, playlists, getPlaylists, editElement, setAnchorEl }) =
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
-     
-
       <div className="playlist-field">
         <TextField
           name="playlist"
@@ -108,11 +108,7 @@ const Form = ({ id, data, playlists, getPlaylists, editElement, setAnchorEl }) =
           ))}
         </TextField>
 
-        <IconButton
-          size="small"
-          className="add-icon"
-          onClick={getPlaylists}
-        >
+        <IconButton size="small" className="add-icon" onClick={getPlaylists}>
           <Refresh />
         </IconButton>
       </div>
@@ -131,7 +127,7 @@ const Form = ({ id, data, playlists, getPlaylists, editElement, setAnchorEl }) =
       />
     </ServiceForm>
   );
-};
+}
 
 const mapStateToProps = (state) => ({
   playlists: state.spotify.playlists,

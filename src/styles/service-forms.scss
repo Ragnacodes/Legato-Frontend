@@ -2,7 +2,9 @@
   &.custom-webhook,
   &.webhook-response,
   &.watch-playlist,
-  &.save-to-playlist {
+  &.save-to-playlist,
+  &.execute-command,
+  &.wh-settings {
     display: flex;
     flex-direction: column;
   }
@@ -17,8 +19,11 @@
   }
   &.custom-webhook,
   &.watch-playlist,
+  &.execute-command,
   &.save-to-playlist {
-    .connection-field,.playlist-field,  {
+    .connection-field,
+    .playlist-field,
+    .track-field {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
@@ -33,8 +38,50 @@
         margin-top: 16px;
         margin-right: 2px;
       }
+      > .search-icon {
+        margin-top: 16px;
+        padding: 3px;
+      }
     }
   }
+}
+
+.track-info {
+  // &.MuiCardContent-root {
+  padding: 10px !important;
+  // }
+  height: 140px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 150px;
+  }
+
+  h2.name,
+  p.album {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  img {
+    width: 120px;
+    height: auto;
+    margin-right: 10px;
+  }
+}
+
+.create-ssh {
+  display: flex;
+  flex-direction: column;
 }
 
 .custom-helper-tooltip {

@@ -71,7 +71,6 @@ const Form = ({
   }, [info]);
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setInfo((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -100,10 +99,10 @@ const Form = ({
     setAnchorEl(null);
   };
 
-  const FindWebhook = (id) => {
-    if (id === '') return {};
-    return webhooks.find((w) => w.id === id);
-  };
+  // const FindWebhook = (id) => {
+  //   if (id === '') return {};
+  //   return webhooks.find((w) => w.id === id);
+  // };
 
   const HelperTextComponent = React.forwardRef((props, ref) => {
     return (
@@ -117,7 +116,11 @@ const Form = ({
         }}
       >
         <span
-          onClick={() => CopyToClipboard(`http://localhost:8080/api/services/webhook/${data.url}`)}
+          onClick={() =>
+            CopyToClipboard(
+              `http://localhost:8080/api/services/webhook/${data.url}`
+            )
+          }
           ref={ref}
           {...props}
         />
@@ -192,8 +195,6 @@ const Form = ({
           handleSave={addNewWebhook}
         />
       </div>
-
-      
     </ServiceForm>
   );
 };

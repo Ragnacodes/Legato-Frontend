@@ -12,7 +12,6 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
   });
 
   useEffect(() => {
-    console.log(info);
     if (info['status'] < 100) {
       setErrors((prev) => ({
         ...prev,
@@ -27,10 +26,23 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
   }, [info]);
 
   const handleChange = (e) => {
+    let value = e.target.value;
+    if (e.target.name === 'body') {
+      value = handleJson(value);
+    }
     setInfo((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     }));
+  };
+
+  const handleJson = (text) => {
+    try {
+      const parsed = JSON.parse(text);
+      return JSON.stringify(parsed, undefined, 4);
+    } catch (err) {
+      return text;
+    }
   };
 
   const handleCancel = () => {
@@ -77,7 +89,7 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
         size="small"
         label="Body"
         multiline
-        rows={3}
+        rowsMax={5}
         variant="outlined"
         onChange={handleChange}
       />
