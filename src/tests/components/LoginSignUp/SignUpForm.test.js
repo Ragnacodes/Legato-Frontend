@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { SignUpForm } from '../../../components/LoginSignUp/SignUpForm';
 import { TextField, Button } from '@material-ui/core';
-import axios from '../__mocks__/axios';
 
 let wrapper, props, validateInfo, updateInfo, info, errors, Signup;
 beforeEach(() => {
@@ -88,8 +87,7 @@ test('should update data correctly(email)', () => {
   expect(validateInfo).toHaveBeenCalledWith('email', email);
 });
 
-test('should login', (done) => {
-  debugger;
+test('should signup', (done) => {
   const username = 'i';
   const password = 'iiiiiiii';
   const email = 'email@email.com';
@@ -108,7 +106,7 @@ test('should login', (done) => {
   });
 
   setTimeout(() => {
-    expect(Signup).toHaveBeenCalled();
+    expect(Signup).toBeCalled();
     done();
   }, 0);
 });

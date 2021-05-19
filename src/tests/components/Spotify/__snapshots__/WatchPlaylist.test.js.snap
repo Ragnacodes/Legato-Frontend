@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render watch playlist form correctly 1`] = `
+<PopoverForm
+  className="watch-playlist"
+  disabledSave={false}
+  handleCancel={[Function]}
+  handleSave={[Function]}
+  title="Watch a Playlist"
+>
+  <div
+    className="playlist-field"
+  >
+    <WithStyles(ForwardRef(TextField))
+      className="text-field"
+      label="Playlist"
+      name="playlist"
+      onChange={[Function]}
+      select={true}
+      size="small"
+      value=""
+      variant="outlined"
+    />
+    <WithStyles(ForwardRef(IconButton))
+      className="add-icon"
+      onClick={[MockFunction]}
+      size="small"
+    >
+      <Memo([object Object]) />
+    </WithStyles(ForwardRef(IconButton))>
+  </div>
+  <WithStyles(ForwardRef(TextField))
+    className="text-field"
+    error={false}
+    helperText="We recommend that you set a low value."
+    label="Maximum number of tracks"
+    name="max"
+    onChange={[Function]}
+    size="small"
+    type="number"
+    value={2}
+    variant="outlined"
+  />
+</PopoverForm>
+`;

@@ -14,6 +14,7 @@ import {
     Delete,
     AccessTime,
     OfflineBoltOutlined,
+    History
 } from '@material-ui/icons';
 import ScenarioNodes from './ScenarioNodes';
 
@@ -27,7 +28,7 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
     };
 
     return (
-        <ListItem className="scenario" button component={NavLink} to={`/sketchpad/${id}`}>
+        <ListItem className="scenario" button component={NavLink} to={`/scenarios/${id}/sketchpad`}>
             <ScenarioNodes nodes={nodes} />
 
             <ListItemText primary={name} className="name" />
@@ -56,9 +57,20 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
                     />
                 </Tooltip>
 
-                <Tooltip title="Delete scenario." placement="right">
+                <Tooltip title="Delete scenario." placement="top">
                     <IconButton aria-label="delete" className="delete" color="primary" onClick={handleRemoveScenario}>
                         <Delete fontSize="small" />
+                    </IconButton>
+                </Tooltip>
+
+                <Tooltip title="History" placement="right">
+                    <IconButton
+                        aria-label="scenario history"
+                        color="secondary"
+                        component={NavLink}
+                        to={`/scenarios/${id}/history`}
+                    >
+                        <History fontSize="small" />
                     </IconButton>
                 </Tooltip>
             </ListItemSecondaryAction>

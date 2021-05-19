@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { startGetScenarios } from '../../actions/scenarios';
-import { List } from '@material-ui/core';
+import { List, Paper } from '@material-ui/core';
 import NoItem from '../Layout/NoItem';
 import ListLoader from '../Layout/ListLoader';
 import Scenario from './Scenario';
@@ -29,7 +29,7 @@ const Scenarios = ({ scenarios, getScenarios }) => {
   }
 
   return (
-    <List>
+    <List component={Paper}>
     {
       scenarios.map((scenario, index) => {
         return <Scenario key={index} {...scenario} />;
