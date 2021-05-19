@@ -5,7 +5,7 @@ test('should set default state for connections', () => {
     type: '@@INIT',
   };
   const state = connectionsReducer(undefined, action);
-  expect(state).toBeNull();
+  expect(state).toEqual([]);
 });
 
 test('should set connections', () => {
