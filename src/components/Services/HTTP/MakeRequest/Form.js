@@ -7,7 +7,7 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
         name: data.name || '',
         url: data.url || '',
         method: data.method || 'get',
-        body: JSON.stringify(data.body) || ''
+        body: data.body ? JSON.stringify(data.body) : ''
     });
 
     const handleChange = (e) => {
@@ -21,7 +21,9 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
         setAnchorEl(null);
     };
     const handleSave = () => {
-        info.body = JSON.parse(info.body);
+        if(info.body.length > 0) {
+            info.body = JSON.parse(info.body);
+        }
         const updates = {
             name: info.name,
             data: { ...data, ...info }
@@ -44,7 +46,7 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
                 label="URL"
                 type="text"
                 variant="outlined"
-                size="small"
+                size="medium"
                 onChange={handleChange}
                 helperText="write the URL of your HTTP request here."
                 multiline
