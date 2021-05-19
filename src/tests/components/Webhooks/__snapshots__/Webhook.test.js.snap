@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Webhook component correctly 1`] = `
+<WithStyles(ForwardRef(ListItem))
+  className="wh-item"
+  key="[object Object]"
+>
+  <WebhookSettingsModal
+    handleSave={[Function]}
+    setVisible={[Function]}
+    visible={false}
+    webhook={
+      Object {
+        "id": 1,
+        "isEnable": true,
+        "name": "name",
+        "url": "url",
+      }
+    }
+  />
+  <WithStyles(ForwardRef(ListItemText))
+    className="name"
+    primary={
+      <OnClickTextField
+        defaultText="name"
+        divClassName=""
+        handleCancel={[Function]}
+        handleSave={[Function]}
+        textfieldSize="small"
+      />
+    }
+    secondary={
+      <WithStyles(ForwardRef(Tooltip))
+        arrow={true}
+        classes={
+          Object {
+            "popper": "custom-helper-tooltip",
+          }
+        }
+        onClose={[Function]}
+        placement="bottom-start"
+        title="Copy to Clipboard"
+      >
+        <WithStyles(ForwardRef(Link))
+          onClick={[Function]}
+        >
+          url
+        </WithStyles(ForwardRef(Link))>
+      </WithStyles(ForwardRef(Tooltip))>
+    }
+  />
+  <WithStyles(ForwardRef(ListItemSecondaryAction))
+    className="wh-actions"
+  >
+    <WithStyles(ForwardRef(Button))
+      className="edit-button"
+      color="primary"
+      disableElevation={true}
+      onClick={[Function]}
+      size="small"
+      startIcon={<Memo />}
+      variant="contained"
+    >
+      Edit
+    </WithStyles(ForwardRef(Button))>
+    <WithStyles(ForwardRef(Tooltip))
+      placement="top"
+      title="Disable?"
+    >
+      <WithStyles(ForwardRef(Switch))
+        checked={true}
+        className="switch"
+        color="primary"
+        edge="end"
+        onChange={[Function]}
+        size="small"
+      />
+    </WithStyles(ForwardRef(Tooltip))>
+    <WithStyles(ForwardRef(IconButton))
+      className="queue-button"
+      color="primary"
+      onClick={[Function]}
+      size="small"
+      variant="contained"
+    >
+      <Memo([object Object]) />
+    </WithStyles(ForwardRef(IconButton))>
+    <WebhookQueue
+      queue={
+        Array [
+          Object {
+            "created_at": "Fri Apr 09 2021 22:44:31",
+            "data": Object {},
+            "id": 1,
+            "scenarios": "12345",
+            "size": "1B",
+            "type": "webhook",
+          },
+          Object {
+            "created_at": "Fri Apr 09 2021 22:44:31",
+            "data": Object {
+              "key": "value",
+            },
+            "id": 2,
+            "scenarios": "12345",
+            "size": "2B",
+            "type": "webhook",
+          },
+          Object {
+            "created_at": "Fri Apr 09 2021 22:44:31",
+            "data": Object {
+              "key": "value",
+              "key2": "value2",
+            },
+            "id": 3,
+            "scenarios": "12345",
+            "size": "3B",
+            "type": "webhook",
+          },
+        ]
+      }
+      setVisible={[Function]}
+      visible={false}
+    />
+    <WithStyles(ForwardRef(Tooltip))
+      placement="right"
+      title="Delete Webhook"
+    >
+      <WithStyles(ForwardRef(IconButton))
+        aria-label="delete"
+        className="delete-button"
+        color="primary"
+        onClick={[Function]}
+      >
+        <Memo([object Object])
+          fontSize="small"
+        />
+      </WithStyles(ForwardRef(IconButton))>
+    </WithStyles(ForwardRef(Tooltip))>
+    <YesNoModal
+      handleNo={[Function]}
+      handleYes={[Function]}
+      setVisible={[Function]}
+      text="Delete name?"
+      visible={false}
+    />
+  </WithStyles(ForwardRef(ListItemSecondaryAction))>
+</WithStyles(ForwardRef(ListItem))>
+`;

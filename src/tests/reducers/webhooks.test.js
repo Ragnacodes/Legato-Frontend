@@ -1,9 +1,9 @@
-import webhookReducer from "../../reducers/webhooks";
-import { ActionTypes } from "../../actions/webhooks";
+import webhookReducer from '../../reducers/webhooks';
+import { ActionTypes } from '../../actions/webhooks';
 
-test("should set default state for login", () => {
+test('should set default state for webhooks', () => {
   const action = {
-    type: "@@INIT",
+    type: '@@INIT',
   };
   const state = webhookReducer(undefined, action);
   expect(state).toEqual({
@@ -11,17 +11,19 @@ test("should set default state for login", () => {
   });
 });
 
-test("should set webhooks", () => {
+test('should set webhooks', () => {
   const data = [
     {
-      name: "one",
-      active: true,
-      url: "url/1",
+      name: 'one',
+      isEnable: true,
+      url: 'url/1',
+      id: 1,
     },
     {
-      name: "two",
-      active: false,
-      url: "url/2",
+      name: 'two',
+      isEnable: false,
+      url: 'url/2',
+      id: 2,
     },
   ];
   const action = {
@@ -36,8 +38,7 @@ test("should set webhooks", () => {
     data.map((wh) => {
       return {
         ...wh,
-        id: wh.url.split("/").reverse()[0],
-        ip_restrictions: "",
+        ip_restrictions: '',
         get_request_headers: false,
         get_request_http: false,
         json_passthrough: false,
@@ -46,22 +47,78 @@ test("should set webhooks", () => {
   );
 });
 
-test("should update webhook's name", () => {
-  const id = "1";
+test('should add webhook', () => {
   const webhooks = [
     {
-      name: "one",
-      active: true,
-      url: "url/1",
+      name: 'one',
+      isEnable: true,
+      url: 'url/1',
+      id: 1,
     },
     {
-      name: "two",
-      active: false,
-      url: "url/2",
+      name: 'two',
+      isEnable: false,
+      url: 'url/2',
+      id: 2,
+    },
+  ];
+  const newWebhook = {
+    name: 'three',
+    isEnable: false,
+    url: 'url/3',
+    id: 3,
+  };
+  const action = {
+    type: ActionTypes.ADD_WEBHOOK,
+    payload: {
+      webhook: newWebhook,
+    },
+  };
+  const state = webhookReducer({ webhooks }, action);
+  expect(state.webhooks).toEqual([
+    {
+      name: 'three',
+      isEnable: false,
+      url: 'url/3',
+      id: 3,
+      ip_restrictions: '',
+      get_request_headers: false,
+      get_request_http: false,
+      json_passthrough: false,
+    },
+    {
+      name: 'one',
+      isEnable: true,
+      url: 'url/1',
+      id: 1,
+    },
+    {
+      name: 'two',
+      isEnable: false,
+      url: 'url/2',
+      id: 2,
+    },
+  ]);
+});
+
+test("should update webhook's name", () => {
+  const id = 1;
+  const webhooks = [
+    {
+      name: 'one',
+      isEnable: true,
+      url: 'url/1',
+      id: 1,
+    },
+    {
+      name: 'two',
+      isEnable: false,
+      url: 'url/2',
+      id: 2,
     },
   ];
   const data = {
-    name: "new one",
+    name: 'new one',
   };
   const action = {
     type: ActionTypes.UPDATE_WEBHOOK,
@@ -71,14 +128,53 @@ test("should update webhook's name", () => {
     },
   };
   const state = webhookReducer({ webhooks }, action);
-  expect(state.webhooks).toEqual(
-    webhooks.map((w) => {
-      return w.id === id
-        ? {
-            ...w,
-            ...data,
-          }
-        : w;
-    })
-  );
+  expect(state.webhooks).toEqual([
+    {
+      name: 'new one',
+      isEnable: true,
+      url: 'url/1',
+      id: 1,
+    },
+    {
+      name: 'two',
+      isEnable: false,
+      url: 'url/2',
+      id: 2,
+    },
+  ]);
+});
+
+test('should delete webhook by id', () => {
+  const id = 1;
+  const webhooks = [
+    {
+      name: 'one',
+      isEnable: true,
+      url: 'url/1',
+      id: 1,
+    },
+    {
+      name: 'two',
+      isEnable: false,
+      url: 'url/2',
+      id: 2,
+    },
+  ];
+
+  const action = {
+    type: ActionTypes.DELETE_WEBHOOK,
+    payload: {
+      id: id,
+    },
+  };
+
+  const state = webhookReducer({ webhooks }, action);
+  expect(state.webhooks).toEqual([
+    {
+      name: 'two',
+      isEnable: false,
+      url: 'url/2',
+      id: 2,
+    },
+  ]);
 });
