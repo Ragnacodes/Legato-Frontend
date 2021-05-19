@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/webhooks';
-import { Button } from '@material-ui/core';
+import { Button, Container } from '@material-ui/core';
 import Appbar from '../Layout/Appbar';
 import PageTitle from '../Layout/PageTitle';
 import { errorNotification, successNotification } from '../Layout/Notification';
@@ -43,7 +43,10 @@ export function WebhooksPage({ addWebhook }) {
             setVisible={setAddModalVisible}
             handleSave={addNewWebhook}
           />
-          <Webhooks />
+          <Container maxWidth="lg" className="webhooks-list">
+            <Webhooks />
+          </Container>
+
         </div>
       </main>
     </>

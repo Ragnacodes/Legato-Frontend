@@ -66,7 +66,7 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
                 <Tooltip title="History" placement="right">
                     <IconButton
                         aria-label="scenario history"
-                        color="secondary"
+                        color="primary"
                         component={NavLink}
                         to={`/scenarios/${id}/history`}
                     >
