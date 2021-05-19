@@ -1,4 +1,4 @@
-const connectionsReducer = (state = null, action) => {
+const connectionsReducer = (state = [], action) => {
     switch (action.type) {
         case 'GET_CONNECTIONS':
             return action.connections;

@@ -1,12 +1,11 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import Http from '../../../styles/assets/http.svg';
 import CustomSidebarItem from '../CustomSidebarItem';
 
 const SidebarItem = () => {
     return (
         <CustomSidebarItem
-            icon={<FontAwesomeIcon icon={faGithub} className="icon http" />}
+            icon={<img src={Http} alt="http-logo" width="35" className="icon http" />}
             serviceName="https"
         />
     );

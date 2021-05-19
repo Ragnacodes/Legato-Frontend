@@ -1,12 +1,11 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import Terminal from '../../../styles/assets/terminal.svg';
 import CustomSidebarItem from '../CustomSidebarItem';
 
 const SidebarItem = () => {
     return (
         <CustomSidebarItem
-            icon={<FontAwesomeIcon icon={faGithub} className="icon ssh" />}
+            icon={<img src={Terminal} alt="ssh-logo" width="35" className="icon ssh" />}
             serviceName="sshes"
         />
     );
