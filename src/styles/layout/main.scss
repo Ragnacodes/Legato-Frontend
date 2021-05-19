@@ -25,6 +25,22 @@
     padding: $lg-size 0;
 }
 
+.margin-v {
+    margin: $sm-size 0 !important;
+}
+
+.margin-v2 {
+    margin: $md-size 0 !important;
+}
+
+.padding {
+    padding: $md-size;
+}
+
+.full-height {
+    height: 100%;
+}
+
 .centered-container {
     display: flex;
     flex-direction: column;
