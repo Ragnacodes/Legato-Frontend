@@ -1,10 +1,6 @@
 import React from 'react';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import CustomAccordion from './CustomAccordion';
-
-const HiddenPaper = () => {
-    return <Paper />
-};
 
 const Accordions = ({ logs }) => {
     return (

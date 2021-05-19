@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Paper, Divider, Grid, Container } from '@material-ui/core';
+import { Typography, Paper, Divider, Container } from '@material-ui/core';
 import LabelValue from './LabelValue';
 
 const Info = ({ history }) => {
