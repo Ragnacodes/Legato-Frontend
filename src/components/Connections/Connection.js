@@ -15,7 +15,7 @@ import { Delete } from '@material-ui/icons'
 import OnClickTextField from '../OnClickTextField';
 
 
-const Connection = ({ Id, Name, Token_type, removeConnection, editConnection }) => {
+const Connection = ({ Id, Name, Data, removeConnection, editConnection }) => {
   const handleEditConnection = (newName) => {
     editConnection(Id, newName);
   };
@@ -24,7 +24,9 @@ const Connection = ({ Id, Name, Token_type, removeConnection, editConnection }) 
     removeConnection(Id);
   };
 
-  const switchCase = (Token_type) => {
+  const switchCase = (Data) => {
+    const data = JSON.parse(Data);
+    const Token_type = data.data.Token_type;
     switch (Token_type) {
       case 'github':
         return (
@@ -56,7 +58,7 @@ const Connection = ({ Id, Name, Token_type, removeConnection, editConnection }) 
   }
   return (
     <ListItem>
-      { switchCase(Token_type)}
+      { switchCase(Data)}
 
       <ListItemText primary={<OnClickTextField
         defaultText={Name}

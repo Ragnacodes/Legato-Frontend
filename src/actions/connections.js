@@ -35,9 +35,9 @@ export const startAddConnection = () => {
     const name = "my " + token_type;
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.post(`users/${username}/add/connection`,{"Name":name, 
-                                                             "Token_type": token_type,
-                                                             "Token": token})
+        return Axios.post(`users/${username}/add/connection`,{"Name":name, "Data" : {"Token_type": token_type,
+                                                                                     "Token": token}})
+                                                                       
             .then(res => {
                 dispatch(addConnection(res.data));
              })
