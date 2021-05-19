@@ -34,7 +34,7 @@ const HistoryPage = ({ scenario, history, logs }) => {
                 <div className="app-bar-spacer" />
                 <div className="content-container">
                     <Container maxWidth="lg">
-                        <History loading={loading} logs={logs} />
+                        <History loading={loading} history={history} logs={logs} />
                     </Container>
                 </div>
             </main>
