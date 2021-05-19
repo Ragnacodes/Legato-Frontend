@@ -11,6 +11,7 @@ export const elementsBackToFront = (nodesBack) => {
                 name: nodeBack.name,
                 service: nodeBack.type,
                 subService: nodeBack.subType,
+                parentId: nodeBack.parentId,
                 ...nodeBack.data
             }
         };

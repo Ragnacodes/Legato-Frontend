@@ -177,10 +177,11 @@ export const startRemoveNode = (id) => {
 };
 
 export const startEditElement = (id, updates) => {
-    const body = JSON.stringify(updates);
     return (dispatch, getState) => {
+        const parentId = getState().sketchpad.elements.find(element => element.id === id).data.parentId;
         const username = getState().auth.username;
         const scenarioID = getState().sketchpad.scenario.id;
+        const body = JSON.stringify({parentId, ...updates});
         return Axios.put(`/users/${username}/scenarios/${scenarioID}/nodes/${id}`, body)
         .then(res => {
             if (!updates.hasOwnProperty('parentId')) {
