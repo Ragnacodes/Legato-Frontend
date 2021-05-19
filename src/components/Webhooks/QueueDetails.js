@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Typography, Card, CardContent } from '@material-ui/core';
 import ReactJson from 'react-json-view';
 

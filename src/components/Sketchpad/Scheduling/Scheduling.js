@@ -19,8 +19,10 @@ const Scheduling = ({ showScheduling, setShowScheduling, scenario}) => {
     const [schedulingInfo, setSchedulingInfo] = useState({});
 
     useEffect(() => {
-        var date = new Date(scenario.lastScheduledTime);
-        var isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace('Z','');
+        if(scenario.lastScheduledTime) {
+            var date = new Date(scenario.lastScheduledTime);
+            var isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace('Z','');
+        }
         setSchedulingInfo({
             plan: scenario.interval === 0 ? 'once' : 'interval',
             interval: scenario.interval || 0,

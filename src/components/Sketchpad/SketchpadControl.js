@@ -13,10 +13,6 @@ const SketchpadControl = ({ elements, editScenario, username, scenario }) => {
     };
     const [showScheduling, setShowScheduling] = useState(false);
     
-    // const handleToggleActvie = () => {
-    //     editScenario(scenario.id, { isActive: !scenario.isActive });
-    // };
-    
     return (
         <div className="control-box">
             <Button
@@ -41,16 +37,6 @@ const SketchpadControl = ({ elements, editScenario, username, scenario }) => {
             >
                 Run
             </Button>
-            {/* <Tooltip title={`Turn ${scenario.isActive ? "off" : "on"}`} placement="top">
-                <Switch
-                    edge="end"
-                    onChange={handleToggleActvie}
-                    checked={scenario.isActive}
-                    color="primary"
-                    size="large"
-                    className="switch"
-                />
-            </Tooltip> */}
         </div>
     );
 };

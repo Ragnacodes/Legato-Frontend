@@ -57,7 +57,7 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
                 </Tooltip>
 
                 <Tooltip title="Delete scenario." placement="right">
-                    <IconButton aria-label="delete" className="delete" color="secondary" onClick={handleRemoveScenario}>
+                    <IconButton aria-label="delete" className="delete" color="primary" onClick={handleRemoveScenario}>
                         <Delete fontSize="small" />
                     </IconButton>
                 </Tooltip>

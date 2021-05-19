@@ -213,7 +213,8 @@ export const startSchedulingScenario = (id, scheduling) => {
         const username = getState().auth.username;
         return Axios.post(`/users/${username}/scenarios/${id}/schedule`, scheduling)
         .then(res => {
-            dispatch(editSketchpadScenario(res));
+            dispatch(startEditScenario(id, res.scenario));
+            dispatch(editSketchpadScenario(res.scenario));
         })
         .catch(err => {
             console.log(err);
