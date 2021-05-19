@@ -99,10 +99,11 @@ const Form = ({
     setAnchorEl(null);
   };
 
-  // const FindWebhook = (id) => {
-  //   if (id === '') return {};
-  //   return webhooks.find((w) => w.id === id);
-  // };
+  const FindWebhook = (id) => {
+    const w = webhooks.find((w) => w.id === id);
+    if(w) return w;
+    else return {}
+  };
 
   const HelperTextComponent = React.forwardRef((props, ref) => {
     return (
@@ -172,8 +173,8 @@ const Form = ({
           <Edit />
         </IconButton>
         <WebhookSettingsPopper
-          title={data.name}
-          webhook={data.id}
+          title={FindWebhook(info['webhook']).name}
+          webhook={FindWebhook(info['webhook'])}
           anchor={editWhPopper}
           setAnchor={setEditWhPopper}
           handleSave={handleUpdateWebhook}
