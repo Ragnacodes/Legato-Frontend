@@ -11,23 +11,22 @@ import {
 } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faSpotify, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faTerminal } from '@fortawesome/free-solid-svg-icons';
 import { Delete } from '@material-ui/icons'
 import OnClickTextField from '../OnClickTextField';
 
 
-const Connection = ({ Id, Name, Data, removeConnection, editConnection }) => {
+const Connection = ({ id, name, type, removeConnection, editConnection }) => {
   const handleEditConnection = (newName) => {
-    editConnection(Id, newName);
+    editConnection(id, newName);
   };
 
   const handleRemoveConnection = () => {
-    removeConnection(Id);
+    removeConnection(id);
   };
 
-  const switchCase = (Data) => {
-    const data = JSON.parse(Data);
-    const Token_type = data.data.Token_type;
-    switch (Token_type) {
+  const switchCase = (type) => {
+    switch (type) {
       case 'github':
         return (
           <ListItemIcon style={{fontSize:30}}>
@@ -52,16 +51,22 @@ const Connection = ({ Id, Name, Data, removeConnection, editConnection }) => {
             <FontAwesomeIcon icon={faDiscord} />
           </ListItemIcon>
         );
+      case 'ssh':
+        return (
+          <ListItemIcon style={{fontSize:30}}>
+            <FontAwesomeIcon icon={faTerminal} />
+          </ListItemIcon>
+      );
       default:
         return null;
     }
   }
   return (
     <ListItem>
-      { switchCase(Data)}
+      { switchCase(type)}
 
       <ListItemText primary={<OnClickTextField
-        defaultText={Name}
+        defaultText={name}
         handleSave={(modifiedName) => handleEditConnection(modifiedName)}
         handleCancel={() => {}}
         divClassName=""

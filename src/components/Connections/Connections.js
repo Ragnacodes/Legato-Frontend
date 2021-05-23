@@ -32,7 +32,7 @@ const Connections = ({ connections, getConnections }) => {
         <List component={Paper}>
             {
                 connections.map((connection) => {
-                    return <Connection key={connection.Id} {...connection} />;
+                    return <Connection key={connection.id} {...connection} />;
                 })
             }
         </List>

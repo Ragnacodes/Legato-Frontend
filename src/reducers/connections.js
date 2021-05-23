@@ -7,11 +7,11 @@ const connectionsReducer = (state = [], action) => {
             return [...state, action.connection];
 
         case 'REMOVE_CONNECTION':
-            return state.filter(({Id}) => Id !== action.Id);
+            return state.filter(({id}) => id !== action.id);
 
         case 'EDIT_CONNECTION':
             return state.map((connection) => {
-                if (connection.Id === action.Id) {
+                if (connection.id === action.id) {
                     return {
                         ...connection,
                         ...action.updates
