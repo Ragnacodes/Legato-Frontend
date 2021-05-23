@@ -10,7 +10,7 @@ test('should setup get connections action object', () => {
 });
 
 test('should setup add connection action object', () => {
-  const connection = { Name: 'connection', Id: 3, Token_Type: 'gmail' };
+  const connection = { name: 'connection', id: 3, type: 'gmail' };
   const action = actions.addConnection(connection);
   expect(action).toEqual({
     type: 'ADD_CONNECTION',
@@ -19,21 +19,21 @@ test('should setup add connection action object', () => {
 });
 
 test('should setup edit connection action object', () => {
-  const Id = '123';
-  const updates = { Name: 'newname' };
-  const action = actions.editConnection(Id, updates);
+  const id = '123';
+  const updates = { name: 'newname' };
+  const action = actions.editConnection(id, updates);
   expect(action).toEqual({
     type: 'EDIT_CONNECTION',
-    Id,
+    id,
     updates,
   });
 });
 
 test('should setup remove connection action object', () => {
-  const Id = '123';
-  const action = actions.removeConnection(Id);
+  const id = '123';
+  const action = actions.removeConnection(id);
   expect(action).toEqual({
     type: 'REMOVE_CONNECTION',
-    Id,
+    id,
   });
 });
