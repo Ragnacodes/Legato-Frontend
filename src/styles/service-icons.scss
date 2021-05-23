@@ -1,0 +1,47 @@
+.service-icon {
+    color: #ffffff;
+
+    &--discord {
+        background-color: #7289da;
+    }
+
+    &--github {
+        background-color: #000000;
+    }
+
+    &--gmail {
+        background-color: #dd4b39;
+    }
+
+    &--http {
+        background-color: #007ee5;
+    }
+
+    &--regex {
+        background-color: #fa6f57;
+    }
+
+    &--repeater {
+        background-color: #a1d36e;
+    }
+
+    &--sleep {
+        background-color: #ff8000;
+    }
+    
+    &--spotify {
+        background-color: #2ebd59;
+    }
+
+    &--ssh {
+        background-color: #363636;
+    }
+
+    &--telegram {
+        background-color: #179cde;
+    }
+
+    &--webhooks {
+        background-color: #c73a63;
+    }
+}
