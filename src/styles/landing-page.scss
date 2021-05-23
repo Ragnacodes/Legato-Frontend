@@ -1,47 +1,80 @@
-.dialog {
-  .MuiDialogContentText-root {
-    margin: 0;
-  }
-  .MuiDialogContent-root {
-    padding-bottom: 20px;
-  }
-  .close-icon {
-    cursor: pointer;
-    font-size: 1.4rem;
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    color: $primary;
-  }
+.landing-page {
+    height: 100%;
+    overflow: auto;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
-.app-bar {
-  h1.legato {
-    color: white;
-    font-family: $font-nunito;
-    margin: 0;
-    .icon {
-      margin: 5px;
-      margin-right: 10px;
-    }
-  }
-  
-  .MuiToolbar-root {
-    justify-content: space-between;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.header {
+    box-shadow: none !important;
+    margin: 30px 0;
+    color: #FFFFFF !important;
+    transition: all .4s linear !important;
 
-    .right_children,.left-children {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      button {
-        font-family: $font-roboto;
-        font-size: 0.95rem;
-        font-weight: 500;
-        margin: 0 5px;
-      }
+    &--sticky {
+        margin: 0;
+        background: #FBFBFB !important;
+        color: black !important;
+        box-shadow: 0 11px 27px rgba(0,0,0,.04) !important;
+        padding: 4px 0 !important;
     }
-  }
+
+    &__logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    &__title {
+        margin-left: 8px !important;
+        letter-spacing: 1px !important;
+    }
+}
+
+.section {
+    padding: 96px 0;
+
+    &__title {
+        text-transform: uppercase;
+    }
+
+    &__service {
+        border-radius: 8px;
+    }
+
+    &__sketchpad {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+
+        &:hover {
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        }
+    }
+
+    &--intro {
+        background: linear-gradient(115deg, #006BAA 0%, #0093C1 100%);
+        color: #FFFFFF;
+        padding-top: 160px;
+    }
+
+    &--features {
+        background: #FEFEFE;
+    }
+
+    &--services {
+        background: #F0F0F0;
+    }
+
+    &--join {
+        background: linear-gradient(115deg, #a1d36e 0%, #a2d16e 100%);
+    }
+}
+
+.footer {
+    background: rgba(51,51,51,0.05);
+    padding: 8px 0;
 }
