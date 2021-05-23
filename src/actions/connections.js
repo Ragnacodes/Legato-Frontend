@@ -92,9 +92,11 @@ export const startAddSSHConnection = (info) => {
     return (dispatch, getState) => {
       const username = getState().auth.username;
       return Axios.post(`users/${username}/add/connection`, {
-        data: info,
+        data: {
+            ...info,
+            type: 'ssh'
+        },
         name: info.name,
-        type: 'ssh'
       })
         .then((res) => {
           dispatch(addConnection(res.data));
