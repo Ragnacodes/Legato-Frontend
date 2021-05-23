@@ -1,14 +1,31 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
 
 export const PublicRoute = ({
+  isAuthenticated,
   component: Component,
   ...rest
 }) => (
   <Route
     {...rest}
-    component={(props) => <Component {...props} />}
+    component={(props) => (
+      isAuthenticated ? (
+        <Redirect to="/dashboard" />
+      ) : (
+        <Route
+          {...rest}
+          component={(props) => <Component {...props} />}
+        />
+      )
+    )} 
   />
 );
 
-export default PublicRoute;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: !!state.auth.token
+  };
+};
+
+export default connect(mapStateToProps)(PublicRoute);
