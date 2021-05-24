@@ -35,9 +35,13 @@ export const startAddConnection = () => {
     const name = "my " + token_type;
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.post(`users/${username}/add/connection`,{"Name":name, "Data" : {"Token_type": token_type,
-                                                                                     "Token": token}})
-                                                                       
+        return Axios.post(`users/${username}/add/connection`,
+            {
+                name:name, 
+                data : {"token": token},
+                type: token_type
+            }
+        )                                                              
             .then(res => {
                 dispatch(addConnection(res.data));
              })
@@ -47,19 +51,19 @@ export const startAddConnection = () => {
     };
 };
 
-export const removeConnection = (Id) => {
+export const removeConnection = (id) => {
     return {
         type: 'REMOVE_CONNECTION',
-        Id
+        id
     };
 };
 
-export const startRemoveConnection = (Id) => {
+export const startRemoveConnection = (id) => {
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.delete(`/users/${username}/connection/delete/${Id}`)
+        return Axios.delete(`/users/${username}/connection/delete/${id}`)
         .then(res => {
-            dispatch(removeConnection(Id));
+            dispatch(removeConnection(id));
         })
         .catch(err => {
             console.log(err);
@@ -67,20 +71,20 @@ export const startRemoveConnection = (Id) => {
     };
 };
 
-export const editConnection = (Id, updates) => {
+export const editConnection = (id, updates) => {
     return {
         type: 'EDIT_CONNECTION',
-        Id,
+        id,
         updates
     };
 };
 
-export const startEditConnection = (Id, newName) => {
+export const startEditConnection = (id, newName) => {
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.put(`/users/${username}/update/connection/name/${Id}`,{"name":newName})
+        return Axios.put(`/users/${username}/update/connection/name/${id}`,{"name":newName})
         .then(res => {
-            dispatch(editConnection(Id, res.data.updates));
+            dispatch(editConnection(id, res.data.updates));
         })
         .catch(err => {
             console.log(err);
@@ -92,7 +96,9 @@ export const startAddSSHConnection = (info) => {
     return (dispatch, getState) => {
       const username = getState().auth.username;
       return Axios.post(`users/${username}/add/connection`, {
-        data: info,
+        data: {
+            ...info,
+        },
         name: info.name,
         type: 'ssh'
       })

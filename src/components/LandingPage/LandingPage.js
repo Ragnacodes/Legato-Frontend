@@ -1,25 +1,54 @@
-import React from "react";
-import { connect } from 'react-redux';
-import Appbar from '../Layout/Appbar';
-import LandingButtons from './LandingButtons';
-import AuthButtons from '../LoginSignUp/AuthButtons';
+import React, { useState } from "react";
+import Header from './Header';
+import IntroSection from './IntroSection';
+import FeaturesSection from './FeaturesSection';
+import ServicesSection from './ServicesSection';
+import JoinSection from './JoinSection';
+import Footer from './Footer';
+import LoginDialog from '../LoginSignUp/LoginDialog';
+import SignupDialog from '../LoginSignUp/SignupDialog';
 
-const LandingPage = ({ isAuthenticated }) => {
+const LandingPage = () => {
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [signupOpen, setSignupOpen] = useState(false);
 
-  const rightChildren = isAuthenticated ? <LandingButtons /> : <AuthButtons />
-  const leftChildren = <h1 className="legato">Legato</h1>
-  
+  const onScroll = () => {
+    if (document.getElementById('landing-page').scrollTop > 30) {
+      document.getElementById('header').classList.add('header--sticky');
+    }
+    else {
+      document.getElementById('header').classList.remove('header--sticky');
+    }
+  };
+
   return (
-    <div className="landing-page">
-      <Appbar leftChildren={leftChildren} rightChildren={rightChildren} noDrawer={true} />
-    </div>
+    <main className="main">
+      <div
+        onScroll={onScroll}
+        id="landing-page"
+        className="landing-page"
+      >
+        <Header
+          setLoginOpen={setLoginOpen}
+          setSignupOpen={setSignupOpen} 
+        />
+        <IntroSection setSignupOpen={setSignupOpen} />
+        <FeaturesSection />
+        <ServicesSection />
+        <JoinSection setSignupOpen={setSignupOpen} />
+        <Footer />
+      </div>
+
+      <LoginDialog
+        loginOpen={loginOpen}
+        setLoginOpen={setLoginOpen} 
+      />
+      <SignupDialog
+        signupOpen={signupOpen}
+        setSignupOpen={setSignupOpen}
+      />
+    </main>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-      isAuthenticated: !!state.auth.token
-  };
-};
-
-export default connect(mapStateToProps)(LandingPage);
+export default LandingPage;
