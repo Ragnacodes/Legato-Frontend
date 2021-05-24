@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { ChevronLeft } from '@material-ui/icons';
 import { mainListItems, bottomListItems } from './MenuItems';
-import Logo from '../../styles/assets/Legato-Logo.png';
+import logoIcon from '../../styles/assets/logo.png';
 import style from '../../styles/layout/layout';
 
 const CustomDrawer = ({ isAuthenticated, open, toggleDrawer }) => {
@@ -27,7 +27,7 @@ const CustomDrawer = ({ isAuthenticated, open, toggleDrawer }) => {
             >
                 <div className={classes.toolbarIcon}>
                     <div className={classes.logo}>
-                        <img src={Logo} height="32px" alt="Legato logo"/>
+                        <img src={logoIcon} height="32px" alt="Legato logo"/>
                     </div>
                     <IconButton onClick={() => toggleDrawer()}>
                         <ChevronLeft />
