@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startAddScenario } from '../../actions/scenarios';
-import { Button } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
+import { Button, Paper } from '@material-ui/core';
 
 const AddScenario = ({ addScenario }) => {
     const [id, setID] = useState();
@@ -29,7 +30,8 @@ const AddScenario = ({ addScenario }) => {
             <Button
                 onClick={handleClick}
                 variant="contained"
-                color="secondary"
+                component={Paper}
+                startIcon={<Add />}
             >
                 Create New Scenario
             </Button>

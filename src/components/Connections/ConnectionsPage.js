@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Container, Button } from '@material-ui/core';
+import { Container, Button, Paper } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
 import Appbar from '../Layout/Appbar';
 import PageTitle from '../Layout/PageTitle';
 import Connections from './Connections';
@@ -14,8 +15,9 @@ const ConnectionsPage = () => {
     const rightChildren = (
         <Button
         variant="contained"
-        color="secondary"
+        component={Paper}
         onClick={() => setAddConnection(true)}
+        startIcon={<Add />}
     >
             Add connection
         </Button>
