@@ -36,49 +36,49 @@ const AddConnection = ({addDialog, setAddDialog, createSSHConnetion}) => {
     return (
         <Dialog
             disableBackdropClick
-            className="signup-dialog"
+            className="add-connection-dialog"
             open={addDialog}
             onClose={() => setAddDialog(false)}
             aria-labelledby="form-dialog-title"
         >
-            <DialogTitle disableTypography={true} style={{ paddingBottom: 4 }}>
+            <DialogTitle disableTypography={true} className="title" >
                 <Typography variant="h5">Service</Typography>
             </DialogTitle>
-            <DialogContent>
+            <DialogContent className="content">
                 <CloseRounded
-                    style={{ cursor: "pointer", fontSize: 24, position: "absolute", right: 10, top: 10, color: "$primary" }}
                     onClick={() => setAddDialog(false)}
+                    className = "close-icon"
                 />
                 <DialogContentText>
                     Please choose your service:
                 </DialogContentText>
-                <List>
-                    <ListItem button onClick={(e) => onServiceClicked(e, "github")}>
-                        <ListItemIcon style={{fontSize:30}}>
+                <List className="list">
+                    <ListItem button className="item" onClick={(e) => onServiceClicked(e, "github")}>
+                        <ListItemIcon className="icon">
                             <FontAwesomeIcon icon={faGithub} />
                         </ListItemIcon>
                         <ListItemText primary="GitHub" />
                     </ListItem>
-                    <ListItem button onClick={(e) => onServiceClicked(e, "google")}>
-                        <ListItemIcon style={{fontSize:30}}>
+                    <ListItem button className="item" onClick={(e) => onServiceClicked(e, "google")}>
+                        <ListItemIcon className="icon">
                             <FontAwesomeIcon icon={faGoogle} />
                         </ListItemIcon>
                         <ListItemText primary="Gmail" />
                     </ListItem>
-                    <ListItem button onClick={(e) => onServiceClicked(e, "spotify")}>
-                        <ListItemIcon style={{fontSize:30}}>
+                    <ListItem button className="item" onClick={(e) => onServiceClicked(e, "spotify")}>
+                        <ListItemIcon className="icon">
                             <FontAwesomeIcon icon={faSpotify} />
                         </ListItemIcon>
                         <ListItemText primary="Spotify" />
                     </ListItem>
-                    <ListItem button onClick={(e) => onServiceClicked(e, "discord")}>
-                        <ListItemIcon style={{fontSize:30}}>
+                    <ListItem button className="item" onClick={(e) => onServiceClicked(e, "discord")}>
+                        <ListItemIcon className="icon">
                             <FontAwesomeIcon icon={faDiscord} />
                         </ListItemIcon>
                         <ListItemText primary="Discord" />
                     </ListItem>
-                    <ListItem button onClick={handleCreateSSH}>
-                        <ListItemIcon style={{fontSize:30}}>
+                    <ListItem button className="item" onClick={handleCreateSSH}>
+                        <ListItemIcon className="icon">
                             <FontAwesomeIcon icon={faTerminal} />
                         </ListItemIcon>
                         <ListItemText primary="SSH" />

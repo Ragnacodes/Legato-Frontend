@@ -29,31 +29,31 @@ const Connection = ({ id, name, type, removeConnection, editConnection }) => {
     switch (type) {
       case 'github':
         return (
-          <ListItemIcon style={{fontSize:30}}>
+          <ListItemIcon className="connections-icon">
             <FontAwesomeIcon icon={faGithub} />
           </ListItemIcon>
         );
       case 'gmail':
         return (
-          <ListItemIcon style={{fontSize:30}}>
+          <ListItemIcon className="connections-icon">
             <FontAwesomeIcon icon={faGoogle} />
           </ListItemIcon>
         );
       case 'spotify':
         return (
-          <ListItemIcon style={{fontSize:30}}>
+          <ListItemIcon className="connections-icon">
             <FontAwesomeIcon icon={faSpotify} />
           </ListItemIcon>
         );
       case 'discord':
         return (
-          <ListItemIcon style={{fontSize:30}}>
+          <ListItemIcon className="connections-icon">
             <FontAwesomeIcon icon={faDiscord} />
           </ListItemIcon>
         );
       case 'ssh':
         return (
-          <ListItemIcon style={{fontSize:30}}>
+          <ListItemIcon className="connections-icon">
             <FontAwesomeIcon icon={faTerminal} />
           </ListItemIcon>
       );
@@ -75,7 +75,7 @@ const Connection = ({ id, name, type, removeConnection, editConnection }) => {
 
       <ListItemSecondaryAction className="control">
         <Tooltip title="Delete connection." placement="top">
-          <IconButton aria-label="delete" color="primary" onClick={handleRemoveConnection}>
+          <IconButton aria-label="delete" color="secondary" onClick={handleRemoveConnection}>
             <Delete fontSize="small" />
           </IconButton>
         </Tooltip>
