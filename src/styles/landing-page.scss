@@ -14,13 +14,13 @@
 .header {
     box-shadow: none !important;
     margin: 30px 0;
-    color: #FFFFFF !important;
+    color: $common-white !important;
     transition: all .4s linear !important;
 
     &--sticky {
         margin: 0;
-        background: #FBFBFB !important;
-        color: black !important;
+        background: lighten($background, 5%) !important;
+        color: $common-black !important;
         box-shadow: 0 11px 27px rgba(0,0,0,.04) !important;
         padding: 4px 0 !important;
     }
@@ -70,25 +70,26 @@
     }
 
     &--intro {
-        background: linear-gradient(115deg, #006BAA 0%, #0093C1 100%);
-        color: #FFFFFF;
+        background: linear-gradient(115deg, darken($primary, 10%) 0%, lighten($primary, 10%) 100%);
+        color: $common-white;
         padding-top: 160px;
     }
 
     &--features {
-        background: #FEFEFE;
+        background: lighten($background, 5%);
     }
 
     &--services {
-        background: #F0F0F0;
+        background: darken($background, 5%);
     }
 
     &--join {
-        background: linear-gradient(115deg, #a1d36e 0%, #a2d16e 100%);
+        background: linear-gradient(115deg, darken($secondary, 10%) 0%, lighten($secondary, 10%) 100%);
+        color: $common-white;
     }
 }
 
 .footer {
-    background: rgba(51,51,51,0.05);
+    background: darken($background, 5%);
     padding: 8px 0;
 }

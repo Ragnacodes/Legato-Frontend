@@ -8,7 +8,8 @@ import {
     ListItemText,
     Switch,
     IconButton,
-    Tooltip
+    Tooltip,
+    Hidden
 } from '@material-ui/core';
 import {
     Delete,
@@ -29,18 +30,20 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
 
     return (
         <ListItem className="scenario" button component={NavLink} to={`/scenarios/${id}/sketchpad`}>
-            <ScenarioNodes nodes={nodes} />
+            <Hidden xsDown>
+                <ScenarioNodes nodes={nodes} />
+            </Hidden>
 
             <ListItemText primary={name} className="name" />
 
             <ListItemSecondaryAction className="control">
                 {
                     interval ? (
-                        <Tooltip title={`Each ${interval} minutes.`} placement="left">
+                        <Tooltip title={`Each ${interval} minutes.`} placement="top">
                             <AccessTime fontSize="small" />
                         </Tooltip>
                     ) : (
-                            <Tooltip title={`Immediately when triggered.`} placement="left">
+                            <Tooltip title={`Immediately when triggered.`} placement="top">
                                 <OfflineBoltOutlined fontSize="small" />
                             </Tooltip>
                         )
@@ -58,15 +61,15 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
                 </Tooltip>
 
                 <Tooltip title="Delete scenario." placement="top">
-                    <IconButton aria-label="delete" className="delete" color="primary" onClick={handleRemoveScenario}>
+                    <IconButton aria-label="delete" color="secondary" onClick={handleRemoveScenario}>
                         <Delete fontSize="small" />
                     </IconButton>
                 </Tooltip>
 
-                <Tooltip title="History" placement="right">
+                <Tooltip title="History" placement="top">
                     <IconButton
                         aria-label="scenario history"
-                        color="primary"
+                        color="inherit"
                         component={NavLink}
                         to={`/scenarios/${id}/history`}
                     >

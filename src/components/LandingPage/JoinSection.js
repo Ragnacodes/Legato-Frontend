@@ -12,6 +12,7 @@ const JoinSection = ({ setSignupOpen }) => {
                     gutterBottom
                     variant="h5"
                     align="center"
+                    color="inherit"
                     className="section__title"
                 >
                     Start automating today, it’s free
@@ -20,6 +21,7 @@ const JoinSection = ({ setSignupOpen }) => {
                     gutterBottom
                     variant="body2"
                     align="center"
+                    color="inherit"
                 >
                     Don’t just take our word for it, take it for a spin and see for yourself.
                 </Typography>
@@ -27,6 +29,7 @@ const JoinSection = ({ setSignupOpen }) => {
                     <Grid container justify="center">
                         <Button
                             variant="contained"
+                            color="primary"
                             onClick={() => setSignupOpen(true)}
                         >
                             Try it for free

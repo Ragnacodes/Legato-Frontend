@@ -44,7 +44,7 @@ const YesNoModal = ({ text, visible, handleYes, setVisible, handleNo }) => {
             setVisible(false);
           }}
           variant="contained"
-          color="primary"
+          color="secondary"
         >
           Yes
         </Button>

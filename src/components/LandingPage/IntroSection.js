@@ -73,6 +73,7 @@ const IntroSection = ({ setSignupOpen }) => {
                             <Grid container justify="center">
                                 <Button
                                     variant="contained"
+                                    color="secondary"
                                     size="large"
                                     onClick={() => setSignupOpen(true)}
                                 >

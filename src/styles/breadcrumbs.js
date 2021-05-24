@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
     separator: {
-        color: 'white'
+        color: theme.palette.common.white
     },
     link: {
         display: 'flex',

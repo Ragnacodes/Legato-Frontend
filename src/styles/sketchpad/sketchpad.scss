@@ -1,11 +1,11 @@
 .title-input {
   .MuiInputBase-input {
     padding: 10px;
-    color: white;
+    color: $common-white;
   }
 
   .MuiInputBase-input:focus {
-    border: solid 1px white;
+    border: solid 1px $common-white;
     border-radius: 10px;
   }
 }
@@ -23,7 +23,7 @@
     aside {
       padding: 0 8px;
       border-left: solid 1px;
-      border-color: rgba(0, 0, 0, 0.12);
+      border-color: $divider;
 
       .description {
         margin-top: 16px;
@@ -45,15 +45,6 @@
         .icon:hover {
           box-shadow: 0 5px 5px 0 rgba(0,0,0,0.24), 0 5px 5px 0 rgba(0,0,0,0.14);
         }
-  
-        .input {
-          border-color: #0041d0;
-        }
-  
-        .output {
-          border-color: #ff0072;
-        }
-  
       }
 
     }
@@ -68,7 +59,7 @@
   .control-box {
     padding: 16px;
     border-top: solid 1px;
-    border-color: rgba(0, 0, 0, 0.12);
+    border-color: $divider;
   
     .button {
       margin: 0 16px;
@@ -93,14 +84,14 @@
 
 .Sketchpad_title {
   .MuiInputBase-input {
-    color: white;
+    color: $common-white;
   }
 
   .MuiButtonBase-root {
-    color: white;
+    color: $common-white;
   }
 
   .MuiOutlinedInput-notchedOutline {
-    border-color: white;
+    border-color: $common-white;
   }
 }
