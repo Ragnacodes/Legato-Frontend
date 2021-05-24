@@ -1,4 +1,6 @@
 import React from 'react';
+import Particles from 'react-particles-js';
+import { particlesParams } from './particlesParams';
 import {
     Box,
     Button,
@@ -33,6 +35,11 @@ const IntroSection = ({ setSignupOpen }) => {
             id="intro"
             className="section section--intro"
         >
+            
+            <div className="section__particles">
+                <Particles params={particlesParams}  />
+            </div>
+
             <Container>
                 <Grid
                     container
@@ -78,10 +85,10 @@ const IntroSection = ({ setSignupOpen }) => {
                             <Hidden smDown>
                                 <Grid container justify="flex-end">
                                     <Grid item>
-                                        <img src={nomadIcon} alt="intro" width="350px" />
+                                        <img src={scenarioIcon} alt="intro" width="350px" />
                                     </Grid>
                                     <Grid item>
-                                        <img src={scenarioIcon} alt="intro" width="350px" />
+                                        <img src={nomadIcon} alt="intro" width="350px" />
                                     </Grid>
                                 </Grid>
                             </Hidden>
