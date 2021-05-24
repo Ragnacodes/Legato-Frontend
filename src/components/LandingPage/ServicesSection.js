@@ -23,11 +23,13 @@ const Service = ({ name, src }) => {
                     service-icon--${name.toLowerCase()}
                 `}
             >
-                <img
-                    src={src}
-                    alt={name}
-                    width="100%"
-                />
+                <Grid container justify="center">
+                    <img
+                        src={src}
+                        alt={name}
+                        width="100%"
+                    />
+                </Grid>
             </Box>
             <Grid container justify="center">
                 <Typography variant="caption" align="center">{name}</Typography>
