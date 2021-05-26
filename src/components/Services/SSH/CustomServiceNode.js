@@ -1,12 +1,10 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import Terminal from '../../../styles/assets/terminal.svg';
+import SSHIcon from '../../ServiceIcon';
 
 const CustomServiceNode = (props) => {
     const shape = (
-        <div className="node ssh">
-            <img src={Terminal} alt="ssh-logo" width="75" className="ssh" />
-        </div>
+        <SSHIcon service='ssh' className='node'/>
     );
 
     return <CustomNode shape={shape} {...props} />;

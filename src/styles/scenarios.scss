@@ -13,9 +13,21 @@
         }
 
         .MuiAvatar-circle {
-            border-radius: 0px;
+            background-color: $primary;
+            border-radius: 100%;
             height: $lg-size;
             width: $lg-size;
+            &.scenario-avatar {
+                background-color: transparent;
+            }
+        }
+
+
+        .scenario-icons{
+            &.icon-component {
+            height: $lg-size;
+            width: $lg-size;
+            }
         }
 
         .name {

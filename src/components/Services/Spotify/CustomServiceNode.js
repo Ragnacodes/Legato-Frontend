@@ -1,13 +1,10 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpotify } from '@fortawesome/free-brands-svg-icons';
+import SpotifyIcon from '../../ServiceIcon';
 
 const CustomServiceNode = (props) => {
     const shape = (
-        <div className="node spotify">
-            <FontAwesomeIcon icon={faSpotify} className="spotify" />
-        </div>
+        <SpotifyIcon service='spotify' className='node'/>
     );
 
     return <CustomNode shape={shape} {...props} />;

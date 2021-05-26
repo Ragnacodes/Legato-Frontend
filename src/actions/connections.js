@@ -100,7 +100,7 @@ export const startAddSSHConnection = (info) => {
             ...info,
         },
         name: info.name,
-        type: 'ssh'
+        type: 'sshes'
       })
         .then((res) => {
           dispatch(addConnection(res.data));

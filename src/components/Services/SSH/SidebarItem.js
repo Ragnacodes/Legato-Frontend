@@ -1,11 +1,12 @@
 import React from 'react';
-import Terminal from '../../../styles/assets/terminal.svg';
 import CustomSidebarItem from '../CustomSidebarItem';
-
+import SSHIcon from '../../ServiceIcon';
 const SidebarItem = () => {
     return (
         <CustomSidebarItem
-            icon={<img src={Terminal} alt="ssh-logo" width="35" className="icon ssh" />}
+            icon={
+                <SSHIcon service='ssh' size='small' className='icon'/>
+            }
             serviceName="sshes"
         />
     );
