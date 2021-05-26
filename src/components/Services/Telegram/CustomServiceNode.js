@@ -1,12 +1,10 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import TelegramIcon from '../../../styles/assets/services/telegram_256.png';
+import TelegramIcon from '../../ServiceIcon';
 
 const CustomServiceNode = (props) => {
     const shape = (
-        <div className="node telegram sidebar-icon service-icon--telegram">
-            <img src={TelegramIcon} alt="telegram-logo" />
-        </div>
+        <TelegramIcon service='telegram' className='node'/>
     );
 
     return <CustomNode shape={shape} {...props} />;

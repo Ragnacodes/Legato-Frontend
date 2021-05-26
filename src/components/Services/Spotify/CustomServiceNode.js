@@ -1,12 +1,10 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import SpotifyIcon from '../../../styles/assets/services/spotify_256.png';
+import SpotifyIcon from '../../ServiceIcon';
 
 const CustomServiceNode = (props) => {
     const shape = (
-        <div className="node spotify sidebar-icon service-icon--spotify">
-        <img src={SpotifyIcon} alt="spotify-logo" />
-    </div>
+        <SpotifyIcon service='spotify' className='node'/>
     );
 
     return <CustomNode shape={shape} {...props} />;

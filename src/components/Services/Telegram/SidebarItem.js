@@ -1,14 +1,12 @@
 import React from 'react';
 import CustomSidebarItem from '../CustomSidebarItem';
-import TelegramIcon from '../../../styles/assets/services/telegram_64.png';
+import TelegramIcon from '../../ServiceIcon';
 
 const SidebarItem = () => {
     return (
         <CustomSidebarItem
             icon={                
-            <div className="icon sidebar-icon service-icon--telegram">
-                <img src={TelegramIcon} alt="telegram-logo" />
-            </div>
+                <TelegramIcon service='telegram' size='small' className='icon'/>
             }
             serviceName="telegrams"
         />

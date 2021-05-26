@@ -1,12 +1,10 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import HttpIcon from '../../../styles/assets/services/http_256.png';
+import HttpIcon from '../../ServiceIcon';
 
 const CustomServiceNode = (props) => {
     const shape = (
-        <div className="node http sketchpad-icon service-icon--http">
-            <img src={HttpIcon} alt="http-logo" />
-        </div>
+        <HttpIcon service='http' className='node'/>
     );
 
     return <CustomNode shape={shape} {...props} />;
