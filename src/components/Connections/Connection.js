@@ -51,7 +51,7 @@ const Connection = ({ id, name, type, removeConnection, editConnection }) => {
             <FontAwesomeIcon icon={faDiscord} />
           </ListItemIcon>
         );
-      case 'ssh':
+      case 'sshes':
         return (
           <ListItemIcon className="connections-icon">
             <FontAwesomeIcon icon={faTerminal} />
