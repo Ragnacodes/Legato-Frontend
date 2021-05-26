@@ -1,13 +1,11 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import Http from '../../../styles/assets/http.svg';
+import HttpIcon from '../../../styles/assets/services/http_256.png';
 
 const CustomServiceNode = (props) => {
     const shape = (
-        <div className="node http">
-            <img src={Http} alt="http-logo" width="75" className="http" />
+        <div className="node http sketchpad-icon service-icon--http">
+            <img src={HttpIcon} alt="http-logo" />
         </div>
     );
 

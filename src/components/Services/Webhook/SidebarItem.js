@@ -1,13 +1,15 @@
 import React from 'react';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import CustomSidebarItem from '../CustomSidebarItem';
-import Webhook from '../../../styles/assets/webhook.svg';
+import WebhookIcon from '../../../styles/assets/services/webhooks_64.png';
 
 const SidebarItem = () => {
     return (
         <CustomSidebarItem
-            icon={<img src={Webhook} alt="webhook-logo" width="35" className="icon webhook" />}
+            icon={
+                <div className="icon sidebar-icon service-icon--webhooks">
+                    <img src={WebhookIcon} alt="webhook-logo" />
+                </div>
+            }
             serviceName="webhooks"
         />
     );

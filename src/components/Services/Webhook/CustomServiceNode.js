@@ -1,13 +1,11 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import Webhook from '../../../styles/assets/webhook.svg';
+import WebhookIcon from '../../../styles/assets/services/webhooks_256.png';
 
 const CustomServiceNode = (props) => {
     const shape = (
-        <div className="node webhook">
-            <img src={Webhook} alt="webhook-logo" width="75" className="webhook" />
+        <div className="node webhook sidebar-icon service-icon--webhooks">
+            <img src={WebhookIcon} alt="webhook-logo" />
         </div>
     );
 
