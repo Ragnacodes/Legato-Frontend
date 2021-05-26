@@ -1,40 +1,28 @@
-.webhook {
-  color: #c63b64 !important;
-  background-color: white;
-  border-radius: 100%;
-}
-
-.spotify {
-  color: #1DB954 !important;
-  border-radius: 100%;
-}
-
-.telegram {
-  color: #0088cc !important;
-  border-radius: 100%;
-}
-
-.ssh {
-  color: black !important;
-  background-color: white;
-  border-radius: 100%;
-}
-
-.github {
-  color: #333 !important;
-  background-color: white;
-  border-radius: 100%;
-}
-
-.http {
-  background-color: white;
-  border-radius: 100%;
-}
-
 .success {
   color: #4caf50;
 }
 
 .error {
   color: #f44336;
+}
+
+.sidebar-icon, .sketchpad-icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  img{
+    width: 70%;
+    height: auto;
+  }
+
+  &.service-icon--spotify img, &.service-icon--github img{
+    width: 100% !important;
+    height: auto;
+  }
+
+  &.service-icon--http img{
+    width: 90% !important;
+    height: auto;
+  }
 }
