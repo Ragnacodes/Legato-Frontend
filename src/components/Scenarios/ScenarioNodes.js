@@ -3,10 +3,11 @@ import { AvatarGroup } from '@material-ui/lab';
 import { Avatar } from '@material-ui/core';
 import ServiceIcon from '../ServiceIcon';
 const ScenarioNodes = ({nodes}) => {
+    const reverseNodes = nodes.slice().reverse();
     return (
         <AvatarGroup max={4} spacing={5}>
             {
-                nodes.reverse().map((node, index) => {
+                reverseNodes.map((node, index) => {
                     switch (node) {
                         case 'sshes':
                             return (
