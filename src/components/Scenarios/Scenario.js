@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startEditScenario, startRemoveScenario } from '../../actions/scenarios';
+import { intervalToText } from './intervalToText';
 import {
     ListItem,
     ListItemSecondaryAction,
@@ -14,7 +15,6 @@ import {
 import {
     Delete,
     AccessTime,
-    OfflineBoltOutlined,
     History
 } from '@material-ui/icons';
 import ScenarioNodes from './ScenarioNodes';
@@ -37,17 +37,9 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
             <ListItemText primary={name} className="name" />
 
             <ListItemSecondaryAction className="control">
-                {
-                    interval ? (
-                        <Tooltip title={`Each ${interval} minutes.`} placement="top">
-                            <AccessTime fontSize="small" />
-                        </Tooltip>
-                    ) : (
-                            <Tooltip title={`Immediately when triggered.`} placement="top">
-                                <OfflineBoltOutlined fontSize="small" />
-                            </Tooltip>
-                        )
-                }
+                <Tooltip title={intervalToText(interval)} placement="top">
+                    <AccessTime fontSize="small" />
+                </Tooltip>
 
                 <Tooltip title={`Turn ${isActive ? "off" : "on"}`} placement="top">
                     <Switch
