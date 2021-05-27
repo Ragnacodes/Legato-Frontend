@@ -13,6 +13,7 @@ import ReactFlow, {
   isNode,
   isEdge
 } from 'react-flow-renderer';
+import NodePopover from './Nodes/NodePopover';
 import Sidebar from './Sidebar/SketchpadSidebar';
 import CustomEdge from './Edges/CustomEdge';
 import SketchpadControl from './SketchpadControl';
@@ -58,6 +59,7 @@ const Sketchpad = ({
 
   return (
     <div className="sketchpad">
+      <NodePopover />
       <div className="dndflow">
           <div className="reactflow-wrapper" ref={reactFlowWrapper}>
             <ReactFlow
