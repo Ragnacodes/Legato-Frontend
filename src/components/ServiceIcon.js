@@ -9,7 +9,7 @@ const Icon = ({service, size, className}) => {
     }
     return (
         <div className={clsx(className, `icon-component service-icon--${service}`)}>
-        <img src={getImage(imageName)} alt={`${service}-logo`} />
+        <img src={getImage(imageName)} alt={`${service}-logo`} draggable={false} />
         </div>  
     )
 };
