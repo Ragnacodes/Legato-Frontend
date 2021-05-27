@@ -169,8 +169,9 @@ export const editSketchpadScenario = (updates) => {
 
 export const startEditSketchpadScenario = (updates) => {
     return (dispatch, getState) => {
+        const isActive = getState().sketchpad.scenario.isActive;
         const scenarioID = getState().sketchpad.scenario.id;
-        dispatch(startEditScenario(scenarioID, updates));
+        dispatch(startEditScenario(scenarioID, {isActive, ...updates}));
         dispatch(editSketchpadScenario(updates));
     };
 };
