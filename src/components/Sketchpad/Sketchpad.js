@@ -69,6 +69,7 @@ const Sketchpad = ({
               nodeTypes={nodeTypes}
               edgeTypes={{ customEdge: CustomEdge }}
               onNodeDragStop={onNodeDragStop}
+              deleteKeyCode={46}
             >
               <Background
                 variant="lines"
