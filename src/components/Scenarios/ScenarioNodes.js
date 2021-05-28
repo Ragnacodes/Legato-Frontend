@@ -1,17 +1,7 @@
 import React from 'react';
 import { AvatarGroup } from '@material-ui/lab';
 import { Avatar } from '@material-ui/core';
-import ServiceIcon from '../ServiceIcons/ServiceIcon';
-
-const ScenarioNode = ({ service }) => {
-    return (
-        <ServiceIcon
-            service={service}
-            size='small'
-            padding="4px"
-        />
-    );
-};
+import ScenarioServiceIcon from '../ServiceIcons/ScenarioServiceIcon';
 
 const ScenarioNodes = ({ nodes }) => {
     const reverseNodes = nodes.slice().reverse();
@@ -28,43 +18,43 @@ const ScenarioNodes = ({ nodes }) => {
                         case 'sshes':
                             return (
                                 <Avatar key={index}>
-                                    <ScenarioNode service='ssh' />
+                                    <ScenarioServiceIcon service='ssh' />
                                 </Avatar>
                             );
                         case 'webhooks':
                             return (
                                 <Avatar key={index}>
-                                    <ScenarioNode service='webhooks' />
+                                    <ScenarioServiceIcon service='webhooks' />
                                 </Avatar>
                             );
                         case 'githubs':
                             return (
                                 <Avatar key={index}>
-                                    <ScenarioNode service='github' />
+                                    <ScenarioServiceIcon service='github' />
                             </Avatar>
                             );
                         case 'spotifies':
                             return (
                                 <Avatar key={index}>
-                                    <ScenarioNode service='spotify' />
+                                    <ScenarioServiceIcon service='spotify' />
                                 </Avatar>
                             );
                         case 'telegrams':
                             return (
                                 <Avatar key={index}>
-                                    <ScenarioNode service='telegram' />
+                                    <ScenarioServiceIcon service='telegram' />
                                 </Avatar>
                             );
                         case 'https':
                             return (
                                 <Avatar key={index}>
-                                    <ScenarioNode service='http' />
+                                    <ScenarioServiceIcon service='http' />
                                 </Avatar>
                             );
                         case 'discord':
                             return (
                                 <Avatar key={index}>
-                                    <ScenarioNode service='discord' />
+                                    <ScenarioServiceIcon service='discord' />
                                 </Avatar>
                             );
                         default:
