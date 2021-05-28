@@ -28,7 +28,6 @@ const AppRouter = () => (
       <PrivateRoute path="/connections" component={ConnectionsPage} />
       <PrivateRoute path="/redirect" component={Redirect} exact={false}/>
       <PrivateRoute path="/webhooks" component={WebhooksPage} />
-      <PrivateRoute path="/keys" component={DummyPage} />
       <PrivateRoute path="/profile" component={DummyPage} />
       <Route component={NotFoundPage} />
     </Switch>

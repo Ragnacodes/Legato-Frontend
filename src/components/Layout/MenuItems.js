@@ -10,7 +10,6 @@ import {
   AccountTree,
   Link,
   Language,
-  VpnKey,
   AccountCircle
 } from '@material-ui/icons';
 import Logout from './Logout';
@@ -44,13 +43,6 @@ export const mainListItems = (
         <Language />
       </ListItemIcon>
       <ListItemText primary="Webhooks" />
-    </ListItem>
-
-    <ListItem button component={NavLink} to="/keys" activeClassName="Mui-selected">
-      <ListItemIcon>
-        <VpnKey />
-      </ListItemIcon>
-      <ListItemText primary="SSH Keys" />
     </ListItem>
 
   </div>
