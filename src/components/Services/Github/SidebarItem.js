@@ -1,11 +1,12 @@
 import React from 'react';
 import CustomSidebarItem from '../CustomSidebarItem';
-import GithubIcon from '../../ServiceIcon';
+import SidebarServiceIcon from '../../ServiceIcons/SidebarServiceIcon';
+
 const SidebarItem = () => {
     return (
         <CustomSidebarItem
             icon={
-                <GithubIcon service='github' size='small' className='icon'/>
+                <SidebarServiceIcon service='github' />
             }
             serviceName="githubs"
         />

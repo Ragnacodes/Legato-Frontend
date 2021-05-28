@@ -3,16 +3,17 @@ import clsx from 'clsx';
 import { Box, Grid } from '@material-ui/core';
 
 const getImage = (image) => {
-    return require('../styles/assets/services/' + image + '.png').default;
+    return require('../../styles/assets/services/' + image + '.png').default;
 };
 
-const ServiceIcon = ({ service, size, padding, className }) => {
+const ServiceIcon = ({ service, size, width, padding, className }) => {
     const res = size === 'small' ? 64 : 256;
     const imageName = `${service}_${res}`;
 
     return (
         <Box
             p={padding}
+            width={width}
             className={
                 clsx(
                     'service-icon',

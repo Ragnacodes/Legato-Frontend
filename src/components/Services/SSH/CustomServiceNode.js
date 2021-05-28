@@ -1,10 +1,10 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import SSHIcon from '../../ServiceIcon';
+import NodeServiceIcon from '../../ServiceIcons/NodeServiceIcon';
 
 const CustomServiceNode = (props) => {
     const shape = (
-        <SSHIcon service='ssh' className='node'/>
+        <NodeServiceIcon service='ssh' />
     );
 
     return <CustomNode shape={shape} {...props} />;

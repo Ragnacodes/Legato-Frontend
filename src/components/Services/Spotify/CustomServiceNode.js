@@ -1,10 +1,10 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import SpotifyIcon from '../../ServiceIcon';
+import NodeServiceIcon from '../../ServiceIcons/NodeServiceIcon';
 
 const CustomServiceNode = (props) => {
     const shape = (
-        <SpotifyIcon service='spotify' className='node'/>
+        <NodeServiceIcon service='spotify' />
     );
 
     return <CustomNode shape={shape} {...props} />;

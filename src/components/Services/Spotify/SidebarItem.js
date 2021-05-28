@@ -1,11 +1,12 @@
 import React from 'react';
 import CustomSidebarItem from '../CustomSidebarItem';
-import SpotifyIcon from '../../ServiceIcon';
+import SidebarServiceIcon from '../../ServiceIcons/SidebarServiceIcon';
+
 const SidebarItem = () => {
     return (
         <CustomSidebarItem
             icon={
-                <SpotifyIcon service='spotify' size='small' className='icon'/>
+                <SidebarServiceIcon service='spotify' />
             }
             serviceName="spotifies"
         />

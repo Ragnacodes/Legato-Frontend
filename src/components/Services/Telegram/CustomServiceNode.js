@@ -1,10 +1,10 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import TelegramIcon from '../../ServiceIcon';
+import NodeServiceIcon from '../../ServiceIcons/NodeServiceIcon';
 
 const CustomServiceNode = (props) => {
     const shape = (
-        <TelegramIcon service='telegram' className='node'/>
+        <NodeServiceIcon service='telegram' />
     );
 
     return <CustomNode shape={shape} {...props} />;

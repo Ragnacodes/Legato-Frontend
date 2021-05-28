@@ -1,7 +1,7 @@
 import React from 'react';
 import { AvatarGroup } from '@material-ui/lab';
 import { Avatar } from '@material-ui/core';
-import ServiceIcon from '../ServiceIcon';
+import ServiceIcon from '../ServiceIcons/ServiceIcon';
 
 const ScenarioNode = ({ service }) => {
     return (
