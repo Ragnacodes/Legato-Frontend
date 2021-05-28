@@ -1,10 +1,10 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import WebhookIcon from '../../ServiceIcon';
+import NodeServiceIcon from '../../ServiceIcons/NodeServiceIcon';
 
 const CustomServiceNode = (props) => {
     const shape = (
-        <WebhookIcon service='webhooks' className='node'/>
+        <NodeServiceIcon service='webhooks' />
     );
 
     return <CustomNode shape={shape} {...props} />;

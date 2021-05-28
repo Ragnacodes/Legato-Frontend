@@ -1,12 +1,12 @@
 import React from 'react';
 import CustomSidebarItem from '../CustomSidebarItem';
-import WebhookIcon from '../../ServiceIcon';
+import SidebarServiceIcon from '../../ServiceIcons/SidebarServiceIcon';
 
 const SidebarItem = () => {
     return (
         <CustomSidebarItem
             icon={
-                <WebhookIcon service='webhooks' size='small' className='icon'/>
+                <SidebarServiceIcon service='webhooks' />
             }
             serviceName="webhooks"
         />

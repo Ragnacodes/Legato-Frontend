@@ -20,6 +20,10 @@
     }
 }
 
+.rounded {
+    border-radius: 100% !important;
+}
+
 .content-container {
     overflow: auto;
     padding: $lg-size 0;

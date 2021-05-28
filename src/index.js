@@ -5,7 +5,7 @@ import configureStore from './store/configureStore';
 import { startSetUser } from './actions/auth';
 import reportWebVitals from './reportWebVitals';
 import AppRouter from './routers/AppRouter';
-import Preloader from './components/Layout/Preloader';
+import Preloader from './components/Loaders/Preloader';
 import { CssBaseline } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './styles/base/theme';

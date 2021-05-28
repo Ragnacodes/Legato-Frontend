@@ -3,8 +3,8 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
-import NotFoundPage from '../components/Layout/NotFoundPage';
-import DummyPage from '../components/Layout/DummyPage';
+import NotFoundPage from '../components/Static/NotFoundPage';
+import DummyPage from '../components/Static/DummyPage';
 import LandingPage from '../components/LandingPage/LandingPage';
 import SketchpadPage from '../components/Sketchpad/SketchpadPage';
 import Dashboard from '../components/Dashboard/Dashboard';
@@ -28,7 +28,6 @@ const AppRouter = () => (
       <PrivateRoute path="/connections" component={ConnectionsPage} />
       <PrivateRoute path="/redirect" component={Redirect} exact={false}/>
       <PrivateRoute path="/webhooks" component={WebhooksPage} />
-      <PrivateRoute path="/keys" component={DummyPage} />
       <PrivateRoute path="/profile" component={DummyPage} />
       <Route component={NotFoundPage} />
     </Switch>

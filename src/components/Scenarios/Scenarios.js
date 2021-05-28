@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { startGetScenarios } from '../../actions/scenarios';
 import { List, Paper } from '@material-ui/core';
-import NoItem from '../Layout/NoItem';
-import ListLoader from '../Layout/ListLoader';
+import NoItem from '../Static/NoItem';
+import ListLoader from '../Loaders/ListLoader';
 import Scenario from './Scenario';
 
 const Scenarios = ({ scenarios, getScenarios }) => {

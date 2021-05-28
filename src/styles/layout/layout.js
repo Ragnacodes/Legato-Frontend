@@ -13,11 +13,6 @@ export default makeStyles((theme) => ({
     padding: '0 8px',
     ...theme.mixins.toolbar,
   },
-  logo: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {

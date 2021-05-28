@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { startEditScenario } from '../../actions/scenarios';
 import { Button } from '@material-ui/core';
 import { PlayArrow } from '@material-ui/icons';
 import Scheduling from './Scheduling/Scheduling';
 import Axios from '../../utils/axiosConfig';
 
-const SketchpadControl = ({ elements, editScenario, username, scenario }) => {
+const SketchpadControl = ({ username, scenario }) => {
 
     const onClicked = () => {
         Axios.patch(`/users/${username}/scenarios/${scenario.id}`)
@@ -44,16 +43,9 @@ const SketchpadControl = ({ elements, editScenario, username, scenario }) => {
 
 const mapStateToProps = (state) => {
     return {
-        elements: state.sketchpad,
         username: state.auth.username,
         scenario: state.sketchpad.scenario
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        editScenario: (id, updates) => dispatch(startEditScenario(id, updates))
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SketchpadControl);
+export default connect(mapStateToProps)(SketchpadControl);

@@ -1,10 +1,10 @@
 import React from 'react';
 import CustomNode from '../CustomNode';
-import HttpIcon from '../../ServiceIcon';
+import NodeServiceIcon from '../../ServiceIcons/NodeServiceIcon';
 
 const CustomServiceNode = (props) => {
     const shape = (
-        <HttpIcon service='http' className='node'/>
+        <NodeServiceIcon service='http' />
     );
 
     return <CustomNode shape={shape} {...props} />;
