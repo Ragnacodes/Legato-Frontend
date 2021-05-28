@@ -5,7 +5,7 @@ import { Tooltip, IconButton } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import YesNoModal from '../YesNoModal';
 
-const DeleteScenario = ({ id, name }) => {
+const ScenarioDelete = ({ id, name }) => {
     const [visible, setVisible] = useState(false);
     const dispatch = useDispatch();
 
@@ -39,4 +39,4 @@ const DeleteScenario = ({ id, name }) => {
     );
 };
 
-export default DeleteScenario;
+export default ScenarioDelete;

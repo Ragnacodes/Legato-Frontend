@@ -1,69 +1,67 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { startEditScenario } from '../../actions/scenarios';
-import { intervalToText } from './intervalToText';
 import {
+    Grid,
+    Box,
+    Hidden,
     ListItem,
     ListItemSecondaryAction,
     ListItemText,
-    Switch,
-    IconButton,
-    Tooltip,
-    Hidden
+    Typography
 } from '@material-ui/core';
-import { AccessTime, History } from '@material-ui/icons';
 import ScenarioNodes from './ScenarioNodes';
-import DeleteScenario from './DeleteScenario';
+import ScenarioTime from './ScenarioTime';
+import ScenarioActivation from './ScenarioActivation';
+import ScenarioDelete from './ScenarioDelete';
+import ScenarioHistory from './ScenarioHistory';
 
-const Scenario = ({ id, name, isActive, interval, nodes, editScenario }) => {
-    const handleToggleActvie = () => {
-        editScenario(id, { isActive: !isActive });
-    };
-
+const Scenario = ({ id, name, nodes, interval, isActive }) => {
     return (
-        <ListItem className="scenario" button component={NavLink} to={`/scenarios/${id}/sketchpad`}>
+        <ListItem
+            button
+            component={NavLink}
+            to={`/scenarios/${id}/sketchpad`}
+        >
             <Hidden xsDown>
-                <ScenarioNodes nodes={nodes} />
+                <Box mr={2}>
+                    <ScenarioNodes nodes={nodes} />
+                </Box>
             </Hidden>
 
-            <ListItemText primary={name} className="name" />
+            <ListItemText>
+                <Typography variant="body2">
+                    {name}
+                </Typography>
+            </ListItemText>
 
-            <ListItemSecondaryAction className="control">
-                <Tooltip title={intervalToText(interval)} placement="top">
-                    <AccessTime fontSize="small" />
-                </Tooltip>
+            <ListItemSecondaryAction>
+                <Grid
+                    container
+                    alignItems="center"
+                >
+                    <Grid item>
+                        <Box>
+                            <ScenarioTime interval={interval} />
+                        </Box>
+                    </Grid>
 
-                <Tooltip title={`Turn ${isActive ? "off" : "on"}`} placement="top">
-                    <Switch
-                        edge="end"
-                        onChange={handleToggleActvie}
-                        checked={isActive}
-                        color="primary"
-                        size="small"
-                        className="switch"
-                    />
-                </Tooltip>
+                    <Grid item>
+                        <Box mx={2}>
+                            <ScenarioActivation id={id} isActive={isActive} />
+                        </Box>
+                    </Grid>
 
-                <DeleteScenario id={id} name={name} />
+                    <Grid item>
+                        <ScenarioDelete id={id} name={name} />
+                    </Grid>
 
-                <Tooltip title="History" placement="top">
-                    <IconButton
-                        aria-label="scenario history"
-                        color="inherit"
-                        component={NavLink}
-                        to={`/scenarios/${id}/history`}
-                    >
-                        <History fontSize="small" />
-                    </IconButton>
-                </Tooltip>
+                    <Grid item>
+                        <ScenarioHistory id={id} />
+                    </Grid>
+                </Grid>
             </ListItemSecondaryAction>
         </ListItem>
     );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    editScenario: (id, updates) => dispatch(startEditScenario(id, updates))
-});
-
-export default connect(null, mapDispatchToProps)(Scenario);
+export default Scenario;

@@ -2,8 +2,24 @@ import React from 'react';
 import { AvatarGroup } from '@material-ui/lab';
 import { Avatar } from '@material-ui/core';
 import ServiceIcon from '../ServiceIcon';
-const ScenarioNodes = ({nodes}) => {
+
+const ScenarioNode = ({ service }) => {
+    return (
+        <ServiceIcon
+            service={service}
+            size='small'
+            padding="4px"
+        />
+    );
+};
+
+const ScenarioNodes = ({ nodes }) => {
     const reverseNodes = nodes.slice().reverse();
+    const notCovered = 4 - reverseNodes;
+    for (let i = 0; i < notCovered; i++) {
+        reverseNodes.push('');
+    }
+
     return (
         <AvatarGroup max={4} spacing={5}>
             {
@@ -11,51 +27,57 @@ const ScenarioNodes = ({nodes}) => {
                     switch (node) {
                         case 'sshes':
                             return (
-                                <Avatar key={index} className="scenario-avatar ssh">
-                                    <ServiceIcon service='ssh' size='small' className='scenario-icons'/>
+                                <Avatar key={index}>
+                                    <ScenarioNode service='ssh' />
                                 </Avatar>
                             );
                         case 'webhooks':
                             return (
-                                <Avatar key={index} className="scenario-avatar webhook">
-                                    <ServiceIcon service='webhooks' size='small' className='scenario-icons'/>
+                                <Avatar key={index}>
+                                    <ScenarioNode service='webhooks' />
                                 </Avatar>
                             );
                         case 'githubs':
                             return (
-                                <Avatar key={index} className="scenario-avatar github">
-                                    <ServiceIcon service='github' size='small' className='scenario-icons'/>
+                                <Avatar key={index}>
+                                    <ScenarioNode service='github' />
                             </Avatar>
                             );
                         case 'spotifies':
                             return (
-                                <Avatar key={index} className="scenario-avatar spotify">
-                                    <ServiceIcon service='spotify' size='small' className='scenario-icons'/>
+                                <Avatar key={index}>
+                                    <ScenarioNode service='spotify' />
                                 </Avatar>
                             );
                         case 'telegrams':
                             return (
-                                <Avatar key={index} className="scenario-avatar telegram">
-                                    <ServiceIcon service='telegram' size='small' className='scenario-icons'/>
+                                <Avatar key={index}>
+                                    <ScenarioNode service='telegram' />
                                 </Avatar>
                             );
                         case 'https':
                             return (
-                                <Avatar key={index} className="scenario-avatar http">
-                                    <ServiceIcon service='http' size='small' className='scenario-icons'/>
+                                <Avatar key={index}>
+                                    <ScenarioNode service='http' />
                                 </Avatar>
                             );
                         case 'discord':
                             return (
-                                <Avatar key={index} className="scenario-avatar discord">
-                                    <ServiceIcon service='discord' size='small' className='scenario-icons'/>
+                                <Avatar key={index}>
+                                    <ScenarioNode service='discord' />
                                 </Avatar>
                             );
                         default:
-                            return null;
+                            return (
+                                <Avatar key={index}>
+                                    &zwnj;
+                                </Avatar>
+                            );
                     }
                 })
             }
+
+
         </AvatarGroup>
     );
 };
