@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { startEditScenario, startRemoveScenario } from '../../actions/scenarios';
+import { startEditScenario } from '../../actions/scenarios';
 import { intervalToText } from './intervalToText';
 import {
     ListItem,
@@ -12,20 +12,13 @@ import {
     Tooltip,
     Hidden
 } from '@material-ui/core';
-import {
-    Delete,
-    AccessTime,
-    History
-} from '@material-ui/icons';
+import { AccessTime, History } from '@material-ui/icons';
 import ScenarioNodes from './ScenarioNodes';
+import DeleteScenario from './DeleteScenario';
 
-const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeScenario }) => {
+const Scenario = ({ id, name, isActive, interval, nodes, editScenario }) => {
     const handleToggleActvie = () => {
         editScenario(id, { isActive: !isActive });
-    };
-
-    const handleRemoveScenario = () => {
-        removeScenario(id);
     };
 
     return (
@@ -52,11 +45,7 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
                     />
                 </Tooltip>
 
-                <Tooltip title="Delete scenario." placement="top">
-                    <IconButton aria-label="delete" color="secondary" onClick={handleRemoveScenario}>
-                        <Delete fontSize="small" />
-                    </IconButton>
-                </Tooltip>
+                <DeleteScenario id={id} name={name} />
 
                 <Tooltip title="History" placement="top">
                     <IconButton
@@ -74,8 +63,7 @@ const Scenario = ({ id, name, isActive, interval, nodes, editScenario, removeSce
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    editScenario: (id, updates) => dispatch(startEditScenario(id, updates)),
-    removeScenario: (id) => dispatch(startRemoveScenario(id)),
+    editScenario: (id, updates) => dispatch(startEditScenario(id, updates))
 });
 
 export default connect(null, mapDispatchToProps)(Scenario);
