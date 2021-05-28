@@ -3,8 +3,8 @@ import {
   Container,
   Typography
 } from '@material-ui/core';
-import Appbar from './Appbar';
-import PageTitle from './PageTitle';
+import Appbar from '../Layout/Appbar';
+import PageTitle from '../Layout/PageTitle';
 import BlankPageSVG from '../../styles/assets/blank-page.svg';
 
 const DummyPage = () => (

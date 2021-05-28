@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { startGetConnections } from '../../actions/connections';
 import { List, Paper } from '@material-ui/core';
 import Connection from './Connection';
-import NoItem from '../Layout/NoItem';
-import ListLoader from '../Layout/ListLoader';
+import NoItem from '../Static/NoItem';
+import ListLoader from '../Loaders/ListLoader';
 
 const Connections = ({ connections, getConnections }) => {
     const [loading, setLoading] = useState(true)
