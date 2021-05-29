@@ -65,5 +65,18 @@ export const services = {
           'Execute a command on a remote device.',
       },
     ],
-    githubs: [],
+    githubs: [
+      {
+        subService: 'createIssue',
+        kind: 'action',
+        primaryText: 'create issue',
+        secondaryText: 'create an issue on a repository'
+      },
+      {
+        subService: 'createPullRequest',
+        kind: 'action',
+        primaryText: 'create pull request',
+        secondaryText: 'create a pull request on a repository',
+      },
+    ],
 };

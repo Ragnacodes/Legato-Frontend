@@ -28,20 +28,10 @@ export const addConnection = (connection) => {
     };
 };
 
-export const startAddConnection = () => {
-    const url = window.location.href;
-    const token = url.substring(url.indexOf("code=")+5);
-    const token_type = url.slice(url.indexOf("redirect/")+9, url.indexOf("/?code"));
-    const name = "my " + token_type;
+export const startAddConnection = (connection) => {
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        return Axios.post(`users/${username}/add/connection`,
-            {
-                name:name, 
-                data : {"token": token},
-                type: token_type
-            }
-        )                                                              
+        return Axios.post(`users/${username}/add/connection`, connection)                                                              
             .then(res => {
                 dispatch(addConnection(res.data));
              })

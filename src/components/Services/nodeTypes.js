@@ -7,6 +7,8 @@ import WatchPlaylist from './Spotify/WatchPlaylist/Node';
 import Telegram1 from './Telegram/SendMessage/Node';
 import Telegram2 from './Telegram/getChatMember/Node';
 import SSHExecuteCommand from './SSH/ExecuteCommand/Node';
+import githubCreateIssue from './Github/CreateIssue/Node';
+import githubCreatePullRequest from './Github/CreatePullRequest/Node';
 
 export const nodeTypes = {
     webhooks_customWebhook: CustomWebhook,
@@ -18,4 +20,6 @@ export const nodeTypes = {
     telegrams_sendMessage: Telegram1,
     telegrams_getChatMember: Telegram2,
     sshes_: SSHExecuteCommand,
+    githubs_createIssue: githubCreateIssue,
+    githubs_createPullRequest: githubCreatePullRequest,
 };
