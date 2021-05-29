@@ -1,4 +1,27 @@
 .github-popover {
-    
+    .ssh-connection {
+      display: flex;
+      flex-direction: column;
+      .password {
+        width: 100%;
+        .text-field {
+          width: 100%;
+        }
+      }
+    }
+  
+    .private-key {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .extract-key {
+        align-self: stretch;
+        margin: 11px 0;
+      }
+      .file-input {
+        display: none;
+      }
+    }
   }
   

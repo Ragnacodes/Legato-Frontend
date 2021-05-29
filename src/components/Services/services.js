@@ -42,41 +42,41 @@ export const services = {
       secondaryText: 'Get user\'s top tracks.',
     },
   ],
-    telegrams: [
-        {
-            subService: 'sendMessage',
-            kind: 'action',
-            primaryText: 'Send a message',
-            secondaryText: 'sends a message from your telegram bot to specific user.'
-        },
-        {
-            subService: 'getChatMember',
-            kind: 'action',
-            primaryText: 'Get members',
-            secondaryText: 'to see who has joined in your bot.'
-        }
-    ],
-    sshes: [
+  telegrams: [
       {
-        subService: '',
-        kind: 'action',
-        primaryText: 'Execute a command',
-        secondaryText:
-          'Execute a command on a remote device.',
-      },
-    ],
-    githubs: [
-      {
-        subService: 'createIssue',
-        kind: 'action',
-        primaryText: 'create issue',
-        secondaryText: 'create an issue on a repository'
+          subService: 'sendMessage',
+          kind: 'action',
+          primaryText: 'Send a message',
+          secondaryText: 'Sends a message from your telegram bot to specific user.'
       },
       {
-        subService: 'createPullRequest',
-        kind: 'action',
-        primaryText: 'create pull request',
-        secondaryText: 'create a pull request on a repository',
-      },
-    ],
+          subService: 'getChatMember',
+          kind: 'action',
+          primaryText: 'Get members',
+          secondaryText: 'To see who has joined in your bot.'
+      }
+  ],
+  sshes: [
+    {
+      subService: '',
+      kind: 'action',
+      primaryText: 'Execute a command',
+      secondaryText:
+        'Execute a command on a remote device.',
+    },
+  ],
+  githubs: [
+    {
+      subService: 'createIssue',
+      kind: 'action',
+      primaryText: 'Create issue',
+      secondaryText: 'Create an issue on a repository'
+    },
+    {
+      subService: 'createPullRequest',
+      kind: 'action',
+      primaryText: 'Create pull request',
+      secondaryText: 'Create a pull request on a repository',
+    },
+  ],
 };
