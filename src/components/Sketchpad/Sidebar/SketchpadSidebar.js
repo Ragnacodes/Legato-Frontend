@@ -6,6 +6,7 @@ import TelegramSidebarItem from '../../Services/Telegram/SidebarItem';
 import SSHSidebarItem from '../../Services/SSH/SidebarItem';
 import GithubSidebarItem from '../../Services/Github/SidebarItem';
 import HTTPSidebarItem from '../../Services/HTTP/SidebarItem';
+import DiscordSidebarItem from '../../Services/Discord/SidebarItem';
 
 const SketchpadSidebar =  () => {
   return (
@@ -17,7 +18,8 @@ const SketchpadSidebar =  () => {
       <TelegramSidebarItem />
       <SSHSidebarItem />
       <GithubSidebarItem />
-
+      <DiscordSidebarItem />
+      
       <Divider />
       <div className="description">Toolbox</div>
     </aside>

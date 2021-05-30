@@ -7,6 +7,9 @@ import WatchPlaylist from './Spotify/WatchPlaylist/Node';
 import Telegram1 from './Telegram/SendMessage/Node';
 import Telegram2 from './Telegram/getChatMember/Node';
 import SSHExecuteCommand from './SSH/ExecuteCommand/Node';
+import DiscordSendMessage from './Discord/SendMessage/Node';
+import DiscordReactMessage from './Discord/ReactToMessage/Node';
+import DiscordPinMessage from './Discord/PinMessage/Node';
 
 export const nodeTypes = {
     webhooks_customWebhook: CustomWebhook,
@@ -18,4 +21,7 @@ export const nodeTypes = {
     telegrams_sendMessage: Telegram1,
     telegrams_getChatMember: Telegram2,
     sshes_: SSHExecuteCommand,
+    discords_sendMessage: DiscordSendMessage,
+    discords_reactMessage: DiscordReactMessage,
+    discords_pinMessage: DiscordPinMessage,
 };

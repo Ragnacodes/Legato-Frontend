@@ -66,4 +66,27 @@ export const services = {
       },
     ],
     githubs: [],
+    discords:[
+      {
+        subService: 'sendMessage',
+        kind: 'action',
+        primaryText: 'Post a message',
+        secondaryText:
+          'Posts a message in a channel.',
+      },
+      {
+        subService: 'reactMessage',
+        kind: 'action',
+        primaryText: 'React to a message',
+        secondaryText:
+          'React to a message in a channel.',
+      },
+      {
+        subService: 'pinMessage',
+        kind: 'action',
+        primaryText: 'Pin a message',
+        secondaryText:
+          'Pin a message in a channel.',
+      },
+    ]
 };
