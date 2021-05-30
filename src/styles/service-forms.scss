@@ -4,9 +4,22 @@
   &.watch-playlist,
   &.save-to-playlist,
   &.execute-command,
+  &.toolbox-repeater,
+  &.toolbox-sleep,
   &.wh-settings {
     display: flex;
     flex-direction: column;
+  }
+
+  &.toolbox-sleep {
+    .time-field {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      .text-field {
+        width: 30%;
+      }
+    }
   }
   &.custom-webhook {
     .url-helper-text {

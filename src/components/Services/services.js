@@ -66,4 +66,20 @@ export const services = {
       },
     ],
     githubs: [],
+    tool_boxes: [
+      {       
+        subService: 'sleep',
+        kind: 'action',
+        primaryText: 'Sleep',
+        secondaryText:
+          'Delay Execution.',
+      },
+      {       
+        subService: 'repeater',
+        kind: 'action',
+        primaryText: 'Repeat',
+        secondaryText:
+          'Repeat a series of actions.',
+      },
+    ]
 };
