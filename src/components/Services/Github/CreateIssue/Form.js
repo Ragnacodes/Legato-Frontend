@@ -1,7 +1,8 @@
-import React, { useState, useLayoutEffect, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import ServiceForm from '../../../PopoverForm';
 import Axios from '../../../../utils/axiosConfig';
-import { TextField, MenuItem, IconButton, CircularProgress } from '@material-ui/core';
+import { TextField, MenuItem, IconButton } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { startGetConnections } from '../../../../actions/connections';
 import { connect } from 'react-redux';
@@ -20,13 +21,19 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnec
     });
 
     const [repositories, setRepositories] = useState([]);
+    const [loadingConnections, setLoadingConnections] = useState(false);
     const [loadingRepo, setLoadingRepo] = useState(false);
     
     useEffect(() => {
-        getConnections();
+        setLoadingConnections(true);
+        getConnections()
+            .then(() => {
+                setLoadingConnections(false)
+            });
     }, [getConnections]);
 
-    useLayoutEffect(() => {
+
+    useEffect(() => {
         setLoadingRepo(true);
         Axios.post(`/users/${username}/services/github/repositories`, {connectionId: info.connectionId})
             .then((res) => {
@@ -48,10 +55,6 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnec
     const handleCancel = () => {
         setAnchorEl(null);
     };
-
-    const handleAddConnection = () => {
-        window.location.href = "http://localhost:3000/connections";
-    }
 
     const handleSave = () => {
         const updates = {
@@ -76,35 +79,63 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnec
             handleCancel={handleCancel}
         >
             <div className="connection-field">
-                <TextField
-                    name="connectionId"
-                    className="text-field"
-                    size="small"
-                    select
-                    label="Connection"
-                    value={info.connectionId}
-                    onChange={handleChange}
-                    variant="outlined"
-                    helperText="Choose one of your github connections."
+                {
+                    loadingConnections ? 
+                        <TextField
+                            name="connectionId"
+                            className="text-field"
+                            size="small"
+                            label="Connection"
+                            value="Loading..."
+                            onChange={handleChange}
+                            variant="outlined"
+                            helperText="Choose one of your github connections."
+                            disabled
+                        />
+                    :
+                    <TextField
+                        name="connectionId"
+                        className="text-field"
+                        size="small"
+                        select
+                        label="Connection"
+                        value={info.connectionId}
+                        onChange={handleChange}
+                        variant="outlined"
+                        helperText="Choose one of your github connections."
+                    >
+                        {
+                            githubConnections.map((c) => { 
+                                return <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>; 
+                            })                     
+                        }
+                    </TextField>
 
-                >
-                    { 
-                        githubConnections.map((c) => { 
-                            return <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>; 
-                        }) 
-                    }
-                </TextField>
+                }
+                
                 <IconButton
                     name="addConnection"
                     size="small"
                     className="add-icon"
-                    onClick={handleAddConnection}
+                    component={NavLink} to="/connections"
                 >
                     <Add />
                 </IconButton>
             </div>
             {
-                info.connectionId ? 
+                loadingRepo ? 
+                <TextField
+                    name="repository"
+                    className="text-field"
+                    size="small"
+                    label="Repositories"
+                    value="Loading ..."
+                    onChange={handleChange}
+                    variant="outlined"
+                    helperText="Choose one of your repositories."
+                    disabled
+                />
+                :
                 <TextField
                     name="repository"
                     className="text-field"
@@ -117,13 +148,9 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnec
                     helperText="Choose one of your repositories."
                 >
                     {
-                        loadingRepo ? <CircularProgress color="secondary" />
-                        : 
-                        repositories.map((r) => { return <MenuItem value={r}>{r}</MenuItem>; }) 
+                        repositories.map((r) => { return <MenuItem key={info.repository} value={r}>{r}</MenuItem>; }) 
                     }
                 </TextField>
-                :
-                null
             }
             {
                 info.repository ?

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import ServiceForm from '../../../PopoverForm';
 import Axios from '../../../../utils/axiosConfig';
 import { TextField, MenuItem, IconButton } from '@material-ui/core';
@@ -20,11 +21,16 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnec
 
     const [repositories, setRepositories] = useState([]);
     const [branches, setBranches] = useState([]);
+    const [loadingConnections, setLoadingConnections] = useState(false);
     const [loadingRepo, setLoadingRepo] = useState(false);
     const [loadingBranch, setLoadingBranch] = useState(false);
     
     useEffect(() => {
-        getConnections();
+        setLoadingConnections(true);
+        getConnections()
+            .then(() => {
+                setLoadingConnections(false)
+            });
     }, [getConnections]);
 
     useEffect(() => {
@@ -65,10 +71,6 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnec
         setAnchorEl(null);
     };
 
-    const handleAddConnection = () => {
-        window.location.href = "http://localhost:3000/connections";
-    }
-
     const handleSave = () => {
         const updates = {
             name: info.name,
@@ -77,6 +79,7 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnec
                 ...info,
                 owner: info.repository.split('/')[0],
                 repositoryName: info.repository.split('/')[1],
+                title: 'from ' + info.head + ' to ' + info.base,
             }
         };
         editElement(id, updates);
@@ -92,35 +95,61 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnec
             handleCancel={handleCancel}
         >
             <div className="connection-field">
-                <TextField
-                    name="connectionId"
-                    className="text-field"
-                    size="small"
-                    select
-                    label="Connection"
-                    value={info.connectionId}
-                    onChange={handleChange}
-                    variant="outlined"
-                    helperText="Choose one of your github connections."
-
-                >
-                    { 
-                        githubConnections.map((c) => { 
-                            return <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>; 
-                        }) 
-                    }
-                </TextField>
+                {
+                    loadingConnections ? 
+                        <TextField
+                            name="connectionId"
+                            className="text-field"
+                            size="small"
+                            label="Connection"
+                            value="Loading..."
+                            onChange={handleChange}
+                            variant="outlined"
+                            helperText="Choose one of your github connections."
+                            disabled
+                        />
+                    :
+                    <TextField
+                        name="connectionId"
+                        className="text-field"
+                        size="small"
+                        select
+                        label="Connection"
+                        value={info.connectionId}
+                        onChange={handleChange}
+                        variant="outlined"
+                        helperText="Choose one of your github connections."
+                    >
+                        {
+                            githubConnections.map((c) => { 
+                                return <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>; 
+                            })                     
+                        }
+                    </TextField>
+                }
                 <IconButton
                     name="addConnection"
                     size="small"
                     className="add-icon"
-                    onClick={handleAddConnection}
+                    component={NavLink} to="/connections"
                 >
                     <Add />
                 </IconButton>
             </div>
             {
-                info.connectionId ?
+                loadingRepo ?
+                <TextField
+                    name="repository"
+                    className="text-field"
+                    size="small"
+                    disabled
+                    label="Repositories"
+                    value="Loading..."
+                    onChange={handleChange}
+                    variant="outlined"
+                    helperText="Choose one of your repositories."
+                />
+                :
                 <TextField
                     name="repository"
                     className="text-field"
@@ -134,18 +163,55 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnec
                 >
                     { repositories.map((r) => { return <MenuItem key={r} value={r}>{r}</MenuItem>; }) }
                 </TextField>
-                :
-                null
             }
             {
-                info.repository ?
+                loadingBranch ?
                 <React.Fragment>
+                    <TextField
+                        name="head"
+                        className="text-field"
+                        size="small"
+                        disabled
+                        label="From"
+                        value="Loading"
+                        onChange={handleChange}
+                        variant="outlined"
+                        helperText="Choose the head branch."
+                    />
+                    <TextField
+                        name="base"
+                        className="text-field"
+                        size="small"
+                        disabled
+                        label="To"
+                        value="Loading"
+                        onChange={handleChange}
+                        variant="outlined"
+                        helperText="Choose the base branch."
+                    />
+                </React.Fragment>
+                :
+                <React.Fragment>
+                    <TextField
+                        name="head"
+                        className="text-field"
+                        size="small"
+                        select
+                        label="From"
+                        value={info.head}
+                        onChange={handleChange}
+                        variant="outlined"
+                        helperText="Choose the head branch."
+                    >
+                        { branches.map((b) => { return <MenuItem key={b} value={b}>{b}</MenuItem>; }) }
+                    </TextField>
+                    
                     <TextField
                         name="base"
                         className="text-field"
                         size="small"
                         select
-                        label="From"
+                        label="To"
                         value={info.base}
                         onChange={handleChange}
                         variant="outlined"
@@ -153,23 +219,7 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnec
                     >
                         { branches.map((b) => { return <MenuItem key={b} value={b}>{b}</MenuItem>; }) }
                     </TextField>
-                    
-                    <TextField
-                        name="head"
-                        className="text-field"
-                        size="small"
-                        select
-                        label="To"
-                        value={info.head}
-                        onChange={handleChange}
-                        variant="outlined"
-                        helperText="Choose the base branch."
-                    >
-                        { branches.map((b) => { return <MenuItem key={b} value={b}>{b}</MenuItem>; }) }
-                    </TextField>
                 </React.Fragment>
-                :
-                null
             }   
 
         </ServiceForm>
