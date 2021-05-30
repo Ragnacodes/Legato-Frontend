@@ -4,6 +4,8 @@
   &.watch-playlist,
   &.save-to-playlist,
   &.execute-command,
+  &.create-issue,
+  &.create-pullRequest,
   &.wh-settings {
     display: flex;
     flex-direction: column;
@@ -20,6 +22,8 @@
   &.custom-webhook,
   &.watch-playlist,
   &.execute-command,
+  &.create-issue,
+  &.create-pullRequest,
   &.save-to-playlist {
     .connection-field,
     .playlist-field,

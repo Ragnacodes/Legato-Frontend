@@ -1,6 +1,9 @@
 import Axios from '../utils/axiosConfig';
 
 export const getConnections = (connections) => {
+    if (connections === null){
+        connections = [];
+    };
     return {
         type: 'GET_CONNECTIONS',
         connections
@@ -31,6 +34,7 @@ export const addConnection = (connection) => {
 export const startAddConnection = (connection) => {
     return (dispatch, getState) => {
         const username = getState().auth.username;
+        console.log(connection);
         return Axios.post(`users/${username}/add/connection`, connection)                                                              
             .then(res => {
                 dispatch(addConnection(res.data));

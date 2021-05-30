@@ -6,14 +6,15 @@ import { startAddConnection } from '../../actions/connections';
 const Redirect = ({addConnection}) => {
     useEffect(() => {
         const url = window.location.href;
-        const token_type = url.slice(url.indexOf("redirect/")+9, url.indexOf("/?code"));
+        const token_type = url.substring(url.lastIndexOf("redirect/")+9, url.lastIndexOf("?code"));
         const connection = {
             name: "my " + token_type, 
             data : {token: switchCase(token_type, url)},
             type: token_type
         }
+        console.log(connection);
         addConnection(connection).then(()=>{ 
-            // window.location.href = "http://localhost:3000/connections"
+            window.location.href = "http://localhost:3000/connections";
         });
     },[addConnection]);
 
@@ -23,6 +24,8 @@ const Redirect = ({addConnection}) => {
 const switchCase = (type, url) => {
     switch (type) {
         case 'github':
+            return url.substring(url.lastIndexOf("?code=") + 6, url.lastIndexOf("&state"));
+        case 'spotify':
             return url.substring(url.lastIndexOf("?code=") + 6, url.lastIndexOf("&state"));
         default:
             return url.substring(url.indexOf("code=")+5);
