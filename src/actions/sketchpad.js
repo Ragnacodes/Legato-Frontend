@@ -82,7 +82,7 @@ export const startAddElement = (element) => {
                 dispatch(addEdge(element));
             })
             .catch(() => {
-                throw err;
+                throw new Error();
             });
         }
         else {

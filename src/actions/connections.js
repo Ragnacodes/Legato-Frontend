@@ -107,7 +107,6 @@ export const startAddSSHConnection = (info) => {
         })
         .catch((err) => {
             throw err;
-          return;
         });
     };
   };
