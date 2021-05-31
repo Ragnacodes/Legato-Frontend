@@ -32,16 +32,23 @@ export const startGetHistory = (scenarioID, historyID) => {
             };
             const logs = res.data.logs.map(log => {
                 const { id, name, type, subType } = log.Service;
+
+                const subTypeFront = getState().services[type]
+                .find(element => element.subService === subType)
+                .primaryText;
+
                 return {
                     id: log.id,
+                    status: 1,
                     service: {
                         id,
                         name,
                         type,
-                        subType
+                        subType: subTypeFront
                     },
                     messages: log.Messages
                 };
+                
             });
             dispatch(getHistory(scenario, history, logs));
         })
