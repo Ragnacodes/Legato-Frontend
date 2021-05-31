@@ -7,7 +7,11 @@ const boilerplate = {
 const historyReducer = (state=boilerplate, action) => {
     switch (action.type) {
         case 'GET_HISTORY':
-            return action.history;
+            return {
+                scenario: action.scenario,
+                history: action.history,
+                logs: action.logs
+            };
 
         default:
             return state;
