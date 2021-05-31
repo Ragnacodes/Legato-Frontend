@@ -21,11 +21,12 @@ const Histories = ({ loading, records }) => {
                 
                 <TableHead>
                     <TableRow>
-                        <TableCell align="left">Started</TableCell>
+                        <TableCell align="left">Date</TableCell>
+                        <TableCell align="left">Time</TableCell>
                         <TableCell align="left">Status</TableCell>
-                        <TableCell align="left">Duration</TableCell>
-                        <TableCell align="left">Operation</TableCell>
-                        <TableCell align="left">Data Transfer</TableCell>
+                        <TableCell align="left">Duration (ms)</TableCell>
+                        <TableCell align="left">Operations (#)</TableCell>
+                        <TableCell align="left">Data (kB)</TableCell>
                         <TableCell align="right"></TableCell>
                     </TableRow>
                 </TableHead>

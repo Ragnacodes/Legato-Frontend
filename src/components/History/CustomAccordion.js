@@ -9,7 +9,7 @@ import {
 import { ExpandMore } from '@material-ui/icons';
 import Status from './Status';
 
-const CustomAccordion = ({ type, status, time, events }) => {
+const CustomAccordion = ({ id, service, messages }) => {
     return (
         <Accordion>
             <AccordionSummary
@@ -20,18 +20,23 @@ const CustomAccordion = ({ type, status, time, events }) => {
                     spacing={2}
                 >
                     <Grid item>
-                        <Status status={status} />
+                        <Status status={"hi"} />
                     </Grid>
                     <Grid item>
-                        <Typography>{type}</Typography>
+                        <Typography>{service.type}</Typography>
                     </Grid>
                 </Grid>
             </AccordionSummary>
             <AccordionDetails>
-                <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                    sit amet blandit leo lobortis eget.
-                </Typography>
+                {
+                    messages.map((message, index) => {
+                        return (
+                            <Typography key={index}>
+                                {message.context}
+                            </Typography>
+                        );
+                    })
+                }
             </AccordionDetails>
         </Accordion>
     );
