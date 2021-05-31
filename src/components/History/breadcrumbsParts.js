@@ -18,6 +18,6 @@ export const getParts = (scenario, history) => [
     {
         path: `/scenarios/${scenario.id}/history/${history.id}`,
         CustomIcon: Schedule,
-        title: history.time
+        title: history.time + ' ' + history.date
     }
 ];
