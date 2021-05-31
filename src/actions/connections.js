@@ -18,13 +18,12 @@ export const startGetConnections = () => {
             dispatch(getConnections(res.data.connections));
         })
         .catch(err => {
-            console.log(err);
+            throw err;
         });
     };
 };
 
 export const addConnection = (connection) => {
-    console.log(connection);
     return {
         type: 'ADD_CONNECTION',
         connection
@@ -40,7 +39,7 @@ export const startAddConnection = (connection) => {
                 dispatch(addConnection(res.data));
              })
             .catch(err => {
-                console.log(err);
+                throw err;
             });
     };
 };
@@ -60,7 +59,7 @@ export const startRemoveConnection = (id) => {
             dispatch(removeConnection(id));
         })
         .catch(err => {
-            console.log(err);
+            throw err;
         });
     };
 };
@@ -81,7 +80,7 @@ export const startEditConnection = (id, newName) => {
             dispatch(editConnection(id, res.data.updates));
         })
         .catch(err => {
-            console.log(err);
+            throw err;
         });
     };
 };
@@ -101,8 +100,7 @@ export const startAddSSHConnection = (info) => {
           return;
         })
         .catch((err) => {
-          console.log(err);
-          return;
+            throw err;
         });
     };
   };
@@ -117,7 +115,6 @@ export const startAddSSHConnection = (info) => {
           return true;
         })
         .catch((err) => {
-          console.log(err);
           return false;
         });
     };

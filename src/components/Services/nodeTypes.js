@@ -9,6 +9,8 @@ import Telegram2 from './Telegram/getChatMember/Node';
 import SSHExecuteCommand from './SSH/ExecuteCommand/Node';
 import githubCreateIssue from './Github/CreateIssue/Node';
 import githubCreatePullRequest from './Github/CreatePullRequest/Node';
+import Sleep from './ToolBox/Sleep/Node'
+import Repeater from './ToolBox/Repeater/Node'
 
 export const nodeTypes = {
     webhooks_customWebhook: CustomWebhook,
@@ -22,4 +24,6 @@ export const nodeTypes = {
     sshes_: SSHExecuteCommand,
     githubs_createIssue: githubCreateIssue,
     githubs_createPullRequest: githubCreatePullRequest,
+    tool_boxes_sleep: Sleep,
+    tool_boxes_repeater: Repeater,
 };

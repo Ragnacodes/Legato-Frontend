@@ -1,8 +1,9 @@
 import React, { useRef, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { updateStatus } from '../../actions/sketchpadStatus';
 import {
   startGetSketchpad,
-  startAddElement,
+  startAddEdge,
   startRemoveNode,
   startRemoveEdge,
   startEditElement
@@ -21,6 +22,7 @@ import { nodeTypes } from '../Services/nodeTypes';
 
 const Sketchpad = ({
   id,
+  fetched,
   elements,
   getSketchpad,
   addEdge,
@@ -29,33 +31,103 @@ const Sketchpad = ({
   editElement 
 }) => {
 
+  const dispatch = useDispatch();
   const reactFlowWrapper = useRef(null);
 
   useEffect(() => {
+    dispatch(updateStatus({
+      fetched: false
+    }));
     getSketchpad(id)
     .then(() => {
+      dispatch(updateStatus({
+        fetched: true
+      }));
     })
     .catch(() => {
+      dispatch(updateStatus({
+        fetched: false
+      }));
     });
-  }, [getSketchpad, id]);
+  }, [getSketchpad, id, dispatch]);
 
   const onConnect = (params) => {
-    addEdge({...params, animated: true, type: 'edge'});
+    dispatch(updateStatus({
+      loading: true,
+      failed: false
+    }));
+    addEdge({...params, animated: true, type: 'edge'})
+    .then(() => {
+      dispatch(updateStatus({
+        loading: false,
+        failed: false
+      }));
+    })
+    .catch(() => {
+      dispatch(updateStatus({
+        loading: false,
+        failed: true
+      }));
+    });
   };
 
   const onElementsRemove = (elementsToRemove) => {
+    dispatch(updateStatus({
+      loading: true,
+      failed: false
+    }));
     const element = elementsToRemove[0];
     if (isNode(element)) {
-      removeNode(element.id);
+      removeNode(element.id)
+      .then(() => {
+        dispatch(updateStatus({
+          loading: false,
+          failed: false
+        }));
+      })
+      .catch(() => {
+        dispatch(updateStatus({
+          loading: false,
+          failed: true
+        }));
+      });
     }
     else if (isEdge(element)) {
-      removeEdge(element);
+      removeEdge(element)
+      .then(() => {
+        dispatch(updateStatus({
+          loading: false,
+          failed: false
+        }));
+      })
+      .catch(() => {
+        dispatch(updateStatus({
+          loading: false,
+          failed: true
+        }));
+      });
     }
   };
 
   const onNodeDragStop = (event, node) => {
-    editElement(node.id, {position: node.position});
-  }
+    dispatch(updateStatus({
+      loading: true,
+      failed: false
+    }));
+    editElement(node.id, {position: node.position})
+    .then(() => {
+      dispatch(updateStatus({
+        loading: false,
+        failed: false
+      }));
+    })
+    .catch(() => {
+      dispatch(updateStatus({
+        loading: false,
+        failed: true
+      }));
+    });
+  };
 
   return (
     <div className="sketchpad">
@@ -63,7 +135,7 @@ const Sketchpad = ({
       <div className="dndflow">
           <div className="reactflow-wrapper" ref={reactFlowWrapper}>
             <ReactFlow
-              elements={elements}
+              elements={fetched ? elements : []}
               onConnect={onConnect}
               onElementsRemove={onElementsRemove}
               nodeTypes={nodeTypes}
@@ -88,7 +160,8 @@ const Sketchpad = ({
 
 const mapStateToProps = (state) => {
   return {
-    elements: state.sketchpad.elements
+    elements: state.sketchpad.elements,
+    fetched: state.sketchpadStatus.fetched,
   };
 };
 
@@ -97,7 +170,7 @@ const mapDispatchToProps = (dispatch) => {
     getSketchpad: (scenarioID) => dispatch(startGetSketchpad(scenarioID)),
     removeNode: (id) => dispatch(startRemoveNode(id)),
     removeEdge: (edge) => dispatch(startRemoveEdge(edge)),
-    addEdge: (edge) => dispatch(startAddElement(edge)),
+    addEdge: (edge) => dispatch(startAddEdge(edge)),
     editElement: (id, updates) => dispatch(startEditElement(id, updates))
   };
 };

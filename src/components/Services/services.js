@@ -43,26 +43,25 @@ export const services = {
     },
   ],
   telegrams: [
-      {
-          subService: 'sendMessage',
-          kind: 'action',
-          primaryText: 'Send a message',
-          secondaryText: 'Sends a message from your telegram bot to specific user.'
-      },
-      {
-          subService: 'getChatMember',
-          kind: 'action',
-          primaryText: 'Get members',
-          secondaryText: 'To see who has joined in your bot.'
-      }
+    {
+        subService: 'sendMessage',
+        kind: 'action',
+        primaryText: 'Send a message',
+        secondaryText: 'Sends a message from your telegram bot to specific user.'
+    },
+    {
+        subService: 'getChatMember',
+        kind: 'action',
+        primaryText: 'Get members',
+        secondaryText: 'To see who has joined in your bot.'
+    }
   ],
   sshes: [
     {
-      subService: '',
-      kind: 'action',
-      primaryText: 'Execute a command',
-      secondaryText:
-        'Execute a command on a remote device.',
+        subService: '',
+        kind: 'action',
+        primaryText: 'Execute a command',
+        secondaryText: 'Execute a command on a remote device.',
     },
   ],
   githubs: [
@@ -79,4 +78,18 @@ export const services = {
       secondaryText: 'Create a pull request on a repository',
     },
   ],
+  tool_boxes: [
+    {       
+      subService: 'sleep',
+      kind: 'action',
+      primaryText: 'Sleep',
+      secondaryText: 'Delay Execution.',
+    },
+    {       
+      subService: 'repeater',
+      kind: 'action',
+      primaryText: 'Repeat',
+      secondaryText: 'Repeat a series of actions.',
+    },
+  ]
 };

@@ -24,7 +24,7 @@ const AddConnection = ({addDialog, setAddDialog, createSSHConnetion}) => {
                 window.location.href = res.data.url;
             })
             .catch(err => {
-                console.log(err);
+                throw err;
             });
     };
 
