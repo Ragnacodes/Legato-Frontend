@@ -28,7 +28,6 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
       parseInt(info['hour']) * 3600 +
       parseInt(info['minute']) * 60 +
       parseInt(info['second']);
-    console.log(time, info);
     editElement(id, {
       data: {
         ...data,

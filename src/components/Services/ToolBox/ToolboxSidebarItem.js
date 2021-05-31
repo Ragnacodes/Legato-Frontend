@@ -7,7 +7,6 @@ const ToolboxSidebarItem = ({ icon, services, subService }) => {
     const subServiceObject = services['tool_boxes'].find(service => service.subService === subService) || {};
     const [anchorEl, setAnchorEl] = useState(null);
     const handleClick = (event) => {
-        console.log(subService, subServiceObject)
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
