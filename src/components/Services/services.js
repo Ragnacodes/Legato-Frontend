@@ -42,28 +42,28 @@ export const services = {
       secondaryText: 'Get user\'s top tracks.',
     },
   ],
-    telegrams: [
-        {
-            subService: 'sendMessage',
-            kind: 'action',
-            primaryText: 'Send a message',
-            secondaryText: 'sends a message from your telegram bot to specific user.'
-        },
-        {
-            subService: 'getChatMember',
-            kind: 'action',
-            primaryText: 'Get members',
-            secondaryText: 'to see who has joined in your bot.'
-        }
-    ],
-    sshes: [
+  telegrams: [
       {
-        subService: '',
-        kind: 'action',
-        primaryText: 'Execute a command',
-        secondaryText:
-          'Execute a command on a remote device.',
+          subService: 'sendMessage',
+          kind: 'action',
+          primaryText: 'Send a message',
+          secondaryText: 'sends a message from your telegram bot to specific user.'
       },
-    ],
-    githubs: [],
+      {
+          subService: 'getChatMember',
+          kind: 'action',
+          primaryText: 'Get members',
+          secondaryText: 'to see who has joined in your bot.'
+      }
+  ],
+  sshes: [
+    {
+      subService: '',
+      kind: 'action',
+      primaryText: 'Execute a command',
+      secondaryText:
+        'Execute a command on a remote device.',
+    },
+  ],
+  githubs: [],
 };
