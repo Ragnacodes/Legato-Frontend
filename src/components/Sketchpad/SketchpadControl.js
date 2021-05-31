@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Button } from '@material-ui/core';
+import { Button, Grid, Box } from '@material-ui/core';
 import { PlayArrow } from '@material-ui/icons';
 import Scheduling from './Scheduling/Scheduling';
+import Status from './Status';
 import Axios from '../../utils/axiosConfig';
 
-const SketchpadControl = ({ username, scenario }) => {
+const SketchpadControl = ({ username, scenario, loading, failed }) => {
 
     const onClicked = () => {
         Axios.patch(`/users/${username}/scenarios/${scenario.id}`)
@@ -13,31 +14,45 @@ const SketchpadControl = ({ username, scenario }) => {
     const [showScheduling, setShowScheduling] = useState(false);
     
     return (
-        <div className="control-box">
-            <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                onClick={onClicked}
-                className="button"
-                startIcon={<PlayArrow />}
-            >
-                Run Once
-            </Button>
-            <Button
-                variant="outlined"
-                color="primary"
-                size="large"
-                onClick={()=>setShowScheduling(true)}
-                className="button"
-            >
-              Scheduling
-            </Button>
+        <React.Fragment>
+
             <Scheduling 
                 showScheduling={showScheduling} 
                 setShowScheduling={setShowScheduling}
             />
-        </div>
+
+            <div className="control-box">
+                <Grid container alignItems="center" spacing={2}>
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="large"
+                            onClick={onClicked}
+                            startIcon={<PlayArrow />}
+                        >
+                            Run Once
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            size="large"
+                            onClick={()=>setShowScheduling(true)}
+                        >
+                            Scheduling
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                        <Box ml={2}>
+                            <Status />
+                        </Box>
+                    </Grid>
+                </Grid>
+            </div>
+            
+        </React.Fragment>
     );
 };
 

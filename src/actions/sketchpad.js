@@ -67,46 +67,56 @@ export const startGetSketchpad = (id) => {
     }
 };
 
-export const startAddElement = (element) => {
+export const startAddNode = (node) => {
     return (dispatch, getState) => {
         const username = getState().auth.username;
         const scenarioID = getState().sketchpad.scenario.id;
-
-        if (element.type === 'edge') {
-            const childNodeID = element.target;
-            const updates = {
-                parentId: parseInt(element.source)
+        const nodeBack = nodeFrontToBack(node);
+        const body = JSON.stringify(nodeBack);
+        return Axios.post(`/users/${username}/scenarios/${scenarioID}/nodes`, body)
+        .then(res => {
+            const backData = res.data.node.data;
+            const newElement = {
+                ...node,
+                data: {
+                    ...node.data,
+                    ...backData
+                }
             };
-            dispatch(startEditElement(childNodeID, updates))
-            .then(() => {
-                dispatch(addEdge(element));
-            })
-            .catch(() => {
-                throw new Error();
-            });
-        }
-        else {
-            const nodeBack = nodeFrontToBack(element);
-            const body = JSON.stringify(nodeBack);
-            return Axios.post(`/users/${username}/scenarios/${scenarioID}/nodes`, body)
-            .then(res => {
-                const backData = res.data.node.data;
-                const newElement = {
-                    ...element,
-                    data: {
-                        ...element.data,
-                        ...backData
-                    }
-                };
-                dispatch(addNode({
-                    id: res.data.node.id.toString(),
-                    ...newElement,
-                }));
-            })
-            .catch(err => {
-                throw err;
-            });
-        } 
+            dispatch(addNode({
+                id: res.data.node.id.toString(),
+                ...newElement,
+            }));
+        })
+        .catch(err => {
+            throw err;
+        });
+    } 
+}
+
+export const startAddEdge = (edge) => {
+    return (dispatch, getState) => {
+        const username = getState().auth.username;
+        const scenarioID = getState().sketchpad.scenario.id;
+        const childNodeID = edge.target;
+        const backUpdates = {
+            parentId: parseInt(edge.source)
+        };
+        const body = JSON.stringify(backUpdates);
+        return Axios.put(`/users/${username}/scenarios/${scenarioID}/nodes/${childNodeID}`, body)
+        .then(res => {
+            dispatch(addEdge(edge));
+            const frontUpdates = {
+                data: {
+                    ...getState().sketchpad.elements.find(element => element.id === childNodeID).data,
+                    parentId: parseInt(edge.source)
+                }
+            };
+            dispatch(editElement(childNodeID, frontUpdates));
+        })
+        .catch(err => {
+            throw err;
+        });
     };
 };
 
@@ -137,6 +147,13 @@ export const startRemoveEdge = (edge) => {
         return Axios.put(`/users/${username}/scenarios/${scenarioID}/nodes/${childNodeID}`, body)
         .then(res => {
             dispatch(removeElement(edge.id));
+            const frontUpdates = {
+                data: {
+                    ...getState().sketchpad.elements.find(element => element.id === childNodeID).data,
+                    parentId: null
+                }
+            };
+            dispatch(editElement(childNodeID, frontUpdates));
         })
         .catch(err => {
             throw err;
