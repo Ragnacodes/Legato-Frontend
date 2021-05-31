@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { MenuItem, IconButton, TextField } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { connect } from 'react-redux';
@@ -18,18 +18,18 @@ const Form = ({
   setAnchorEl,
 }) => {
   const [info, setInfo] = useState({
-    connection: data.connection || '',
+    connectionId: data.connectionId || '',
     command: data.command || '',
   });
 
   const [errors, setErrors] = useState({
-    connection: !!data.connection,
+    connectionId: !!data.connectionId,
     command: !!data.command,
   });
 
   const [addAnchor, setAddAnchor] = useState(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getSshConnections();
   }, [getSshConnections]);
 
@@ -45,10 +45,10 @@ const Form = ({
         command: false,
       }));
     }
-    if (!!info['connection']) {
+    if (!!info['connectionId']) {
       setErrors((prev) => ({
         ...prev,
-        connection: false,
+        connectionId: false,
       }));
     }
   }, [info]);
@@ -63,29 +63,29 @@ const Form = ({
   const handleCancel = () => {
     setAnchorEl(null);
     setInfo({
-      connection: data.connection || '',
+      connection: data.connectionId || '',
       command: data.command || '',
     });
     setErrors({
       command: !!data.command,
-      connection: !!data.connection,
+      connection: !!data.connectionId,
     });
   };
 
   const handleSave = () => {
-    checkSSHConnection(JSON.parse(info['connection'].Data).data).then(
-      (check) => {
-        if (!check) return;
-      }
-    );
+    const connection =
+      sshConnections.find((c) => c.id === info['connectionId']) || {};
+    checkSSHConnection(connection.data).then((check) => {
+      if (!check) return;
+    });
 
     const updates = {
       name: info.name,
       data: {
         ...data,
+        ...connection.data,
         ...info,
         commands: info['command'].split('\n'),
-        ...JSON.parse(info['connection'].Data).data,
       },
     };
     editElement(id, updates);
@@ -100,7 +100,7 @@ const Form = ({
     console.log(info);
   }, [info]);
 
-  let disabledSave = errors['connection'] || errors['command'];
+  let disabledSave = errors['connectionId'] || errors['command'];
 
   return (
     <ServiceForm
@@ -112,18 +112,22 @@ const Form = ({
     >
       <div className="connection-field">
         <TextField
-          name="connection"
+          name="connectionId"
           className="text-field"
           size="small"
           select
           label="Connection"
-          value={info['connection']}
+          value={info['connectionId']}
           onChange={handleChange}
           variant="outlined"
         >
           {sshConnections &&
             sshConnections.map((c) => {
-              return <MenuItem value={c}>{c.Name}</MenuItem>;
+              return (
+                <MenuItem key={c.id} value={c.id}>
+                  {c.name}
+                </MenuItem>
+              );
             })}
         </TextField>
 
@@ -155,7 +159,7 @@ const Form = ({
   );
 };
 const mapStateToProps = (state) => ({
-  sshConnections: state.connections.filter((c) => c.Type === 'ssh'),
+  sshConnections: state.connections.filter((c) => c.type === 'sshes'),
 });
 
 const mapDispatchToProps = (dispatch) => ({
