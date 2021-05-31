@@ -7,6 +7,8 @@ import WatchPlaylist from './Spotify/WatchPlaylist/Node';
 import Telegram1 from './Telegram/SendMessage/Node';
 import Telegram2 from './Telegram/getChatMember/Node';
 import SSHExecuteCommand from './SSH/ExecuteCommand/Node';
+import Sleep from './ToolBox/Sleep/Node'
+import Repeater from './ToolBox/Repeater/Node'
 
 export const nodeTypes = {
     webhooks_customWebhook: CustomWebhook,
@@ -18,4 +20,7 @@ export const nodeTypes = {
     telegrams_sendMessage: Telegram1,
     telegrams_getChatMember: Telegram2,
     sshes_: SSHExecuteCommand,
+    tool_boxes_sleep: Sleep,
+    tool_boxes_repeater: Repeater,
+
 };

@@ -62,7 +62,7 @@ export const startGetSketchpad = (id) => {
             dispatch(getSketchpad(scenario, elementsFront));
         })
         .catch(err => {
-            console.log(err);
+            throw err;
         });
     }
 };
@@ -82,7 +82,7 @@ export const startAddElement = (element) => {
                 dispatch(addEdge(element));
             })
             .catch(() => {
-                console.log('Error in creating edge.');
+                throw new Error();
             });
         }
         else {
@@ -104,7 +104,7 @@ export const startAddElement = (element) => {
                 }));
             })
             .catch(err => {
-                console.log(err);
+                throw err;
             });
         } 
     };
@@ -122,7 +122,7 @@ export const startRemoveNode = (id) => {
             dispatch(getSketchpad(scenario, newElementsFront));
         })
         .catch(err => {
-            console.log(err);
+            throw err;
         });
     };
 };
@@ -139,7 +139,7 @@ export const startRemoveEdge = (edge) => {
             dispatch(removeElement(edge.id));
         })
         .catch(err => {
-            console.log(err);
+            throw err;
         });
     };
 };
@@ -155,7 +155,7 @@ export const startEditElement = (id, updates) => {
             dispatch(editElement(id, updates));
         })
         .catch(err => {
-            console.log(err);
+            throw err;
         });
     };
 };
@@ -184,7 +184,7 @@ export const startSchedulingScenario = (id, scheduling) => {
             dispatch(editSketchpadScenario(res.data.scenario));
         })
         .catch(err => {
-            console.log(err);
+            throw err;
         });
     };
 };

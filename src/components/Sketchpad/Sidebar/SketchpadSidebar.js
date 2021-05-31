@@ -6,6 +6,8 @@ import TelegramSidebarItem from '../../Services/Telegram/SidebarItem';
 import SSHSidebarItem from '../../Services/SSH/SidebarItem';
 import GithubSidebarItem from '../../Services/Github/SidebarItem';
 import HTTPSidebarItem from '../../Services/HTTP/SidebarItem';
+import SleepSidebarItem from '../../Services/ToolBox/Sleep/SidebarItem';
+import RepeatSidebarItem from '../../Services/ToolBox/Repeater/SidebarItem';
 
 const SketchpadSidebar =  () => {
   return (
@@ -20,6 +22,9 @@ const SketchpadSidebar =  () => {
 
       <Divider />
       <div className="description">Toolbox</div>
+      <SleepSidebarItem/>
+      <RepeatSidebarItem/>
+
     </aside>
   );
 };
