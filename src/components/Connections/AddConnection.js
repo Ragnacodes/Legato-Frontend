@@ -18,9 +18,9 @@ import { faTerminal } from '@fortawesome/free-solid-svg-icons';
 
 const AddConnection = ({addDialog, setAddDialog, createSSHConnetion}) => {
     function onServiceClicked(e, service) {
-        setAddDialog(false);
         Axios.get(`user/connection/access/token/${service}`)
             .then(res => {
+                setAddDialog(false);
                 window.location.href = res.data.url;
             })
             .catch(err => {
