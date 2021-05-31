@@ -23,15 +23,15 @@ export function Form({
 
   const [guildId, setGuildId] = useState('');
 
-  // useEffect(() => {
+  // useLayoutEffect(() => {
   //   if (guildId) getChannels(guildId);
   // }, [guildId, getChannels]);
 
-  // useEffect(() => {
+  // useLayoutEffect(() => {
   //   getConnection();
   // }, [getConnection]);
 
-  // useEffect(() => {
+  // useLayoutEffect(() => {
   //   if (connections) {
   //     setGuildId(connections[0].data.guildId);
   //   }
@@ -63,7 +63,6 @@ export function Form({
   };
 
   let disabledSave = !info['channelId'] || !info['content'];
-
 
   return (
     <ServiceForm
