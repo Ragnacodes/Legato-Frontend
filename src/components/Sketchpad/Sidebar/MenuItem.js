@@ -1,14 +1,20 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { startAddElement } from '../../../actions/sketchpad';
+import { connect, useDispatch } from 'react-redux';
+import { startAddNode } from '../../../actions/sketchpad';
+import { updateStatus } from '../../../actions/sketchpadStatus';
 import {
     ListItem,
     ListItemText,
 } from '@material-ui/core';
 
 const MenuItem = ({ service, item, close, addNode }) => {
+    const dispatch = useDispatch();
 
     const handleClick = (e) => {
+        dispatch(updateStatus({
+            loading: true,
+            failed: false
+        }));
         const node = {
             type: `${service}_${item.subService}`,
             position: {
@@ -21,8 +27,21 @@ const MenuItem = ({ service, item, close, addNode }) => {
                 name: ''
             }
         };
-        addNode(node);
-        close();
+        addNode(node)
+        .then(() => {
+            dispatch(updateStatus({
+                loading: false,
+                failed: false
+            }));
+            close();
+        })
+        .catch(() =>{
+            dispatch(updateStatus({
+                loading: false,
+                failed: true
+            }));
+            close();
+        });
     };
 
     return (
@@ -37,7 +56,7 @@ const MenuItem = ({ service, item, close, addNode }) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addNode: (node) => dispatch(startAddElement(node)),
+        addNode: (node) => dispatch(startAddNode(node)),
     };
 };
 

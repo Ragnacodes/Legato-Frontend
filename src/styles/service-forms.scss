@@ -4,10 +4,25 @@
   &.watch-playlist,
   &.save-to-playlist,
   &.execute-command,
+  &.create-issue,
+  &.create-pullRequest,
+  &.toolbox-repeater,
+  &.toolbox-sleep,
   &.wh-settings,
   &.discord-forms {
     display: flex;
     flex-direction: column;
+  }
+
+  &.toolbox-sleep {
+    .time-field {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      .text-field {
+        width: 30%;
+      }
+    }
   }
   &.custom-webhook {
     .url-helper-text {
@@ -18,6 +33,7 @@
       cursor: pointer;
     }
   }
+<<<<<<< HEAD
 
   &.discord-forms {
     .message-card {
@@ -29,6 +45,30 @@
       width: 100%;
       .message-date {
         color: rgb(94, 94, 94);
+=======
+  &.custom-webhook,
+  &.watch-playlist,
+  &.execute-command,
+  &.create-issue,
+  &.create-pullRequest,
+  &.save-to-playlist {
+    .connection-field,
+    .playlist-field,
+    .track-field {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      > .text-field {
+        margin-right: 5px;
+        flex: 1;
+      }
+      > .add-icon {
+        margin-top: 16px;
+      }
+      > .edit-icon {
+        margin-top: 16px;
+        margin-right: 2px;
+>>>>>>> 82b002d5d6abbd76818c529b0340cb2eecb2f673
       }
       .message-content {
         word-break: break-all;

@@ -5,7 +5,7 @@ import ScenarioServiceIcon from '../ServiceIcons/ScenarioServiceIcon';
 
 const ScenarioNodes = ({ nodes }) => {
     const reverseNodes = nodes.slice().reverse();
-    const notCovered = 4 - reverseNodes;
+    const notCovered = 4 - reverseNodes.length;
     for (let i = 0; i < notCovered; i++) {
         reverseNodes.push('');
     }

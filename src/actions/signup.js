@@ -16,7 +16,6 @@ export const startSignup = (info) => {
         return res;
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           let str = err.response.data.message;
           throw new Error(str.charAt(0).toUpperCase() + str.slice(1) + '.');

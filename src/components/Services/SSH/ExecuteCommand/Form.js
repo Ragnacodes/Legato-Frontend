@@ -96,10 +96,6 @@ const Form = ({
     setAddAnchor(e.currentTarget);
   };
 
-  useEffect(() => {
-    console.log(info);
-  }, [info]);
-
   let disabledSave = errors['connectionId'] || errors['command'];
 
   return (
