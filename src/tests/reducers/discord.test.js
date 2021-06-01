@@ -124,7 +124,7 @@ test('should set messages for discord', () => {
       messages,
     },
   };
-  const state = spotifyReducer({ channels }, action);
+  const state = discordReducer({ channels }, action);
   expect(state).toEqual({
     channels,
     messages,
