@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { MenuItem, Button, TextField, IconButton } from '@material-ui/core';
 import { Refresh } from '@material-ui/icons';
 import { connect } from 'react-redux';
@@ -12,33 +12,39 @@ export function Form({
   data,
   connections,
   channels,
+  messages,
   editElement,
   setAnchorEl,
   getChannels,
-  getConnection,
+  getConnections,
+  getMessages,
 }) {
   const [info, setInfo] = useState({
     connection: data.connection || '',
     channelId: data.channelId || '',
     messageId: data.messageId || '',
-    react: data.content || '',
+    react: data.react || '',
   });
 
   const [guildId, setGuildId] = useState('');
 
-  // useLayoutEffect(() => {
-  //   if (guildId) getChannels(guildId);
-  // }, [guildId, getChannels]);
+  useLayoutEffect(() => {
+    if (guildId) getChannels(guildId);
+  }, [guildId, getChannels]);
 
-  // useLayoutEffect(() => {
-  //   getConnection();
-  // }, [getConnection]);
+  useLayoutEffect(() => {
+    if (info.channelId) getMessages(info.channelId);
+  }, [info.channelId, getMessages]);
 
-  // useLayoutEffect(() => {
-  //   if (connections) {
-  //     setGuildId(connections[0].data.guildId);
-  //   }
-  // }, [connections]);
+  useLayoutEffect(() => {
+    getConnections();
+  }, [getConnections]);
+
+  useLayoutEffect(() => {
+    if (connections.length) {
+      setGuildId(connections[0].data.guildId);
+    }
+  }, [connections]);
 
   const handleChange = (e) => {
     setInfo((prev) => ({
@@ -47,17 +53,13 @@ export function Form({
     }));
   };
 
-  const handleMessageChange = (event, newValue) => {
-    console.log(newValue);
-    setInfo((prev) => ({ ...prev, messageId: newValue }));
-  };
-
   const handleCancel = () => {
     setAnchorEl(null);
     setInfo({
       connection: data.connection || '',
       channelId: data.channelId || '',
-      content: data.content || '',
+      messageId: data.messageId || '',
+      react: data.react || '',
     });
   };
 
@@ -76,114 +78,9 @@ export function Form({
   };
 
   let disabledSave = !info['messageId'] || !info['channelId'] || !info['react'];
-  const m = [
-    {
-      id: '8476268066511519048',
-      type: 6,
-      content: 'that is it',
-      channel_id: '84616086600371753',
-      attachments: [],
-      embeds: [],
-      mentions: [],
-      mention_roles: [],
-      pinned: false,
-      mention_everyone: false,
-      tts: false,
-      timestamp: '2021-05-28T00:06:18.850000+00:00',
-      edited_timestamp: null,
-      flags: 0,
-      components: [],
-    },
-    {
-      id: '8476268066521519048',
-      type: 6,
-      content: 'that is it',
-      channel_id: '84616086000371753',
-      attachments: [],
-      embeds: [],
-      mentions: [],
-      mention_roles: [],
-      pinned: false,
-      mention_everyone: false,
-      tts: false,
-      timestamp: '2021-05-28T00:06:18.850000+00:00',
-      edited_timestamp: null,
-      flags: 0,
-      components: [],
-    },
-    {
-      id: '8476268046651519048',
-      type: 6,
-      content: 'that is it',
-      channel_id: '84160866000371753',
-      attachments: [],
-      embeds: [],
-      mentions: [],
-      mention_roles: [],
-      pinned: false,
-      mention_everyone: false,
-      tts: false,
-      timestamp: '2021-05-28T00:06:18.850000+00:00',
-      edited_timestamp: null,
-      flags: 0,
-      components: [],
-    },
-    {
-      id: '84762680665151908',
-      type: 6,
-      content: 'that is it',
-      channel_id: '846160866000371753',
-      attachments: [],
-      embeds: [],
-      mentions: [],
-      mention_roles: [],
-      pinned: false,
-      mention_everyone: false,
-      tts: false,
-      timestamp: '2021-05-28T00:06:18.850000+00:00',
-      edited_timestamp: null,
-      flags: 0,
-      components: [],
-    },
-    {
-      id: '847626806651519049',
-      type: 6,
-      content: 'that is it',
-      channel_id: '846160866000371753',
-      attachments: [],
-      embeds: [],
-      mentions: [],
-      mention_roles: [],
-      pinned: false,
-      mention_everyone: false,
-      tts: false,
-      timestamp: '2021-05-28T00:06:18.850000+00:00',
-      edited_timestamp: null,
-      flags: 0,
-      components: [],
-    },
-    {
-      id: '847624201682812958',
-      type: 0,
-      content:
-        'hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello',
-      channel_id: '846160866000371753',
-      attachments: [],
-      embeds: [],
-      mentions: [],
-      mention_roles: [],
-      pinned: true,
-      mention_everyone: false,
-      tts: false,
-      timestamp: '2021-05-27T23:55:57.777000+00:00',
-      edited_timestamp: null,
-      flags: 0,
-      components: [],
-    },
-  ];
 
   const FindMessage = (id) => {
-    const msg = m.find((message) => message.id === id);
+    const msg = messages.find((message) => message.id === id);
     if (msg) return msg;
     return {};
   };
@@ -201,7 +98,7 @@ export function Form({
       handleCancel={handleCancel}
     >
       <MessageList
-        messages={m}
+        messages={messages}
         anchor={messageListAnchor}
         setAnchor={setMessageListAnchor}
         value={info['messageId']}
@@ -265,11 +162,13 @@ export function Form({
 const mapStateToProps = (state) => ({
   connections: state.connections,
   channels: state.discord.channels,
+  messages: state.discord.messages,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getConnections: () => dispatch(startGetConnections()),
-  getChannels: () => dispatch(actions.startGetChannels()),
+  getChannels: (guildId) => dispatch(actions.startGetChannels(guildId)),
+  getMessages: (channelId) => dispatch(actions.startGetMessages(channelId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { MenuItem, IconButton, TextField } from '@material-ui/core';
 import { Refresh } from '@material-ui/icons';
 import { connect } from 'react-redux';
@@ -13,7 +13,7 @@ export function Form({
   editElement,
   setAnchorEl,
   getChannels,
-  getConnection,
+  getConnections,
 }) {
   const [info, setInfo] = useState({
     connection: data.connection || '',
@@ -23,19 +23,19 @@ export function Form({
 
   const [guildId, setGuildId] = useState('');
 
-  // useLayoutEffect(() => {
-  //   if (guildId) getChannels(guildId);
-  // }, [guildId, getChannels]);
+  useLayoutEffect(() => {
+    if (guildId) getChannels(guildId);
+  }, [guildId, getChannels]);
 
-  // useLayoutEffect(() => {
-  //   getConnection();
-  // }, [getConnection]);
+  useLayoutEffect(() => {
+    getConnections();
+  }, [getConnections]);
 
-  // useLayoutEffect(() => {
-  //   if (connections) {
-  //     setGuildId(connections[0].data.guildId);
-  //   }
-  // }, [connections]);
+  useLayoutEffect(() => {
+    if (connections.length) {
+      setGuildId(connections[0].data.guildId);
+    }
+  }, [connections]);
 
   const handleChange = (e) => {
     setInfo((prev) => ({
@@ -99,17 +99,29 @@ export function Form({
           <Refresh />
         </IconButton>
       </div>
+
+      <TextField
+        multiline
+        rowsMax={5}
+        name="content"
+        className="text-field"
+        label="Content"
+        variant="outlined"
+        size="small"
+        value={info['content']}
+        onChange={handleChange}
+      />
     </ServiceForm>
   );
 }
 const mapStateToProps = (state) => ({
-  connections: state.connections,
+  connections: state.connections.filter((c) => c.type === 'discords'),
   channels: state.discord.channels,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getConnections: () => dispatch(startGetConnections()),
-  getChannels: () => dispatch(actions.startGetChannels()),
+  getChannels: (guildId) => dispatch(actions.startGetChannels(guildId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

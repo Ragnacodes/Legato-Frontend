@@ -6,10 +6,19 @@ import { startAddConnection } from '../../actions/connections';
 const Redirect = ({addConnection}) => {
     useEffect(() => {
         const url = window.location.href;
-        const token_type = url.substring(url.lastIndexOf("redirect/")+9, url.lastIndexOf("?code"));
+        let token_type = url.substring(url.lastIndexOf("redirect/")+9, url.lastIndexOf("?code"));
+        const data = {}
+        if(token_type === 'discord')
+        {
+            data['guildId'] = switchCase('discord', url);
+            token_type = 'discords';
+        }
+        else {
+            data['token'] = switchCase(token_type, url);
+        }
         const connection = {
             name: "my " + token_type, 
-            data : {token: switchCase(token_type, url)},
+            data : data,
             type: token_type
         }
         console.log(connection);
@@ -27,6 +36,8 @@ const switchCase = (type, url) => {
             return url.substring(url.lastIndexOf("?code=") + 6, url.lastIndexOf("&state"));
         case 'spotify':
             return url.substring(url.lastIndexOf("?code=") + 6, url.lastIndexOf("&state"));
+        case 'discord':
+            return url.substring(url.lastIndexOf("guild_id=") + 9, url.lastIndexOf("&permissions"));
         default:
             return url.substring(url.indexOf("code=")+5);
     };

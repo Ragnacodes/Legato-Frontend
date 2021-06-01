@@ -1,9 +1,7 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import { Typography, Divider, withStyles } from '@material-ui/core';
-import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab';
-
+import { Card, CardContent, Typography, Box } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbtack } from '@fortawesome/free-solid-svg-icons';
 export function Message({ message }) {
   const formatDate = (timestamp) => {
     const dateObject = new Date(timestamp);
@@ -25,13 +23,22 @@ export function Message({ message }) {
     <Card className="message-card" variant="outlined">
       <CardContent className="message" value={message.id}>
         <Typography variant="body1" className="message-content">
-          {message.content.length < 100
-            ? message.content
-            : message.content.slice(0, 96) + '...'}
+          {message.pinned && (
+            <Box mr={1} display="inline-block">
+              <FontAwesomeIcon icon={faThumbtack} />
+            </Box>
+          )}
+
+          {message.content &&
+            (message.content.length < 100
+              ? message.content
+              : message.content.slice(0, 96) + '...')}
         </Typography>
-        <Typography variant="caption" className="message-date">
-          {formatDate(message.timestamp)}
-        </Typography>
+        {message['timestamp'] && (
+          <Typography variant="caption" className="message-date">
+            {formatDate(message.timestamp)}
+          </Typography>
+        )}
       </CardContent>
     </Card>
   );

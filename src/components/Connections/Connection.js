@@ -45,7 +45,7 @@ const Connection = ({ id, name, type, removeConnection, editConnection }) => {
             <FontAwesomeIcon icon={faSpotify} />
           </ListItemIcon>
         );
-      case 'discord':
+      case 'discords':
         return (
           <ListItemIcon className="connections-icon">
             <FontAwesomeIcon icon={faDiscord} />

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import { Typography, Popover, withStyles } from '@material-ui/core';
+import { Typography, Popover, withStyles, Box } from '@material-ui/core';
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbtack } from '@fortawesome/free-solid-svg-icons';
 import PopoverForm from '../../PopoverForm';
 export function MessageList({
   anchor,
@@ -48,6 +48,7 @@ export function MessageList({
   };
 
   const handleChange = (e, newValue) => {
+    console.log(messages);
     setMessage(newValue);
   };
   return (
@@ -90,12 +91,17 @@ export function MessageList({
               aria-label={message.id}
             >
               <Typography variant="body1" className="message-content">
-                {message.content.length < 100
+                {message.pinned && (
+                  <Box mr={1} display="inline-block">
+                    <FontAwesomeIcon icon={faThumbtack} />
+                  </Box>
+                )}
+                {message.content && message.content.length < 100
                   ? message.content
                   : message.content.slice(0, 96) + '...'}
               </Typography>
               <Typography variant="caption" className="message-date">
-                {formatDate(message.timestamp)}
+                {message.timestamp && formatDate(message.timestamp)}
               </Typography>
             </StyledToggleButton>
           ))}
