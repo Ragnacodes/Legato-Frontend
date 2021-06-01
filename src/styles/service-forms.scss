@@ -33,7 +33,6 @@
       cursor: pointer;
     }
   }
-<<<<<<< HEAD
 
   &.discord-forms {
     .message-card {
@@ -45,7 +44,14 @@
       width: 100%;
       .message-date {
         color: rgb(94, 94, 94);
-=======
+      }
+      .message-content {
+        word-break: break-all;
+        width: 100%;
+      }
+    }
+  }
+
   &.custom-webhook,
   &.watch-playlist,
   &.execute-command,
@@ -68,11 +74,6 @@
       > .edit-icon {
         margin-top: 16px;
         margin-right: 2px;
->>>>>>> 82b002d5d6abbd76818c529b0340cb2eecb2f673
-      }
-      .message-content {
-        word-break: break-all;
-        width: 100%;
       }
     }
   }
@@ -118,9 +119,7 @@
 }
 
 .track-info {
-  // &.MuiCardContent-root {
   padding: 10px !important;
-  // }
   height: 140px;
   width: 100%;
   display: flex;
