@@ -22,10 +22,6 @@ export function Webhook({ webhook, updateWebhook, deleteWebhook }) {
   const [queueModal, setQueueModal] = useState(false);
   const [copied, setCopied] = useState(false);
   const [yesNoVisible, setYesNoVisible] = useState(false);
-  const handleToggleState = () => {
-    handleUpdateWebhook({ isEnable: !webhook['isEnable'] });
-  };
-
   const mockQueue = [
     {
       id: 1,
@@ -145,19 +141,6 @@ export function Webhook({ webhook, updateWebhook, deleteWebhook }) {
         >
           Edit
         </Button>
-        <Tooltip
-          title={webhook['isEnable'] ? 'Disable?' : 'Enable?'}
-          placement="top"
-        >
-          <Switch
-            edge="end"
-            onChange={handleToggleState}
-            checked={webhook['isEnable']}
-            color="primary"
-            size="small"
-            className="switch"
-          />
-        </Tooltip>
         <IconButton
           size="small"
           variant="contained"
