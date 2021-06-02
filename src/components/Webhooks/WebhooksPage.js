@@ -1,66 +1,22 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/webhooks';
-import { Button, Container, Paper } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
+import React from 'react';
+import { Container } from '@material-ui/core';
 import Appbar from '../Layout/Appbar';
 import PageTitle from '../Layout/PageTitle';
-import { errorNotification, successNotification } from '../Layout/Notification';
-import WebhookSettingsModal from './WebhookSettingsModal';
 import Webhooks from './Webhooks';
-export function WebhooksPage({ addWebhook }) {
-  const [addModalVisible, setAddModalVisible] = useState(false);
-
-  const addNewWebhook = (data) => {
-    addWebhook(data)
-      .then((res) => {
-        successNotification(res.message);
-      })
-      .catch((err) => {
-        errorNotification(err.message);
-      });
-  };
-
+export function WebhooksPage({}) {
   return (
     <>
-      <Appbar
-        rightChildren={
-          <Button
-            variant="contained"
-            component={Paper}
-            onClick={() => setAddModalVisible(true)}
-            startIcon={<Add />}
-          >
-            Add Webhook
-          </Button>
-        }
-        leftChildren={<PageTitle title="Webhooks" />}
-      />
+      <Appbar leftChildren={<PageTitle title="Webhooks" />} />
       <main className="main">
         <div className="app-bar-spacer" />
         <div className="content-container">
-          <WebhookSettingsModal
-            webhook={{ name: 'New Webhook' }}
-            visible={addModalVisible}
-            setVisible={setAddModalVisible}
-            handleSave={addNewWebhook}
-          />
           <Container maxWidth="lg" className="webhooks-list">
             <Webhooks />
           </Container>
-
         </div>
       </main>
     </>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  addWebhook: (data) => dispatch(actions.startAddWebhook(data)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(WebhooksPage);
+export default WebhooksPage;
