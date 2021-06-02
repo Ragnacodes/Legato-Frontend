@@ -35,10 +35,12 @@ const ConnectionsPage = () => {
                             setAddConnection={setAddConnection}
                         />
 
-                        { addConnection &&
-                            <AddConnection addDialog={addConnection} setAddDialog={setAddConnection} 
-                            createSSHConnetion={createSSHConnetion}/>
-                        }
+                        <AddConnection 
+                            addDialog={addConnection} 
+                            setAddDialog={setAddConnection} 
+                            createSSHConnetion={createSSHConnetion}
+                        />
+                        
                         <SSHConnectionFormModal visible={sshConnectionModal} setVisible={setSshConnectionModal} />
                     </Container>
                 </div>

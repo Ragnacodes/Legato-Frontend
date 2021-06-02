@@ -10,7 +10,7 @@ import {
   Tooltip
 } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiscord, faSpotify, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faDiscord, faSpotify, faGoogle, faGithub, faTelegram } from '@fortawesome/free-brands-svg-icons';
 import { faTerminal } from '@fortawesome/free-solid-svg-icons';
 import { Delete } from '@material-ui/icons'
 import OnClickTextField from '../OnClickTextField';
@@ -55,6 +55,12 @@ const Connection = ({ id, name, type, removeConnection, editConnection }) => {
         return (
           <ListItemIcon className="connections-icon">
             <FontAwesomeIcon icon={faTerminal} />
+          </ListItemIcon>
+      );
+      case 'telegrams':
+        return (
+          <ListItemIcon className="connections-icon">
+            <FontAwesomeIcon icon={faTelegram} />
           </ListItemIcon>
       );
       default:
