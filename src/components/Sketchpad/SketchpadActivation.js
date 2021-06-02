@@ -30,7 +30,6 @@ const SketchpadActivation = ({ scenario, editSketchpadScenario }) => {
         onChange={handleToggleActvie}
         checked={scenario.isActive}
         color="secondary"
-        size="large"
       />
     </Tooltip>
   );

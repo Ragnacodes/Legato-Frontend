@@ -13,22 +13,22 @@
     font-family: $font-roboto;
     &.success {
       background-color: $success;
-      color: white;
+      color: $common-white;
     }
     //error
     &.error {
       background-color: $error;
-      color: white;
+      color: $common-white;
     }
 
     &.info {
       background-color: $info;
-      color: white;
+      color: $common-white;
     }
 
     &.warning {
       background-color: $warning;
-      color: white;
+      color: $common-white;
     }
 
     // .rc-notification-notice-content {
@@ -37,7 +37,7 @@
     .rc-notification-notice-close {
       transition: all 0.5s ease;
       text-shadow: none;
-      color: white;
+      color: $common-white;
       opacity: 1;
       font-size: 0.5rem;
       svg {

@@ -1,44 +1,21 @@
-import React, {useState} from 'react';
-import { Popover } from '@material-ui/core';
-import NodeForm from './NodeForm';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
 const Node = (props) => {
-    const [anchorEl, setAnchorEl] = useState(null);
+    const dispatch = useDispatch();
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
+    const handleDoubleClick = () => {
+        dispatch({
+            type: 'SET_NODE_ID',
+            nodeID: props.id,
+            props
+        });
     };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const open = Boolean(anchorEl);
-    const idPopover = open ? 'simple-popover' : undefined;
 
     return (
-        <>
-            <div onClick={handleClick}>
-                {props.node}
-            </div>
-
-            <Popover
-                id={idPopover}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'center',
-                    horizontal: 'right',
-                }}
-                transformOrigin={{
-                    vertical: 'center',
-                    horizontal: 'left',
-                }}
-            >
-                <NodeForm setAnchorEl={setAnchorEl} {...props} />
-            </Popover>
-        </>
+        <div onDoubleClick={handleDoubleClick} id={props.id}>
+            {props.node}
+        </div>
     );
 };
 

@@ -18,7 +18,7 @@ export const startGetHistories = (scenarioID) => {
             dispatch(getHistories(res));
         })
         .catch(err => {
-            console.log(err);
+            throw err;
         });
     };
 };

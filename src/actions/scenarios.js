@@ -15,7 +15,7 @@ export const startGetScenarios = () => {
             dispatch(getScenarios(res.data.scenarios));
         })
         .catch(err => {
-            console.log(err);
+            throw err;
         });
     };
 };
@@ -37,7 +37,7 @@ export const startAddScenario = (scenario) => {
             return res.data.scenario.id;
         })
         .catch(err => {
-            console.log(err);
+            throw err;
         });
     };
 };
@@ -57,7 +57,7 @@ export const startRemoveScenario = (id) => {
             dispatch(removeScenario(id));
         })
         .catch(err => {
-            console.log(err);
+            throw err;
         });
     };
 };
@@ -79,7 +79,7 @@ export const startEditScenario = (id, updates) => {
             dispatch(editScenario(id, updates));
         })
         .catch(err => {
-            console.log(err);
+            throw err;
         });
     };
 };

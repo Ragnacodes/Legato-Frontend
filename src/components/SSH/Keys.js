@@ -7,7 +7,7 @@ import PageTitle from '../Layout/PageTitle';
 import Webhook from './Webhook';
 import { errorNotification, successNotification } from '../Layout/Notification';
 import WebhookSettingsModal from './WebhookSettingsModal';
-import NoItem from '../Layout/NoItem';
+import NoItem from '../Static/NoItem';
 const Webhooks = ({ webhooks, getWebhooks, addWebhook }) => {
   const [addModalVisible, setAddModalVisible] = useState(false);
 

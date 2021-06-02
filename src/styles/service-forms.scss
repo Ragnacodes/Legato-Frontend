@@ -4,9 +4,24 @@
   &.watch-playlist,
   &.save-to-playlist,
   &.execute-command,
+  &.create-issue,
+  &.create-pullRequest,
+  &.toolbox-repeater,
+  &.toolbox-sleep,
   &.wh-settings {
     display: flex;
     flex-direction: column;
+  }
+
+  &.toolbox-sleep {
+    .time-field {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      .text-field {
+        width: 30%;
+      }
+    }
   }
   &.custom-webhook {
     .url-helper-text {
@@ -20,6 +35,8 @@
   &.custom-webhook,
   &.watch-playlist,
   &.execute-command,
+  &.create-issue,
+  &.create-pullRequest,
   &.save-to-playlist {
     .connection-field,
     .playlist-field,

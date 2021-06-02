@@ -22,7 +22,7 @@ const SketchpadTitle = ({ scenario, editSketchpadScenario }) => {
   };
 
   if (loading) {
-    return <Skeleton />;
+    return <Skeleton width={350} className="skeleton-light" />;
   }
 
   return (

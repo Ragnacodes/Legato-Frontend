@@ -3,14 +3,16 @@ import clsx from 'clsx';
 import { connect } from 'react-redux';
 import { toggleDrawer } from '../../actions/drawer';
 import {
+    Grid,
     List,
     IconButton,
     Drawer,
-    Divider
+    Divider,
+    Typography
 } from '@material-ui/core';
 import { ChevronLeft } from '@material-ui/icons';
 import { mainListItems, bottomListItems } from './MenuItems';
-import Logo from '../../styles/assets/Legato-Logo.png';
+import logoIcon from '../../styles/assets/logo.png';
 import style from '../../styles/layout/layout';
 
 const CustomDrawer = ({ isAuthenticated, open, toggleDrawer }) => {
@@ -26,9 +28,16 @@ const CustomDrawer = ({ isAuthenticated, open, toggleDrawer }) => {
                 open={open}
             >
                 <div className={classes.toolbarIcon}>
-                    <div className={classes.logo}>
-                        <img src={Logo} height="32px" alt="Legato logo"/>
-                    </div>
+                    <Grid container justify="center" alignItems="center" spacing={1}>
+                        <Grid item>
+                            <Grid container justify="center">
+                                <img src={logoIcon} height="35px" alt="Legato logo"/>
+                            </Grid>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="body2">Abstergo</Typography>
+                        </Grid>
+                    </Grid>
                     <IconButton onClick={() => toggleDrawer()}>
                         <ChevronLeft />
                     </IconButton>

@@ -1,62 +1,73 @@
 import React from 'react';
 import { AvatarGroup } from '@material-ui/lab';
 import { Avatar } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiscord, faSpotify, faTelegram, faGithub } from '@fortawesome/free-brands-svg-icons';
+import ScenarioServiceIcon from '../ServiceIcons/ScenarioServiceIcon';
 
-const ScenarioNodes = ({nodes}) => {
+const ScenarioNodes = ({ nodes }) => {
+    const reverseNodes = nodes.slice().reverse();
+    const notCovered = 4 - reverseNodes.length;
+    for (let i = 0; i < notCovered; i++) {
+        reverseNodes.push('');
+    }
+
     return (
-        <AvatarGroup max={4}>
+        <AvatarGroup max={4} spacing={5}>
             {
-                nodes.reverse().map((node, index) => {
+                reverseNodes.map((node, index) => {
                     switch (node) {
                         case 'sshes':
                             return (
-                                <Avatar key={index} className="ssh">
-                                    <FontAwesomeIcon icon={faGithub} />
+                                <Avatar key={index}>
+                                    <ScenarioServiceIcon service='ssh' />
                                 </Avatar>
                             );
                         case 'webhooks':
                             return (
-                                <Avatar key={index} className="webhook">
-                                    <FontAwesomeIcon icon={faGithub} />
+                                <Avatar key={index}>
+                                    <ScenarioServiceIcon service='webhooks' />
                                 </Avatar>
                             );
                         case 'githubs':
                             return (
-                                <Avatar key={index} className="github">
-                                    <FontAwesomeIcon icon={faGithub} />
+                                <Avatar key={index}>
+                                    <ScenarioServiceIcon service='github' />
                             </Avatar>
                             );
                         case 'spotifies':
                             return (
-                                <Avatar key={index} className="spotify">
-                                    <FontAwesomeIcon icon={faSpotify} />
+                                <Avatar key={index}>
+                                    <ScenarioServiceIcon service='spotify' />
                                 </Avatar>
                             );
                         case 'telegrams':
                             return (
-                                <Avatar key={index} className="telegram">
-                                    <FontAwesomeIcon icon={faTelegram} />
+                                <Avatar key={index}>
+                                    <ScenarioServiceIcon service='telegram' />
                                 </Avatar>
                             );
                         case 'https':
                             return (
-                                <Avatar key={index} className="http">
-                                    <FontAwesomeIcon icon={faGithub} />
+                                <Avatar key={index}>
+                                    <ScenarioServiceIcon service='http' />
                                 </Avatar>
                             );
                         case 'discord':
                             return (
-                                <Avatar key={index} className="discord">
-                                    <FontAwesomeIcon icon={faDiscord} />
+                                <Avatar key={index}>
+                                    <ScenarioServiceIcon service='discord' />
                                 </Avatar>
                             );
                         default:
-                            return null;
+                            return (
+                                <Avatar key={index}>
+                                    &zwnj;
+                                </Avatar>
+                            );
                     }
                 })
             }
+
+
         </AvatarGroup>
     );
 };

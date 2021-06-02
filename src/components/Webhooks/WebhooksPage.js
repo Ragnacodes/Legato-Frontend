@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/webhooks';
-import { Button, Container } from '@material-ui/core';
+import { Button, Container, Paper } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
 import Appbar from '../Layout/Appbar';
 import PageTitle from '../Layout/PageTitle';
 import { errorNotification, successNotification } from '../Layout/Notification';
@@ -26,8 +27,9 @@ export function WebhooksPage({ addWebhook }) {
         rightChildren={
           <Button
             variant="contained"
-            color="secondary"
+            component={Paper}
             onClick={() => setAddModalVisible(true)}
+            startIcon={<Add />}
           >
             Add Webhook
           </Button>

@@ -12,6 +12,9 @@ import servicesReducer from '../reducers/services';
 import spotifyReducer from '../reducers/spotify';
 import historiesReducer from '../reducers/histories';
 import historyReducer from '../reducers/history';
+import nodePopoverReducer from '../reducers/nodePopover';
+import sketchpadStatusReducer from '../reducers/sketchpadStatus';
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const configureStore = () => {
@@ -34,7 +37,9 @@ const configureStore = () => {
       services: servicesReducer,
       spotify: spotifyReducer,
       histories: historiesReducer,
-      history: historyReducer
+      history: historyReducer,
+      nodePopover: nodePopoverReducer,
+      sketchpadStatus: sketchpadStatusReducer
     }),
     composeEnhancers(applyMiddleware(...middleware))
   );

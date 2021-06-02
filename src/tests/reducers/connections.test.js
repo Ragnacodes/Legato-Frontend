@@ -10,8 +10,8 @@ test('should set default state for connections', () => {
 
 test('should set connections', () => {
   const connections = [
-    { Name: 'connection', Id: 3, Token_Type: 'gmail' },
-    { Name: 'connection2', Id: 7, Token_Type: 'github' },
+    { name: 'connection', id: 3, type: 'gmail' },
+    { name: 'connection2', id: 7, type: 'github' },
   ];
 
   const action = {
@@ -24,11 +24,11 @@ test('should set connections', () => {
 
 test('should add connection', () => {
   const connections = [
-    { Name: 'connection', Id: 3, Token_Type: 'gmail' },
-    { Name: 'connection2', Id: 7, Token_Type: 'github' },
+    { name: 'connection', id: 3, type: 'gmail' },
+    { name: 'connection2', id: 7, type: 'github' },
   ];
 
-  const newConnection = { Name: 'connection3', Id: 12, Token_Type: 'spotify' };
+  const newConnection = { name: 'connection3', id: 12, type: 'spotify' };
 
   const action = {
     type: 'ADD_CONNECTION',
@@ -36,45 +36,45 @@ test('should add connection', () => {
   };
   const state = connectionsReducer(connections, action);
   expect(state).toEqual([
-    { Name: 'connection', Id: 3, Token_Type: 'gmail' },
-    { Name: 'connection2', Id: 7, Token_Type: 'github' },
-    { Name: 'connection3', Id: 12, Token_Type: 'spotify' },
+    { name: 'connection', id: 3, type: 'gmail' },
+    { name: 'connection2', id: 7, type: 'github' },
+    { name: 'connection3', id: 12, type: 'spotify' },
   ]);
 });
 
 test('should edit connection', () => {
   const connections = [
-    { Name: 'connection', Id: 3, Token_Type: 'gmail' },
-    { Name: 'connection2', Id: 7, Token_Type: 'github' },
+    { name: 'connection', id: 3, type: 'gmail' },
+    { name: 'connection2', id: 7, type: 'github' },
   ];
 
-  const Id = 3;
-  const updates = { Name: 'new name' };
+  const id = 3;
+  const updates = { name: 'new name' };
 
   const action = {
     type: 'EDIT_CONNECTION',
-    Id,
+    id,
     updates,
   };
   const state = connectionsReducer(connections, action);
   expect(state).toEqual([
-    { Name: 'new name', Id: 3, Token_Type: 'gmail' },
-    { Name: 'connection2', Id: 7, Token_Type: 'github' },
+    { name: 'new name', id: 3, type: 'gmail' },
+    { name: 'connection2', id: 7, type: 'github' },
   ]);
 });
 
 test('should remove connection', () => {
   const connections = [
-    { Name: 'connection', Id: 3, Token_Type: 'gmail' },
-    { Name: 'connection2', Id: 7, Token_Type: 'github' },
+    { name: 'connection', id: 3, type: 'gmail' },
+    { name: 'connection2', id: 7, type: 'github' },
   ];
 
-  const Id = 3;
+  const id = 3;
 
   const action = {
     type: 'REMOVE_CONNECTION',
-    Id,
+    id,
   };
   const state = connectionsReducer(connections, action);
-  expect(state).toEqual([{ Name: 'connection2', Id: 7, Token_Type: 'github' }]);
+  expect(state).toEqual([{ name: 'connection2', id: 7, type: 'github' }]);
 });

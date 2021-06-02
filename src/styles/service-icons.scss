@@ -1,0 +1,47 @@
+.service-icon {
+    color: $common-white;
+
+    &--discord {
+        background-color: $discord;
+    }
+
+    &--github {
+        background-color: $github;
+    }
+
+    &--gmail {
+        background-color: $gmail;
+    }
+
+    &--http {
+        background-color: $http;
+    }
+
+    &--regex {
+        background-color: $regex;
+    }
+
+    &--repeater {
+        background-color: $repeater;
+    }
+
+    &--sleep {
+        background-color: $sleep;
+    }
+    
+    &--spotify {
+        background-color: $spotify;
+    }
+
+    &--ssh {
+        background-color: $ssh;
+    }
+
+    &--telegram {
+        background-color: $telegram;
+    }
+
+    &--webhooks {
+        background-color: $webhooks;
+    }
+}

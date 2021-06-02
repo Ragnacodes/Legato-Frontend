@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/webhooks';
 import { Divider, List, Paper } from '@material-ui/core';
 import Webhook from './Webhook';
-import NoItem from '../Layout/NoItem';
-import ListLoader from '../Layout/ListLoader';
+import NoItem from '../Static/NoItem';
+import ListLoader from '../Loaders/ListLoader';
 export function Webhooks({ webhooks, getWebhooks }) {
   const [loading, setLoading] = useState(true);
 

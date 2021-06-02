@@ -20,6 +20,10 @@
     }
 }
 
+.rounded {
+    border-radius: 100% !important;
+}
+
 .content-container {
     overflow: auto;
     padding: $lg-size 0;
@@ -54,5 +58,5 @@
 }
 
 .skeleton-light {
-    background-color: #999999 !important;
+    background-color: $background !important;
 }

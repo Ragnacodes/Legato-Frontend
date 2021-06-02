@@ -1,11 +1,13 @@
 import React from 'react';
-import Http from '../../../styles/assets/http.svg';
 import CustomSidebarItem from '../CustomSidebarItem';
+import SidebarServiceIcon from '../../ServiceIcons/SidebarServiceIcon';
 
 const SidebarItem = () => {
     return (
         <CustomSidebarItem
-            icon={<img src={Http} alt="http-logo" width="35" className="icon http" />}
+            icon={
+                <SidebarServiceIcon service='http' />
+            }
             serviceName="https"
         />
     );

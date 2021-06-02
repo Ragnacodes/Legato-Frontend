@@ -24,7 +24,7 @@ export const startSetWebhooks = () => {
         dispatch(setWebhooks(res.data.webhooks));
       })
       .catch((err) => {
-        console.log(err);
+        throw err;
       });
   };
 };
@@ -52,7 +52,6 @@ export const startAddWebhook = (webhook) => {
         };
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           let str = err.response.data.message;
           throw new Error(str.charAt(0).toUpperCase() + str.slice(1) + '.');
@@ -84,7 +83,6 @@ export const startDeleteWebhook = (id) => {
         };
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           let str = err.response.data.message;
           throw new Error(str.charAt(0).toUpperCase() + str.slice(1) + '.');
@@ -120,7 +118,6 @@ export const startUpdateWebhook = (id, data) => {
         };
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           let str = err.response.data.message;
           throw new Error(str.charAt(0).toUpperCase() + str.slice(1) + '.');
