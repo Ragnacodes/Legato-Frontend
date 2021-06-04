@@ -44,59 +44,65 @@ const AddConnection = ({addDialog, setAddDialog, createSSHConnetion}) => {
         <React.Fragment>
             <Dialog
                 disableBackdropClick
-                className="signup-dialog"
+                className="add-connection-dialog"
                 open={addDialog}
                 onClose={() => setAddDialog(false)}
                 aria-labelledby="form-dialog-title"
             >
-                <DialogTitle disableTypography={true} style={{ paddingBottom: 4 }}>
+                <DialogTitle disableTypography={true} className="title">
                     <Typography variant="h5">Service</Typography>
                 </DialogTitle>
-                <DialogContent>
+                <DialogContent className="content">
                     <CloseRounded
-                        style={{ cursor: "pointer", fontSize: 24, position: "absolute", right: 10, top: 10, color: "$primary" }}
+                        className = "close-icon"
                         onClick={() => setAddDialog(false)}
                     />
                     <DialogContentText>
                         Please choose your service:
                     </DialogContentText>
-                    <List>
-                        <ListItem button onClick={(e) => onServiceClicked(e, "githubs")}>
-                            <ListItemIcon style={{fontSize:30}}>
+                    <List className="list">
+                        <ListItem className="item" button onClick={(e) => onServiceClicked(e, "githubs")}>
+                            <ListItemIcon className="icon">
                                 <FontAwesomeIcon icon={faGithub} />
                             </ListItemIcon>
                             <ListItemText primary="GitHub" />
                         </ListItem>
-                        <ListItem button onClick={(e) => onServiceClicked(e, "googles")}>
-                            <ListItemIcon style={{fontSize:30}}>
+
+                        <ListItem className="item" button onClick={(e) => onServiceClicked(e, "googles")}>
+                            <ListItemIcon className="icon">
                                 <FontAwesomeIcon icon={faGoogle} />
                             </ListItemIcon>
                             <ListItemText primary="Gmail" />
                         </ListItem>
-                        <ListItem button onClick={(e) => onServiceClicked(e, "spotifies")}>
-                            <ListItemIcon style={{fontSize:30}}>
+
+                        <ListItem className="item" button onClick={(e) => onServiceClicked(e, "spotifies")}>
+                            <ListItemIcon className="icon">
                                 <FontAwesomeIcon icon={faSpotify} />
                             </ListItemIcon>
                             <ListItemText primary="Spotify" />
                         </ListItem>
-                        <ListItem button onClick={(e) => onServiceClicked(e, "discords")}>
-                            <ListItemIcon style={{fontSize:30}}>
+
+                        <ListItem className="item" button onClick={(e) => onServiceClicked(e, "discords")}>
+                            <ListItemIcon className="icon">
                                 <FontAwesomeIcon icon={faDiscord} />
                             </ListItemIcon>
                             <ListItemText primary="Discord" />
                         </ListItem>
-                        <ListItem button onClick={() => addTelegram()}>
-                            <ListItemIcon style={{fontSize:30}}>
+
+                        <ListItem className="item" button onClick={() => addTelegram()}>
+                            <ListItemIcon className="icon">
                                 <FontAwesomeIcon icon={faTelegram} />
                             </ListItemIcon>
                             <ListItemText primary="Telegram bot" />
                         </ListItem>
-                        <ListItem button onClick={handleCreateSSH}>
-                            <ListItemIcon style={{fontSize:30}}>
+
+                        <ListItem className="item" button onClick={handleCreateSSH}>
+                            <ListItemIcon className="icon">
                                 <FontAwesomeIcon icon={faTerminal} />
                             </ListItemIcon>
                             <ListItemText primary="SSH" />
                         </ListItem>
+
                     </List>
                 </DialogContent>
             </Dialog>
