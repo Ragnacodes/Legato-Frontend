@@ -22,36 +22,14 @@ const Form = ({
     command: data.command || '',
   });
 
-  const [errors, setErrors] = useState({
-    connection: !!data.connection,
-    command: !!data.command,
-  });
-
   const [addAnchor, setAddAnchor] = useState(null);
+  const [connectionLoading, setConnectionLoading] = useState(true);
 
   useEffect(() => {
-    getSshConnections();
+    getSshConnections().then(() => {
+      setConnectionLoading(true);
+    });
   }, [getSshConnections]);
-
-  useEffect(() => {
-    if (!info['command']) {
-      setErrors((prev) => ({
-        ...prev,
-        command: true,
-      }));
-    } else {
-      setErrors((prev) => ({
-        ...prev,
-        command: false,
-      }));
-    }
-    if (!!info['connection']) {
-      setErrors((prev) => ({
-        ...prev,
-        connection: false,
-      }));
-    }
-  }, [info]);
 
   const handleChange = (e) => {
     setInfo((prev) => ({
@@ -65,10 +43,6 @@ const Form = ({
     setInfo({
       connection: data.connection || '',
       command: data.command || '',
-    });
-    setErrors({
-      command: !!data.command,
-      connection: !!data.connection,
     });
   };
 
@@ -96,7 +70,7 @@ const Form = ({
     setAddAnchor(e.currentTarget);
   };
 
-  let disabledSave = errors['connection'] || errors['command'];
+  let disabledSave = !info['connection'] || !info['command'];
 
   return (
     <ServiceForm
@@ -107,21 +81,32 @@ const Form = ({
       handleCancel={handleCancel}
     >
       <div className="connection-field">
-        <TextField
-          name="connection"
-          className="text-field"
-          size="small"
-          select
-          label="Connection"
-          value={info['connection']}
-          onChange={handleChange}
-          variant="outlined"
-        >
-          {sshConnections &&
-            sshConnections.map((c) => {
-              return <MenuItem value={c}>{c.Name}</MenuItem>;
-            })}
-        </TextField>
+        {connectionLoading ? (
+          <TextField
+            className="text-field"
+            size="small"
+            label="Connection"
+            value="Loading..."
+            variant="outlined"
+            disabled
+          />
+        ) : (
+          <TextField
+            name="connection"
+            className="text-field"
+            size="small"
+            select
+            label="Connection"
+            value={info['connection']}
+            onChange={handleChange}
+            variant="outlined"
+          >
+            {sshConnections &&
+              sshConnections.map((c) => {
+                return <MenuItem value={c}>{c.Name}</MenuItem>;
+              })}
+          </TextField>
+        )}
 
         <IconButton
           name="addConnection"

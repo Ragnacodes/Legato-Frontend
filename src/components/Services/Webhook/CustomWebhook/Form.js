@@ -19,11 +19,8 @@ const Form = ({ id, data, editElement, setAnchorEl, updateWebhook }) => {
   const [editWhPopper, setEditWhPopper] = useState(null);
   const [copied, setCopied] = useState(false);
 
-  // useEffect(() => {
-  //   setInfo(data);
-  // }, [data]);
-
   const handleUpdateWebhook = (updates) => {
+    console.log('here');
     if (info.webhook.id) {
       updateWebhook(info.webhook.id, updates)
         .then((res) => {
@@ -85,13 +82,9 @@ const Form = ({ id, data, editElement, setAnchorEl, updateWebhook }) => {
         <Typography
           variant="body2"
           className="webhook-url"
-          onClick={() =>
-            CopyToClipboard(
-              `http://localhost:8080/api/services/webhook/${data.url}`
-            )
-          }
+          onClick={() => CopyToClipboard(info.webhook.url)}
         >
-          {`http://localhost:8080/api/services/webhook/${data.url}`}
+          {info.webhook.url}
         </Typography>
       </Tooltip>
       <WebhookSettingsPopper
