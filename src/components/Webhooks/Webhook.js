@@ -6,12 +6,11 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  Switch,
   Link,
   IconButton,
   Tooltip,
 } from '@material-ui/core';
-import { Edit, Delete, LocalShipping } from '@material-ui/icons';
+import { Edit, Delete, LocalShipping, Error } from '@material-ui/icons';
 import EditModal from './WebhookSettingsModal';
 import WebhookQueue from './WebhookQueue';
 import { errorNotification, successNotification } from '../Layout/Notification';
@@ -166,11 +165,13 @@ export function Webhook({ webhook, updateWebhook, deleteWebhook }) {
           </IconButton>
         </Tooltip>
         <YesNoModal
-          text={`Delete ${webhook['name']}?`}
+          title="Delete Webhook"
+          text={`Delete ${webhook['name']}? You can't create a webhook with the same url again.`}
           visible={yesNoVisible}
           setVisible={setYesNoVisible}
           handleYes={handleDeleteWebhook}
           handleNo={() => {}}
+          icon={<Error color="secondary" fontSize="inherit" />}
         />
       </ListItemSecondaryAction>
     </ListItem>

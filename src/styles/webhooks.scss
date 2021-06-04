@@ -1,4 +1,7 @@
 .yes-no-modal {
+  .MuiDialogContent-root {
+    width: 350px;
+  }
   .close-icon {
     cursor: pointer;
     font-size: 1.4rem;
@@ -6,6 +9,10 @@
     right: 5px;
     top: 5px;
     color: $primary;
+  }
+
+  .icon {
+    font-size: 5rem;
   }
 
   .actions {

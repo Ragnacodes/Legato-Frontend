@@ -3,7 +3,7 @@ import { Container } from '@material-ui/core';
 import Appbar from '../Layout/Appbar';
 import PageTitle from '../Layout/PageTitle';
 import Webhooks from './Webhooks';
-export function WebhooksPage({}) {
+export function WebhooksPage() {
   return (
     <>
       <Appbar leftChildren={<PageTitle title="Webhooks" />} />

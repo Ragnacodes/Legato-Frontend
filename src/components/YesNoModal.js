@@ -1,5 +1,7 @@
 import React from 'react';
 import {
+  Grid,
+  Box,
   Button,
   Typography,
   Dialog,
@@ -8,7 +10,15 @@ import {
 } from '@material-ui/core';
 import { CloseRounded } from '@material-ui/icons';
 
-const YesNoModal = ({ text, visible, handleYes, setVisible, handleNo }) => {
+const YesNoModal = ({
+  text,
+  title,
+  icon,
+  visible,
+  handleYes,
+  setVisible,
+  handleNo,
+}) => {
   const handleCancel = () => {
     setVisible(false);
   };
@@ -21,11 +31,14 @@ const YesNoModal = ({ text, visible, handleYes, setVisible, handleNo }) => {
       onClose={handleCancel}
     >
       <DialogTitle disableTypography={true}>
-        {/* <Typography variant="h5">Are you sure?</Typography> */}
+        <Typography variant="h5">{!!title && title}</Typography>
       </DialogTitle>
       <CloseRounded className="close-icon" onClick={handleCancel} />
       <DialogContent>
-        <Typography variant="body1">{text}</Typography>
+        <Grid container direction="column" alignItems="center">
+          <div className="icon">{!!icon && icon}</div>
+          <Typography variant="body1">{text}</Typography>
+        </Grid>
       </DialogContent>
       <div className="actions">
         <Button

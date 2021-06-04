@@ -7,15 +7,7 @@ const webhookReducer = (state = initialState, action) => {
     case ActionTypes.SET_WEBHOOKS:
       return {
         ...state,
-        webhooks: action.payload.webhooks.reverse().map((wh) => {
-          return {
-            ...wh,
-            ip_restrictions: '',
-            get_request_headers: false,
-            get_request_http: false,
-            json_passthrough: false,
-          };
-        }),
+        webhooks: action.payload.webhooks.reverse(),
       };
 
     case ActionTypes.ADD_WEBHOOK:
@@ -24,10 +16,6 @@ const webhookReducer = (state = initialState, action) => {
         webhooks: [
           {
             ...action.payload.webhook,
-            ip_restrictions: '',
-            get_request_headers: false,
-            get_request_http: false,
-            json_passthrough: false,
           },
         ].concat(state.webhooks),
       };

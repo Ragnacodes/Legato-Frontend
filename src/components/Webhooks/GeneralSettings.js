@@ -1,7 +1,5 @@
 import React from 'react';
-import { TextField, Typography } from '@material-ui/core';
-import { Info } from '@material-ui/icons';
-
+import { TextField } from '@material-ui/core';
 const GeneralSettings = ({ handleChange, info }) => {
   return (
     <div className="wh-general-settings">
@@ -16,19 +14,6 @@ const GeneralSettings = ({ handleChange, info }) => {
         error={!info['name']}
         helperText={!info['name'] && 'Required.'}
       />
-      <TextField
-        className="edit-wh-field text-field"
-        onChange={(e) => handleChange(e.target.name, e.target.value)}
-        name="ip_restrictions"
-        label="IP restrictions"
-        variant="outlined"
-        size="small"
-      />
-      <Typography className="help-text" variant="body2">
-        <Info fontSize="small" className="help-icon" />A whitelist of IP
-        addresses delimited by comma. You can use CIDR notation to whitelist a
-        subnet. Leave empty if you don't want to check the IP address.
-      </Typography>
     </div>
   );
 };
