@@ -48,7 +48,6 @@ export function MessageList({
   };
 
   const handleChange = (e, newValue) => {
-    console.log(messages);
     setMessage(newValue);
   };
   return (

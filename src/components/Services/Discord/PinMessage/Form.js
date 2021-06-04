@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { MenuItem, Button, TextField, IconButton } from '@material-ui/core';
-import { Refresh } from '@material-ui/icons';
+import { Refresh, Search } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { startGetConnections } from '../../../../actions/connections';
 import * as actions from '../../../../actions/discord';
@@ -26,13 +26,26 @@ export function Form({
   });
 
   const [guildId, setGuildId] = useState('');
+  const [channelLoading, setChannelLoading] = useState(true);
+  const [message, setMessage] = useState({
+    component: '',
+    loading: true,
+    anchor: null,
+    error: false,
+  });
 
   useLayoutEffect(() => {
-    if (guildId) getChannels(guildId);
+    if (guildId)
+      getChannels(guildId).then(() => {
+        setChannelLoading(false);
+      });
   }, [guildId, getChannels]);
 
   useLayoutEffect(() => {
-    if (info.channelId) getMessages(info.channelId);
+    if (info.channelId)
+      getMessages(info.channelId).then(() => {
+        setMessage((prev) => ({ ...prev, loading: false }));
+      });
   }, [info.channelId, getMessages]);
 
   useLayoutEffect(() => {
@@ -69,22 +82,23 @@ export function Form({
     editElement(id, updates);
     setAnchorEl(null);
   };
-  const [messageListAnchor, setMessageListAnchor] = useState(null);
 
   const openMessageList = (e) => {
-    setMessageListAnchor(e.currentTarget);
+    setMessage((prev) => ({ ...prev, anchor: e.currentTarget }));
   };
 
   let disabledSave = !info['messageId'] || !info['channelId'];
 
-  const FindMessage = (id) => {
+  const findMessage = (id) => {
     const msg = messages.find((message) => message.id === id);
-    if (msg) return msg;
-    return {};
+    setMessage((prev) => ({ ...prev, component: msg }));
+    if (!msg) setMessage((prev) => ({ ...prev, error: true }));
+    else setMessage((prev) => ({ ...prev, error: false }));
   };
 
   const saveMessageId = (messageId) => {
     setInfo((prev) => ({ ...prev, messageId: messageId }));
+    findMessage(messageId);
   };
 
   return (
@@ -97,51 +111,90 @@ export function Form({
     >
       <MessageList
         messages={messages}
-        anchor={messageListAnchor}
-        setAnchor={setMessageListAnchor}
+        anchor={message.anchor}
+        setAnchor={(change) =>
+          setMessage((prev) => ({ ...prev, anchor: change }))
+        }
         value={info['messageId']}
         handleSave={saveMessageId}
       />
 
       <div className="channel-field">
-        <TextField
-          name="channelId"
-          className="text-field"
-          size="small"
-          select
-          label="Channel"
-          value={info['channelId']}
-          onChange={handleChange}
-          variant="outlined"
-        >
-          {channels.map((c) => (
-            <MenuItem key={c.id} value={c.id}>
-              {c.name}
-            </MenuItem>
-          ))}
-        </TextField>
+        {channelLoading ? (
+          <TextField
+            className="text-field"
+            size="small"
+            label="Channel"
+            value="Loading..."
+            variant="outlined"
+          />
+        ) : (
+          <TextField
+            name="channelId"
+            className="text-field"
+            size="small"
+            select
+            label="Channel"
+            value={info['channelId']}
+            onChange={handleChange}
+            variant="outlined"
+          >
+            {channels.map((c) => (
+              <MenuItem key={c.id} value={c.id}>
+                {c.name}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
 
         <IconButton
           name="refreshChannels"
           size="small"
           className="add-icon"
-          onClick={getChannels}
+          onClick={() => {
+            setChannelLoading(true);
+            getChannels().then(() => {
+              setChannelLoading(false);
+            });
+          }}
+          disabled={channelLoading}
         >
           <Refresh />
         </IconButton>
       </div>
 
-      <Button
-        onClick={openMessageList}
-        disabled={false}
-        fullWidth
-        variant="contained"
-        color="primary"
-      >
-        Choose a message
-      </Button>
-      {info['messageId'] && (
-        <Message message={FindMessage(info['messageId'])} />
+      {info['channelId'] && !message.loading && (
+        <div>
+          <div className="channel-field">
+            <TextField
+              name="messageId"
+              className="text-field"
+              size="small"
+              label="Message Id"
+              value={info['messageId']}
+              onChange={handleChange}
+              variant="outlined"
+              helperText={message.error && 'Unable to find the message.'}
+              error={message.error}
+            />
+            <IconButton
+              name="refreshChannels"
+              size="small"
+              className="add-icon"
+              onClick={() => findMessage(info['messageId'])}
+              disabled={message.loading}
+            >
+              <Search />
+            </IconButton>
+          </div>
+          <Button size="small" color="primary" onClick={openMessageList}>
+            or choose from the list.
+          </Button>
+        </div>
+      )}
+
+      {info['messageId'] && !!message.component && (
+        <Message message={message.component} />
       )}
     </ServiceForm>
   );

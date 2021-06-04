@@ -22,9 +22,13 @@ export function Form({
   });
 
   const [guildId, setGuildId] = useState('');
+  const [channelLoading, setChannelLoading] = useState(true);
 
   useLayoutEffect(() => {
-    if (guildId) getChannels(guildId);
+    if (guildId)
+      getChannels(guildId).then(() => {
+        setChannelLoading(false);
+      });
   }, [guildId, getChannels]);
 
   useLayoutEffect(() => {
@@ -73,22 +77,32 @@ export function Form({
       handleCancel={handleCancel}
     >
       <div className="channel-field">
-        <TextField
-          name="channelId"
-          className="text-field"
-          size="small"
-          select
-          label="Channel"
-          value={info['channelId']}
-          onChange={handleChange}
-          variant="outlined"
-        >
-          {channels.map((c) => (
-            <MenuItem key={c.id} value={c.id}>
-              {c.name}
-            </MenuItem>
-          ))}
-        </TextField>
+        {channelLoading ? (
+          <TextField
+            className="text-field"
+            size="small"
+            label="Channel"
+            value="Loading..."
+            variant="outlined"
+          />
+        ) : (
+          <TextField
+            name="channelId"
+            className="text-field"
+            size="small"
+            select
+            label="Channel"
+            value={info['channelId']}
+            onChange={handleChange}
+            variant="outlined"
+          >
+            {channels.map((c) => (
+              <MenuItem key={c.id} value={c.id}>
+                {c.name}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
 
         <IconButton
           name="refreshChannels"
