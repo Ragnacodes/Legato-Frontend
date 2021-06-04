@@ -24,8 +24,37 @@
       padding: 0 8px;
       border-left: solid 1px;
       border-color: $divider;
+      height: 500px;
+      overflow-y: hidden;
+      display: flex;
+      flex-direction: column;
+      ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+       }
+       ::-webkit-scrollbar-thumb {
+        background: $primary;
+        border-radius: 10px;
+       }
+        ::-webkit-scrollbar-track{
+          background: #ffffff;
+          border-radius: 0px;
+          width: 10px;
+         }
+      .services{
+        margin-right: -8px;
+        overflow-y: scroll;
 
+        >*{
+          margin-right: 5px;
+        }
+      }
+      .toolbox{
+        flex: 1;
+        height: 122px;
+      }
       .description {
+        font-size: 1rem;
         margin-top: 16px;
         text-align: center;
       }

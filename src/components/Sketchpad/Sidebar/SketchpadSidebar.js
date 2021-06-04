@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider } from '@material-ui/core';
+import { Divider, Typography } from '@material-ui/core';
 import WebhookSidebarItem from '../../Services/Webhook/SidebarItem';
 import SpotifySidebarItem from '../../Services/Spotify/SidebarItem';
 import TelegramSidebarItem from '../../Services/Telegram/SidebarItem';
@@ -12,18 +12,22 @@ import RepeatSidebarItem from '../../Services/ToolBox/Repeater/SidebarItem';
 const SketchpadSidebar =  () => {
   return (
     <aside id="sketchpad-sidebar">
-      <div className="description">Services</div>
+      <Typography variant="h6" className="description">Services</Typography>
+      <div className="services">
       <WebhookSidebarItem />
       <HTTPSidebarItem />
       <SpotifySidebarItem />
       <TelegramSidebarItem />
       <SSHSidebarItem />
       <GithubSidebarItem />
+      </div>
 
       <Divider />
-      <div className="description">Toolbox</div>
+      <Typography variant="h6" className="description">Toolbox</Typography>
+      <div className="toolbox">
       <SleepSidebarItem/>
       <RepeatSidebarItem/>
+      </div>
 
     </aside>
   );
