@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { startRemoveConnection, startEditConnection } from '../../actions/connections';
 import {
@@ -10,13 +10,17 @@ import {
   Tooltip
 } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiscord, faSpotify, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faDiscord, faSpotify, faGoogle, faGithub, faTelegram } from '@fortawesome/free-brands-svg-icons';
 import { faTerminal } from '@fortawesome/free-solid-svg-icons';
 import { Delete } from '@material-ui/icons'
 import OnClickTextField from '../OnClickTextField';
+import YesNoModal from '../YesNoModal';
 
 
 const Connection = ({ id, name, type, removeConnection, editConnection }) => {
+  
+  const [deleteModal, setDeleteModal] = useState(false);
+
   const handleEditConnection = (newName) => {
     editConnection(id, newName);
   };
@@ -57,6 +61,12 @@ const Connection = ({ id, name, type, removeConnection, editConnection }) => {
             <FontAwesomeIcon icon={faTerminal} />
           </ListItemIcon>
       );
+      case 'telegrams':
+        return (
+          <ListItemIcon className="connections-icon">
+            <FontAwesomeIcon icon={faTelegram} />
+          </ListItemIcon>
+      );
       default:
         return null;
     }
@@ -75,11 +85,18 @@ const Connection = ({ id, name, type, removeConnection, editConnection }) => {
 
       <ListItemSecondaryAction className="control">
         <Tooltip title="Delete connection." placement="top">
-          <IconButton aria-label="delete" color="secondary" onClick={handleRemoveConnection}>
+          <IconButton aria-label="delete" color="secondary" onClick={() => setDeleteModal(true)}>
             <Delete fontSize="small" />
           </IconButton>
         </Tooltip>
       </ListItemSecondaryAction>
+      <YesNoModal
+        text={`Delete ${name} ?`}
+        visible={deleteModal}
+        setVisible={setDeleteModal}
+        handleYes={handleRemoveConnection}
+        handleNo={() => {}} 
+      />
     </ListItem>
   );
 };
