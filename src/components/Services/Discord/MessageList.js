@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Popover, withStyles, Box } from '@material-ui/core';
+import { Typography, Popover, withStyles, Box, Grid } from '@material-ui/core';
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbtack } from '@fortawesome/free-solid-svg-icons';
@@ -90,16 +90,24 @@ export function MessageList({
               value={message.id}
               aria-label={message.id}
             >
-              <Typography variant="body1" className="message-content">
+              
+                <Grid container direction="row">
                 {message.pinned && (
                   <Box mr={1} display="inline-block">
                     <FontAwesomeIcon icon={faThumbtack} />
                   </Box>
                 )}
-                {message.content && message.content.length < 100
+                <Typography variant="body2" color="primary">
+                {
+                  !!message.author && message.author.username
+                } 
+                </Typography>
+                <Typography variant="body1" className="message-content">
+                { message.content && message.content.length < 100
                   ? message.content
                   : message.content.slice(0, 96) + '...'}
               </Typography>
+                </Grid>
               <Typography variant="caption" className="message-date">
                 {message.timestamp && formatDate(message.timestamp)}
               </Typography>
