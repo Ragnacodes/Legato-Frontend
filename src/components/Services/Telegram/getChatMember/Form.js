@@ -11,7 +11,7 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, telegramConn
     const [info, setInfo] = useState({
         name: data.name || '',
         chat_id: data.chat_id || '',
-        connectionId: data.connectionId || '',
+        key: data.key || '',
         user_id: data.user_id || '',
     });
 
@@ -58,7 +58,7 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, telegramConn
                     loadingConnections ? 
                     <TextField
                         className="text-field"
-                        name="connectionId"
+                        name="key"
                         label="Bot token"
                         type="text"
                         variant="outlined"
@@ -72,7 +72,7 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, telegramConn
                     :
                     <TextField
                         className="text-field"
-                        name="connectionId"
+                        name="key"
                         label="Bot token"
                         type="text"
                         variant="outlined"
@@ -81,11 +81,11 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, telegramConn
                         onChange={handleChange}
                         helperText="write your telegram bot's token here."
                         multiline
-                        value={info.connectionId}
+                        value={info.key}
                     >
                         {
                             telegramConnections.map((c) => { 
-                                return <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>; 
+                                return <MenuItem key={c.id} value={c.data.key}>{c.name}</MenuItem>; 
                             })                     
                         }
                     </TextField>
