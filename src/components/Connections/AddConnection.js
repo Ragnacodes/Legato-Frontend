@@ -66,7 +66,7 @@ const AddConnection = ({addDialog, setAddDialog, createSSHConnetion}) => {
                             <ListItemText primary="GitHub" />
                         </ListItem>
 
-                        <ListItem className="item" button onClick={(e) => onServiceClicked(e, "gmails")}>
+                        <ListItem className="item" button onClick={(e) => onServiceClicked(e, "google")}>
                             <ListItemIcon className="icon">
                                 <ConnectionServiceIcon service="gmail" />
                             </ListItemIcon>
