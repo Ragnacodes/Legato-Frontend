@@ -9,10 +9,8 @@ import {
   IconButton,
   Tooltip
 } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiscord, faSpotify, faGoogle, faGithub, faTelegram } from '@fortawesome/free-brands-svg-icons';
-import { faTerminal } from '@fortawesome/free-solid-svg-icons';
-import { Delete } from '@material-ui/icons'
+import { Delete } from '@material-ui/icons';
+import ConnectionServiceIcon from '../ServiceIcons/ConnectionServiceIcon';
 import OnClickTextField from '../OnClickTextField';
 import YesNoModal from '../YesNoModal';
 
@@ -31,40 +29,40 @@ const Connection = ({ id, name, type, removeConnection, editConnection }) => {
 
   const switchCase = (type) => {
     switch (type) {
-      case 'github':
+      case 'githubs':
         return (
-          <ListItemIcon className="connections-icon">
-            <FontAwesomeIcon icon={faGithub} />
+          <ListItemIcon>
+            <ConnectionServiceIcon service="github" />
           </ListItemIcon>
         );
-      case 'gmail':
+      case 'gmails':
         return (
-          <ListItemIcon className="connections-icon">
-            <FontAwesomeIcon icon={faGoogle} />
+          <ListItemIcon>
+            <ConnectionServiceIcon service="gmail" />
           </ListItemIcon>
         );
-      case 'spotify':
+      case 'spotifies':
         return (
-          <ListItemIcon className="connections-icon">
-            <FontAwesomeIcon icon={faSpotify} />
+          <ListItemIcon>
+            <ConnectionServiceIcon service="spotify" />
           </ListItemIcon>
         );
-      case 'discord':
+      case 'discords':
         return (
-          <ListItemIcon className="connections-icon">
-            <FontAwesomeIcon icon={faDiscord} />
+          <ListItemIcon>
+            <ConnectionServiceIcon service="discord" />
           </ListItemIcon>
         );
       case 'sshes':
         return (
-          <ListItemIcon className="connections-icon">
-            <FontAwesomeIcon icon={faTerminal} />
+          <ListItemIcon>
+            <ConnectionServiceIcon service="ssh" />
           </ListItemIcon>
       );
       case 'telegrams':
         return (
-          <ListItemIcon className="connections-icon">
-            <FontAwesomeIcon icon={faTelegram} />
+          <ListItemIcon>
+            <ConnectionServiceIcon service="telegram" />
           </ListItemIcon>
       );
       default:

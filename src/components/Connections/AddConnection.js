@@ -12,10 +12,8 @@ import {
     DialogTitle,
 } from '@material-ui/core';
 import { CloseRounded } from '@material-ui/icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiscord, faSpotify, faGoogle, faGithub, faTelegram } from '@fortawesome/free-brands-svg-icons';
-import { faTerminal } from '@fortawesome/free-solid-svg-icons';
 import TelegramBot from './TelegramBot';
+import ConnectionServiceIcon from '../ServiceIcons/ConnectionServiceIcon';
 
 const AddConnection = ({addDialog, setAddDialog, createSSHConnetion}) => {
     function onServiceClicked(e, service) {
@@ -63,42 +61,42 @@ const AddConnection = ({addDialog, setAddDialog, createSSHConnetion}) => {
                     <List className="list">
                         <ListItem className="item" button onClick={(e) => onServiceClicked(e, "githubs")}>
                             <ListItemIcon className="icon">
-                                <FontAwesomeIcon icon={faGithub} />
+                                <ConnectionServiceIcon service="github" />
                             </ListItemIcon>
                             <ListItemText primary="GitHub" />
                         </ListItem>
 
-                        <ListItem className="item" button onClick={(e) => onServiceClicked(e, "googles")}>
+                        <ListItem className="item" button onClick={(e) => onServiceClicked(e, "gmails")}>
                             <ListItemIcon className="icon">
-                                <FontAwesomeIcon icon={faGoogle} />
+                                <ConnectionServiceIcon service="gmail" />
                             </ListItemIcon>
                             <ListItemText primary="Gmail" />
                         </ListItem>
 
                         <ListItem className="item" button onClick={(e) => onServiceClicked(e, "spotifies")}>
                             <ListItemIcon className="icon">
-                                <FontAwesomeIcon icon={faSpotify} />
+                                <ConnectionServiceIcon service="spotify" />
                             </ListItemIcon>
                             <ListItemText primary="Spotify" />
                         </ListItem>
 
                         <ListItem className="item" button onClick={(e) => onServiceClicked(e, "discords")}>
                             <ListItemIcon className="icon">
-                                <FontAwesomeIcon icon={faDiscord} />
+                                <ConnectionServiceIcon service="discord" />
                             </ListItemIcon>
                             <ListItemText primary="Discord" />
                         </ListItem>
 
                         <ListItem className="item" button onClick={() => addTelegram()}>
                             <ListItemIcon className="icon">
-                                <FontAwesomeIcon icon={faTelegram} />
+                                <ConnectionServiceIcon service="telegram" />
                             </ListItemIcon>
                             <ListItemText primary="Telegram bot" />
                         </ListItem>
 
                         <ListItem className="item" button onClick={handleCreateSSH}>
                             <ListItemIcon className="icon">
-                                <FontAwesomeIcon icon={faTerminal} />
+                                <ConnectionServiceIcon service="ssh" />
                             </ListItemIcon>
                             <ListItemText primary="SSH" />
                         </ListItem>
