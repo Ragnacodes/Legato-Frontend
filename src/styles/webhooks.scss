@@ -82,33 +82,6 @@
   }
 }
 
-.edit-wh-dialog,
-.add-wh-popper {
-  .edit-wh-tab {
-    .data-structure-field {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      > * {
-        margin-left: 2px;
-        margin-right: 2px;
-      }
-      .select-ds-field {
-        flex: 1;
-        margin-left: 0;
-      }
-      .add-icon {
-        margin-right: 0;
-      }
-    }
-
-    .edit-wh-field {
-      margin-top: 11px;
-      margin-bottom: 11px;
-    }
-  }
-}
-
 .wh-queue-details {
   width: 300px;
   display: flex;
@@ -125,9 +98,6 @@
       max-height: 200px;
       overflow: auto;
     }
-    .data-key {
-      font-weight: 300;
-    }
   }
 }
 
@@ -139,54 +109,6 @@
     right: 5px;
     top: 5px;
     color: $primary;
-  }
-}
-
-.ds-popover {
-  padding: 8px 24px;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  .wh-ds-actions {
-    flex: 0 0 auto;
-    display: flex;
-    padding: 8px;
-    align-items: center;
-    justify-content: flex-end;
-    margin-top: 12px;
-    margin-right: -18px;
-  }
-
-  .edit-wh-field {
-    margin-top: 11px;
-    margin-bottom: 15px;
-
-    .MuiFormHelperText-root {
-      &.Mui-error {
-        height: 0;
-        margin-top: 0;
-      }
-    }
-  }
-  .ds-items-card {
-    // background-color: $primary;
-    // color: $secondary;
-    .ds-items-card-content {
-      overflow: auto;
-
-      display: flex;
-      flex-direction: row;
-      > * {
-        margin-bottom: 2px;
-      }
-    }
-    .MuiCardContent-root {
-      padding: 8px;
-    }
-    .ds-item {
-      width: 200px;
-      margin: 2px;
-    }
   }
 }
 
@@ -214,10 +136,6 @@
     .MuiListItemText-secondary {
       cursor: pointer;
       padding-left: 14px;
-      a {
-        word-break: break-allq;
-        color: adjust-color($color: $primary, $lightness: 20%);
-      }
     }
   }
 }
