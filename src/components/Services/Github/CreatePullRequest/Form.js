@@ -227,7 +227,7 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnec
 }
 
 const mapStateToProps = (state) => ({
-    githubConnections : state.connections.filter((c) => c.type === 'github'),
+    githubConnections : state.connections.filter((c) => c.type === 'githubs'),
     username : state.auth.username,
 })
 
