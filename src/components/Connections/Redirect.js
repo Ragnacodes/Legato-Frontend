@@ -6,20 +6,16 @@ import { startAddConnection } from '../../actions/connections';
 const Redirect = ({addConnection}) => {
     useEffect(() => {
         const url = window.location.href;
-        let token_type = url.substring(url.lastIndexOf("redirect/")+9, url.lastIndexOf("?code"));
-        const data = {}
-        if(token_type === 'discord')
-        {
-            data['guildId'] = switchCase('discord', url);
-            token_type = 'discords';
-        }
-        else {
-            data['token'] = switchCase(token_type, url);
-        }
+        const token_type = url.substring(url.lastIndexOf("redirect/")+9, url.lastIndexOf("?code"));
+        console.log(token_type);
+        const temp = switchCase(token_type, url);
+        if (temp === 'wrong') {
+            window.location.href = "http://localhost:3000/connections";
+        };
         const connection = {
             name: "my " + token_type, 
-            data : data,
-            type: token_type
+            data : {token: temp[1]},
+            type: temp[0]
         }
         console.log(connection);
         addConnection(connection).then(()=>{ 
@@ -33,13 +29,15 @@ const Redirect = ({addConnection}) => {
 const switchCase = (type, url) => {
     switch (type) {
         case 'github':
-            return url.substring(url.lastIndexOf("?code=") + 6, url.lastIndexOf("&state"));
+            return ['githubs', url.substring(url.lastIndexOf("?code=") + 6, url.indexOf("&state"))];
         case 'spotify':
-            return url.substring(url.lastIndexOf("?code=") + 6, url.lastIndexOf("&state"));
+            return ['spotifies',  url.substring(url.lastIndexOf("?code=") + 6, url.indexOf("&state"))];
         case 'discord':
-            return url.substring(url.lastIndexOf("guild_id=") + 9, url.lastIndexOf("&permissions"));
+            return ['discords', url.substring(url.lastIndexOf("?code=") + 6, url.indexOf("&"))];
+        case 'gmail':
+            return ['gmails', url.substring(url.lastIndexOf("?code=") + 6, url.indexOf("&"))];
         default:
-            return url.substring(url.indexOf("code=")+5);
+            return 'wrong';
     };
 }
 

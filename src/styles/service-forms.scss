@@ -6,6 +6,8 @@
   &.execute-command,
   &.create-issue,
   &.create-pullRequest,
+  &.send-message,
+  &.get-chat-member,
   &.toolbox-repeater,
   &.toolbox-sleep,
   &.wh-settings,
@@ -57,6 +59,8 @@
   &.execute-command,
   &.create-issue,
   &.create-pullRequest,
+  &.send-message,
+  &.get-chat-member,
   &.save-to-playlist {
     .connection-field,
     .playlist-field,
