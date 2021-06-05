@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MenuItem, IconButton, TextField } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { connect } from 'react-redux';
@@ -22,36 +22,14 @@ const Form = ({
     command: data.command || '',
   });
 
-  const [errors, setErrors] = useState({
-    connectionId: !!data.connectionId,
-    command: !!data.command,
-  });
-
   const [addAnchor, setAddAnchor] = useState(null);
-
-  useLayoutEffect(() => {
-    getSshConnections();
-  }, [getSshConnections]);
+  const [connectionLoading, setConnectionLoading] = useState(true);
 
   useEffect(() => {
-    if (!info['command']) {
-      setErrors((prev) => ({
-        ...prev,
-        command: true,
-      }));
-    } else {
-      setErrors((prev) => ({
-        ...prev,
-        command: false,
-      }));
-    }
-    if (!!info['connectionId']) {
-      setErrors((prev) => ({
-        ...prev,
-        connectionId: false,
-      }));
-    }
-  }, [info]);
+    getSshConnections().then(() => {
+      setConnectionLoading(true);
+    });
+  }, [getSshConnections]);
 
   const handleChange = (e) => {
     setInfo((prev) => ({
@@ -65,10 +43,6 @@ const Form = ({
     setInfo({
       connection: data.connectionId || '',
       command: data.command || '',
-    });
-    setErrors({
-      command: !!data.command,
-      connection: !!data.connectionId,
     });
   };
 
@@ -96,7 +70,7 @@ const Form = ({
     setAddAnchor(e.currentTarget);
   };
 
-  let disabledSave = errors['connectionId'] || errors['command'];
+  let disabledSave = !info['connection'] || !info['command'];
 
   return (
     <ServiceForm
@@ -107,25 +81,32 @@ const Form = ({
       handleCancel={handleCancel}
     >
       <div className="connection-field">
-        <TextField
-          name="connectionId"
-          className="text-field"
-          size="small"
-          select
-          label="Connection"
-          value={info['connectionId']}
-          onChange={handleChange}
-          variant="outlined"
-        >
-          {sshConnections &&
-            sshConnections.map((c) => {
-              return (
-                <MenuItem key={c.id} value={c.id}>
-                  {c.name}
-                </MenuItem>
-              );
-            })}
-        </TextField>
+        {connectionLoading ? (
+          <TextField
+            className="text-field"
+            size="small"
+            label="Connection"
+            value="Loading..."
+            variant="outlined"
+            disabled
+          />
+        ) : (
+          <TextField
+            name="connection"
+            className="text-field"
+            size="small"
+            select
+            label="Connection"
+            value={info['connection']}
+            onChange={handleChange}
+            variant="outlined"
+          >
+            {sshConnections &&
+              sshConnections.map((c) => {
+                return <MenuItem value={c}>{c.Name}</MenuItem>;
+              })}
+          </TextField>
+        )}
 
         <IconButton
           name="addConnection"

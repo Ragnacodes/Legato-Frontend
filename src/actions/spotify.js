@@ -22,7 +22,7 @@ export const startGetPlaylists = () => {
         dispatch(setPlaylists(res.data));
       })
       .catch((err) => {
-        throw err;
+        console.log(err);
       });
   };
 };
