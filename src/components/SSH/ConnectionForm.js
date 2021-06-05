@@ -4,39 +4,42 @@ import { TextField, MenuItem } from '@material-ui/core';
 import PopoverForm from '../PopoverForm';
 import UserPass from './UserPass';
 import UserKey from './UserKey';
-import { startAddSSHConnection, startCheckSSHConnection } from '../../actions/connections';
+import {
+  startAddSSHConnection,
+  startCheckSSHConnection,
+} from '../../actions/connections';
+import { errorNotification } from '../Layout/Notification';
 const SSHConnection = ({
   info,
   handleChange,
   handleCancel,
   handleSave,
   addConnection,
-  checkSSHConnection
+  checkSSHConnection,
 }) => {
-
   const [loading, setLoading] = useState(false);
 
   const handleAddConnection = () => {
-    setLoading(true)
-    checkSSHConnection(info)
-    .then((res)=>{
-      if(res){
-        setLoading(false)
+    setLoading(true);
+    checkSSHConnection(info).then((res) => {
+      if (res) {
+        setLoading(false);
         addConnection(info);
         handleSave();
+      } else {
+        setLoading(false);
+        errorNotification('Service is not available.');
       }
-    })
-    
+    });
   };
 
-  let disabledSave = loading ||
+  let disabledSave =
+    loading ||
     !info['name'] ||
     !info['host'] ||
     !info['username'] ||
-    !(
-      info['authType']===0 ? info['password'] : info['sshKey']
-    );
-    
+    !(info['authType'] === 0 ? info['password'] : info['sshKey']);
+
   return (
     <PopoverForm
       className="ssh-connection "
@@ -105,7 +108,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   addConnection: (info) => dispatch(startAddSSHConnection(info)),
   checkSSHConnection: (info) => dispatch(startCheckSSHConnection(info)),
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SSHConnection);

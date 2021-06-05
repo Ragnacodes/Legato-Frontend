@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { MenuItem, IconButton, TextField } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { connect } from 'react-redux';
@@ -18,8 +18,13 @@ const Form = ({
   setAnchorEl,
 }) => {
   const [info, setInfo] = useState({
-    connection: data.connection || '',
+    connectionId: data.connectionId || '',
     command: data.command || '',
+  });
+
+  const [errors, setErrors] = useState({
+    connectionId: !!data.connectionId,
+    command: !!data.command,
   });
 
   const [addAnchor, setAddAnchor] = useState(null);
@@ -41,25 +46,25 @@ const Form = ({
   const handleCancel = () => {
     setAnchorEl(null);
     setInfo({
-      connection: data.connection || '',
+      connection: data.connectionId || '',
       command: data.command || '',
     });
   };
 
   const handleSave = () => {
-    checkSSHConnection(JSON.parse(info['connection'].Data).data).then(
-      (check) => {
-        if (!check) return;
-      }
-    );
+    const connection =
+      sshConnections.find((c) => c.id === info['connectionId']) || {};
+    checkSSHConnection(connection.data).then((check) => {
+      if (!check) return;
+    });
 
     const updates = {
       name: info.name,
       data: {
         ...data,
+        ...connection.data,
         ...info,
         commands: info['command'].split('\n'),
-        ...JSON.parse(info['connection'].Data).data,
       },
     };
     editElement(id, updates);
@@ -136,7 +141,7 @@ const Form = ({
   );
 };
 const mapStateToProps = (state) => ({
-  sshConnections: state.connections.filter((c) => c.Type === 'ssh'),
+  sshConnections: state.connections.filter((c) => c.type === 'sshes'),
 });
 
 const mapDispatchToProps = (dispatch) => ({

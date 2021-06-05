@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/webhooks';
 import { Button, Tooltip, Typography } from '@material-ui/core';
@@ -20,7 +20,6 @@ const Form = ({ id, data, editElement, setAnchorEl, updateWebhook }) => {
   const [copied, setCopied] = useState(false);
 
   const handleUpdateWebhook = (updates) => {
-    console.log('here');
     if (info.webhook.id) {
       updateWebhook(info.webhook.id, updates)
         .then((res) => {

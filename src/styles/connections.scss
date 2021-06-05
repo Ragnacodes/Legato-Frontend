@@ -13,9 +13,21 @@
         }
         .list {
             .item {
+                padding: 10px 0px !important;
                 .icon {
                     font-size: 30px;
                 }
+            }
+        }
+        .options {
+            flex: 0 0 auto;
+            display: flex;
+            padding: 8px;
+            align-items: center;
+            justify-content:flex-end;
+            
+            button {
+                margin: 5px;
             }
         }
     }

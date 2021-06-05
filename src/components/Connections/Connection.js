@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { startRemoveConnection, startEditConnection } from '../../actions/connections';
 import {
@@ -9,14 +9,16 @@ import {
   IconButton,
   Tooltip
 } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiscord, faSpotify, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faTerminal } from '@fortawesome/free-solid-svg-icons';
-import { Delete } from '@material-ui/icons'
+import { Delete } from '@material-ui/icons';
+import ConnectionServiceIcon from '../ServiceIcons/ConnectionServiceIcon';
 import OnClickTextField from '../OnClickTextField';
+import YesNoModal from '../YesNoModal';
 
 
 const Connection = ({ id, name, type, removeConnection, editConnection }) => {
+  
+  const [deleteModal, setDeleteModal] = useState(false);
+
   const handleEditConnection = (newName) => {
     editConnection(id, newName);
   };
@@ -27,34 +29,40 @@ const Connection = ({ id, name, type, removeConnection, editConnection }) => {
 
   const switchCase = (type) => {
     switch (type) {
-      case 'github':
+      case 'githubs':
         return (
-          <ListItemIcon className="connections-icon">
-            <FontAwesomeIcon icon={faGithub} />
+          <ListItemIcon>
+            <ConnectionServiceIcon service="github" />
           </ListItemIcon>
         );
-      case 'gmail':
+      case 'gmails':
         return (
-          <ListItemIcon className="connections-icon">
-            <FontAwesomeIcon icon={faGoogle} />
+          <ListItemIcon>
+            <ConnectionServiceIcon service="gmail" />
           </ListItemIcon>
         );
-      case 'spotify':
+      case 'spotifies':
         return (
-          <ListItemIcon className="connections-icon">
-            <FontAwesomeIcon icon={faSpotify} />
+          <ListItemIcon>
+            <ConnectionServiceIcon service="spotify" />
           </ListItemIcon>
         );
-      case 'discord':
+      case 'discords':
         return (
-          <ListItemIcon className="connections-icon">
-            <FontAwesomeIcon icon={faDiscord} />
+          <ListItemIcon>
+            <ConnectionServiceIcon service="discord" />
           </ListItemIcon>
         );
       case 'sshes':
         return (
-          <ListItemIcon className="connections-icon">
-            <FontAwesomeIcon icon={faTerminal} />
+          <ListItemIcon>
+            <ConnectionServiceIcon service="ssh" />
+          </ListItemIcon>
+      );
+      case 'telegrams':
+        return (
+          <ListItemIcon>
+            <ConnectionServiceIcon service="telegram" />
           </ListItemIcon>
       );
       default:
@@ -72,10 +80,18 @@ const Connection = ({ id, name, type, removeConnection, editConnection }) => {
         divClassName=""
         textfieldSize="small"
       />} />
+      
+      <YesNoModal
+        text={`Delete ${name} ?`}
+        visible={deleteModal}
+        setVisible={setDeleteModal}
+        handleYes={handleRemoveConnection}
+        handleNo={() => {}} 
+      />
 
       <ListItemSecondaryAction className="control">
         <Tooltip title="Delete connection." placement="top">
-          <IconButton aria-label="delete" color="secondary" onClick={handleRemoveConnection}>
+          <IconButton aria-label="delete" color="secondary" onClick={() => setDeleteModal(true)}>
             <Delete fontSize="small" />
           </IconButton>
         </Tooltip>

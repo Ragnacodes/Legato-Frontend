@@ -111,7 +111,7 @@ export function Form({
     }
   };
 
-  const disabledSave =
+  let disabledSave =
     !info['PlaylistId'] || !info['trackUrl'] || errors['trackUrl'];
 
   return (
