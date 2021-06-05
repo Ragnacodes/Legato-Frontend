@@ -51,7 +51,7 @@ const ScenarioNodes = ({ nodes }) => {
                                     <ScenarioServiceIcon service='http' />
                                 </Avatar>
                             );
-                        case 'discord':
+                        case 'discords':
                             return (
                                 <Avatar key={index}>
                                     <ScenarioServiceIcon service='discord' />

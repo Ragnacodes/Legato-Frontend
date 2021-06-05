@@ -4,7 +4,7 @@ const initialState = {
   playlists: [],
   track: '',
 };
-const loginReducer = (state = initialState, action) => {
+const spotifyReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.SET_PLAYLISTS:
       return {
@@ -22,4 +22,4 @@ const loginReducer = (state = initialState, action) => {
   }
 };
 
-export default loginReducer;
+export default spotifyReducer;

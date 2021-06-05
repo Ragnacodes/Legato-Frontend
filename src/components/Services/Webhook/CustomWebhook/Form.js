@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/webhooks';
 import { MenuItem, IconButton, TextField, Tooltip } from '@material-ui/core';
@@ -33,7 +33,7 @@ const Form = ({
   const [editWhPopper, setEditWhPopper] = useState(null);
   const [addWhPopper, setAddWhPopper] = useState(null);
   const [copied, setCopied] = useState(false);
-  useEffect(() => {
+  useLayoutEffect(() => {
     getWebhooks()
       .then(() => {})
       .catch(() => {});
@@ -101,8 +101,8 @@ const Form = ({
 
   const FindWebhook = (id) => {
     const w = webhooks.find((w) => w.id === id);
-    if(w) return w;
-    else return {}
+    if (w) return w;
+    else return {};
   };
 
   const HelperTextComponent = React.forwardRef((props, ref) => {
