@@ -80,6 +80,14 @@ const Connection = ({ id, name, type, removeConnection, editConnection }) => {
         divClassName=""
         textfieldSize="small"
       />} />
+      
+      <YesNoModal
+        text={`Delete ${name} ?`}
+        visible={deleteModal}
+        setVisible={setDeleteModal}
+        handleYes={handleRemoveConnection}
+        handleNo={() => {}} 
+      />
 
       <ListItemSecondaryAction className="control">
         <Tooltip title="Delete connection." placement="top">
@@ -88,13 +96,6 @@ const Connection = ({ id, name, type, removeConnection, editConnection }) => {
           </IconButton>
         </Tooltip>
       </ListItemSecondaryAction>
-      <YesNoModal
-        text={`Delete ${name} ?`}
-        visible={deleteModal}
-        setVisible={setDeleteModal}
-        handleYes={handleRemoveConnection}
-        handleNo={() => {}} 
-      />
     </ListItem>
   );
 };

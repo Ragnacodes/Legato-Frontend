@@ -59,7 +59,7 @@ const AddConnection = ({addDialog, setAddDialog, createSSHConnetion}) => {
                         Please choose your service:
                     </DialogContentText>
                     <List className="list">
-                        <ListItem className="item" button onClick={(e) => onServiceClicked(e, "githubs")}>
+                        <ListItem className="item" button onClick={(e) => onServiceClicked(e, "github")}>
                             <ListItemIcon className="icon">
                                 <ConnectionServiceIcon service="github" />
                             </ListItemIcon>
@@ -73,14 +73,14 @@ const AddConnection = ({addDialog, setAddDialog, createSSHConnetion}) => {
                             <ListItemText primary="Gmail" />
                         </ListItem>
 
-                        <ListItem className="item" button onClick={(e) => onServiceClicked(e, "spotifies")}>
+                        <ListItem className="item" button onClick={(e) => onServiceClicked(e, "spotify")}>
                             <ListItemIcon className="icon">
                                 <ConnectionServiceIcon service="spotify" />
                             </ListItemIcon>
                             <ListItemText primary="Spotify" />
                         </ListItem>
 
-                        <ListItem className="item" button onClick={(e) => onServiceClicked(e, "discords")}>
+                        <ListItem className="item" button onClick={(e) => onServiceClicked(e, "discord")}>
                             <ListItemIcon className="icon">
                                 <ConnectionServiceIcon service="discord" />
                             </ListItemIcon>
