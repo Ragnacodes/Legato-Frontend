@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MenuItem, IconButton, TextField } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { connect } from 'react-redux';
@@ -20,11 +20,6 @@ const Form = ({
   const [info, setInfo] = useState({
     connectionId: data.connectionId || '',
     command: data.command || '',
-  });
-
-  const [errors, setErrors] = useState({
-    connectionId: !!data.connectionId,
-    command: !!data.command,
   });
 
   const [addAnchor, setAddAnchor] = useState(null);
