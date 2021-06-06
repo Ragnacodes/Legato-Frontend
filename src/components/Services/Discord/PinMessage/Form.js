@@ -122,6 +122,7 @@ export function Form({
       <div className="channel-field">
         {channelLoading ? (
           <TextField
+            disabled
             className="text-field"
             size="small"
             label="Channel"

@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { MenuItem, Button, TextField, IconButton } from '@material-ui/core';
 import { Refresh, Search } from '@material-ui/icons';
 import { connect } from 'react-redux';
@@ -41,6 +41,11 @@ export function Form({
         setChannelLoading(false);
       });
   }, [guildId, getChannels]);
+
+  useEffect(() => {
+    console.log(channelLoading)
+
+  }, [channelLoading])
 
   useLayoutEffect(() => {
     if (info.channelId)
@@ -124,6 +129,7 @@ export function Form({
       <div className="channel-field">
         {channelLoading ? (
           <TextField
+            disabled
             className="text-field"
             size="small"
             label="Channel"
