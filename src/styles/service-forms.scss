@@ -4,9 +4,14 @@
   &.watch-playlist,
   &.save-to-playlist,
   &.execute-command,
+  &.create-issue,
+  &.create-pullRequest,
+  &.send-message,
+  &.get-chat-member,
   &.toolbox-repeater,
   &.toolbox-sleep,
-  &.wh-settings {
+  &.wh-settings,
+  &.discord-forms {
     display: flex;
     flex-direction: column;
   }
@@ -30,16 +35,52 @@
       cursor: pointer;
     }
   }
+
+  &.custom-webhook {
+    > * {
+      margin-bottom: 11px;
+    }
+    .webhook-url {
+      word-break: break-all;
+      color: grey;
+      cursor: pointer;
+      margin-bottom: 11px;
+    }
+  }
+  &.discord-forms {
+    .message-card {
+      margin-top: 11px;
+      margin-bottom: 11px;
+    }
+    .message {
+      padding: 11px;
+      width: 100%;
+      .message-date {
+        color: rgb(94, 94, 94);
+      }
+      .message-content {
+        word-break: break-all;
+        width: 100%;
+      }
+    }
+  }
+
   &.custom-webhook,
   &.watch-playlist,
   &.execute-command,
+  &.create-issue,
+  &.create-pullRequest,
+  &.send-message,
+  &.get-chat-member,
   &.save-to-playlist {
+    .name-field,
     .connection-field,
     .playlist-field,
     .track-field {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
+      justify-content: space-between;
       > .text-field {
         margin-right: 5px;
         flex: 1;
@@ -47,22 +88,60 @@
       > .add-icon {
         margin-top: 16px;
       }
-      > .edit-icon {
-        margin-top: 16px;
-        margin-right: 2px;
-      }
       > .search-icon {
         margin-top: 16px;
         padding: 3px;
       }
+      > .edit-icon {
+        margin-top: 16px;
+        margin-right: 2px;
+      }
+    }
+  }
+
+  .connection-field,
+  .playlist-field,
+  .channel-field,
+  .track-field {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    > .text-field {
+      margin-right: 5px;
+      flex: 1;
+    }
+    > .add-icon {
+      margin-top: 16px;
+    }
+    > .edit-icon {
+      margin-top: 16px;
+      margin-right: 2px;
+    }
+    > .search-icon {
+      margin-top: 16px;
+      padding: 3px;
+    }
+  }
+}
+
+.messages-list {
+  overflow: auto;
+  max-height: 250px;
+  width: 100%;
+  .message {
+    width: 100%;
+    .message-date {
+      color: rgb(94, 94, 94);
+    }
+    .message-content {
+      word-break: break-all;
+      width: 100%;
     }
   }
 }
 
 .track-info {
-  // &.MuiCardContent-root {
   padding: 10px !important;
-  // }
   height: 140px;
   width: 100%;
   display: flex;
@@ -95,8 +174,4 @@
 .create-ssh {
   display: flex;
   flex-direction: column;
-}
-
-.custom-helper-tooltip {
-  margin-top: -10px;
 }

@@ -8,11 +8,11 @@ export const elementsBackToFront = (nodesBack) => {
             type: nodeBack.hasOwnProperty('subType') ? `${nodeBack.type}_${nodeBack.subType}` : `${nodeBack.type}_`,
             position: nodeBack.position,
             data: {
+                ...nodeBack.data,
                 name: nodeBack.name,
                 service: nodeBack.type,
                 subService: nodeBack.subType,
-                parentId: nodeBack.parentId,
-                ...nodeBack.data
+                parentId: nodeBack.parentId
             }
         };
 

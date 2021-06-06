@@ -34,17 +34,7 @@ test('should set webhooks', () => {
   };
   const state = webhookReducer({}, action);
 
-  expect(state.webhooks).toEqual(
-    data.map((wh) => {
-      return {
-        ...wh,
-        ip_restrictions: '',
-        get_request_headers: false,
-        get_request_http: false,
-        json_passthrough: false,
-      };
-    })
-  );
+  expect(state.webhooks).toEqual(data);
 });
 
 test('should add webhook', () => {
@@ -81,10 +71,6 @@ test('should add webhook', () => {
       isEnable: false,
       url: 'url/3',
       id: 3,
-      ip_restrictions: '',
-      get_request_headers: false,
-      get_request_http: false,
-      json_passthrough: false,
     },
     {
       name: 'one',

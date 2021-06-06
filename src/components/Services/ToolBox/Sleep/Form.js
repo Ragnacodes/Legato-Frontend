@@ -14,6 +14,8 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+    console.log(info);
+    console.log(disabledSave);
   };
 
   const handleCancel = () => {
@@ -38,11 +40,11 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
   };
 
   let disabledSave = !(
-    info['hour'] &&
+    info['hour'] !== '' &&
     info['hour'] >= 0 &&
-    info['minute'] &&
+    info['minute'] !== '' &&
     info['minute'] >= 0 &&
-    info['second'] &&
+    info['second'] !== '' &&
     info['second'] >= 0
   );
 

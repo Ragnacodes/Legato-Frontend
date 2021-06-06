@@ -28,9 +28,13 @@ export function Form({
   });
 
   const [errors, setErrors] = useState({});
+  const [playlistLoading, setPlaylistLoading] = useState(true);
+  const [trackLoading, setTrackLoading] = useState(false);
 
   useEffect(() => {
-    getPlaylists();
+    getPlaylists().then(() => {
+      setPlaylistLoading(false);
+    });
   }, [getPlaylists]);
 
   const ExtractIdFromUrl = (url) => {
@@ -87,12 +91,12 @@ export function Form({
     }
   };
 
-  const searchTrack = (e) => {
+  const searchTrack = () => {
     try {
       const TrackId = ExtractIdFromUrl(info['trackUrl']);
-
       getTrackInfo(TrackId)
         .then(() => {
+          setTrackLoading(false);
           setInfo((p) => ({ ...p, TrackId }));
           setErrors((prev) => ({
             ...prev,
@@ -107,7 +111,7 @@ export function Form({
     }
   };
 
-  const disabledSave =
+  let disabledSave =
     !info['PlaylistId'] || !info['trackUrl'] || errors['trackUrl'];
 
   return (
@@ -119,28 +123,43 @@ export function Form({
       handleCancel={handleCancel}
     >
       <div className="playlist-field">
-        <TextField
-          name="PlaylistId"
-          className="text-field"
-          size="small"
-          select
-          label="Playlist"
-          value={info['PlaylistId']}
-          onChange={handleChange}
-          variant="outlined"
-        >
-          {playlists.map((p) => (
-            <MenuItem key={p.id} value={p.id}>
-              {p.name}
-            </MenuItem>
-          ))}
-        </TextField>
+        {playlistLoading ? (
+          <TextField
+            className="text-field"
+            size="small"
+            label="Connection"
+            value="Loading..."
+            variant="outlined"
+            disabled
+          />
+        ) : (
+          <TextField
+            name="PlaylistId"
+            className="text-field"
+            size="small"
+            select
+            label="Playlist"
+            value={info['PlaylistId']}
+            onChange={handleChange}
+            variant="outlined"
+          >
+            {playlists.map((p) => (
+              <MenuItem key={p.id} value={p.id}>
+                {p.name}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
 
         <IconButton
           name="refreshPlaylists"
           size="small"
           className="add-icon"
-          onClick={getPlaylists}
+          diabled={playlistLoading}
+          onClick={() => {
+            getPlaylists();
+            setPlaylistLoading(true);
+          }}
         >
           <Refresh />
         </IconButton>
@@ -161,10 +180,13 @@ export function Form({
 
         <IconButton
           name="searchForTrack"
-          disabled={!info['trackUrl']}
+          disabled={!info['trackUrl'] || trackLoading}
           size="small"
           className="add-icon"
-          onClick={searchTrack}
+          onClick={() => {
+            searchTrack();
+            setTrackLoading(true);
+          }}
         >
           <Search />
         </IconButton>

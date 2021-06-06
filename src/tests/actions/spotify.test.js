@@ -21,7 +21,7 @@ test('should setup set playlists action object', () => {
   });
 });
 
-test('should setup set playlists action object', () => {
+test('should setup set track info action object', () => {
   const track = {
     name: 'track name',
     artists: [{ name: 'artist1' }, { name: 'artist2' }],
