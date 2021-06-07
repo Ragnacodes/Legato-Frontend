@@ -17,6 +17,12 @@ export const serviceBackToFront = (backType) => {
 
         case 'githubs':
             return 'Github';
+        
+        case 'discords':
+            return 'Discord';
+
+        case 'gmails':
+            return 'Gmail';
 
         default:
             return 'Unknown';
