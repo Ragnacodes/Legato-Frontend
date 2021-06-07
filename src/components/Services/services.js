@@ -112,4 +112,12 @@ export const services = {
       secondaryText: 'Repeat a series of actions.',
     },
   ],
+  gmails: [
+    {
+      subService: 'sendEmail',
+      kind: 'action',
+      primaryText: 'Send email',
+      secondaryText: 'Send an email with SMTP.',
+    }
+  ]
 };
