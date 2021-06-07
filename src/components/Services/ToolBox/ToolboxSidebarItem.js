@@ -17,7 +17,7 @@ const ToolboxSidebarItem = ({ icon, services, subService }) => {
     return (
         <>
 
-        <Tooltip title={subService.toUpperCase()} placement="left">
+        <Tooltip title={subService.charAt(0).toUpperCase() + subService.slice(1)} placement="left">
             <div className="dndnode" onClick={handleClick}>
                 {icon}
             </div>

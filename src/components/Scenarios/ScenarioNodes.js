@@ -63,6 +63,12 @@ const ScenarioNodes = ({ nodes }) => {
                                     <ScenarioServiceIcon service='gmail' />
                                 </Avatar>
                             );
+                        case 'tool_boxes':
+                            return (
+                                <Avatar key={index}>
+                                    <ScenarioServiceIcon service='repeater' />
+                                </Avatar>
+                            );
                         default:
                             return (
                                 <Avatar key={index}>
