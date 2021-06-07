@@ -40,6 +40,7 @@ export const startGetHistory = (scenarioID, historyID) => {
                 return {
                     id: log.id,
                     status: 1,
+                    time: log.created_at,
                     service: {
                         id,
                         name,
