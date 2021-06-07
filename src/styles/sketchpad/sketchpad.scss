@@ -125,3 +125,21 @@
     border-color: $common-white;
   }
 }
+
+.dndnode {
+  cursor: grab;
+}
+
+.terminal-box {
+  height: 100px;
+  overflow-y: scroll;
+
+  .react-terminal-wrapper {
+    border-radius: 0;
+  }
+  
+  .react-terminal-line {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+}
