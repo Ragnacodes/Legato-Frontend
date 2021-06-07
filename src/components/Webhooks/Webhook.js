@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { Edit, Delete, LocalShipping, Error } from '@material-ui/icons';
 import EditModal from './WebhookSettingsModal';
-import WebhookQueue from './WebhookQueue';
+import WebhookHistory from './WebhookHistory';
 import { errorNotification, successNotification } from '../Layout/Notification';
 import OnClickTextField from '../OnClickTextField';
 import YesNoModal from '../YesNoModal';
@@ -21,37 +21,6 @@ export function Webhook({ webhook, updateWebhook, deleteWebhook }) {
   const [queueModal, setQueueModal] = useState(false);
   const [copied, setCopied] = useState(false);
   const [yesNoVisible, setYesNoVisible] = useState(false);
-  const mockQueue = [
-    {
-      id: 1,
-      type: 'webhook',
-      created_at: 'Fri Apr 09 2021 22:44:31',
-      size: '1B',
-      scenarios: '12345',
-      data: {},
-    },
-    {
-      id: 2,
-      type: 'webhook',
-      created_at: 'Fri Apr 09 2021 22:44:31',
-      size: '2B',
-      scenarios: '12345',
-      data: {
-        key: 'value',
-      },
-    },
-    {
-      id: 3,
-      type: 'webhook',
-      created_at: 'Fri Apr 09 2021 22:44:31',
-      size: '3B',
-      scenarios: '12345',
-      data: {
-        key: 'value',
-        key2: 'value2',
-      },
-    },
-  ];
 
   const handleUpdateWebhook = (data) => {
     updateWebhook(webhook['id'], data)
@@ -149,8 +118,8 @@ export function Webhook({ webhook, updateWebhook, deleteWebhook }) {
         >
           <LocalShipping />
         </IconButton>
-        <WebhookQueue
-          queue={mockQueue}
+        <WebhookHistory
+          id={webhook.id}
           visible={queueModal}
           setVisible={setQueueModal}
         />

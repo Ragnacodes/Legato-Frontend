@@ -7,6 +7,19 @@ export const ActionTypes = {
   UPDATE_WEBHOOK: 'UPDATE_WEBHOOK',
 };
 
+export const startGetWebhookHistory = (id) => {
+  return (dispatch, getState) => {
+    const username = getState().auth.username;
+    return Axios.get(`/users/${username}/services/webhooks/${id}/histories`)
+      .then((res) => {
+        return res.data.logs;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 export const setWebhooks = (webhooks) => {
   return {
     type: ActionTypes.SET_WEBHOOKS,
@@ -108,7 +121,7 @@ export const startUpdateWebhook = (id, data) => {
     const username = getState().auth.username;
     return Axios.put(`/users/${username}/services/webhooks/${id}`, data)
       .then((res) => {
-        dispatch(updateWebhook(id, data));
+        dispatch(updateWebhook(id, res.data.webhook));
         let str = res.data.message;
         return {
           message: str.charAt(0).toUpperCase() + str.slice(1) + '.',

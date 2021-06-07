@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Card, CardContent } from '@material-ui/core';
 import ReactJson from 'react-json-view';
 
-const QueueDetails = ({ data }) => {
+const QueueDetails = ({ context, type }) => {
   const CopyToClipboard = (data) => {
     navigator.clipboard.writeText(data);
   };
@@ -13,13 +13,17 @@ const QueueDetails = ({ data }) => {
       <div className="details">
         <Card variant="outlined">
           <CardContent className="wh-json-data">
-            <ReactJson
-              src={data}
-              name={false}
-              enableClipboard={(copy) => {
-                CopyToClipboard(JSON.stringify(copy.src));
-              }}
-            />
+            {type === 'json' ? (
+              <ReactJson
+                src={JSON.parse(context)}
+                name={false}
+                enableClipboard={(copy) => {
+                  CopyToClipboard(JSON.stringify(copy.src));
+                }}
+              />
+            ) : (
+              <Typography variant="caption">{context}</Typography>
+            )}
           </CardContent>
         </Card>
       </div>

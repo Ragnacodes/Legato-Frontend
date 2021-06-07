@@ -56,11 +56,10 @@ const Form = ({ id, data, editElement, setAnchorEl, updateWebhook }) => {
     >
       <div className="name-field">
         <Typography variant="h6" noWrap>
-          Webhook Name
+          {data.name}
         </Typography>
         <Button
           size="small"
-          className="edit-icon"
           startIcon={<Edit />}
           variant="outlined"
           // disabled={!info.webhook.id}
