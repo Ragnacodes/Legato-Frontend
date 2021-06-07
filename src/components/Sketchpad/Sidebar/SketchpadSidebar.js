@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Typography } from '@material-ui/core';
+import { Divider, Grid, Typography } from '@material-ui/core';
 import WebhookSidebarItem from '../../Services/Webhook/SidebarItem';
 import SpotifySidebarItem from '../../Services/Spotify/SidebarItem';
 import TelegramSidebarItem from '../../Services/Telegram/SidebarItem';
@@ -12,25 +12,59 @@ import RepeatSidebarItem from '../../Services/ToolBox/Repeater/SidebarItem';
 
 const SketchpadSidebar = () => {
   return (
-    <aside id="sketchpad-sidebar">
-      <Typography variant="h6" className="description">Services</Typography>
-      <div className="services">
-      <WebhookSidebarItem />
-      <HTTPSidebarItem />
-      <SpotifySidebarItem />
-      <TelegramSidebarItem />
-      <SSHSidebarItem />
-      <GithubSidebarItem />
-      <DiscordSidebarItem />
-      </div>
+    <Grid
+      container
+      height="100%"
+      spacing={2}
+      component="aside"
+      direction="column"
+      alignItems="center"
+    >
+      <Typography variant="caption">Services</Typography>
 
-      <Divider />
-      <Typography variant="h6" className="description">Toolbox</Typography>
-      <div className="toolbox">
-      <SleepSidebarItem/>
-      <RepeatSidebarItem/>
-      </div>
-    </aside>
+      <Grid item>
+        <WebhookSidebarItem />
+      </Grid>
+
+      <Grid item>
+        <HTTPSidebarItem />
+      </Grid>
+
+      <Grid item>
+        <SpotifySidebarItem />
+      </Grid>
+
+      <Grid item>
+        <TelegramSidebarItem />
+      </Grid>
+
+      <Grid item>
+        <SSHSidebarItem />
+      </Grid>
+
+      <Grid item>
+        <GithubSidebarItem />
+      </Grid>
+
+      <Grid item>
+        <DiscordSidebarItem />
+      </Grid>
+
+      <Grid item>
+        <Divider style={{width: "45px"}}/>
+      </Grid>
+
+      <Typography variant="caption">Toolbox</Typography>
+
+      <Grid item>
+        <SleepSidebarItem/>
+      </Grid>
+        
+      <Grid item>
+        <RepeatSidebarItem/>
+      </Grid>
+
+    </Grid>
   );
 };
 
