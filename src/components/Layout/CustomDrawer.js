@@ -31,7 +31,7 @@ const CustomDrawer = ({ isAuthenticated, open, toggleDrawer }) => {
                     <Grid container justify="center" alignItems="center" spacing={1}>
                         <Grid item>
                             <Grid container justify="center">
-                                <img src={logoIcon} height="35px" alt="Legato logo"/>
+                                <img src={logoIcon} height="35px" alt="Abstergo logo"/>
                             </Grid>
                         </Grid>
                         <Grid item>

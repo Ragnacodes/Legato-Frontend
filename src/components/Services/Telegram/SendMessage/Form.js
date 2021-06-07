@@ -12,7 +12,7 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, telegramConn
         name: data.name || '',
         chat_id: data.chat_id || '',
         key: data.key || '',
-        text: data.text || 'hi this is legato!',
+        text: data.text || 'hi this is Abstergo!',
     });
 
     const [loadingConnections, setLoadingConnections] = useState(false);
