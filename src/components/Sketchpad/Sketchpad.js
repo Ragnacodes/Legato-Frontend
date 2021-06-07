@@ -14,6 +14,7 @@ import ReactFlow, {
   isNode,
   isEdge
 } from 'react-flow-renderer';
+import { Grid, Box } from '@material-ui/core';
 import NodePopover from './Nodes/NodePopover';
 import Sidebar from './Sidebar/SketchpadSidebar';
 import CustomEdge from './Edges/CustomEdge';
@@ -130,10 +131,19 @@ const Sketchpad = ({
   };
 
   return (
-    <div className="sketchpad">
+    <Grid
+      container
+      direction="row"
+      style={{height: "100%"}}
+    >
+
       <NodePopover />
-      <div className="dndflow">
-          <div className="reactflow-wrapper" ref={reactFlowWrapper}>
+
+      {/* Sketchpad */}
+      {/* Control Box */}
+      <Grid item xs={true}>
+        <Grid container direction="column" style={{height: "100%"}}>
+          <Grid item xs={true} ref={reactFlowWrapper}>
             <ReactFlow
               elements={fetched ? elements : []}
               onConnect={onConnect}
@@ -150,12 +160,23 @@ const Sketchpad = ({
               />
               <Controls showInteractive={false} />
             </ReactFlow>
-          </div>
+          </Grid>
+
+          <Grid item>
+            <SketchpadControl fetched={fetched} />
+          </Grid>
+        </Grid>
+      </Grid>
+      
+      {/* Sidebar */}
+      <Grid item>
+        <Box borderLeft={1} borderColor="grey.500" p={2} height="100%">
           <Sidebar />
-      </div>
-      <SketchpadControl />
-    </div>
-  );
+        </Box>
+      </Grid>
+
+    </Grid>
+  )
 };
 
 const mapStateToProps = (state) => {

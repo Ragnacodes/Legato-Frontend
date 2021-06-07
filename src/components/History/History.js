@@ -10,13 +10,14 @@ const History = ({ loading, history, logs }) => {
         <Grid
             container
             spacing={2}
+            direction="row-reverse"
         >
-            <Grid item xs={true}>
-                {loading ? <AccordionsLoader /> : <Accordions logs={logs} />}
+            <Grid item xs={12} md={3}>
+                {loading ? <Skeleton variant="rect" width="100%" height="100%" /> : <Info history={history} />}
             </Grid>
 
-            <Grid item xs={3}>
-                {loading ? <Skeleton variant="rect" width="100%" height="100%" /> : <Info history={history} />}
+            <Grid item xs={12} md={true}>
+                {loading ? <AccordionsLoader /> : <Accordions logs={logs} />}
             </Grid>
         </Grid>
     );
