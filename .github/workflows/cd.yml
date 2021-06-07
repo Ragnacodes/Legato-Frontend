@@ -2,9 +2,9 @@ name: CD
 
 on:
   push:
-    branches: [ setup-cd ]
+    branches: [ master ]
   pull_request:
-    branches: [ setup-cd ]
+    branches: [ master ]
 
 jobs:
 
