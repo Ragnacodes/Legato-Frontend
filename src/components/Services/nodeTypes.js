@@ -14,6 +14,7 @@ import githubCreateIssue from './Github/CreateIssue/Node';
 import githubCreatePullRequest from './Github/CreatePullRequest/Node';
 import Sleep from './ToolBox/Sleep/Node';
 import Repeater from './ToolBox/Repeater/Node';
+import Gmail from './Gmail/sendEmail/Node';
 
 export const nodeTypes = {
   webhooks_customWebhook: CustomWebhook,
@@ -32,4 +33,5 @@ export const nodeTypes = {
   githubs_createPullRequest: githubCreatePullRequest,
   tool_boxes_sleep: Sleep,
   tool_boxes_repeater: Repeater,
+  gmails_sendEmail: Gmail
 };
