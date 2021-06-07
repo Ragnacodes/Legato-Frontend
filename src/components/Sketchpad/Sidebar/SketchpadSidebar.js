@@ -9,6 +9,7 @@ import HTTPSidebarItem from '../../Services/HTTP/SidebarItem';
 import DiscordSidebarItem from '../../Services/Discord/SidebarItem';
 import SleepSidebarItem from '../../Services/ToolBox/Sleep/SidebarItem';
 import RepeatSidebarItem from '../../Services/ToolBox/Repeater/SidebarItem';
+import GmailSidebarItem from '../../Services/Gmail/SidebarItem';
 
 const SketchpadSidebar = () => {
   return (
@@ -48,6 +49,10 @@ const SketchpadSidebar = () => {
 
       <Grid item>
         <DiscordSidebarItem />
+      </Grid>
+
+      <Grid item>
+        <GmailSidebarItem />
       </Grid>
 
       <Grid item>
