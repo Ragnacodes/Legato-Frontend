@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { serviceBackToFront } from '../../../utils/serviceConverter';
 import { Popover, Tooltip } from '@material-ui/core';
 import ServiceMenu from './ServiceMenu';
 
@@ -19,7 +20,7 @@ const SidebarItem = ({ service, icon, triggers, actions }) => {
     return (
         <>
 
-        <Tooltip title={service.slice(0, -1).toUpperCase()} placement="left">
+        <Tooltip title={serviceBackToFront(service)} placement="left">
             <div className="dndnode" onClick={handleClick}>
                 {icon}
             </div>
