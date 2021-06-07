@@ -11,7 +11,7 @@ import WebhookSettingsPopper from '../../../Webhooks/WebhookSettingsPopper';
 
 import ServiceForm from '../../../PopoverForm';
 const Form = ({ id, data, editElement, setAnchorEl, updateWebhook }) => {
-  const [info, setInfo] = useState({
+  const [info] = useState({
     name: data.name || '',
     webhook: data.webhook || {},
   });
