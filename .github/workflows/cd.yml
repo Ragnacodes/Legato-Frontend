@@ -35,4 +35,4 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           source: "${{github.workspace}}/build"
-          target: "/opt/latest-front-build"
+          target: "~/latest-front-build"
