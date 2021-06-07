@@ -57,6 +57,12 @@ const ScenarioNodes = ({ nodes }) => {
                                     <ScenarioServiceIcon service='discord' />
                                 </Avatar>
                             );
+                        case 'gmails':
+                            return (
+                                <Avatar key={index}>
+                                    <ScenarioServiceIcon service='gmail' />
+                                </Avatar>
+                            );
                         default:
                             return (
                                 <Avatar key={index}>
