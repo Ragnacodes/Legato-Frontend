@@ -11,10 +11,10 @@ import WebhookSettingsPopper from '../../../Webhooks/WebhookSettingsPopper';
 
 import ServiceForm from '../../../PopoverForm';
 const Form = ({ id, data, editElement, setAnchorEl, updateWebhook }) => {
-  const [info] = useState({
+  const info = {
     name: data.name || '',
     webhook: data.webhook || {},
-  });
+  };
 
   const [editWhPopper, setEditWhPopper] = useState(null);
   const [copied, setCopied] = useState(false);
