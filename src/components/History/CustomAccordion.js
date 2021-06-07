@@ -10,10 +10,12 @@ import {
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 import Status from './Status';
+import Message from './Message';
 
-const CustomAccordion = ({ status, service, messages }) => {
+const CustomAccordion = ({ status, service, time, messages }) => {
     return (
         <Accordion>
+
             <AccordionSummary
                 expandIcon={<ExpandMore />}
             >
@@ -29,29 +31,28 @@ const CustomAccordion = ({ status, service, messages }) => {
                     </Grid>
                     <Grid item>
                         <Typography>{serviceBackToFront(service.type)}</Typography>
-                    </Grid>
-                    <Grid item>
-                        <Typography>|</Typography>
-                    </Grid>
-                    <Grid item>
                         <Typography variant="body2">{service.subType}</Typography>
+                        <Typography variant="caption">{new Date(time).toLocaleString()}</Typography>
                     </Grid>
                 </Grid>
             </AccordionSummary>
+
             <AccordionDetails>
                 <Box px={4}>
                     <Grid
                         container
-                        spacing={1}
+                        spacing={2}
                         direction="column"
                     >
                         {
                             messages.map((message, index) => {
                                 return (
                                     <Grid item key={index}>
-                                        {/* <Typography> */}
-                                            {message.context}
-                                        {/* </Typography> */}
+                                            <Message
+                                                time={message.created_at}
+                                                type={message.type}
+                                                context={message.context}
+                                            />
                                     </Grid>
                                 );
                             })
@@ -59,6 +60,7 @@ const CustomAccordion = ({ status, service, messages }) => {
                     </Grid>
                 </Box>
             </AccordionDetails>
+
         </Accordion>
     );
 };
