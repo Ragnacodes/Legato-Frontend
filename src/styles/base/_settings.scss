@@ -1,15 +1,66 @@
 // Colors
-$dark-grey: #333;
-$grey: #666;
-$blue: #1c88bf;
-$dark-blue: #364051;
-$off-white: #f7f7f7;
-// Font Size
-$font-size-large: 1.8rem;
-$font-size-small: 1.4rem;
+$common-black: #000000;
+$common-white: #ffffff;
+$primary: #006BAA;
+$secondary: #dc004e;
+$error: #f44336;
+$warning: #ff9800;
+$info: #2196f3;
+$success: #4caf50;
+$text-primary: rgba(0, 0, 0, 0.87);
+$text-secondary: rgba(0, 0, 0, 0.54);
+$text-disabled: rgba(0, 0, 0, 0.38);
+$text-hint: #707070;
+$divider: rgba(0, 0, 0, 0.12);
+$background: #fafafa;
+$paper: #ffffff;
+$bg-dim: rgba(0, 0, 0, 0.2);
+
+$discord: #7289da;
+$github: #000000;
+$gmail: #dd4b39;
+$http: #007ee5;
+$regex: #fa6f57;
+$repeater: #a1d36e;
+$sleep: #ff8000;
+$spotify: #2ebd59;
+$ssh: #363636;
+$telegram: #179cde;
+$webhooks: #c73a63;
+
 // Spacing
-$s-size: 1.2rem;
-$m-size: 1.6rem;
-$l-size: 3.2rem;
-$xl-size: 4.8rem;
-$desktop-breakpoint: 45rem;
+$xs-size: 4px;
+$sm-size: 8px;
+$md-size: 16px;
+$lg-size: 32px;
+$xl-size: 40px;
+$xxl-size: 48px;
+
+// Breakpoints
+$xs: 0px;
+$sm: 600px;
+$md: 960x;
+$lg: 1280px;
+$xl: 1920px;
+
+// Spacing
+$sp-0: 0px;
+$sp-1: 8px;
+$sp-2: 16px;
+$sp-3: 24px;
+$sp-4: 32px;
+$sp-5: 40px;
+$sp-6: 48px;
+$sp-7: 56px;
+$sp-8: 64px;
+$sp-9: 72px;
+$sp-10: 80px;
+$sp-11: 88px;
+$sp-12: 96px;
+
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap");
+$font-roboto: "Roboto", sans-serif;
+$font-nunito: "Nunito", sans-serif;

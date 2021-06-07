@@ -1,0 +1,62 @@
+.app {
+    display: flex;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app-bar-spacer {
+    min-height: 56px;
+    @media (min-width: 0px) and (orientation: landscape) {
+        min-height: 48px;
+    }
+    @media (min-width: 600px) {
+        min-height: 64px;
+    }
+}
+
+.rounded {
+    border-radius: 100% !important;
+}
+
+.content-container {
+    overflow: auto;
+    padding: $lg-size 0;
+}
+
+.margin-v {
+    margin: $sm-size 0 !important;
+}
+
+.margin-v2 {
+    margin: $md-size 0 !important;
+}
+
+.padding {
+    padding: $md-size;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.centered-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ListLoader_item {
+    margin: 60px 0;
+    height: 50px !important;
+}
+
+.skeleton-light {
+    background-color: $background !important;
+}

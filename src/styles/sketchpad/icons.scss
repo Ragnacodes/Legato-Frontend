@@ -1,0 +1,28 @@
+.success {
+  color: #4caf50;
+}
+
+.error {
+  color: #f44336;
+}
+
+.icon-component{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  img{
+    width: 70%;
+    height: auto;
+  }
+
+  &.service-icon--spotify img, &.service-icon--github img{
+    width: 100% !important;
+    height: auto;
+  }
+
+  &.service-icon--http img{
+    width: 90% !important;
+    height: auto;
+  }
+}

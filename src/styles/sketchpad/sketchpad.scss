@@ -1,0 +1,145 @@
+.title-input {
+  .MuiInputBase-input {
+    padding: 10px;
+    color: $common-white;
+  }
+
+  .MuiInputBase-input:focus {
+    border: solid 1px $common-white;
+    border-radius: 10px;
+  }
+}
+
+.sketchpad {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  .dndflow {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+
+    aside {
+      padding: 0 8px;
+      border-left: solid 1px;
+      border-color: $divider;
+      height: 500px;
+      overflow-y: hidden;
+      display: flex;
+      flex-direction: column;
+      ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+       }
+       ::-webkit-scrollbar-thumb {
+        background: $primary;
+        border-radius: 10px;
+       }
+        ::-webkit-scrollbar-track{
+          background: #ffffff;
+          border-radius: 0px;
+          width: 10px;
+         }
+      .services{
+        margin-right: -8px;
+        overflow-y: scroll;
+
+        >*{
+          margin-right: 5px;
+        }
+      }
+      .toolbox{
+        flex: 1;
+        height: 122px;
+      }
+      .description {
+        font-size: 1rem;
+        margin-top: 16px;
+        text-align: center;
+      }
+
+      .dndnode {
+        margin: 16px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: grab;
+
+        .icon {
+          border-radius: 100%;
+          width: 35px;
+          height: 35px;
+          font-size: 35px;
+        }
+        .icon:hover {
+          box-shadow: 0 5px 5px 0 rgba(0,0,0,0.24), 0 5px 5px 0 rgba(0,0,0,0.14);
+        }
+      }
+
+    }
+
+    .reactflow-wrapper {
+      flex-grow: 1;
+      height: 100%;
+    }
+
+  }
+
+  .control-box {
+    padding: 16px;
+    border-top: solid 1px;
+    border-color: $divider;
+  
+    .button {
+      margin: 0 16px;
+    }
+
+  }
+
+}
+
+.dummy-form {
+  display: flex;
+  flex-direction: column;
+  padding: $sm-size;
+  .text-field {
+    margin-top: 110px;
+    margin-bottom: 11px;
+    .MuiFormHelperText-root {
+      margin-bottom: -5px;
+    }
+  }
+}
+
+.Sketchpad_title {
+  .MuiInputBase-input {
+    color: $common-white;
+  }
+
+  .MuiButtonBase-root {
+    color: $common-white;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $common-white;
+  }
+}
+
+.dndnode {
+  cursor: grab;
+}
+
+.terminal-box {
+  height: 100px;
+  overflow-y: scroll;
+
+  .react-terminal-wrapper {
+    border-radius: 0;
+  }
+  
+  .react-terminal-line {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+}

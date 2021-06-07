@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render LoginForm correctly 1`] = `
+<div
+  className="App"
+>
+  <form
+    autoComplete="off"
+    className="login-form"
+    noValidate={true}
+    onSubmit={[Function]}
+  >
+    <WithStyles(ForwardRef(TextField))
+      className="text-field"
+      error={false}
+      helperText=""
+      label="Username"
+      name="username"
+      onChange={[Function]}
+      size="small"
+      variant="outlined"
+    />
+    <WithStyles(ForwardRef(TextField))
+      className="text-field"
+      error={false}
+      helperText=""
+      label="Password"
+      name="password"
+      onChange={[Function]}
+      size="small"
+      type="password"
+      variant="outlined"
+    />
+    <WithStyles(ForwardRef(Button))
+      className="form-button"
+      color="primary"
+      disabled={true}
+      fullWidth={true}
+      type="submit"
+      variant="contained"
+    >
+      Sign In
+    </WithStyles(ForwardRef(Button))>
+  </form>
+</div>
+`;

@@ -1,0 +1,52 @@
+.scenarios {
+
+    .scenario {
+
+        .MuiAvatarGroup-root {
+            width: 4 * $lg-size;
+            height: $lg-size;
+        }
+
+        .MuiAvatarGroup-avatar {
+            margin: 0;
+            border: 0;
+        }
+
+        .MuiAvatar-circle {
+            background-color: $primary;
+            border-radius: 100%;
+            height: $lg-size;
+            width: $lg-size;
+            &.scenario-avatar {
+                background-color: transparent;
+            }
+        }
+
+
+        .scenario-icons{
+            &.icon-component {
+            height: $lg-size;
+            width: $lg-size;
+            }
+        }
+
+        .name {
+            margin: 0 $md-size;
+        }
+        
+    }
+
+    .control {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .switch {
+            margin: 0 $xs-size;
+        }
+
+        .delete {
+            padding: 0;
+        }
+    }
+}

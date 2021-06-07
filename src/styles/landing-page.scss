@@ -1,0 +1,95 @@
+.landing-page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: auto;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.header {
+    box-shadow: none !important;
+    margin: 30px 0;
+    color: $common-white !important;
+    transition: all .4s linear !important;
+
+    &--sticky {
+        margin: 0;
+        background: lighten($background, 5%) !important;
+        color: $common-black !important;
+        box-shadow: 0 11px 27px rgba(0,0,0,.04) !important;
+        padding: 4px 0 !important;
+    }
+
+    &__logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    &__title {
+        margin-left: 8px !important;
+        letter-spacing: 1px !important;
+    }
+}
+
+#tsparticles {
+    height: 100%;
+}
+
+.section {
+    padding: 96px 0;
+
+    &__particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__title {
+        text-transform: uppercase;
+    }
+
+    &__service {
+        border-radius: 8px;
+    }
+
+    &__sketchpad {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+
+        &:hover {
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        }
+    }
+
+    &--intro {
+        background: linear-gradient(115deg, darken($primary, 10%) 0%, lighten($primary, 10%) 100%);
+        color: $common-white;
+        padding-top: 160px;
+    }
+
+    &--features {
+        background: lighten($background, 5%);
+    }
+
+    &--services {
+        background: darken($background, 5%);
+    }
+
+    &--join {
+        background: linear-gradient(115deg, darken($secondary, 10%) 0%, lighten($secondary, 10%) 100%);
+        color: $common-white;
+    }
+}
+
+.footer {
+    background: darken($background, 5%);
+    padding: 8px 0;
+}

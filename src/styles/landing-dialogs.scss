@@ -1,0 +1,47 @@
+.dialog {
+  .MuiDialogContentText-root {
+    margin: 0;
+  }
+  .MuiDialogContent-root {
+    padding-bottom: 20px;
+  }
+  .close-icon {
+    cursor: pointer;
+    font-size: 1.4rem;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: $primary;
+  }
+}
+
+.app-bar {
+  h1.legato {
+    color: $common-white;
+    font-family: $font-nunito;
+    margin: 0;
+    .icon {
+      margin: 5px;
+      margin-right: 10px;
+    }
+  }
+  
+  .MuiToolbar-root {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .right_children,.left-children {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      button {
+        font-family: $font-roboto;
+        font-size: 0.95rem;
+        font-weight: 500;
+        margin: 0 5px;
+      }
+    }
+  }
+}

@@ -1,0 +1,177 @@
+.sketchpad-popover {
+  &.custom-webhook,
+  &.webhook-response,
+  &.watch-playlist,
+  &.save-to-playlist,
+  &.execute-command,
+  &.create-issue,
+  &.create-pullRequest,
+  &.send-message,
+  &.get-chat-member,
+  &.toolbox-repeater,
+  &.toolbox-sleep,
+  &.wh-settings,
+  &.discord-forms {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &.toolbox-sleep {
+    .time-field {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      .text-field {
+        width: 30%;
+      }
+    }
+  }
+  &.custom-webhook {
+    .url-helper-text {
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+      width: 250px;
+      cursor: pointer;
+    }
+  }
+
+  &.custom-webhook {
+    > * {
+      margin-bottom: 11px;
+    }
+    .webhook-url {
+      word-break: break-all;
+      color: grey;
+      cursor: pointer;
+      margin-bottom: 11px;
+    }
+  }
+  &.discord-forms {
+    .message-card {
+      margin-top: 11px;
+      margin-bottom: 11px;
+    }
+    .message {
+      padding: 11px;
+      width: 100%;
+      .message-date {
+        color: rgb(94, 94, 94);
+      }
+      .message-content {
+        word-break: break-all;
+        width: 100%;
+      }
+    }
+  }
+
+  &.custom-webhook,
+  &.watch-playlist,
+  &.execute-command,
+  &.create-issue,
+  &.create-pullRequest,
+  &.send-message,
+  &.get-chat-member,
+  &.save-to-playlist {
+    .name-field,
+    .connection-field,
+    .playlist-field,
+    .track-field {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      > .text-field {
+        margin-right: 5px;
+        flex: 1;
+      }
+      > .add-icon {
+        margin-top: 16px;
+      }
+      > .search-icon {
+        margin-top: 16px;
+        padding: 3px;
+      }
+      > .edit-icon {
+        margin-top: 16px;
+        margin-right: 2px;
+      }
+    }
+  }
+
+  .connection-field,
+  .playlist-field,
+  .channel-field,
+  .track-field {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    > .text-field {
+      margin-right: 5px;
+      flex: 1;
+    }
+    > .add-icon {
+      margin-top: 16px;
+    }
+    > .edit-icon {
+      margin-top: 16px;
+      margin-right: 2px;
+    }
+    > .search-icon {
+      margin-top: 16px;
+      padding: 3px;
+    }
+  }
+}
+
+.messages-list {
+  overflow: auto;
+  max-height: 250px;
+  width: 100%;
+  .message {
+    width: 100%;
+    .message-date {
+      color: rgb(94, 94, 94);
+    }
+    .message-content {
+      word-break: break-all;
+      width: 100%;
+    }
+  }
+}
+
+.track-info {
+  padding: 10px !important;
+  height: 140px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 150px;
+  }
+
+  h2.name,
+  p.album {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  img {
+    width: 120px;
+    height: auto;
+    margin-right: 10px;
+  }
+}
+
+.create-ssh {
+  display: flex;
+  flex-direction: column;
+}

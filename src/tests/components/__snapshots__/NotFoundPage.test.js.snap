@@ -1,12 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render NotFoundPage correctly 1`] = `
-<div>
-  404 - 
-  <Link
+<div
+  className="centered-container"
+>
+  <img
+    alt="404 Page Not Found."
+    height="400px"
+    src="page-not-found.svg"
+    width="400px"
+  />
+  <WithStyles(ForwardRef(Button))
+    color="primary"
+    component={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "propTypes": Object {
+          "activeClassName": [Function],
+          "activeStyle": [Function],
+          "aria-current": [Function],
+          "className": [Function],
+          "exact": [Function],
+          "innerRef": [Function],
+          "isActive": [Function],
+          "location": [Function],
+          "onClick": [Function],
+          "replace": [Function],
+          "sensitive": [Function],
+          "strict": [Function],
+          "style": [Function],
+          "target": [Function],
+          "to": [Function],
+        },
+        "render": [Function],
+      }
+    }
     to="/"
   >
-    Go home
-  </Link>
+    Back To Home
+  </WithStyles(ForwardRef(Button))>
 </div>
 `;
