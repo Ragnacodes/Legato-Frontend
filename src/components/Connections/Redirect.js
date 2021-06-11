@@ -9,11 +9,11 @@ const Redirect = ({addConnection}) => {
         const token_type = url.substring(url.lastIndexOf("redirect/")+9, url.lastIndexOf("?code"));
         const connection = switchCase(token_type, url);
         if (connection === 'wrong') {
-            window.location.href = "http://localhost:3000/connections";
+            window.location.href = "https://abstergo.ir/connections";
         }
         else {
             addConnection(connection).then(()=>{ 
-                window.location.href = "http://localhost:3000/connections";
+                window.location.href = "https://abstergo.ir/connections";
             });
         };
     },[addConnection]);
