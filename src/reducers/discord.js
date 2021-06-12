@@ -9,12 +9,14 @@ const discordReducer = (state = initialState, action) => {
     case ActionTypes.SET_DISCORD_CHANNELS:
       return {
         ...state,
-        channels: action.payload.channels,
+        channels:
+          action.payload.channels === null ? [] : action.payload.channels,
       };
     case ActionTypes.SET_DISCORD_MESSAGES:
       return {
         ...state,
-        messages: action.payload.messages,
+        messages:
+          action.payload.messages === null ? [] : action.payload.messages,
       };
 
     default:
