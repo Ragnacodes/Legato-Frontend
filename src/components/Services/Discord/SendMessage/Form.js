@@ -1,10 +1,11 @@
-import React, { useState, useLayoutEffect } from 'react';
-import { MenuItem, IconButton, TextField } from '@material-ui/core';
-import { Refresh } from '@material-ui/icons';
+import React, { useState, useEffect } from 'react';
+import { TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { startGetConnections } from '../../../../actions/connections';
 import * as actions from '../../../../actions/discord';
 import ServiceForm from '../../../PopoverForm';
+import ConnectionField from '../ConnectionField';
+import ChannelField from '../ChannelField';
 export function Form({
   id,
   data,
@@ -21,25 +22,21 @@ export function Form({
     content: data.content || '',
   });
 
-  const [guildId, setGuildId] = useState('');
+  const [connectionLoading, setConnectionLoading] = useState(true);
   const [channelLoading, setChannelLoading] = useState(true);
 
-  useLayoutEffect(() => {
-    if (guildId)
-      getChannels(guildId).then(() => {
+  useEffect(() => {
+    if (info.connection)
+      getChannels(info.connection).then(() => {
         setChannelLoading(false);
       });
-  }, [guildId, getChannels]);
+  }, [info.connection, getChannels]);
 
-  useLayoutEffect(() => {
-    getConnections();
+  useEffect(() => {
+    getConnections().then(() => {
+      setConnectionLoading(false);
+    });
   }, [getConnections]);
-
-  useLayoutEffect(() => {
-    if (connections.length) {
-      setGuildId(connections[0].data.guildId);
-    }
-  }, [connections]);
 
   const handleChange = (e) => {
     setInfo((prev) => ({
@@ -66,7 +63,15 @@ export function Form({
     setAnchorEl(null);
   };
 
-  let disabledSave = !info['channelId'] || !info['content'];
+  const reloadChannels = () => {
+    setChannelLoading(true);
+    getChannels(info.connection).then(() => {
+      setChannelLoading(false);
+    });
+  }
+
+  let disabledSave =
+    !info['connection'] || !info['channelId'] || !info['content'];
 
   return (
     <ServiceForm
@@ -76,44 +81,22 @@ export function Form({
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
-      <div className="channel-field">
-        {channelLoading ? (
-          <TextField
-            disabled
-            className="text-field"
-            size="small"
-            label="Channel"
-            value="Loading..."
-            variant="outlined"
-          />
-        ) : (
-          <TextField
-            name="channelId"
-            className="text-field"
-            size="small"
-            select
-            label="Channel"
-            value={info['channelId']}
-            onChange={handleChange}
-            variant="outlined"
-          >
-            {channels.map((c) => (
-              <MenuItem key={c.id} value={c.id}>
-                {c.name}
-              </MenuItem>
-            ))}
-          </TextField>
-        )}
+      <ConnectionField
+        connection={info['connection']}
+        connections={connections}
+        connectionLoading={connectionLoading}
+        handleChange={handleChange}
+      />
 
-        <IconButton
-          name="refreshChannels"
-          size="small"
-          className="add-icon"
-          onClick={getChannels}
-        >
-          <Refresh />
-        </IconButton>
-      </div>
+      {info['connection'] && (
+        <ChannelField
+          channel={info['channelId']}
+          channels={channels}
+          channelLoading={channelLoading}
+          handleChange={handleChange}
+          reloadChannels={reloadChannels}
+        />
+      )}
 
       <TextField
         multiline

@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { MenuItem, Button, TextField, IconButton } from '@material-ui/core';
-import { Refresh, Search } from '@material-ui/icons';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { startGetConnections } from '../../../../actions/connections';
 import * as actions from '../../../../actions/discord';
+import { TextField } from '@material-ui/core';
 import ServiceForm from '../../../PopoverForm';
 import MessageList from '../MessageList';
 import Message from '../Message';
+import ConnectionField from '../ConnectionField';
+import ChannelField from '../ChannelField';
+import MessageField from '../MessageField';
 export function Form({
   id,
   data,
@@ -26,7 +28,7 @@ export function Form({
     react: data.react || '',
   });
 
-  const [guildId, setGuildId] = useState('');
+  const [connectionLoading, setConnectionLoading] = useState(true);
   const [channelLoading, setChannelLoading] = useState(true);
   const [message, setMessage] = useState({
     component: '',
@@ -35,34 +37,26 @@ export function Form({
     error: false,
   });
 
-  useLayoutEffect(() => {
-    if (guildId)
-      getChannels(guildId).then(() => {
+  useEffect(() => {
+    if (info.connection)
+      getChannels(info.connection).then(() => {
         setChannelLoading(false);
       });
-  }, [guildId, getChannels]);
+  }, [info.connection, getChannels]);
 
   useEffect(() => {
-    console.log(channelLoading)
-
-  }, [channelLoading])
-
-  useLayoutEffect(() => {
-    if (info.channelId)
+    if (info.channelId) {
       getMessages(info.channelId).then(() => {
         setMessage((prev) => ({ ...prev, loading: false }));
       });
+    }
   }, [info.channelId, getMessages]);
 
-  useLayoutEffect(() => {
-    getConnections();
+  useEffect(() => {
+    getConnections().then(() => {
+      setConnectionLoading(false);
+    });
   }, [getConnections]);
-
-  useLayoutEffect(() => {
-    if (connections.length) {
-      setGuildId(connections[0].data.guildId);
-    }
-  }, [connections]);
 
   const handleChange = (e) => {
     setInfo((prev) => ({
@@ -77,7 +71,6 @@ export function Form({
       connection: data.connection || '',
       channelId: data.channelId || '',
       messageId: data.messageId || '',
-      react: data.react || '',
     });
   };
 
@@ -94,8 +87,6 @@ export function Form({
     setMessage((prev) => ({ ...prev, anchor: e.currentTarget }));
   };
 
-  let disabledSave = !info['messageId'] || !info['channelId'] || !info['react'];
-
   const findMessage = (id) => {
     const msg = messages.find((message) => message.id === id);
     setMessage((prev) => ({ ...prev, component: msg }));
@@ -107,6 +98,16 @@ export function Form({
     setInfo((prev) => ({ ...prev, messageId: messageId }));
     findMessage(messageId);
   };
+
+  const reloadChannels = () => {
+    setChannelLoading(true);
+    getChannels(info.connection).then(() => {
+      setChannelLoading(false);
+    });
+  };
+
+  let disabledSave =
+    !info['connection'] || !info['messageId'] || !info['channelId'];
 
   return (
     <ServiceForm
@@ -126,102 +127,65 @@ export function Form({
         handleSave={saveMessageId}
       />
 
-      <div className="channel-field">
-        {channelLoading ? (
-          <TextField
-            disabled
-            className="text-field"
-            size="small"
-            label="Channel"
-            value="Loading..."
-            variant="outlined"
-          />
-        ) : (
-          <TextField
-            name="channelId"
-            className="text-field"
-            size="small"
-            select
-            label="Channel"
-            value={info['channelId']}
-            onChange={handleChange}
-            variant="outlined"
-          >
-            {channels.map((c) => (
-              <MenuItem key={c.id} value={c.id}>
-                {c.name}
-              </MenuItem>
-            ))}
-          </TextField>
-        )}
+      <MessageList
+        messages={messages}
+        anchor={message.anchor}
+        setAnchor={(change) =>
+          setMessage((prev) => ({ ...prev, anchor: change }))
+        }
+        value={info['messageId']}
+        handleSave={saveMessageId}
+      />
 
-        <IconButton
-          name="refreshChannels"
+      <ConnectionField
+        connection={info['connection']}
+        connections={connections}
+        connectionLoading={connectionLoading}
+        handleChange={handleChange}
+      />
+
+      {info['connection'] && (
+        <ChannelField
+          channel={info['channelId']}
+          channels={channels}
+          channelLoading={channelLoading}
+          handleChange={handleChange}
+          reloadChannels={reloadChannels}
+        />
+      )}
+
+      {info['channelId'] && (
+        <MessageField
+          length={messages.length}
+          message={message}
+          messageId={info['messageId']}
+          messages={messages}
+          findMessage={() => findMessage(info['messageId'])}
+          openMessageList={openMessageList}
+          handleChange={handleChange}
+        />
+      )}
+
+      {info['messageId'] && (
+        <TextField
+          name="react"
+          className="text-field"
+          label="Emoji"
+          variant="outlined"
           size="small"
-          className="add-icon"
-          onClick={() => {
-            setChannelLoading(true);
-            getChannels().then(() => {
-              setChannelLoading(false);
-            });
-          }}
-          disabled={channelLoading}
-        >
-          <Refresh />
-        </IconButton>
-      </div>
-
-      {info['channelId'] && !message.loading && (
-        <div>
-          <div className="channel-field">
-            <TextField
-              name="messageId"
-              className="text-field"
-              size="small"
-              label="Message Id"
-              value={info['messageId']}
-              onChange={handleChange}
-              variant="outlined"
-              helperText={message.error && 'Unable to find the message.'}
-              error={message.error}
-            />
-            <IconButton
-              name="refreshChannels"
-              size="small"
-              className="add-icon"
-              onClick={() => findMessage(info['messageId'])}
-              disabled={message.loading}
-            >
-              <Search />
-            </IconButton>
-          </div>
-          <Button size="small" color="primary" onClick={openMessageList}>
-            or choose from the list.
-          </Button>
-        </div>
+          value={info['react']}
+          onChange={handleChange}
+        />
       )}
 
       {info['messageId'] && !!message.component && (
         <Message message={message.component} />
       )}
-
-      {info['channelId'] && (
-        <TextField
-          name="react"
-          className="text-field"
-          size="small"
-          label="Reaction"
-          value={info['react']}
-          helperText="Choose an emoji."
-          onChange={handleChange}
-          variant="outlined"
-        />
-      )}
     </ServiceForm>
   );
 }
 const mapStateToProps = (state) => ({
-  connections: state.connections,
+  connections: state.connections.filter((c) => c.type === 'discords'),
   channels: state.discord.channels,
   messages: state.discord.messages,
 });
