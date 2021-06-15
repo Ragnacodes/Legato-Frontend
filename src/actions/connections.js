@@ -106,8 +106,8 @@ export const startAddSSHConnection = (info) => {
 
   export const startCheckSSHConnection = (info) => {
     return (dispatch, getState) => {
-      const type = info['authType']===0? 'password' : 'sshKey';
-      return Axios.post(`check/ssh/${type}`, {
+      const authType = info['password'] ? 'password' : 'sshKey';
+      return Axios.post(`check/ssh/${authType}`, {
         ...info
       })
         .then((res) => {

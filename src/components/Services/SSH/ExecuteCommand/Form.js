@@ -27,7 +27,7 @@ const Form = ({
 
   useEffect(() => {
     getSshConnections().then(() => {
-      setConnectionLoading(true);
+      setConnectionLoading(false);
     });
   }, [getSshConnections]);
 
@@ -70,7 +70,7 @@ const Form = ({
     setAddAnchor(e.currentTarget);
   };
 
-  let disabledSave = !info['connection'] || !info['command'];
+  let disabledSave = !info['connectionId'] || !info['command'];
 
   return (
     <ServiceForm
@@ -92,18 +92,18 @@ const Form = ({
           />
         ) : (
           <TextField
-            name="connection"
+            name="connectionId"
             className="text-field"
             size="small"
             select
             label="Connection"
-            value={info['connection']}
+            value={info['connectionId']}
             onChange={handleChange}
             variant="outlined"
           >
             {sshConnections &&
               sshConnections.map((c) => {
-                return <MenuItem value={c}>{c.Name}</MenuItem>;
+                return <MenuItem value={c.id}>{c.name}</MenuItem>;
               })}
           </TextField>
         )}
