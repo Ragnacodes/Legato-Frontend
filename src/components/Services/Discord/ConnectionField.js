@@ -1,6 +1,7 @@
 import React from 'react';
 import { MenuItem, TextField, IconButton } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
+import { NavLink } from 'react-router-dom';
 
 export default function ConnectionField({
   connection,
@@ -45,8 +46,8 @@ export default function ConnectionField({
         name="addConnection"
         size="small"
         className="add-icon"
-        // onClick={handleAddConnection}
-      >
+        component={NavLink} to="/connections"
+        >
         <Add />
       </IconButton>
     </div>
