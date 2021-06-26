@@ -21,7 +21,8 @@ const SSHConnection = ({
 
   const handleAddConnection = () => {
     setLoading(true);
-    checkSSHConnection(info).then((res) => {
+    const authType = info['authType'] == 0? 'password' : 'sshKey';
+    checkSSHConnection(info, authType).then((res) => {
       if (res) {
         setLoading(false);
         addConnection(info);
@@ -107,7 +108,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addConnection: (info) => dispatch(startAddSSHConnection(info)),
-  checkSSHConnection: (info) => dispatch(startCheckSSHConnection(info)),
+  checkSSHConnection: (info, type) => dispatch(startCheckSSHConnection(info, type)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SSHConnection);

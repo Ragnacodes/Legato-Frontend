@@ -86,27 +86,20 @@ export const startEditConnection = (id, newName) => {
 };
 
 export const startAddSSHConnection = (info) => {
-    return (dispatch, getState) => {
-      const username = getState().auth.username;
-      return Axios.post(`users/${username}/add/connection`, {
+    return (dispatch) => {
+      const connection = {
         data: {
-            ...info,
+          ...info,
         },
         name: info.name,
         type: 'sshes'
-      })
-        .then((res) => {
-          dispatch(addConnection(res.data));
-        })
-        .catch((err) => {
-            throw err;
-        });
+      }
+      dispatch(startAddConnection(connection));
     };
   };
 
-  export const startCheckSSHConnection = (info) => {
-    return (dispatch, getState) => {
-      const authType = info['password'] ? 'password' : 'sshKey';
+  export const startCheckSSHConnection = (info, authType) => {
+    return () => {
       return Axios.post(`check/ssh/${authType}`, {
         ...info
       })

@@ -8,6 +8,7 @@ import {
 } from '../../../../actions/connections';
 import ServiceForm from '../../../PopoverForm';
 import ConnectionFormPopper from '../../../SSH/ConnectionFormPopper';
+import { errorNotification } from '../../../Layout/Notification';
 const Form = ({
   id,
   data,
@@ -24,7 +25,7 @@ const Form = ({
 
   const [addAnchor, setAddAnchor] = useState(null);
   const [connectionLoading, setConnectionLoading] = useState(true);
-
+  const [checkingConnection, setCheckingConnection] = useState(false);
   useEffect(() => {
     getSshConnections().then(() => {
       setConnectionLoading(false);
@@ -49,28 +50,39 @@ const Form = ({
   const handleSave = () => {
     const connection =
       sshConnections.find((c) => c.id === info['connectionId']) || {};
-    checkSSHConnection(connection.data).then((check) => {
-      if (!check) return;
+    const authType = connection.data['password']
+      ? 'password'
+      : connection.data['sshKey']
+      ? 'sshKey'
+      : '';
+    setCheckingConnection(true);
+    checkSSHConnection(connection.data, authType).then((check) => {
+      if (!check) {
+        errorNotification('Service is not available.');
+        setCheckingConnection(false);
+      } else {
+        setCheckingConnection(false);
+        const updates = {
+          name: info.name,
+          data: {
+            ...data,
+            ...connection.data,
+            ...info,
+            commands: info['command'].split('\n'),
+          },
+        };
+        editElement(id, updates);
+        setAnchorEl(null);
+      }
     });
-
-    const updates = {
-      name: info.name,
-      data: {
-        ...data,
-        ...connection.data,
-        ...info,
-        commands: info['command'].split('\n'),
-      },
-    };
-    editElement(id, updates);
-    setAnchorEl(null);
   };
 
   const handleAddConnection = (e) => {
     setAddAnchor(e.currentTarget);
   };
 
-  let disabledSave = !info['connectionId'] || !info['command'];
+  let disabledSave =
+    !info['connectionId'] || !info['command'] || checkingConnection;
 
   return (
     <ServiceForm
@@ -141,7 +153,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getSshConnections: () => dispatch(startGetConnections()),
-  checkSSHConnection: (c) => dispatch(startCheckSSHConnection(c)),
+  checkSSHConnection: (c, type) => dispatch(startCheckSSHConnection(c, type)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
