@@ -20,7 +20,7 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
   return (
     <ServiceForm
       className="watch-playlist"
-      title="Watch a Playlist"
+      title="Get Top Tracks"
       disabledSave={false}
       handleSave={handleSave}
       handleCancel={handleCancel}

@@ -24,12 +24,6 @@ export const services = {
   ],
   spotifies: [
     {
-      subService: 'watchPlaylist',
-      kind: 'trigger',
-      primaryText: 'Watch a playlist',
-      secondaryText: 'Triggers when a new track is added to playlist.',
-    },
-    {
       subService: 'addToPlaylist',
       kind: 'action',
       primaryText: 'Add to a playlist',
