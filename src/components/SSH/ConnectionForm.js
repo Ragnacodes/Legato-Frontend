@@ -21,7 +21,7 @@ const SSHConnection = ({
 
   const handleAddConnection = () => {
     setLoading(true);
-    const authType = info['authType'] == 0? 'password' : 'sshKey';
+    const authType = info['authType'] === 0? 'password' : 'sshKey';
     checkSSHConnection(info, authType).then((res) => {
       if (res) {
         setLoading(false);
