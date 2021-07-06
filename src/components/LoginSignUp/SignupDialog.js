@@ -9,7 +9,7 @@ const SignupDialog = ({ signupOpen, setSignupOpen }) => {
             onClick={setSignupOpen}
             title={'Sign Up'}
             description={'Please fill this form:'}
-            form={<SignupForm />}
+            form={<SignupForm setSignupOpen={setSignupOpen}/>}
         />
     );
 };

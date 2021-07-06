@@ -17,7 +17,7 @@ export function SignUpForm({
   errors,
   updateInfo,
   validateInfo,
-  closeDialog,
+  setSignupOpen,
   Signup,
 }) {
   const signupForm = useRef(null);
@@ -38,7 +38,7 @@ export function SignUpForm({
     Signup(info)
       .then(() => {
         setLoading(false);
-        // closeDialog();
+        setSignupOpen(false);
         signupForm.current.reset();
         successNotification('You have created your account. Please log in.');
       })
