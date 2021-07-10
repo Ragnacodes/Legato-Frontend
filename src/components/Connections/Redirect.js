@@ -25,21 +25,21 @@ const switchCase = (type, url) => {
     switch (type) {
         case 'github':
             return {
-                name: 'my github',
+                name: 'my github ',
                 type: 'githubs',
                 data: { token: url.substring(url.lastIndexOf("?code=") + 6, url.indexOf("&state"))},
             };
 
         case 'spotify':
             return {
-                name: 'my spotify',
+                name: 'my spotify ',
                 type: 'spotifies',
                 data: { token: url.substring(url.lastIndexOf("?code=") + 6, url.indexOf("&state"))},
             };
         
         case 'discord':
             return {
-                name: "my discord",
+                name: 'my discord ',
                 data:{ guildId: url.substring(url.lastIndexOf("guild_id=") + 9, url.lastIndexOf("&permissions"))},
                 type: 'discords'
             };
