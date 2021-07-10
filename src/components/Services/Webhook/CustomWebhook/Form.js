@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/webhooks';
 import { Button, Tooltip, Typography } from '@material-ui/core';
@@ -13,15 +13,13 @@ import ServiceForm from '../../../PopoverForm';
 const Form = ({ id, data, editElement, setAnchorEl, updateWebhook }) => {
   const [info, setInfo] = useState({
     name: data.name || '',
-    webhook:
-      data.webhook && data.name ? { ...data.webhook, name: data.name } : '',
+    webhook: data.webhook || '',
   });
 
   const [editWhPopper, setEditWhPopper] = useState(null);
   const [copied, setCopied] = useState(false);
 
   const handleUpdateWebhook = (updates) => {
-    // if (info.webhook.id) {
     updateWebhook(info.webhook.id, updates)
       .then((res) => {
         successNotification(res.message);
@@ -33,7 +31,6 @@ const Form = ({ id, data, editElement, setAnchorEl, updateWebhook }) => {
       .catch((err) => {
         errorNotification(err.message);
       });
-    // }
   };
 
   const CopyToClipboard = (text) => {
