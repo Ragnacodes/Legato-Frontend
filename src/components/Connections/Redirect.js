@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { startAddConnection } from '../../actions/connections';
-
+import { host } from '../../utils/host';
 
 const Redirect = ({addConnection}) => {
     useEffect(() => {
@@ -9,11 +9,11 @@ const Redirect = ({addConnection}) => {
         const token_type = url.substring(url.lastIndexOf("redirect/")+9, url.lastIndexOf("?code"));
         const connection = switchCase(token_type, url);
         if (connection === 'wrong') {
-            window.location.href = "https://abstergo.ir/connections";
+            window.location.href = `${host}/connections`;
         }
         else {
             addConnection(connection).then(()=>{ 
-                window.location.href = "https://abstergo.ir/connections";
+                window.location.href = `${host}/connections`;
             });
         };
     },[addConnection]);

@@ -1,8 +1,8 @@
 import Axios from 'axios';
+import { host } from './host';
 
 const instance = Axios.create({
-    // baseURL: 'http://localhost:8080/api'
-    baseURL: 'https://abstergo.ir/api'
+    baseURL: `${host}/api`
 });
 
 instance.interceptors.request.use(
