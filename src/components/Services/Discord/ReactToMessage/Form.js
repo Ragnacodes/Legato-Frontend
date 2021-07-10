@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { startGetConnections } from '../../../../actions/connections';
 import * as actions from '../../../../actions/discord';
-import { TextField } from '@material-ui/core';
+import { TextField, IconButton } from '@material-ui/core';
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import ServiceForm from '../../../PopoverForm';
 import MessageList from '../MessageList';
 import Message from '../Message';
 import ConnectionField from '../ConnectionField';
 import ChannelField from '../ChannelField';
 import MessageField from '../MessageField';
+import EmojiPicker from './EmojiPicker';
 export function Form({
   id,
   data,
@@ -28,6 +30,7 @@ export function Form({
     react: data.react || '',
   });
 
+  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
   const [connectionLoading, setConnectionLoading] = useState(true);
   const [channelLoading, setChannelLoading] = useState(true);
   const [message, setMessage] = useState({
@@ -106,6 +109,17 @@ export function Form({
     });
   };
 
+  const openEmojiPicker = () => {
+    setEmojiPickerOpen(true);
+  };
+
+  const saveEmoji = (emoji) => {
+    setInfo((prev) => ({
+      ...prev,
+      react: emoji,
+    }));
+  };
+
   let disabledSave =
     !info['connection'] || !info['messageId'] || !info['channelId'];
 
@@ -167,15 +181,29 @@ export function Form({
       )}
 
       {info['messageId'] && (
-        <TextField
-          name="react"
-          className="text-field"
-          label="Emoji"
-          variant="outlined"
-          size="small"
-          value={info['react']}
-          onChange={handleChange}
-        />
+        <div className="connection-field">
+          <TextField
+            name="react"
+            className="text-field"
+            label="Emoji"
+            variant="outlined"
+            size="small"
+            value={info['react']}
+            onChange={handleChange}
+          />
+          <IconButton
+            size="small"
+            className="add-icon"
+            onClick={openEmojiPicker}
+          >
+            <InsertEmoticonIcon />
+          </IconButton>
+          <EmojiPicker
+            anchor={emojiPickerOpen}
+            setAnchor={setEmojiPickerOpen}
+            saveEmoji={saveEmoji}
+          />
+        </div>
       )}
 
       {info['messageId'] && !!message.component && (
