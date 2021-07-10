@@ -125,6 +125,7 @@ export const startUpdateWebhook = (id, data) => {
         let str = res.data.message;
         return {
           message: str.charAt(0).toUpperCase() + str.slice(1) + '.',
+          webhook: res.data.webhook
         };
       })
       .catch((err) => {

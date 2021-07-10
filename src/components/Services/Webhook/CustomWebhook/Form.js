@@ -11,24 +11,29 @@ import WebhookSettingsPopper from '../../../Webhooks/WebhookSettingsPopper';
 
 import ServiceForm from '../../../PopoverForm';
 const Form = ({ id, data, editElement, setAnchorEl, updateWebhook }) => {
-  const info = {
+  const [info, setInfo] = useState({
     name: data.name || '',
-    webhook: data.webhook || {},
-  };
+    webhook:
+      data.webhook && data.name ? { ...data.webhook, name: data.name } : '',
+  });
 
   const [editWhPopper, setEditWhPopper] = useState(null);
   const [copied, setCopied] = useState(false);
 
   const handleUpdateWebhook = (updates) => {
-    if (info.webhook.id) {
-      updateWebhook(info.webhook.id, updates)
-        .then((res) => {
-          successNotification(res.message);
-        })
-        .catch((err) => {
-          errorNotification(err.message);
-        });
-    }
+    // if (info.webhook.id) {
+    updateWebhook(info.webhook.id, updates)
+      .then((res) => {
+        successNotification(res.message);
+        setInfo((prev) => ({
+          ...prev,
+          webhook: res.webhook,
+        }));
+      })
+      .catch((err) => {
+        errorNotification(err.message);
+      });
+    // }
   };
 
   const CopyToClipboard = (text) => {
@@ -56,7 +61,7 @@ const Form = ({ id, data, editElement, setAnchorEl, updateWebhook }) => {
     >
       <div className="name-field">
         <Typography variant="h6" noWrap>
-          {data.name}
+          {info.webhook.name}
         </Typography>
         <Button
           size="small"
