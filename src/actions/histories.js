@@ -26,9 +26,9 @@ export const startGetHistories = (scenarioID) => {
                     date,
                     time,
                     status: 1,
-                    duration: 0,
-                    operations: 0,
-                    data: 0
+                    duration: 'N/A',
+                    operations: 'N/A',
+                    data: 'N/A'
                 };
             });
             dispatch(getHistories(scenario, histories));
