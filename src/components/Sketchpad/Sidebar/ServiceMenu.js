@@ -9,39 +9,43 @@ import MenuItem from './MenuItem';
 const ServiceMenu = ({ service, triggers, actions, close }) => {
     return (
         <div>
-            <List>
-                <ListSubheader>Triggers</ListSubheader>
-                {
-                    triggers.map((trigger, index) => {
-                        return (
-                            <MenuItem
-                                key={index}
-                                service={service}
-                                item={trigger}
-                                close={close}
-                            />
-                        );
-                    })
-                }
-            </List>
+            { triggers.length > 0 &&
+                <List>
+                    <ListSubheader>Triggers</ListSubheader>
+                    {
+                        triggers.map((trigger, index) => {
+                            return (
+                                <MenuItem
+                                    key={index}
+                                    service={service}
+                                    item={trigger}
+                                    close={close}
+                                />
+                            );
+                        })
+                    }
+                </List>
+            }
 
-            <Divider />
+            { triggers.length > 0 && actions.length > 0 && <Divider /> }
 
-            <List>
-            <ListSubheader>Actions</ListSubheader>
-                {
-                    actions.map((action, index) => {
-                        return (
-                            <MenuItem
-                                key={index}
-                                service={service}
-                                item={action}
-                                close={close}
-                            />
-                        );
-                    })
-                }
-            </List>
+            { actions.length > 0 &&
+                <List>
+                    <ListSubheader>Actions</ListSubheader>
+                        {
+                            actions.map((action, index) => {
+                                return (
+                                    <MenuItem
+                                        key={index}
+                                        service={service}
+                                        item={action}
+                                        close={close}
+                                    />
+                                );
+                            })
+                        }
+                </List>
+            }
         </div>
     );
 };
