@@ -12,12 +12,12 @@ const Redirect = ({addConnection}) => {
             window.location.href = `${host}/connections`;
         }
         else {
-            addConnection(connection).then(()=>{ 
+            addConnection(connection).then(() => {
                 window.location.href = `${host}/connections`;
             });
         };
     },[addConnection]);
-
+    
     return null;
 }
 
