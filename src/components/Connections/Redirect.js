@@ -44,13 +44,6 @@ const switchCase = (type, url) => {
                 type: 'discords'
             };
 
-        case 'gmail':
-            return {
-                type: 'gmails',
-                data: { token: url.substring(url.lastIndexOf("?code=") + 6, url.indexOf("&")) },
-                name: 'my gmail'
-            };
-
         default:
             return 'wrong';
     };

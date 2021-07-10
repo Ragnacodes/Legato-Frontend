@@ -35,12 +35,6 @@ const Connection = ({ id, name, type, removeConnection, editConnection }) => {
             <ConnectionServiceIcon service="github" />
           </ListItemIcon>
         );
-      case 'gmails':
-        return (
-          <ListItemIcon>
-            <ConnectionServiceIcon service="gmail" />
-          </ListItemIcon>
-        );
       case 'spotifies':
         return (
           <ListItemIcon>
