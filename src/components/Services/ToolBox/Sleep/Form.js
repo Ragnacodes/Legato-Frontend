@@ -14,8 +14,6 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
       ...prev,
       [e.target.name]: e.target.value,
     }));
-    console.log(info);
-    console.log(disabledSave);
   };
 
   const handleCancel = () => {

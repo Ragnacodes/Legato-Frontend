@@ -91,7 +91,6 @@ const Dashboard = ({ username }) => {
 
             setRecords(tempRecords);
             setBarData(convertDayName(last7Days));
-            console.log(tempPieData);
             setPieData(tempPieData);
             setLoading(false);
         });
