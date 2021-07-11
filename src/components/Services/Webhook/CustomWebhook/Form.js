@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/webhooks';
 import { Button, Tooltip, Typography } from '@material-ui/core';
@@ -19,10 +19,6 @@ const Form = ({ id, data, editElement, setAnchorEl, updateWebhook }) => {
   const [editWhPopper, setEditWhPopper] = useState(null);
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    editElement(id, { name: info.name, data: { ...data, ...info } });
-  }, [info, data]);
-
   const handleUpdateWebhook = (updates) => {
     updateWebhook(info.webhook.id, updates)
       .then((res) => {
@@ -38,10 +34,7 @@ const Form = ({ id, data, editElement, setAnchorEl, updateWebhook }) => {
           webhook: res.webhook,
         };
         console.log(updates);
-        editElement(id, {
-          name: info.name,
-          data: updates,
-        });
+        editElement(id, updates);
       })
       .catch((err) => {
         errorNotification(err.message);
