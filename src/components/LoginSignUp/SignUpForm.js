@@ -17,7 +17,7 @@ export function SignUpForm({
   errors,
   updateInfo,
   validateInfo,
-  closeDialog,
+  setSignupOpen,
   Signup,
 }) {
   const signupForm = useRef(null);
@@ -38,8 +38,9 @@ export function SignUpForm({
     Signup(info)
       .then(() => {
         setLoading(false);
-        // closeDialog();
+        setSignupOpen(false);
         signupForm.current.reset();
+        setTouched([]);
         successNotification('You have created your account. Please log in.');
       })
       .catch((err) => {
@@ -49,9 +50,11 @@ export function SignUpForm({
   };
 
   const onChange = (e) => {
-    setTouched((p) => {
-      return [...p, e.target.name];
-    });
+    if (!(e.target.name in touched)) {
+      setTouched((p) => {
+        return [...p, e.target.name];
+      });
+    }
     updateInfo(e.target.name, e.target.value.trim());
     validateInfo(e.target.name, e.target.value);
   };
@@ -82,6 +85,7 @@ export function SignUpForm({
           error={!!errors['username']}
           label="Username"
           helperText={errors['username']}
+          value={info['username']}
           variant="outlined"
           size="small"
         />
@@ -94,6 +98,7 @@ export function SignUpForm({
           error={!!errors['email']}
           label="Email"
           helperText={errors['email']}
+          value={info['email']}
           variant="outlined"
           size="small"
         />
@@ -108,6 +113,7 @@ export function SignUpForm({
           error={!!errors['password']}
           label="Password"
           helperText={errors['password']}
+          value={info['password']}
           variant="outlined"
           InputProps={{
             endAdornment: (
@@ -136,6 +142,7 @@ export function SignUpForm({
           label="Confirm Password"
           helperText={errors['confirm']}
           variant="outlined"
+          value={info['confirm']}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">

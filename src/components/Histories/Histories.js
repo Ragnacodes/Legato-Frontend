@@ -13,6 +13,7 @@ import TableLoader from './TableLoader';
 import NoData from './NoData';
 
 const Histories = ({ loading, records }) => {
+    const reverseRecords = records.slice().reverse();
     return (
         <TableContainer component={Paper}>
             <Table stickyHeader={true} >
@@ -35,7 +36,7 @@ const Histories = ({ loading, records }) => {
                     !loading &&
                     <TableBody>
                         {
-                            records.map((record, index) => {
+                            reverseRecords.map((record, index) => {
                                 return <Record key={index} {...record} />
                             })
                         }

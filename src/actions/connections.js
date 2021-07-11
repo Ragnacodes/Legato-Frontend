@@ -33,7 +33,14 @@ export const addConnection = (connection) => {
 export const startAddConnection = (connection) => {
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        console.log(connection);
+        var count = 1;
+        const connections = getState().connections;
+        for (var i = 0; i < connections.length; i++) {
+            if(connection.type === connections[i].type) {
+                count++;
+            }
+        }
+        connection.name += count.toString();
         return Axios.post(`users/${username}/add/connection`, connection)                                                              
             .then(res => {
                 dispatch(addConnection(res.data));

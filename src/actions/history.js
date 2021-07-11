@@ -26,9 +26,9 @@ export const startGetHistory = (scenarioID, historyID) => {
                 date,
                 time,
                 status: 1,
-                duration: 0,
-                operations: 0,
-                data: 0
+                duration: 'N/A',
+                operations: 'N/A',
+                data: 'N/A'
             };
             const logs = res.data.logs.map(log => {
                 const { id, name, type, subType } = log.Service;

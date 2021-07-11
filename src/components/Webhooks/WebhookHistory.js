@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import clsx from 'clsx';
 import { connect } from 'react-redux';
 import {
   Popover,
@@ -98,16 +99,18 @@ const WebhookQueue = ({ id, visible, setVisible, getWebhookHistory }) => {
       </TableRow>
     );
   }
+
   return (
-    <Dialog
-      className="queue-window"
-      open={visible}
-      onClose={() => setVisible(false)}
-    >
+    <Dialog open={visible} onClose={() => setVisible(false)}>
       <DialogTitle disableTypography={true}>
         <Typography variant="h5">Incoming Messages</Typography>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent
+        className={clsx(
+          'queue-window',
+          (loading || !history.length) && 'disable-scroll'
+        )}
+      >
         <CloseRounded
           className="close-icon"
           onClick={() => setVisible(false)}

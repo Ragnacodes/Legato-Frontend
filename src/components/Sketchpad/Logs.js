@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@material-ui/core';
 import Terminal, { ColorMode, LineType } from 'react-terminal-ui';
-
+import { host } from '../../utils/host';
 
 const Logs = ({ fetched, scenarioID }) => {
-    const [terminalLineData, setTerminalLineData] = useState([]);
+    const [terminalLineData, setTerminalLineData] = useState([
+        {
+            type: LineType.Output,
+            value: ""
+        }
+    ]);
 
     useEffect(() => {
         if (fetched) {
-            const es = new EventSource(`https://abstergo.ir/api/events/${scenarioID}`);
-            es.onopen = ev => {
-                const newLineData = {
-                    type: LineType.Output,
-                    value: "Event source successfully opened."
-                };
-                setTerminalLineData(prev => [...prev, newLineData]);
-            };
+            const es = new EventSource(`${host}/api/events/${scenarioID}`);
             es.onmessage = ev => {
                 const newLineData = {
                     type: LineType.Output,
@@ -23,14 +21,6 @@ const Logs = ({ fetched, scenarioID }) => {
                 };
                 setTerminalLineData(prev => [...prev, newLineData]);
             };
-            es.onerror = ev => {
-                const newLineData = {
-                    type: LineType.Output,
-                    value: "Event source closed due to an error."
-                };
-                setTerminalLineData(prev => [...prev, newLineData]);
-            };
-    
             return () => {
                 es.close();
             };

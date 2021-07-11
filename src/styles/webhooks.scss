@@ -102,6 +102,16 @@
 }
 
 .queue-window {
+  width: 400px;
+  max-height: 370px;
+
+  &.disable-scroll {
+    overflow-y: hidden !important;
+  }
+  img {
+    width: 300px;
+    height: auto;
+  }
   .close-icon {
     cursor: pointer;
     font-size: 1.4rem;
