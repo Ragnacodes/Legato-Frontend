@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Axios from '../../utils/axiosConfig';
+import { host } from '../../utils/host';
 import { Grid, Paper, Box } from '@material-ui/core';
 import Title from './Title';
 import Histories from './LatestRuns/Histories/Histories';
@@ -52,7 +53,7 @@ const Dashboard = ({ username }) => {
         const tempRecords = [];
         const last7Days = createLast7Days();
         const tempPieData = [];
-        Axios.get(`https://abstergo.ir/api/users/${username}/logs`)
+        Axios.get(`${host}/api/users/${username}/logs`)
         .then(res => {
             const api = res.data.histories;    
             api.forEach(item => {
