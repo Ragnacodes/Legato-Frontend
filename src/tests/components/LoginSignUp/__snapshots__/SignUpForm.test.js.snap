@@ -21,6 +21,7 @@ exports[`should render SignUpForm correctly 1`] = `
       onChange={[Function]}
       required={true}
       size="small"
+      value=""
       variant="outlined"
     />
     <WithStyles(ForwardRef(TextField))
@@ -32,6 +33,7 @@ exports[`should render SignUpForm correctly 1`] = `
       onChange={[Function]}
       required={true}
       size="small"
+      value=""
       variant="outlined"
     />
     <WithStyles(ForwardRef(TextField))
@@ -61,6 +63,7 @@ exports[`should render SignUpForm correctly 1`] = `
       required={true}
       size="small"
       type="password"
+      value=""
       variant="outlined"
     />
     <WithStyles(ForwardRef(TextField))
@@ -89,6 +92,7 @@ exports[`should render SignUpForm correctly 1`] = `
       required={true}
       size="small"
       type="password"
+      value=""
       variant="outlined"
     />
     <WithStyles(ForwardRef(Button))
