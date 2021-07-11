@@ -1,4 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import {
+    Box,
+    Typography,
+    Link as MUILink
+} from '@material-ui/core/';
 import {
     Chart,
     PieSeries,
@@ -9,15 +15,22 @@ import { CircularProgress, Grid } from '@material-ui/core';
 
 const TooltipContent = ({ data, ...props }) => {
     const index = props.targetItem.point;
-    const scnearioID = data[index].id;
+    const scenarioID = data[index].id;
     const scenarioName = data[index].name;
     const count = data[index].count;
     return (
-        <React.Fragment>
-            <div>{scnearioID}</div>
-            <div>{scenarioName}</div>
-            <div>{count}</div>
-        </React.Fragment>
+        <Box p={1}>
+            <MUILink
+                component={Link}
+                to={`/scenarios/${scenarioID}/sketchpad`}
+                underline="none"
+            >
+                {scenarioName}
+            </MUILink>
+            <Typography align="center" variant="body2">
+                Runs: {count}
+            </Typography>
+        </Box>
     );
 };
 
