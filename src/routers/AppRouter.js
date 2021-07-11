@@ -7,7 +7,7 @@ import NotFoundPage from '../components/Static/NotFoundPage';
 import DummyPage from '../components/Static/DummyPage';
 import LandingPage from '../components/LandingPage/LandingPage';
 import SketchpadPage from '../components/Sketchpad/SketchpadPage';
-import Dashboard from '../components/Dashboard/Dashboard';
+import DashboardPage from '../components/Dashboard/DashboardPage';
 import ScenariosPage from '../components/Scenarios/ScenariosPage';
 import WebhooksPage from '../components/Webhooks/WebhooksPage';
 import ConnectionsPage from '../components/Connections/ConnectionsPage';
@@ -20,7 +20,7 @@ const AppRouter = () => (
   <Router history={history}>
     <Switch>
       <PublicRoute path="/" component={LandingPage} exact={true} />
-      <PrivateRoute path="/dashboard" component={Dashboard} />
+      <PrivateRoute path="/dashboard" component={DashboardPage} />
       <PrivateRoute path="/scenarios" component={ScenariosPage} exact={true} />
       <PrivateRoute path="/scenarios/:id/sketchpad" component={SketchpadPage} />
       <PrivateRoute path="/scenarios/:id/history" component={HistoriesPage} exact={true} />
