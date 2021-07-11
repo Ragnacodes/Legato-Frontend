@@ -24,6 +24,9 @@ export const serviceBackToFront = (backType) => {
         case 'gmails':
             return 'Gmail';
 
+        case 'tool_boxes':
+            return 'Toolbox'
+
         default:
             return 'Unknown';
     }
