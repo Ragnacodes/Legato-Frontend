@@ -41,8 +41,7 @@ export function Form({
   }, [getConnections]);
 
   useEffect(() => {
-    if(info.connection)
-    {
+    if (info.connection) {
       getPlaylists(info.connection).then(() => {
         setPlaylistLoading(false);
       });
@@ -88,6 +87,9 @@ export function Form({
       position: data.position || '',
     });
     setErrors({});
+    if (!data.trackUrl) {
+      setTrackInfo('');
+    }
   };
 
   const handleSave = () => {
