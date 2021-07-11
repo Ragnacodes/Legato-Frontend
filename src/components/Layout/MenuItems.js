@@ -10,7 +10,7 @@ import {
   AccountTree,
   Link,
   Language,
-  AccountCircle
+  // AccountCircle
 } from '@material-ui/icons';
 import Logout from './Logout';
 
@@ -51,12 +51,12 @@ export const mainListItems = (
 export const bottomListItems = (
   <div>
 
-    <ListItem button component={NavLink} to="/profile" activeClassName="Mui-selected">
+    {/* <ListItem button component={NavLink} to="/profile" activeClassName="Mui-selected">
       <ListItemIcon>
         <AccountCircle />
       </ListItemIcon>
       <ListItemText primary="Profile" />
-    </ListItem>
+    </ListItem> */}
 
     <Logout />
 
