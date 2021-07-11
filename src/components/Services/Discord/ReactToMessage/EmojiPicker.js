@@ -18,7 +18,7 @@ export function EmojiPicker({ anchor, setAnchor, saveEmoji }) {
       onClose={() => setAnchor(null)}
       anchorOrigin={{
         vertical: 'top',
-        horizontal: 'center',
+        horizontal: 'right',
       }}
       transformOrigin={{
         vertical: 'bottom',
