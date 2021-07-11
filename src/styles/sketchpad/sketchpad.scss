@@ -133,9 +133,14 @@
 .terminal-box {
   height: 100px;
   overflow-y: scroll;
+  word-break: break-all;
 
   .react-terminal-wrapper {
     border-radius: 0;
+  }
+
+  .react-terminal {
+    overflow: hidden;
   }
   
   .react-terminal-line {

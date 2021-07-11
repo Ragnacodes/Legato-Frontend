@@ -3,7 +3,6 @@ import { Popover } from '@material-ui/core';
 import Picker from 'emoji-picker-react';
 export function EmojiPicker({ anchor, setAnchor, saveEmoji }) {
   const handleSave = (emoji) => {
-    console.log(emoji);
     saveEmoji(emoji.emoji);
   };
 

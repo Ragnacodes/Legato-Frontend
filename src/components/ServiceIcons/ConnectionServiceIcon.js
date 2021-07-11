@@ -7,6 +7,7 @@ const ConnectionServiceIcon = ({ service }) => {
             service={service}
             width="40px"
             padding="3px"
+            className="connection-icon"
         />
     );
 };

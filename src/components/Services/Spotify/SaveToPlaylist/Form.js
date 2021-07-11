@@ -70,7 +70,6 @@ export function Form({
   };
 
   const handleChange = (e) => {
-    console.log(e.target.value, e.target.name);
     setInfo((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
