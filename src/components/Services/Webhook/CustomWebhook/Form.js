@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/webhooks';
 import { Button, Tooltip, Typography } from '@material-ui/core';
