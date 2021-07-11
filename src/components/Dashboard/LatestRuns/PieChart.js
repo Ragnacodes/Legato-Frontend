@@ -34,6 +34,15 @@ const TooltipContent = ({ data, ...props }) => {
     );
 };
 
+const renderedData = (data) => {
+    if (data.length > 0) {
+        return data;
+    }
+    else {
+        return [{ id: null, name: null, count: 1 }];
+    };
+};
+
 const PieChart = ({ data, loading }) => {
     if (loading) {
         return (
@@ -45,7 +54,7 @@ const PieChart = ({ data, loading }) => {
 
     return (
         <Chart
-            data={data}
+            data={renderedData(data)}
             height={200}
         >
             <PieSeries
@@ -55,9 +64,11 @@ const PieChart = ({ data, loading }) => {
             />
             <Animation />
             <EventTracker />
-            <Tooltip 
-                contentComponent={(props) => <TooltipContent data={data} {...props} />}
-            />
+            { data.length > 0 &&
+                <Tooltip 
+                    contentComponent={(props) => <TooltipContent data={renderedData(data)} {...props} />}
+                />
+            }
         </Chart>
     );
 }
