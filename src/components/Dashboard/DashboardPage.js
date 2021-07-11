@@ -1,10 +1,11 @@
 import React from 'react';
-import { Container } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { Container, Grid } from '@material-ui/core';
 import Appbar from '../Layout/Appbar';
 import PageTitle from '../Layout/PageTitle';
 import Dashboard from './Dashboard';
 
-const DashboardPage = () => {
+const DashboardPage = ({ username }) => {
     return (
         <React.Fragment>
             <Appbar leftChildren={<PageTitle title="Dashboard" />} />
@@ -12,7 +13,12 @@ const DashboardPage = () => {
                 <div className="app-bar-spacer" />
                 <div className="content-container">
                     <Container maxWidth="lg">
-                        <Dashboard />
+                    <Grid
+                        container
+                        spacing={3}
+                    >
+                        <Dashboard username={username} />
+                    </Grid>
                     </Container>
                 </div>
             </main>
@@ -20,4 +26,10 @@ const DashboardPage = () => {
     );
 };
 
-export default DashboardPage;
+const mapStateToProps = (state) => {
+    return {
+        username: state.auth.username
+    };
+};
+
+export default connect(mapStateToProps)(DashboardPage);
