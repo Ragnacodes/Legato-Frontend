@@ -9,7 +9,7 @@ const ActiveScenarios = () => {
         <React.Fragment>
             {/* Active Scenario */}
             <Grid item xs={12}>
-                <Box component={Paper} p={3}>
+                <Box component={Paper} p={3} style={{minHeight: '150px'}}>
                     <Title>Active Scenarios</Title>
                     <Scenarios />
                 </Box>
