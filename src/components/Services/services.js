@@ -6,12 +6,6 @@ export const services = {
       primaryText: 'Custom webhook',
       secondaryText: 'Triggers when webhook receives data.',
     },
-    {
-      subService: 'webhookResponse',
-      kind: 'action',
-      primaryText: 'Webhook response',
-      secondaryText: 'Creates a response to the webhook.',
-    },
   ],
   https: [
     {
