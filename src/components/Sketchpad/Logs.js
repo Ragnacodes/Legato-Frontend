@@ -4,12 +4,7 @@ import Terminal, { ColorMode, LineType } from 'react-terminal-ui';
 import { host } from '../../utils/host';
 
 const Logs = ({ fetched, scenarioID }) => {
-    const [terminalLineData, setTerminalLineData] = useState([
-        {
-            type: LineType.Output,
-            value: ""
-        }
-    ]);
+    const [terminalLineData, setTerminalLineData] = useState([]);
 
     useEffect(() => {
         if (fetched) {
