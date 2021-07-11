@@ -27,6 +27,7 @@ const Form = ({ id, data, editElement, setAnchorEl, updateWebhook }) => {
           ...prev,
           webhook: res.webhook,
         }));
+        editElement(id, { name: info.name, data: { ...data, ...info } });
       })
       .catch((err) => {
         errorNotification(err.message);
@@ -44,7 +45,6 @@ const Form = ({ id, data, editElement, setAnchorEl, updateWebhook }) => {
   };
 
   const handleSave = () => {
-    editElement(id, { name: info.name, data: { ...data, ...info } });
     setAnchorEl(null);
   };
 
