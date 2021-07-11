@@ -14,10 +14,10 @@ export const setPlaylists = (playlists) => {
   };
 };
 
-export const startGetPlaylists = () => {
+export const startGetPlaylists = (connection) => {
   return (dispatch, getState) => {
     const username = getState().auth.username;
-    return Axios.get(`/users/${username}/spotify/playlists`)
+    return Axios.get(`/users/${username}/spotify/playlists/${connection}`)
       .then((res) => {
         dispatch(setPlaylists(res.data));
       })
@@ -36,9 +36,10 @@ export const setTrackInfo = (track) => {
   };
 };
 
-export const startGetTrackInfo = (id) => {
-  return (dispatch) => {
-    return Axios.get(`/services/spotify/track/${id}`)
+export const startGetTrackInfo = (id, connection) => {
+  return (dispatch, getState) => {    
+    const username = getState().auth.username;
+    return Axios.get(`/users/${username}/services/spotify/${connection}/track/${id}`)
       .then((res) => {
         dispatch(setTrackInfo(res.data));
       })

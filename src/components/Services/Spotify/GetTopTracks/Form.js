@@ -1,15 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { startGetConnections } from '../../../../actions/connections';
+import ConnectionField from '../ConnectionField';
+
 import ServiceForm from '../../../PopoverForm';
-const Form = ({ id, data, editElement, setAnchorEl }) => {
+const Form = ({
+  id,
+  data,
+  connections,
+  getConnections,
+  editElement,
+  setAnchorEl,
+}) => {
   const [info, setInfo] = useState({
     connection: data.connection || '',
   });
+  const [connectionLoading, setConnectionLoading] = useState(true);
+
+  useEffect(() => {
+    getConnections().then(() => {
+      setConnectionLoading(false);
+    });
+  }, [getConnections]);
 
   const handleCancel = () => {
     setAnchorEl(null);
     setInfo({
       connection: data.connection || '',
     });
+  };
+
+  const handleChange = (e) => {
+    console.log(e.target.value, e.target.name);
+    setInfo((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const handleSave = () => {
@@ -24,8 +50,23 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
       disabledSave={false}
       handleSave={handleSave}
       handleCancel={handleCancel}
-    ></ServiceForm>
+    >
+      <ConnectionField
+        connection={info['connection']}
+        connections={connections}
+        connectionLoading={connectionLoading}
+        handleChange={handleChange}
+      />
+    </ServiceForm>
   );
 };
 
-export default Form;
+const mapStateToProps = (state) => ({
+  connections: state.connections.filter((c) => c.type === 'spotifies'),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getConnections: () => dispatch(startGetConnections()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
