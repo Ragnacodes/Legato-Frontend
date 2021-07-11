@@ -8,7 +8,7 @@ const Redirect = ({addConnection}) => {
         const url = window.location.href;
         const token_type = url.substring(url.lastIndexOf("redirect/")+9, url.lastIndexOf("?code"));
         const connection = switchCase(token_type, url);
-        if (connection === 'wrong') {
+        if (connection === "wrong") {
             window.location.href = `${host}/connections`;
         }
         else {
@@ -23,29 +23,29 @@ const Redirect = ({addConnection}) => {
 
 const switchCase = (type, url) => {
     switch (type) {
-        case 'github':
+        case "github":
             return {
-                name: 'my github ',
-                type: 'githubs',
+                name: "my github ",
+                type: "githubs",
                 data: { token: url.substring(url.lastIndexOf("?code=") + 6, url.indexOf("&state"))},
             };
 
-        case 'spotify':
+        case "spotify":
             return {
-                name: 'my spotify ',
-                type: 'spotifies',
+                name: "my spotify ",
+                type: "spotifies",
                 data: { token: url.substring(url.lastIndexOf("?code=") + 6, url.indexOf("&state"))},
             };
         
-        case 'discord':
+        case "discord":
             return {
-                name: 'my discord ',
+                name: "my discord ",
                 data:{ guildId: url.substring(url.lastIndexOf("guild_id=") + 9, url.lastIndexOf("&permissions"))},
-                type: 'discords'
+                type: "discords"
             };
 
         default:
-            return 'wrong';
+            return "wrong";
     };
 }
 
