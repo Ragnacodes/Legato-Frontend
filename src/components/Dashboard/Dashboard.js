@@ -1,25 +1,18 @@
 import React from 'react';
-import { Container } from '@material-ui/core';
-import Appbar from '../Layout/Appbar';
-import PageTitle from '../Layout/PageTitle';
-import Chart from './Chart';
-import Scenarios from './Scenarios';
+import { Grid } from '@material-ui/core';
+import LatestRuns from './LatestRuns/LatestRuns';
+import ActiveScenarios from './ActiveScenarios/ActiveScenarios';
 
 const Dashboard = () => {
-  return (
-    <>
-    <Appbar leftChildren={<PageTitle title="Dashboard" />} />
-    <main className="main">
-      <div className="app-bar-spacer"/>
-      <div className="content-container">
-        <Container maxWidth="lg">
-          <Chart />
-          <Scenarios />
-        </Container>
-      </div>
-    </main>
-    </>
-  );
+    return (
+        <Grid
+            container
+            spacing={3}
+        >
+            <LatestRuns />
+            <ActiveScenarios />
+        </Grid>
+    );
 };
 
 export default Dashboard;
