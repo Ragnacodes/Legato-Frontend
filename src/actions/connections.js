@@ -33,23 +33,13 @@ export const addConnection = (connection) => {
 export const startAddConnection = (connection) => {
     return (dispatch, getState) => {
         const username = getState().auth.username;
-        var count = 1;
-        startGetConnections().then(()=>{
-            const connections = getState().connections;
-            for (var i = 0; i < connections.length; i++) {
-                if(connection.type === connections[i].type) {
-                    count++;
-                }
-            }
-            connection.name += count.toString();
-            return Axios.post(`users/${username}/add/connection`, connection)                                                              
-                .then(res => {
-                    dispatch(addConnection(res.data));
-                })
-                .catch(err => {
-                    throw err;
-                });
-        })
+        return Axios.post(`users/${username}/add/connection`, connection)                                                             
+            .then(res => {
+                dispatch(addConnection(res.data));
+            })
+            .catch(err => {
+                throw err;
+            });
     };
 };
 

@@ -20,7 +20,7 @@ const TelegramBot = ({telegramDialog, setTelegramDialog, addConnection}) => {
     
     const handleSave = () => {
         const telegramConnection = {
-            name: "MY TELEGRAM BOT ",
+            name: "UNTITLED TELEGRAM BOT",
             type: "telegrams",
             data: {
                 key: telegramBot
