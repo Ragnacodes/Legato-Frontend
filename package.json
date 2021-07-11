@@ -34,6 +34,7 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "tsparticles": "^1.31.1",
     "uuid": "^8.3.2",
     "web-vitals": "^1.1.1"
   },
