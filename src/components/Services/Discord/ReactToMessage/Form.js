@@ -109,8 +109,8 @@ export function Form({
     });
   };
 
-  const openEmojiPicker = () => {
-    setEmojiPickerOpen(true);
+  const openEmojiPicker = (e) => {
+    setEmojiPickerOpen(e.currentTarget);
   };
 
   const saveEmoji = (emoji) => {
