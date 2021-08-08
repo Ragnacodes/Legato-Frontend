@@ -22,6 +22,7 @@ export function Form({
   setTrackInfo,
 }) {
   const [info, setInfo] = useState({
+    name: data.name || '',
     connection: data.connection || '',
     PlaylistId: data.PlaylistId || '',
     TrackId: data.TrackId || '',
@@ -138,6 +139,15 @@ export function Form({
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
+      <TextField
+        name="name"
+        className="text-field"
+        label="Name"
+        variant="outlined"
+        size="small"
+        value={info['name']}
+        onChange={handleChange}
+      />
       <ConnectionField
         connection={info['connection']}
         connections={connections}

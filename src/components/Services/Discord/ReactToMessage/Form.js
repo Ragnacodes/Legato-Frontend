@@ -24,6 +24,7 @@ export function Form({
   getMessages,
 }) {
   const [info, setInfo] = useState({
+    name: data.name || '',
     connection: data.connection || '',
     channelId: data.channelId || '',
     messageId: data.messageId || '',
@@ -131,6 +132,15 @@ export function Form({
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
+      <TextField
+        name="name"
+        className="text-field"
+        label="Name"
+        variant="outlined"
+        size="small"
+        value={info['name']}
+        onChange={handleChange}
+      />
       <MessageList
         messages={messages}
         anchor={message.anchor}
