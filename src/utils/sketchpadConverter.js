@@ -12,7 +12,9 @@ export const elementsBackToFront = (nodesBack) => {
                 name: nodeBack.name,
                 service: nodeBack.type,
                 subService: nodeBack.subType,
-                parentId: nodeBack.parentId
+                parentId: nodeBack.parentId,
+                ancestors: nodeAncestors(nodeBack, nodesBack),
+                schema: nodeBack.schema
             }
         };
 
@@ -44,4 +46,21 @@ export const nodeFrontToBack = (nodeFront) => {
         data: nodeFront.data,
     };
     return nodeBack;
+};
+
+const nodeAncestors = (node, nodes) => {
+    const ancestors = [];
+    let parentId = node.parentId;
+    while (parentId) {
+        // eslint-disable-next-line no-loop-func
+        const parent = nodes.find(el => el.id === parentId);
+        const ancestor = {
+            id: parent.id,
+            name: parent.name,
+            schema: parent.data.schema
+        }
+        ancestors.push(ancestor);
+        parentId = parent.parentId;
+    }
+    return ancestors;
 };
