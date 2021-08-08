@@ -13,6 +13,7 @@ import {
     ListItemSecondaryAction
 } from '@material-ui/core';
 import { Add, Delete } from '@material-ui/icons';
+import AutoSuggestField from '../../../AutoSuggestField';
 
 function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -35,11 +36,26 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
     const listOpen = Boolean(listAnchor);
     const popoverID = listOpen ? 'simple-popover' : undefined;
 
-    const handleChange = (e) => {
-        setInfo((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.value,
-        }));
+    const handleChange = (eventOrValue, targetName) => {
+        if (targetName) {
+            // AutoSuggestField
+            // eventOrValue is value
+            // targetName is targetName
+            setInfo((prev) => ({
+                ...prev,
+                [targetName]: eventOrValue,
+            }));
+        }
+
+        else {
+            // MUI TextField
+            // eventOrValue is event
+            // targetName is undefined
+            setInfo((prev) => ({
+                ...prev,
+                [eventOrValue.target.name]: eventOrValue.target.value,
+            }));
+        }
     };
 
     const handleAddEmail = () => {
@@ -196,8 +212,9 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
                 fullWidth
             />
 
-            <TextField
-                onChange={handleChange}
+            <AutoSuggestField
+                ancestors={data.ancestors}
+                onChange={(value) => handleChange(value, 'body')}
                 label="Body"
                 name="body"
                 value={info.body}
