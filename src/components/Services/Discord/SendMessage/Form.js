@@ -17,6 +17,7 @@ export function Form({
   getConnections,
 }) {
   const [info, setInfo] = useState({
+    name: data.name || '',
     connection: data.connection || '',
     channelId: data.channelId || '',
     content: data.content || '',
@@ -68,7 +69,7 @@ export function Form({
     getChannels(info.connection).then(() => {
       setChannelLoading(false);
     });
-  }
+  };
 
   let disabledSave =
     !info['connection'] || !info['channelId'] || !info['content'];
@@ -81,6 +82,15 @@ export function Form({
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
+      <TextField
+        name="name"
+        className="text-field"
+        label="Name"
+        variant="outlined"
+        size="small"
+        value={info['name']}
+        onChange={handleChange}
+      />
       <ConnectionField
         connection={info['connection']}
         connections={connections}

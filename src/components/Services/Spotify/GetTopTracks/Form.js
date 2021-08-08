@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { TextField } from '@material-ui/core';
 import { startGetConnections } from '../../../../actions/connections';
 import ConnectionField from '../ConnectionField';
 
@@ -13,6 +14,7 @@ const Form = ({
   setAnchorEl,
 }) => {
   const [info, setInfo] = useState({
+    name: data.name || '',
     connection: data.connection || '',
   });
   const [connectionLoading, setConnectionLoading] = useState(true);
@@ -38,7 +40,7 @@ const Form = ({
   };
 
   const handleSave = () => {
-    editElement(id, { data: { ...data, ...info } });
+    editElement(id, { name: info.name, data: { ...data, ...info } });
     setAnchorEl(null);
   };
 
@@ -50,6 +52,15 @@ const Form = ({
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
+      <TextField
+        name="name"
+        className="text-field"
+        label="Name"
+        variant="outlined"
+        size="small"
+        value={info['name']}
+        onChange={handleChange}
+      />
       <ConnectionField
         connection={info['connection']}
         connections={connections}
