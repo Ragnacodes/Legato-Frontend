@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import ServiceForm from '../../../PopoverForm';
 import { TextField, Select, MenuItem } from '@material-ui/core';
+import AutoSuggestField from '../../../AutoSuggestField';
+
 
 const Form = ({ id, data, editElement, setAnchorEl }) => {
     const [info, setInfo] = useState({
@@ -12,14 +14,22 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
 
     const handleChange = (e) => {
         setInfo((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.value,
+          ...prev,
+          [e.target.name]: e.target.value,
         }));
     };
-    
+
+    const handleAutoSuggestChange = (value, targetName) => {
+        setInfo((prev) => ({
+            ...prev,
+            [targetName]: value,
+        }));
+    }
+
     const handleCancel = () => {
         setAnchorEl(null);
     };
+
     const handleSave = () => {
         if(info.body.length > 0) {
             info.body = JSON.parse(info.body);
@@ -52,17 +62,16 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
                 value={info.name}
             />
 
-            <TextField
-                className="text-field"
+            <AutoSuggestField
+                ancestors={data.ancestors}
+                onChange={(value) => handleAutoSuggestChange(value, 'url')}
+                label="Url"
                 name="url"
-                label="URL"
-                type="text"
+                value={info.url}
                 variant="outlined"
                 size="medium"
-                onChange={handleChange}
-                helperText="write the URL of your HTTP request here."
+                fullWidth
                 multiline
-                value={info.url}
             />
 
             <Select
@@ -79,16 +88,17 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
 
             {
                 info.method === "post" ?
-                <TextField
-                    className="text-field"
+                <AutoSuggestField
+                    ancestors={data.ancestors}
+                    onChange={(value) => handleAutoSuggestChange(value, 'body')}    
                     name="body"
                     label="Body"
                     type="text"
                     variant="outlined"
-                    size="small"
-                    onChange={handleChange}
+                    size="medium"
                     helperText="write the body of your post request here."
                     multiline
+                    fullWidth
                     value={info.body}
                     placeholder='{"key": "value"}'
                 />
