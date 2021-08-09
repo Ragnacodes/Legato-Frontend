@@ -6,6 +6,7 @@ import * as actions from '../../../../actions/discord';
 import ServiceForm from '../../../PopoverForm';
 import ConnectionField from '../ConnectionField';
 import ChannelField from '../ChannelField';
+import AutoSuggestField from '../../../AutoSuggestField';
 export function Form({
   id,
   data,
@@ -43,6 +44,13 @@ export function Form({
     setInfo((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleContentChange = (value) => {
+    setInfo((prev) => ({
+      ...prev,
+      content: value,
     }));
   };
 
@@ -108,7 +116,21 @@ export function Form({
         />
       )}
 
-      <TextField
+      <AutoSuggestField
+        class="text-field"
+        ancestors={data.ancestors}
+        onChange={handleContentChange}
+        label="Content"
+        name="content"
+        value={info['content']}
+        variant="outlined"
+        size="small"
+        multiline
+        fullWidth
+        rowsMax={5}
+      />
+
+      {/* <TextField
         multiline
         rowsMax={5}
         name="content"
@@ -118,7 +140,7 @@ export function Form({
         size="small"
         value={info['content']}
         onChange={handleChange}
-      />
+      /> */}
     </ServiceForm>
   );
 }
