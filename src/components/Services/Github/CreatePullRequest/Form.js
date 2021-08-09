@@ -94,6 +94,18 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnec
             handleSave={handleSave}
             handleCancel={handleCancel}
         >
+            <TextField
+                className="text-field"
+                name="name"
+                label="Name"
+                type="text"
+                variant="outlined"
+                size="medium"
+                onChange={handleChange}
+                multiline
+                value={info.name}
+            />
+
             <div className="connection-field">
                 {
                     loadingConnections ? 

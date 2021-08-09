@@ -34,12 +34,24 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
 
     return (
         <ServiceForm
-            className="dummy-form"
+            className="make-request"
             title="Send HTTP request"
             disabledSave={false}
             handleSave={handleSave}
             handleCancel={handleCancel}
         >
+            <TextField
+                className="text-field"
+                name="name"
+                label="Name"
+                type="text"
+                variant="outlined"
+                size="medium"
+                onChange={handleChange}
+                multiline
+                value={info.name}
+            />
+
             <TextField
                 className="text-field"
                 name="url"
@@ -52,6 +64,7 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
                 multiline
                 value={info.url}
             />
+
             <Select
                 className="select"
                 name="method"
@@ -63,12 +76,13 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
                 <MenuItem value="get">GET</MenuItem>
                 <MenuItem value="post">POST</MenuItem>
             </Select>
+
             {
                 info.method === "post" ?
                 <TextField
                     className="text-field"
                     name="body"
-                    label="body"
+                    label="Body"
                     type="text"
                     variant="outlined"
                     size="small"
