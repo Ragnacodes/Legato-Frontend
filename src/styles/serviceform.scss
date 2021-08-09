@@ -26,6 +26,7 @@
   }
 
   .text-field {
+    position: relative;
     margin-top: 11px;
     margin-bottom: 11px;
     .MuiFormHelperText-root {
@@ -33,7 +34,7 @@
     }
   }
 
-  .select{
+  .select {
     margin-top: 11px;
     margin-bottom: 11px;
   }
