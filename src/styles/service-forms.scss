@@ -81,6 +81,10 @@
       flex-direction: row;
       align-items: flex-start;
       justify-content: space-between;
+      > span {
+        margin-right: 5px;
+        flex: 1;
+      }
       > .text-field {
         margin-right: 5px;
         flex: 1;
