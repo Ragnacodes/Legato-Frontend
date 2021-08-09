@@ -7,6 +7,7 @@ import { Add } from '@material-ui/icons';
 import { startGetConnections } from '../../../../actions/connections';
 import { connect } from 'react-redux';
 
+
 const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnections, username }) => {
     
     const [info, setInfo] = useState({

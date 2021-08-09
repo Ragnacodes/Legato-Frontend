@@ -6,6 +6,8 @@ import { TextField, MenuItem, IconButton } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { startGetConnections } from '../../../../actions/connections';
 import { connect } from 'react-redux';
+import AutoSuggestField from '../../../AutoSuggestField';
+
 
 const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnections, username }) => {
     
@@ -51,6 +53,13 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnec
             [e.target.name]: e.target.value,
         }));
     };
+
+    const handleAutoSuggestChange = (value, targetName) => {
+        setInfo((prev) => ({
+            ...prev,
+            [targetName]: value,
+        }));
+    }
     
     const handleCancel = () => {
         setAnchorEl(null);
@@ -167,26 +176,31 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, githubConnec
             {
                 info.repository ?
                 <React.Fragment>
-                    <TextField
+                    <AutoSuggestField
+                        ancestors={data.ancestors}
+                        onChange={(value) => handleAutoSuggestChange(value, 'title')}
                         name="title"
-                        className="text-field"
                         size="small"
                         label="Title"
                         value={info.title}
-                        onChange={handleChange}
                         variant="outlined"
-                        helperText="Choose the title of the issue."
+                        multiline
+                        helperText="write an apporpriate title for the the issue here."
+                        fullwidth
+                        margin="normal"
                     />
 
-                    <TextField
+                    <AutoSuggestField
+                        ancestors={data.ancestors}
+                        onChange={(value) => handleAutoSuggestChange(value, 'body')}
                         name="body"
-                        className="text-field"
                         size="small"
                         label="Description"
                         value={info.body}
-                        onChange={handleChange}
                         variant="outlined"
                         multiline
+                        fullwidth
+                        margin="normal"
                         helperText="Write a description for the issue if you want."
                     />
                 </React.Fragment>
