@@ -9,6 +9,8 @@ import {
 import ServiceForm from '../../../PopoverForm';
 import ConnectionFormPopper from '../../../SSH/ConnectionFormPopper';
 import { errorNotification } from '../../../Layout/Notification';
+import AutoSuggestField from '../../../AutoSuggestField';
+
 const Form = ({
   id,
   data,
@@ -37,6 +39,13 @@ const Form = ({
     setInfo((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleCommandChange = (value) => {
+    setInfo((prev) => ({
+      ...prev,
+      command: value,
     }));
   };
 
@@ -145,8 +154,11 @@ const Form = ({
       </div>
 
       <ConnectionFormPopper anchor={addAnchor} setAnchor={setAddAnchor} />
-
-      <TextField
+      <AutoSuggestField
+        class="text-field"
+        ancestors={data.ancestors}
+        onChange={handleCommandChange}
+        fullWidth
         multiline
         rowsMax={5}
         name="command"
@@ -155,7 +167,6 @@ const Form = ({
         variant="outlined"
         size="small"
         value={info['command']}
-        onChange={handleChange}
         helperText="Write each command in a line."
       />
     </ServiceForm>
