@@ -131,19 +131,22 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, telegramConn
                 helperText="write the target chat id (numeric value like username)."
                 fullwidth
                 className="text-field"
+                margin="normal"
                 value={info.chat_id}
             />
 
-            <TextField
+            <AutoSuggestField
                 className="text-field"
+                ancestors={data.ancestors}
+                onChange={(value) => handleAutoSuggestChange(value, 'text')}
                 name="text"
                 label="Message text"
-                type="text"
                 variant="outlined"
                 size="small"
-                onChange={handleChange}
-                helperText="type your message."
+                helperText="type the message here(you can use $ to access parent nodes)."
                 multiline
+                fullwidth
+                margin="normal"
                 value={info.text}
             />
 
