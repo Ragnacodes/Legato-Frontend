@@ -24,8 +24,6 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
     
     const [info, setInfo] = useState({
         name: data.name || '',
-        email: data.email || '',
-        password: data.password || '',
         to: data.to || [],
         subject: data.subject || '',
         body: data.body || '',
@@ -101,31 +99,18 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
             title="Send Email"
             handleSave={handleSave}
             handleCancel={handleCancel}
-            disabledSave={!validateEmail(info.email)}
+            // disabledSave={!validateEmail(info.email)}
         >
             <TextField
-                error={!validateEmail(info.email)}
-                onChange={handleChange}
-                label="Email"
-                type="email"
-                name="email"
-                value={info.email}
+                name="name"
+                label="Name"
+                type="text"
                 variant="outlined"
                 size="small"
-                margin="normal"
-                fullWidth
-            />
-
-            <TextField
                 onChange={handleChange}
-                label="Email Password"
-                type="password"
-                name="password"
-                value={info.password}
-                variant="outlined"
-                size="small"
-                margin="normal"
+                value={info.name}
                 fullWidth
+                margin="normal"
             />
 
             <Grid container alignItems="center">
@@ -201,8 +186,9 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
 
             </Grid>
 
-            <TextField
-                onChange={handleChange}
+            <AutoSuggestField
+                ancestors={data.ancestors}
+                onChange={(value) => handleChange(value, 'subject')}
                 label="Subject"
                 name="subject"
                 value={info.subject}
