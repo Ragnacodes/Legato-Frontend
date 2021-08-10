@@ -5,6 +5,7 @@ import ServiceForm from '../../../PopoverForm';
 import { TextField, MenuItem, IconButton } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { startGetConnections } from '../../../../actions/connections';
+import AutoSuggestField from '../../../AutoSuggestField';
 
 
 const Form = ({ id, data, editElement, setAnchorEl, getConnections, telegramConnections }) => {
@@ -32,6 +33,13 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, telegramConn
         }));
     };
 
+    const handleAutoSuggestChange = (value, targetName) => {
+        setInfo((prev) => ({
+            ...prev,
+            [targetName]: value,
+        }));
+    }
+
     const handleCancel = () => {
         setAnchorEl(null);
     };
@@ -53,6 +61,18 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, telegramConn
             handleSave={handleSave}
             handleCancel={handleCancel}
         >
+            <TextField
+                className="text-field"
+                name="name"
+                label="Name"
+                type="text"
+                variant="outlined"
+                size="medium"
+                onChange={handleChange}
+                multiline
+                value={info.name}
+            />
+
             <div className="connection-field">
                 {
                     loadingConnections ? 
@@ -100,16 +120,17 @@ const Form = ({ id, data, editElement, setAnchorEl, getConnections, telegramConn
                 </IconButton>
             </div>
 
-            <TextField
-                className="text-field"
+            <AutoSuggestField
+                ancestors={data.ancestors}
+                onChange={(value) => handleAutoSuggestChange(value, 'chat_id')}
                 name="chat_id"
                 label="Chat ID"
                 type="text"
                 variant="outlined"
                 size="small"
-                onChange={handleChange}
-                helperText="write the chat_id of your target user."
-                multiline
+                helperText="write the target chat id (numeric value like username)."
+                fullwidth
+                className="text-field"
                 value={info.chat_id}
             />
 

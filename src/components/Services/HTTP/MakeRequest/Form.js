@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import ServiceForm from '../../../PopoverForm';
 import { TextField, Select, MenuItem } from '@material-ui/core';
+import AutoSuggestField from '../../../AutoSuggestField';
+
 
 const Form = ({ id, data, editElement, setAnchorEl }) => {
     const [info, setInfo] = useState({
@@ -12,14 +14,22 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
 
     const handleChange = (e) => {
         setInfo((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.value,
+          ...prev,
+          [e.target.name]: e.target.value,
         }));
     };
-    
+
+    const handleAutoSuggestChange = (value, targetName) => {
+        setInfo((prev) => ({
+            ...prev,
+            [targetName]: value,
+        }));
+    }
+
     const handleCancel = () => {
         setAnchorEl(null);
     };
+
     const handleSave = () => {
         if(info.body.length > 0) {
             info.body = JSON.parse(info.body);
@@ -34,7 +44,7 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
 
     return (
         <ServiceForm
-            className="dummy-form"
+            className="make-request"
             title="Send HTTP request"
             disabledSave={false}
             handleSave={handleSave}
@@ -42,16 +52,28 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
         >
             <TextField
                 className="text-field"
-                name="url"
-                label="URL"
+                name="name"
+                label="Name"
                 type="text"
                 variant="outlined"
                 size="medium"
                 onChange={handleChange}
-                helperText="write the URL of your HTTP request here."
                 multiline
-                value={info.url}
+                value={info.name}
             />
+
+            <AutoSuggestField
+                ancestors={data.ancestors}
+                onChange={(value) => handleAutoSuggestChange(value, 'url')}
+                label="Url"
+                name="url"
+                value={info.url}
+                variant="outlined"
+                size="medium"
+                fullWidth
+                multiline
+            />
+
             <Select
                 className="select"
                 name="method"
@@ -63,18 +85,20 @@ const Form = ({ id, data, editElement, setAnchorEl }) => {
                 <MenuItem value="get">GET</MenuItem>
                 <MenuItem value="post">POST</MenuItem>
             </Select>
+
             {
                 info.method === "post" ?
-                <TextField
-                    className="text-field"
+                <AutoSuggestField
+                    ancestors={data.ancestors}
+                    onChange={(value) => handleAutoSuggestChange(value, 'body')}    
                     name="body"
-                    label="body"
+                    label="Body"
                     type="text"
                     variant="outlined"
-                    size="small"
-                    onChange={handleChange}
+                    size="medium"
                     helperText="write the body of your post request here."
                     multiline
+                    fullWidth
                     value={info.body}
                     placeholder='{"key": "value"}'
                 />

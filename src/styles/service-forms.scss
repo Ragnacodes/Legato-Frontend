@@ -1,6 +1,7 @@
 .sketchpad-popover {
   &.custom-webhook,
   &.webhook-response,
+  &.make-request,
   &.watch-playlist,
   &.save-to-playlist,
   &.execute-command,
@@ -66,6 +67,7 @@
   }
 
   &.custom-webhook,
+  &.make-request,
   &.watch-playlist,
   &.execute-command,
   &.create-issue,
