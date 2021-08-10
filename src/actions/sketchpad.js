@@ -1,6 +1,10 @@
 import Axios from '../utils/axiosConfig';
 import { v4 as uuid } from 'uuid';
-import { elementsBackToFront, nodeFrontToBack } from '../utils/sketchpadConverter';
+import {
+    elementsBackToFront,
+    nodeFrontToBack,
+    nodeBackToFront
+} from '../utils/sketchpadConverter';
 import { startEditScenario } from './scenarios';
 
 export const getSketchpad = (scenario, elements) => {
@@ -75,18 +79,9 @@ export const startAddNode = (node) => {
         const body = JSON.stringify(nodeBack);
         return Axios.post(`/users/${username}/scenarios/${scenarioID}/nodes`, body)
         .then(res => {
-            const backData = res.data.node.data;
-            const newElement = {
-                ...node,
-                data: {
-                    ...node.data,
-                    ...backData
-                }
-            };
-            dispatch(addNode({
-                id: res.data.node.id.toString(),
-                ...newElement,
-            }));
+            const returnedNode = res.data.node;
+            const nodeFront = nodeBackToFront(returnedNode);
+            dispatch(addNode(nodeFront));
         })
         .catch(err => {
             throw err;
@@ -105,14 +100,7 @@ export const startAddEdge = (edge) => {
         const body = JSON.stringify(backUpdates);
         return Axios.put(`/users/${username}/scenarios/${scenarioID}/nodes/${childNodeID}`, body)
         .then(res => {
-            dispatch(addEdge(edge));
-            const frontUpdates = {
-                data: {
-                    ...getState().sketchpad.elements.find(element => element.id === childNodeID).data,
-                    parentId: parseInt(edge.source)
-                }
-            };
-            dispatch(editElement(childNodeID, frontUpdates));
+            return dispatch(startGetSketchpad(scenarioID));
         })
         .catch(err => {
             throw err;
@@ -146,14 +134,7 @@ export const startRemoveEdge = (edge) => {
         const scenarioID = getState().sketchpad.scenario.id;
         return Axios.put(`/users/${username}/scenarios/${scenarioID}/nodes/${childNodeID}`, body)
         .then(res => {
-            dispatch(removeElement(edge.id));
-            const frontUpdates = {
-                data: {
-                    ...getState().sketchpad.elements.find(element => element.id === childNodeID).data,
-                    parentId: null
-                }
-            };
-            dispatch(editElement(childNodeID, frontUpdates));
+            return dispatch(startGetSketchpad(scenarioID));
         })
         .catch(err => {
             throw err;
@@ -166,7 +147,7 @@ export const startEditElement = (id, updates) => {
         const parentId = getState().sketchpad.elements.find(element => element.id === id).data.parentId;
         const username = getState().auth.username;
         const scenarioID = getState().sketchpad.scenario.id;
-        const body = JSON.stringify({parentId, ...updates});
+        const body = JSON.stringify({parentId: parseInt(parentId), ...updates});
         return Axios.put(`/users/${username}/scenarios/${scenarioID}/nodes/${id}`, body)
         .then(res => {
             dispatch(editElement(id, updates));

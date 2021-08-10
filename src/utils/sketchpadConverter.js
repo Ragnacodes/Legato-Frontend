@@ -3,20 +3,8 @@ import { v4 as uuid } from 'uuid';
 export const elementsBackToFront = (nodesBack) => {
     const edges = [];
     const nodesFront = nodesBack.map(nodeBack => {
-        const nodeFront = {
-            id: nodeBack.id.toString(),
-            type: nodeBack.hasOwnProperty('subType') ? `${nodeBack.type}_${nodeBack.subType}` : `${nodeBack.type}_`,
-            position: nodeBack.position,
-            data: {
-                ...nodeBack.data,
-                name: nodeBack.name,
-                service: nodeBack.type,
-                subService: nodeBack.subType,
-                parentId: nodeBack.parentId,
-                ancestors: nodeAncestors(nodeBack, nodesBack),
-                schema: nodeBack.schema
-            }
-        };
+        const ancestors = nodeAncestors(nodeBack, nodesBack);
+        const nodeFront = nodeBackToFront(nodeBack, ancestors);
 
         if (nodeBack.parentId !== null) {
             const edge = {
@@ -36,16 +24,22 @@ export const elementsBackToFront = (nodesBack) => {
     return [...nodesFront, ...edges];
 };
 
-export const nodeFrontToBack = (nodeFront) => {
-    const nodeBack = {
-        parentId: null,
-        name: nodeFront.data.name,
-        type: nodeFront.data.service,
-        subType: nodeFront.data.subService,
-        position: nodeFront.position,
-        data: nodeFront.data,
+export const nodeBackToFront = (nodeBack, ancestors=[]) => {
+    const nodeFront = {
+        id: nodeBack.id.toString(),
+        type: nodeBack.hasOwnProperty('subType') ? `${nodeBack.type}_${nodeBack.subType}` : `${nodeBack.type}_`,
+        position: nodeBack.position,
+        data: {
+            ...nodeBack.data,
+            name: nodeBack.name,
+            service: nodeBack.type,
+            subService: nodeBack.subType,
+            parentId: nodeBack.parentId ? nodeBack.parentId.toString() : null,
+            ancestors,
+            schema: null,
+        }
     };
-    return nodeBack;
+    return nodeFront;
 };
 
 const nodeAncestors = (node, nodes) => {
@@ -57,10 +51,29 @@ const nodeAncestors = (node, nodes) => {
         const ancestor = {
             id: parent.id,
             name: parent.name,
-            schema: parent.data.schema
+            schema: parent.schema
         }
         ancestors.push(ancestor);
         parentId = parent.parentId;
     }
     return ancestors;
+};
+
+export const nodeFrontToBack = (nodeFront) => {
+    const {
+        parentId,
+        name,
+        service,
+        subService,
+        ...other
+    } = nodeFront.data;
+    const nodeBack = {
+        parentId: parentId ? parseInt(parentId).toString() : null,
+        name,
+        type: service,
+        subType: subService,
+        position: nodeFront.position,
+        data: other,
+    };
+    return nodeBack;
 };
