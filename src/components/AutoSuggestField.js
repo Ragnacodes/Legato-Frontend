@@ -25,7 +25,7 @@ const CustomTextarea = forwardRef((props, ref) => {
 
 const AutoSuggestField = (props) => {
     const {ancestors, ...other} = props;
-    const parents = ancestors.map(item => item.id.toString());
+    const parents = ancestors.map(item => item.name.toString());
 
     const [options] = useState({
         '$': parents,

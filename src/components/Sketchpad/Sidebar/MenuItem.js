@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuid } from 'uuid';
 import { connect, useDispatch } from 'react-redux';
 import { startAddNode } from '../../../actions/sketchpad';
 import { updateStatus } from '../../../actions/sketchpadStatus';
@@ -22,9 +23,10 @@ const MenuItem = ({ service, item, close, addNode }) => {
                 y: e.clientY
             },
             data: {
+                name: `${service.substring(0, 4)}_${uuid().substring(0, 4)}`,
                 service,
                 subService: item.subService,
-                name: ''
+                parentId: null,
             }
         };
         addNode(node)
