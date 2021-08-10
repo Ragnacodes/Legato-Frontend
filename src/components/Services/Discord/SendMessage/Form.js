@@ -6,6 +6,7 @@ import * as actions from '../../../../actions/discord';
 import ServiceForm from '../../../PopoverForm';
 import ConnectionField from '../ConnectionField';
 import ChannelField from '../ChannelField';
+import AutoSuggestField from '../../../AutoSuggestField';
 export function Form({
   id,
   data,
@@ -17,6 +18,7 @@ export function Form({
   getConnections,
 }) {
   const [info, setInfo] = useState({
+    name: data.name || '',
     connection: data.connection || '',
     channelId: data.channelId || '',
     content: data.content || '',
@@ -45,6 +47,13 @@ export function Form({
     }));
   };
 
+  const handleContentChange = (value) => {
+    setInfo((prev) => ({
+      ...prev,
+      content: value,
+    }));
+  };
+
   const handleCancel = () => {
     setAnchorEl(null);
     setInfo({
@@ -68,7 +77,7 @@ export function Form({
     getChannels(info.connection).then(() => {
       setChannelLoading(false);
     });
-  }
+  };
 
   let disabledSave =
     !info['connection'] || !info['channelId'] || !info['content'];
@@ -81,6 +90,15 @@ export function Form({
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
+      <TextField
+        name="name"
+        className="text-field"
+        label="Name"
+        variant="outlined"
+        size="small"
+        value={info['name']}
+        onChange={handleChange}
+      />
       <ConnectionField
         connection={info['connection']}
         connections={connections}
@@ -98,7 +116,21 @@ export function Form({
         />
       )}
 
-      <TextField
+      <AutoSuggestField
+        class="text-field"
+        ancestors={data.ancestors}
+        onChange={handleContentChange}
+        label="Content"
+        name="content"
+        value={info['content']}
+        variant="outlined"
+        size="small"
+        multiline
+        fullWidth
+        rowsMax={5}
+      />
+
+      {/* <TextField
         multiline
         rowsMax={5}
         name="content"
@@ -108,7 +140,7 @@ export function Form({
         size="small"
         value={info['content']}
         onChange={handleChange}
-      />
+      /> */}
     </ServiceForm>
   );
 }

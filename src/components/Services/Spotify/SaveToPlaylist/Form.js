@@ -8,6 +8,8 @@ import ServiceForm from '../../../PopoverForm';
 import TrackInfo from './TrackInfo';
 import { errorNotification } from '../../../Layout/Notification';
 import ConnectionField from '../ConnectionField';
+import AutoSuggestField from '../../../AutoSuggestField';
+
 export function Form({
   id,
   data,
@@ -22,6 +24,7 @@ export function Form({
   setTrackInfo,
 }) {
   const [info, setInfo] = useState({
+    name: data.name || '',
     connection: data.connection || '',
     PlaylistId: data.PlaylistId || '',
     TrackId: data.TrackId || '',
@@ -73,6 +76,13 @@ export function Form({
     setInfo((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleTrackUrlChange = (value) => {
+    setInfo((prev) => ({
+      ...prev,
+      trackUrl: value,
     }));
   };
 
@@ -138,6 +148,15 @@ export function Form({
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
+      <TextField
+        name="name"
+        className="text-field"
+        label="Name"
+        variant="outlined"
+        size="small"
+        value={info['name']}
+        onChange={handleChange}
+      />
       <ConnectionField
         connection={info['connection']}
         connections={connections}
@@ -194,7 +213,11 @@ export function Form({
 
       {info['PlaylistId'] && (
         <div className="track-field">
-          <TextField
+          <AutoSuggestField
+            class="text-field"
+            ancestors={data.ancestors}
+            onChange={handleTrackUrlChange}
+            fullWidth
             name="trackUrl"
             className="text-field"
             label="Track URL"
@@ -203,7 +226,6 @@ export function Form({
             value={info['trackUrl']}
             error={!!errors['trackUrl']}
             helperText={errors['trackUrl']}
-            onChange={handleChange}
           />
 
           <IconButton

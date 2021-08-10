@@ -9,6 +9,8 @@ import {
 import ServiceForm from '../../../PopoverForm';
 import ConnectionFormPopper from '../../../SSH/ConnectionFormPopper';
 import { errorNotification } from '../../../Layout/Notification';
+import AutoSuggestField from '../../../AutoSuggestField';
+
 const Form = ({
   id,
   data,
@@ -19,6 +21,7 @@ const Form = ({
   setAnchorEl,
 }) => {
   const [info, setInfo] = useState({
+    name: data.name || '',
     connectionId: data.connectionId || '',
     command: data.command || '',
   });
@@ -36,6 +39,13 @@ const Form = ({
     setInfo((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleCommandChange = (value) => {
+    setInfo((prev) => ({
+      ...prev,
+      command: value,
     }));
   };
 
@@ -92,6 +102,15 @@ const Form = ({
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
+      <TextField
+        name="name"
+        className="text-field"
+        label="Name"
+        variant="outlined"
+        size="small"
+        value={info['name']}
+        onChange={handleChange}
+      />
       <div className="connection-field">
         {connectionLoading ? (
           <TextField
@@ -115,7 +134,11 @@ const Form = ({
           >
             {sshConnections &&
               sshConnections.map((c) => {
-                return <MenuItem value={c.id}>{c.name}</MenuItem>;
+                return (
+                  <MenuItem key={c.id} value={c.id}>
+                    {c.name}
+                  </MenuItem>
+                );
               })}
           </TextField>
         )}
@@ -131,8 +154,11 @@ const Form = ({
       </div>
 
       <ConnectionFormPopper anchor={addAnchor} setAnchor={setAddAnchor} />
-
-      <TextField
+      <AutoSuggestField
+        class="text-field"
+        ancestors={data.ancestors}
+        onChange={handleCommandChange}
+        fullWidth
         multiline
         rowsMax={5}
         name="command"
@@ -141,7 +167,6 @@ const Form = ({
         variant="outlined"
         size="small"
         value={info['command']}
-        onChange={handleChange}
         helperText="Write each command in a line."
       />
     </ServiceForm>

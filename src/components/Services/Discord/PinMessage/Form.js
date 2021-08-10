@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { startGetConnections } from '../../../../actions/connections';
 import * as actions from '../../../../actions/discord';
+import { TextField } from '@material-ui/core';
 import ServiceForm from '../../../PopoverForm';
 import MessageList from '../MessageList';
 import Message from '../Message';
@@ -21,6 +22,7 @@ export function Form({
   getMessages,
 }) {
   const [info, setInfo] = useState({
+    name: data.name || '',
     connection: data.connection || '',
     channelId: data.channelId || '',
     messageId: data.messageId || '',
@@ -115,6 +117,15 @@ export function Form({
       handleSave={handleSave}
       handleCancel={handleCancel}
     >
+      <TextField
+        name="name"
+        className="text-field"
+        label="Name"
+        variant="outlined"
+        size="small"
+        value={info['name']}
+        onChange={handleChange}
+      />
       <MessageList
         messages={messages}
         anchor={message.anchor}
